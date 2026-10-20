@@ -154,6 +154,124 @@
       "untracked": "{{count}} untracked",
       "healthUnavailable": "Health unavailable",
       "loading": "Loading..."
+    },
+    "agentChatSidebar": {
+      "unstarAgent": "Unstar agent",
+      "starAgentToPin": "Star agent to pin",
+      "chats": "Chats",
+      "chatWithAnAgent": "Chat with an agent"
+    },
+    "agentContextualSidebar": {
+      "activity": "Activity",
+      "runs": "Runs",
+      "costs": "Costs",
+      "budgets": "Budgets",
+      "audit": "Audit",
+      "loadingAuditLinks": "Loading audit links…"
+    },
+    "agentConversationSidebar": {
+      "chat": "Chat",
+      "addChat": "Add chat",
+      "searchAgents": "Search agents",
+      "findAnAgent": "Find an agent",
+      "clearSearch": "Clear search",
+      "searchResults": "Search results",
+      "teammates": "Teammates",
+      "loadingAgents": "Loading agents",
+      "loadingChatHistory": "Loading chat history…",
+      "someChatHistoryCouldntLoad": "Some chat history couldn’t load.",
+      "retryChatHistory": "Retry chat history",
+      "couldntLoadYourChats": "Couldn’t load your chats.",
+      "tryAgain": "Try again",
+      "agentConversations": "Agent conversations",
+      "terminated": "Terminated",
+      "paused": "Paused",
+      "startAConversation": "Start a conversation",
+      "noAgentsFound": "No agents found",
+      "noChatsYet": "No chats yet",
+      "tryAnotherNameOrRole": "Try another name or role.",
+      "chooseAnAgentToStart": "Choose an agent to start a conversation.",
+      "chooseAnAgent": "Choose an agent",
+      "browseAllAgents": "Browse all agents"
+    },
+    "appConnectionSidebar": {
+      "allApps": "All apps",
+      "needingReview": "needing review",
+      "allConnectors": "All connectors",
+      "settings": "Settings"
+    },
+    "appsSidebar": {
+      "company": "Company",
+      "connectors": "Connectors",
+      "browse": "Browse",
+      "review": "Review",
+      "waitingForYourOk": "waiting for your OK",
+      "developer": "Developer",
+      "advancedSetupForDevelopersMost": "Advanced setup for developers. Most teams never open this.",
+      "connections": "Connections",
+      "advancedSetupForDevelopers": "Advanced setup for developers."
+    },
+    "companySettingsSidebar": {
+      "company": "Company",
+      "general": "General",
+      "profile": "Profile",
+      "members": "Members",
+      "invites": "Invites",
+      "secrets": "Secrets",
+      "environments": "Environments",
+      "connections": "Connections",
+      "access": "Access",
+      "heartbeats": "Heartbeats",
+      "export": "Export",
+      "import": "Import",
+      "experimental": "Experimental",
+      "plugins": "Plugins",
+      "adapters": "Adapters",
+      "settings": "Settings",
+      "backToApp": "Back to app"
+    },
+    "routineContextualSidebar": {
+      "overview": "Overview",
+      "triggers": "Triggers",
+      "variables": "Variables",
+      "delivery": "Delivery",
+      "secrets": "Secrets",
+      "routineNavigation": "Routine navigation",
+      "operate": "Operate",
+      "runs": "Runs",
+      "activity": "Activity"
+    },
+    "routineSubSidebar": {
+      "routine": "Routine",
+      "overview": "Overview",
+      "triggers": "Triggers",
+      "variables": "Variables",
+      "secrets": "Secrets",
+      "delivery": "Delivery",
+      "operate": "Operate",
+      "runs": "Runs",
+      "activity": "Activity",
+      "history": "History",
+      "routineSections": "Routine sections",
+      "unsavedChanges": "Unsaved changes",
+      "routineSection": "Routine section"
+    },
+    "skillsContextualSidebar": {
+      "skills": "Skills",
+      "installed": "Installed",
+      "discover": "Discover",
+      "sources": "Sources",
+      "author": "Author",
+      "skillsYouCreateEditAnd": "Skills you create, edit, and test.",
+      "mySkills": "My Skills"
+    },
+    "chatDetailSidebar": {
+      "chatConnection": "Chat connection",
+      "settings": "Settings",
+      "access": "Access",
+      "reviews": "Reviews",
+      "conversations": "Conversations",
+      "activity": "Activity"
     }
   },
   "dashboard": {
@@ -2072,7 +2190,16 @@
       "reason2": "Reason",
       "apply": "Apply {{size}}",
       "applyDecisions": "Apply decisions",
-      "you": "You"
+      "you": "You",
+      "tasks": "Tasks",
+      "questions": "Questions",
+      "confirmation": "Confirmation",
+      "chooseOptions": "Choose options",
+      "selection": "Selection",
+      "reviewItems": "Review items",
+      "review": "Review",
+      "connectService": "Connect service",
+      "connection": "Connection"
     },
     "taskChatComposer": {
       "supportWillBeVerifiedWhen": "Support will be verified when the session starts.",
@@ -3040,6 +3167,15 @@
       "notStartedYet": "Not started yet",
       "done": "Done",
       "completedAndCancelled": "Completed and cancelled"
+    },
+    "helpers": {
+      "default": "Default",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "minimal": "Minimal",
+      "xHigh": "X-High",
+      "max": "Max"
     }
   },
   "agents": {
@@ -3402,7 +3538,14 @@
       "detectFromConfig": "Detect from config",
       "refreshing2": "Refreshing...",
       "noModelDetectedYetEnter": "No model detected yet. Enter a provider/model manually.",
-      "noModelsFound": "No models found."
+      "noModelsFound": "No models found.",
+      "minimal": "Minimal",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "max": "Max",
+      "plan": "Plan",
+      "ask": "Ask"
     },
     "agentIconPicker": {
       "searchIcons": "Search icons...",
@@ -3765,7 +3908,35 @@
     },
     "runtimeTestCard": {
       "runtimeTest": "Runtime test",
-      "testDetails": "Test details"
+      "testDetails": "Test details",
+      "testYourAgent": "Test your agent",
+      "checkThatYourRuntimeAnd": "Check that your runtime and model can respond.",
+      "runTest": "Run test",
+      "testingConnection": "Testing connection",
+      "checkingTheRuntimeAndWaiting": "Checking the runtime and waiting for a model response…",
+      "testing": "Testing…",
+      "connectionSuccessful": "Connection successful",
+      "yourRuntimeChecksPassedReview": "Your runtime checks passed. Review the details below.",
+      "testAgain": "Test again",
+      "connectionNeedsAttention": "Connection needs attention",
+      "reviewTheTestDetailsBefore": "Review the test details before running your agent.",
+      "couldntConnect": "Couldn't connect",
+      "checkYourModelAndProvider": "Check your model and provider connection, then try again.",
+      "retryTest": "Retry test",
+      "checkPrerequisites": "Check prerequisites",
+      "checkInstanceSettingsAndPublic": "Check instance settings and public connection configuration.",
+      "checkSetup": "Check setup",
+      "checkingPrerequisites": "Checking prerequisites",
+      "checkingInstanceSettingsAndPublic": "Checking instance settings and public connection configuration…",
+      "checking": "Checking…",
+      "setupChecksPassed": "Setup checks passed",
+      "reviewTheSetupDetailsBefore": "Review the setup details before assigning work.",
+      "checkAgain": "Check again",
+      "pairingRequired": "Pairing required",
+      "createThisAgentThenPair": "Create this agent, then pair it and verify event delivery.",
+      "prerequisiteCheckFailed": "Prerequisite check failed",
+      "reviewTheSetupDetailsAnd": "Review the setup details and retry.",
+      "retryCheck": "Retry check"
     },
     "workspaceRuntimeControls": {
       "hTTPSUnavailable": "HTTPS unavailable",
@@ -3947,7 +4118,12 @@
       "continue": "Continue",
       "loadingSetup": "Loading setup…",
       "refreshSetup": "Refresh setup",
-      "waitingForDot": "Waiting for Dot…"
+      "waitingForDot": "Waiting for Dot…",
+      "yourDotInChatgpt": "Your Dot in ChatGPT",
+      "anExistingBotInGrok": "An existing Bot in Grok",
+      "yourPersonalMuseAtMuseai": "Your personal Muse at muse.ai",
+      "anExistingHermesAgent": "An existing Hermes agent",
+      "anyAgentThatCanConnect": "Any agent that can connect to Paperclip"
     },
     "grokBotSetupContent": {
       "grokBotSetup": "Grok Bot setup",
@@ -4774,6 +4950,21 @@
       "catalog": "Catalog",
       "gitHub": "GitHub",
       "paperclipManaged": "Paperclip managed"
+    },
+    "agentDetailNavigation": {
+      "agent": "Agent",
+      "overview": "Overview",
+      "instructions": "Instructions",
+      "skills": "Skills",
+      "runtime": "Runtime",
+      "harnessRuntime": "Harness / Runtime",
+      "secrets": "Secrets",
+      "tools": "Tools",
+      "channels": "Channels",
+      "governance": "Governance",
+      "permissionsTrust": "Permissions / Trust",
+      "aPIKeys": "API Keys",
+      "revisions": "Revisions"
     }
   },
   "settings": {
@@ -4931,7 +5122,15 @@
       "createInvite": "Create invite",
       "unknownInviter": "Unknown inviter",
       "loadingMore": "Loading more…",
-      "viewMore": "View more"
+      "viewMore": "View more",
+      "viewer": "Viewer",
+      "canViewOrganizationWorkAnd": "Can view organization work and follow along.",
+      "operator": "Operator",
+      "canEditOrganizationWorkAnd": "Can edit organization work and invite people.",
+      "admin": "Admin",
+      "recommendedForOperatorsWhoNeed": "Recommended for operators who need to invite people, create agents, and approve joins.",
+      "owner": "Owner",
+      "fullOrganizationAccessIncludingMembership": "Full organization access, including membership management."
     },
     "decisionModelSettings": {
       "chooseAndSaveAConnection": "Choose and save a connection first.",
@@ -6758,6 +6957,26 @@
       "schemachangeQuarantine": "Schema-change quarantine",
       "revoke": "Revoke",
       "auditEvidence": "Audit evidence"
+    },
+    "companySettingsNav": {
+      "general": "General",
+      "export": "Export",
+      "import": "Import",
+      "members": "Members",
+      "secrets": "Secrets",
+      "profile": "Profile",
+      "environments": "Environments",
+      "connections": "Connections",
+      "access": "Access",
+      "experimental": "Experimental",
+      "plugins": "Plugins",
+      "adapters": "Adapters"
+    },
+    "toolTabs": {
+      "pasteAConfig": "Paste a config",
+      "gateways": "Gateways",
+      "profiles": "Profiles",
+      "smokeLab": "Smoke Lab"
     }
   },
   "rest": {
@@ -6770,7 +6989,13 @@
     },
     "accountingModelCard": {
       "accountingModel": "Accounting model",
-      "paperclipNowSeparatesRequestlevelInference": "Paperclip now separates request-level inference usage from account-level finance events. That keeps provider reporting honest when the biller is OpenRouter, Cloudflare, Bedrock, or another intermediary."
+      "paperclipNowSeparatesRequestlevelInference": "Paperclip now separates request-level inference usage from account-level finance events. That keeps provider reporting honest when the biller is OpenRouter, Cloudflare, Bedrock, or another intermediary.",
+      "inferenceLedger": "Inference ledger",
+      "requestscopedUsageAndBilledRuns": "Request-scoped usage and billed runs from cost_events.",
+      "financeLedger": "Finance ledger",
+      "accountlevelChargesThatAreNot": "Account-level charges that are not one prompt-response pair.",
+      "liveQuotas": "Live quotas",
+      "providerOrBillerWindowsThat": "Provider or biller windows that can stop traffic in real time."
     },
     "activityFeed": {
       "all": "All",
@@ -8912,7 +9137,15 @@
       "back": "Back",
       "connecting": "Connecting…",
       "reconnect": "Reconnect",
-      "connect": "Connect"
+      "connect": "Connect",
+      "chatGPTSubscriptionOrApiKey": "ChatGPT subscription or API key",
+      "claudeSubscriptionOrApiKey": "Claude subscription or API key",
+      "geminiApiKey": "Gemini API key",
+      "grokSubscriptionOrApiKey": "Grok subscription or API key",
+      "modelsThroughOneApiKey": "Models through one API key",
+      "bedrockApiKeyAndAws": "Bedrock API key and AWS region",
+      "emissaryOrAnotherCompatibleEndpoint": "Emissary or another compatible endpoint",
+      "aModelServerInThe": "A model server in the agent’s environment"
     },
     "managedAiConnectionDetails": {
       "openRouter": "OpenRouter",
@@ -14777,6 +15010,17 @@
       "costs": "Costs",
       "budgets": "Budgets",
       "timeline": "Timeline"
+    },
+    "appTabs": {
+      "permissions": "Permissions",
+      "review": "Review"
+    },
+    "gatewayTabs": {
+      "overview": "Overview",
+      "appsTools": "Apps & tools",
+      "tokens": "Tokens",
+      "activity": "Activity",
+      "advanced": "Advanced"
     }
   },
   "approvals": {
@@ -14784,7 +15028,11 @@
       "requestedBy": "Requested by",
       "approvalRequestCreated": "Approval request created {{timeAgo}}",
       "decisionNote": "Decision note.",
-      "viewDetails": "View details"
+      "viewDetails": "View details",
+      "approving": "Approving...",
+      "approve": "Approve",
+      "rejecting": "Rejecting...",
+      "reject": "Reject"
     },
     "approvalPayload": {
       "hireAgent": "Hire Agent",
@@ -14831,13 +15079,17 @@
       "markResubmitted": "Mark resubmitted",
       "deleteDisapprovedAgent": "Delete disapproved agent",
       "comments": "Comments ({{length}})",
-      "addAComment": "Add a comment..."
+      "addAComment": "Add a comment...",
+      "posting": "Posting…",
+      "postComment": "Post comment"
     },
     "approvals": {
       "approvals": "Approvals",
       "selectAnOrganizationFirst": "Select an organization first.",
       "pending": "Pending",
-      "all": "All"
+      "all": "All",
+      "noPendingApprovals": "No pending approvals.",
+      "noApprovalsYet": "No approvals yet."
     }
   },
   "common": {

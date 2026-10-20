@@ -108,7 +108,7 @@ import {
   type CreateConfigValues,
 } from "@paperclipai/adapter-utils";
 import { Badge } from "@/components/ui/badge";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 /* ---- Props ---- */
 
@@ -278,35 +278,71 @@ function formatArgList(value: unknown): string {
 }
 
 const openCodeThinkingEffortOptions = [
-  { id: "", label: "Auto" },
-  { id: "minimal", label: "Minimal" },
-  { id: "low", label: "Low" },
-  { id: "medium", label: "Medium" },
-  { id: "high", label: "High" },
-  { id: "xhigh", label: "X-High" },
-  { id: "max", label: "Max" },
+  { id: "", get label() {
+    return i18n.t("agents.agentConfigForm.auto");
+  } },
+  { id: "minimal", get label() {
+    return i18n.t("agents.agentConfigForm.minimal");
+  } },
+  { id: "low", get label() {
+    return i18n.t("agents.agentConfigForm.low");
+  } },
+  { id: "medium", get label() {
+    return i18n.t("agents.agentConfigForm.medium");
+  } },
+  { id: "high", get label() {
+    return i18n.t("agents.agentConfigForm.high");
+  } },
+  { id: "xhigh", get label() {
+    return i18n.t("agents.agentConfigForm.xHigh");
+  } },
+  { id: "max", get label() {
+    return i18n.t("agents.agentConfigForm.max");
+  } },
 ] as const;
 
 const cursorModeOptions = [
-  { id: "", label: "Auto" },
-  { id: "plan", label: "Plan" },
-  { id: "ask", label: "Ask" },
+  { id: "", get label() {
+    return i18n.t("agents.agentConfigForm.auto");
+  } },
+  { id: "plan", get label() {
+    return i18n.t("agents.agentConfigForm.plan");
+  } },
+  { id: "ask", get label() {
+    return i18n.t("agents.agentConfigForm.ask");
+  } },
 ] as const;
 
 const claudeThinkingEffortOptions = [
-  { id: "", label: "Auto" },
-  { id: "low", label: "Low" },
-  { id: "medium", label: "Medium" },
-  { id: "high", label: "High" },
+  { id: "", get label() {
+    return i18n.t("agents.agentConfigForm.auto");
+  } },
+  { id: "low", get label() {
+    return i18n.t("agents.agentConfigForm.low");
+  } },
+  { id: "medium", get label() {
+    return i18n.t("agents.agentConfigForm.medium");
+  } },
+  { id: "high", get label() {
+    return i18n.t("agents.agentConfigForm.high");
+  } },
 ] as const;
 
 // Kimi exposes low/high/max (no "medium") via each model's support_efforts;
 // the kimi_local adapter maps a legacy "medium" onto "high" at runtime.
 const kimiThinkingEffortOptions = [
-  { id: "", label: "Auto" },
-  { id: "low", label: "Low" },
-  { id: "high", label: "High" },
-  { id: "max", label: "Max" },
+  { id: "", get label() {
+    return i18n.t("agents.agentConfigForm.auto");
+  } },
+  { id: "low", get label() {
+    return i18n.t("agents.agentConfigForm.low");
+  } },
+  { id: "high", get label() {
+    return i18n.t("agents.agentConfigForm.high");
+  } },
+  { id: "max", get label() {
+    return i18n.t("agents.agentConfigForm.max");
+  } },
 ] as const;
 
 const MAX_TURN_CONTINUATION_DEFAULT_MAX_ATTEMPTS = 2;

@@ -29,9 +29,15 @@ import { useTranslation, i18n } from "@/i18n";
 /* -------------------------------------------------------------------------- */
 
 const EXECUTION_WORKSPACE_OPTIONS = [
-  { value: "shared_workspace", label: "Project default" },
-  { value: "isolated_workspace", label: "New isolated workspace" },
-  { value: "reuse_existing", label: "Reuse existing workspace" },
+  { value: "shared_workspace", get label() {
+    return i18n.t("issues.issueWorkspaceCard.projectDefault");
+  } },
+  { value: "isolated_workspace", get label() {
+    return i18n.t("issues.issueWorkspaceCard.newIsolatedWorkspace");
+  } },
+  { value: "reuse_existing", get label() {
+    return i18n.t("issues.issueWorkspaceCard.reuseExistingWorkspace");
+  } },
 ] as const;
 
 /* -------------------------------------------------------------------------- */

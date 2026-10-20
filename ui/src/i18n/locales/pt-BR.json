@@ -148,6 +148,118 @@
       "untracked": "{{count}} não rastreados",
       "healthUnavailable": "Status de saúde indisponível",
       "loading": "Carregando..."
+    },
+    "agentChatSidebar": {
+      "unstarAgent": "Remover estrela do agente",
+      "starAgentToPin": "Dar estrela ao agente para fixar",
+      "chatWithAnAgent": "Conversar com um agente"
+    },
+    "agentContextualSidebar": {
+      "activity": "Atividade",
+      "runs": "Execuções",
+      "costs": "Custos",
+      "budgets": "Orçamentos",
+      "audit": "Auditoria",
+      "loadingAuditLinks": "Carregando links de auditoria…"
+    },
+    "agentConversationSidebar": {
+      "addChat": "Novo chat",
+      "searchAgents": "Buscar agentes",
+      "findAnAgent": "Encontrar um agente",
+      "clearSearch": "Limpar busca",
+      "searchResults": "Resultados da busca",
+      "teammates": "Colegas de equipe",
+      "loadingAgents": "Carregando agentes",
+      "loadingChatHistory": "Carregando histórico de chats…",
+      "someChatHistoryCouldntLoad": "Parte do histórico de chats não carregou.",
+      "retryChatHistory": "Tentar carregar o histórico de novo",
+      "couldntLoadYourChats": "Não foi possível carregar seus chats.",
+      "tryAgain": "Tentar novamente",
+      "agentConversations": "Conversas com agentes",
+      "terminated": "Encerrado",
+      "paused": "Pausado",
+      "startAConversation": "Iniciar uma conversa",
+      "noAgentsFound": "Nenhum agente encontrado",
+      "noChatsYet": "Nenhum chat ainda",
+      "tryAnotherNameOrRole": "Tente outro nome ou função.",
+      "chooseAnAgentToStart": "Escolha um agente para iniciar uma conversa.",
+      "chooseAnAgent": "Escolher um agente",
+      "browseAllAgents": "Ver todos os agentes"
+    },
+    "appConnectionSidebar": {
+      "allApps": "Todos os apps",
+      "needingReview": "aguardando revisão",
+      "allConnectors": "Todos os conectores",
+      "settings": "Configurações"
+    },
+    "appsSidebar": {
+      "company": "Empresa",
+      "connectors": "Conectores",
+      "browse": "Explorar",
+      "review": "Revisão",
+      "waitingForYourOk": "aguardando seu OK",
+      "developer": "Desenvolvedor",
+      "advancedSetupForDevelopersMost": "Configuração avançada para desenvolvedores. A maioria das equipes nunca abre isto.",
+      "connections": "Conexões",
+      "advancedSetupForDevelopers": "Configuração avançada para desenvolvedores."
+    },
+    "companySettingsSidebar": {
+      "company": "Empresa",
+      "general": "Geral",
+      "profile": "Perfil",
+      "members": "Membros",
+      "invites": "Convites",
+      "secrets": "Segredos",
+      "environments": "Ambientes",
+      "connections": "Conexões",
+      "access": "Acesso",
+      "export": "Exportar",
+      "import": "Importar",
+      "adapters": "Adaptadores",
+      "settings": "Configurações",
+      "backToApp": "Voltar ao app"
+    },
+    "routineContextualSidebar": {
+      "overview": "Visão geral",
+      "triggers": "Gatilhos",
+      "variables": "Variáveis",
+      "delivery": "Entrega",
+      "secrets": "Segredos",
+      "routineNavigation": "Navegação da rotina",
+      "operate": "Operar",
+      "runs": "Execuções",
+      "activity": "Atividade"
+    },
+    "routineSubSidebar": {
+      "routine": "Rotina",
+      "overview": "Visão geral",
+      "triggers": "Gatilhos",
+      "variables": "Variáveis",
+      "secrets": "Segredos",
+      "delivery": "Entrega",
+      "operate": "Operar",
+      "runs": "Execuções",
+      "activity": "Atividade",
+      "history": "Histórico",
+      "routineSections": "Seções da rotina",
+      "unsavedChanges": "Alterações não salvas",
+      "routineSection": "Seção da rotina"
+    },
+    "skillsContextualSidebar": {
+      "installed": "Instaladas",
+      "discover": "Descobrir",
+      "sources": "Fontes",
+      "author": "Criar",
+      "skillsYouCreateEditAnd": "Skills que você cria, edita e testa.",
+      "mySkills": "Minhas skills"
+    },
+    "chatDetailSidebar": {
+      "chatConnection": "Conexão de chat",
+      "settings": "Configurações",
+      "access": "Acesso",
+      "reviews": "Revisões",
+      "conversations": "Conversas",
+      "activity": "Atividade"
     }
   },
   "dashboard": {
@@ -2011,7 +2123,16 @@
       "reason2": "Motivo",
       "apply": "Aplicar {{size}}",
       "applyDecisions": "Aplicar decisões",
-      "you": "Você"
+      "you": "Você",
+      "tasks": "Tarefas",
+      "questions": "Perguntas",
+      "confirmation": "Confirmação",
+      "chooseOptions": "Escolher opções",
+      "selection": "Seleção",
+      "reviewItems": "Revisar itens",
+      "review": "Revisão",
+      "connectService": "Conectar serviço",
+      "connection": "Conexão"
     },
     "taskChatComposer": {
       "supportWillBeVerifiedWhen": "O suporte será verificado quando a sessão começar.",
@@ -2957,6 +3078,15 @@
       "notStartedYet": "Ainda não iniciadas",
       "done": "Concluídas",
       "completedAndCancelled": "Concluídas e canceladas"
+    },
+    "helpers": {
+      "default": "Padrão",
+      "low": "Baixo",
+      "medium": "Médio",
+      "high": "Alto",
+      "minimal": "Mínimo",
+      "xHigh": "Muito alto",
+      "max": "Máximo"
     }
   },
   "agents": {
@@ -3297,7 +3427,14 @@
       "detectFromConfig": "Detectar pela configuração",
       "refreshing2": "Atualizando...",
       "noModelDetectedYetEnter": "Nenhum modelo detectado ainda. Informe um provedor/modelo manualmente.",
-      "noModelsFound": "Nenhum modelo encontrado."
+      "noModelsFound": "Nenhum modelo encontrado.",
+      "minimal": "Mínimo",
+      "low": "Baixo",
+      "medium": "Médio",
+      "high": "Alto",
+      "max": "Máximo",
+      "plan": "Planejar",
+      "ask": "Perguntar"
     },
     "agentIconPicker": {
       "searchIcons": "Buscar ícones...",
@@ -3652,7 +3789,35 @@
     },
     "runtimeTestCard": {
       "runtimeTest": "Teste de runtime",
-      "testDetails": "Detalhes do teste"
+      "testDetails": "Detalhes do teste",
+      "testYourAgent": "Teste seu agente",
+      "checkThatYourRuntimeAnd": "Verifique se o runtime e o modelo respondem.",
+      "runTest": "Executar teste",
+      "testingConnection": "Testando conexão",
+      "checkingTheRuntimeAndWaiting": "Verificando o runtime e aguardando a resposta do modelo…",
+      "testing": "Testando…",
+      "connectionSuccessful": "Conexão bem-sucedida",
+      "yourRuntimeChecksPassedReview": "As verificações do runtime passaram. Revise os detalhes abaixo.",
+      "testAgain": "Testar de novo",
+      "connectionNeedsAttention": "A conexão precisa de atenção",
+      "reviewTheTestDetailsBefore": "Revise os detalhes do teste antes de executar o agente.",
+      "couldntConnect": "Não foi possível conectar",
+      "checkYourModelAndProvider": "Verifique o modelo e a conexão com o provedor e tente de novo.",
+      "retryTest": "Repetir teste",
+      "checkPrerequisites": "Verificar pré-requisitos",
+      "checkInstanceSettingsAndPublic": "Verifique as configurações da instância e a configuração de conexão pública.",
+      "checkSetup": "Verificar configuração",
+      "checkingPrerequisites": "Verificando pré-requisitos",
+      "checkingInstanceSettingsAndPublic": "Verificando as configurações da instância e a configuração de conexão pública…",
+      "checking": "Verificando…",
+      "setupChecksPassed": "As verificações de configuração passaram",
+      "reviewTheSetupDetailsBefore": "Revise os detalhes da configuração antes de atribuir trabalho.",
+      "checkAgain": "Verificar de novo",
+      "pairingRequired": "Pareamento necessário",
+      "createThisAgentThenPair": "Crie este agente, depois faça o pareamento e verifique a entrega de eventos.",
+      "prerequisiteCheckFailed": "A verificação de pré-requisitos falhou",
+      "reviewTheSetupDetailsAnd": "Revise os detalhes da configuração e tente de novo.",
+      "retryCheck": "Repetir verificação"
     },
     "workspaceRuntimeControls": {
       "hTTPSUnavailable": "HTTPS indisponível",
@@ -3826,7 +3991,12 @@
       "continue": "Continuar",
       "loadingSetup": "Carregando configuração…",
       "refreshSetup": "Atualizar configuração",
-      "waitingForDot": "Aguardando o Dot…"
+      "waitingForDot": "Aguardando o Dot…",
+      "yourDotInChatgpt": "Seu Dot no ChatGPT",
+      "anExistingBotInGrok": "Um bot existente no Grok",
+      "yourPersonalMuseAtMuseai": "Seu Muse pessoal em muse.ai",
+      "anExistingHermesAgent": "Um agente Hermes existente",
+      "anyAgentThatCanConnect": "Qualquer agente que consiga se conectar ao Paperclip"
     },
     "grokBotSetupContent": {
       "grokBotSetup": "Configuração do Grok Bot",
@@ -4592,6 +4762,18 @@
       "localFolder": "Pasta local",
       "catalog": "Catálogo",
       "paperclipManaged": "Gerenciado pelo Paperclip"
+    },
+    "agentDetailNavigation": {
+      "agent": "Agente",
+      "overview": "Visão geral",
+      "instructions": "Instruções",
+      "secrets": "Segredos",
+      "tools": "Ferramentas",
+      "channels": "Canais",
+      "governance": "Governança",
+      "permissionsTrust": "Permissões / Confiança",
+      "aPIKeys": "Chaves de API",
+      "revisions": "Revisões"
     }
   },
   "settings": {
@@ -4747,7 +4929,15 @@
       "createInvite": "Criar convite",
       "unknownInviter": "Autor do convite desconhecido",
       "loadingMore": "Carregando mais…",
-      "viewMore": "Ver mais"
+      "viewMore": "Ver mais",
+      "viewer": "Leitor",
+      "canViewOrganizationWorkAnd": "Pode ver o trabalho da empresa e acompanhar.",
+      "operator": "Operador",
+      "canEditOrganizationWorkAnd": "Pode editar o trabalho da empresa e convidar pessoas.",
+      "admin": "Administrador",
+      "recommendedForOperatorsWhoNeed": "Recomendado para operadores que precisam convidar pessoas, criar agentes e aprovar entradas.",
+      "owner": "Proprietário",
+      "fullOrganizationAccessIncludingMembership": "Acesso total à empresa, incluindo a gestão de membros."
     },
     "decisionModelSettings": {
       "chooseAndSaveAConnection": "Escolha e salve uma conexão primeiro.",
@@ -6538,6 +6728,22 @@
       "schemachangeQuarantine": "Quarentena por mudança de schema",
       "revoke": "Revogar",
       "auditEvidence": "Evidência de auditoria"
+    },
+    "companySettingsNav": {
+      "general": "Geral",
+      "export": "Exportar",
+      "import": "Importar",
+      "members": "Membros",
+      "secrets": "Segredos",
+      "profile": "Perfil",
+      "environments": "Ambientes",
+      "connections": "Conexões",
+      "access": "Acesso",
+      "adapters": "Adaptadores"
+    },
+    "toolTabs": {
+      "pasteAConfig": "Colar uma configuração",
+      "profiles": "Perfis"
     }
   },
   "rest": {
@@ -6550,7 +6756,13 @@
     },
     "accountingModelCard": {
       "accountingModel": "Modelo de contabilização",
-      "paperclipNowSeparatesRequestlevelInference": "O Paperclip agora separa o uso de inferência por requisição dos eventos financeiros da conta. Isso mantém os relatórios por provedor corretos quando quem cobra é OpenRouter, Cloudflare, Bedrock ou outro intermediário."
+      "paperclipNowSeparatesRequestlevelInference": "O Paperclip agora separa o uso de inferência por requisição dos eventos financeiros da conta. Isso mantém os relatórios por provedor corretos quando quem cobra é OpenRouter, Cloudflare, Bedrock ou outro intermediário.",
+      "inferenceLedger": "Livro de inferência",
+      "requestscopedUsageAndBilledRuns": "Uso por requisição e execuções cobradas, vindos de cost_events.",
+      "financeLedger": "Livro financeiro",
+      "accountlevelChargesThatAreNot": "Cobranças da conta que não são um par prompt-resposta.",
+      "liveQuotas": "Cotas ao vivo",
+      "providerOrBillerWindowsThat": "Janelas do provedor ou da cobrança que podem parar o tráfego em tempo real."
     },
     "activityFeed": {
       "all": "Todas",
@@ -8642,7 +8854,15 @@
       "back": "Voltar",
       "connecting": "Conectando…",
       "reconnect": "Reconectar",
-      "connect": "Conectar"
+      "connect": "Conectar",
+      "chatGPTSubscriptionOrApiKey": "Assinatura do ChatGPT ou chave de API",
+      "claudeSubscriptionOrApiKey": "Assinatura do Claude ou chave de API",
+      "geminiApiKey": "Chave de API do Gemini",
+      "grokSubscriptionOrApiKey": "Assinatura do Grok ou chave de API",
+      "modelsThroughOneApiKey": "Modelos com uma única chave de API",
+      "bedrockApiKeyAndAws": "Chave de API do Bedrock e região da AWS",
+      "emissaryOrAnotherCompatibleEndpoint": "Emissary ou outro endpoint compatível",
+      "aModelServerInThe": "Um servidor de modelo no ambiente do agente"
     },
     "managedAiConnectionDetails": {
       "personal": "Pessoal",
@@ -14328,6 +14548,16 @@
       "costs": "Custos",
       "budgets": "Orçamentos",
       "timeline": "Linha do tempo"
+    },
+    "appTabs": {
+      "permissions": "Permissões",
+      "review": "Revisão"
+    },
+    "gatewayTabs": {
+      "overview": "Visão geral",
+      "appsTools": "Apps e ferramentas",
+      "activity": "Atividade",
+      "advanced": "Avançado"
     }
   },
   "approvals": {
@@ -14335,7 +14565,11 @@
       "requestedBy": "Solicitado por",
       "approvalRequestCreated": "Solicitação de aprovação criada {{timeAgo}}",
       "decisionNote": "Nota da decisão.",
-      "viewDetails": "Ver detalhes"
+      "viewDetails": "Ver detalhes",
+      "approving": "Aprovando...",
+      "approve": "Aprovar",
+      "rejecting": "Rejeitando...",
+      "reject": "Rejeitar"
     },
     "approvalPayload": {
       "hireAgent": "Contratar agente",
@@ -14381,13 +14615,17 @@
       "markResubmitted": "Marcar como reenviada",
       "deleteDisapprovedAgent": "Excluir agente reprovado",
       "comments": "Comentários ({{length}})",
-      "addAComment": "Adicionar um comentário..."
+      "addAComment": "Adicionar um comentário...",
+      "posting": "Publicando…",
+      "postComment": "Publicar comentário"
     },
     "approvals": {
       "approvals": "Aprovações",
       "selectAnOrganizationFirst": "Selecione uma empresa primeiro.",
       "pending": "Pendentes",
-      "all": "Todas"
+      "all": "Todas",
+      "noPendingApprovals": "Nenhuma aprovação pendente.",
+      "noApprovalsYet": "Nenhuma aprovação ainda."
     }
   },
   "common": {

@@ -1,4 +1,5 @@
 import { Activity, LayoutGrid, KeyRound, Wrench, Boxes } from "lucide-react";
+import { i18n } from "@/i18n";
 
 /**
  * Gateway detail tabs (PAP-11200). Terminology is locked by the approved
@@ -6,11 +7,21 @@ import { Activity, LayoutGrid, KeyRound, Wrench, Boxes } from "lucide-react";
  * Advanced. Raw protocol / JSON / transport details live under Advanced.
  */
 export const GATEWAY_TABS = [
-  { key: "overview", label: "Overview", icon: LayoutGrid },
-  { key: "apps", label: "Apps & tools", icon: Boxes },
-  { key: "tokens", label: "Tokens", icon: KeyRound },
-  { key: "activity", label: "Activity", icon: Activity },
-  { key: "advanced", label: "Advanced", icon: Wrench },
+  { key: "overview", get label() {
+    return i18n.t("rest.gatewayTabs.overview");
+  }, icon: LayoutGrid },
+  { key: "apps", get label() {
+    return i18n.t("rest.gatewayTabs.appsTools");
+  }, icon: Boxes },
+  { key: "tokens", get label() {
+    return i18n.t("rest.gatewayTabs.tokens");
+  }, icon: KeyRound },
+  { key: "activity", get label() {
+    return i18n.t("rest.gatewayTabs.activity");
+  }, icon: Activity },
+  { key: "advanced", get label() {
+    return i18n.t("rest.gatewayTabs.advanced");
+  }, icon: Wrench },
 ] as const;
 
 export type GatewayTabKey = (typeof GATEWAY_TABS)[number]["key"];

@@ -4,6 +4,7 @@ import {
   Layers,
   Network,
 } from "lucide-react";
+import { i18n } from "@/i18n";
 
 /**
  * The Advanced door is mounted under `/apps/advanced` (PAP-10862, plan D8).
@@ -20,7 +21,9 @@ export function advancedTabHref(tab: ToolTabKey): string {
 // M8a/M8b — the prosumer-facing Advanced setup tabs (PAP-10839 wires). The only
 // screens where "MCP" vocabulary is permitted (PAP-10827).
 export const ADVANCED_TABS = [
-  { key: "paste-config", label: "Paste a config", icon: ClipboardPaste },
+  { key: "paste-config", get label() {
+    return i18n.t("settings.toolTabs.pasteAConfig");
+  }, icon: ClipboardPaste },
 ] as const;
 
 // The pre-Apps developer surface, kept reachable behind the Advanced door.
@@ -28,9 +31,15 @@ export const ADVANCED_TABS = [
 // `experimental.enableSmokeLab` is on (see `isExperimentalToolTab` +
 // `useSmokeLabEnabled`), and the route/tab itself gates on the same flag.
 export const DEVELOPER_TABS = [
-  { key: "gateways", label: "Gateways", icon: Network },
-  { key: "profiles", label: "Profiles", icon: Layers },
-  { key: "smoke-lab", label: "Smoke Lab", icon: FlaskConical },
+  { key: "gateways", get label() {
+    return i18n.t("settings.toolTabs.gateways");
+  }, icon: Network },
+  { key: "profiles", get label() {
+    return i18n.t("settings.toolTabs.profiles");
+  }, icon: Layers },
+  { key: "smoke-lab", get label() {
+    return i18n.t("settings.toolTabs.smokeLab");
+  }, icon: FlaskConical },
 ] as const;
 
 export const TOOL_TABS = [...ADVANCED_TABS, ...DEVELOPER_TABS] as const;

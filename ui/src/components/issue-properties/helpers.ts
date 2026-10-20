@@ -3,6 +3,7 @@ import type { Issue, Project } from "@paperclipai/shared";
 import { extractProviderIdWithFallback } from "../../lib/model-utils";
 import type { IssueModelLane } from "../../lib/issue-assignee-overrides";
 import { codexReasoningEffortOptions } from "../../lib/codex-reasoning-effort";
+import { i18n } from "@/i18n";
 
 export function defaultProjectWorkspaceIdForProject(project: {
   workspaces?: Array<{ id: string; isPrimary: boolean }>;
@@ -55,19 +56,41 @@ export function toDateTimeLocalValue(value: string | null | undefined) {
 
 export const ISSUE_THINKING_EFFORT_OPTIONS = {
   claude_local: [
-    { value: "", label: "Default" },
-    { value: "low", label: "Low" },
-    { value: "medium", label: "Medium" },
-    { value: "high", label: "High" },
+    { value: "", get label() {
+    return i18n.t("issues.helpers.default");
+  } },
+    { value: "low", get label() {
+    return i18n.t("issues.helpers.low");
+  } },
+    { value: "medium", get label() {
+    return i18n.t("issues.helpers.medium");
+  } },
+    { value: "high", get label() {
+    return i18n.t("issues.helpers.high");
+  } },
   ],
   opencode_local: [
-    { value: "", label: "Default" },
-    { value: "minimal", label: "Minimal" },
-    { value: "low", label: "Low" },
-    { value: "medium", label: "Medium" },
-    { value: "high", label: "High" },
-    { value: "xhigh", label: "X-High" },
-    { value: "max", label: "Max" },
+    { value: "", get label() {
+    return i18n.t("issues.helpers.default");
+  } },
+    { value: "minimal", get label() {
+    return i18n.t("issues.helpers.minimal");
+  } },
+    { value: "low", get label() {
+    return i18n.t("issues.helpers.low");
+  } },
+    { value: "medium", get label() {
+    return i18n.t("issues.helpers.medium");
+  } },
+    { value: "high", get label() {
+    return i18n.t("issues.helpers.high");
+  } },
+    { value: "xhigh", get label() {
+    return i18n.t("issues.helpers.xHigh");
+  } },
+    { value: "max", get label() {
+    return i18n.t("issues.helpers.max");
+  } },
   ],
 } as const;
 

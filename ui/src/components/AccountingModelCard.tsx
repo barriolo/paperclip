@@ -1,25 +1,37 @@
 import { Database, Gauge, ReceiptText } from "lucide-react";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 const SURFACES = [
   {
-    title: "Inference ledger",
-    description: "Request-scoped usage and billed runs from cost_events.",
+    get title() {
+    return i18n.t("rest.accountingModelCard.inferenceLedger");
+  },
+    get description() {
+    return i18n.t("rest.accountingModelCard.requestscopedUsageAndBilledRuns");
+  },
     icon: Database,
     points: ["tokens + billed dollars", "provider, biller, model", "subscription and overage aware"],
     tone: "from-sky-500/12 via-sky-500/6 to-transparent",
   },
   {
-    title: "Finance ledger",
-    description: "Account-level charges that are not one prompt-response pair.",
+    get title() {
+    return i18n.t("rest.accountingModelCard.financeLedger");
+  },
+    get description() {
+    return i18n.t("rest.accountingModelCard.accountlevelChargesThatAreNot");
+  },
     icon: ReceiptText,
     points: ["top-ups, refunds, fees", "Bedrock provisioned or training charges", "credit expiries and adjustments"],
     tone: "from-amber-500/14 via-amber-500/6 to-transparent",
   },
   {
-    title: "Live quotas",
-    description: "Provider or biller windows that can stop traffic in real time.",
+    get title() {
+    return i18n.t("rest.accountingModelCard.liveQuotas");
+  },
+    get description() {
+    return i18n.t("rest.accountingModelCard.providerOrBillerWindowsThat");
+  },
     icon: Gauge,
     points: ["provider quota windows", "biller credit systems", "errors surfaced directly"],
     tone: "from-emerald-500/14 via-emerald-500/6 to-transparent",

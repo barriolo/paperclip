@@ -5,20 +5,45 @@ import { useHiddenSettings } from "@/hooks/useHiddenSettings";
 import { useFastResponsesEnabled } from "@/hooks/useFastResponsesEnabled";
 import { INSTANCE_SETTINGS_PATH_PREFIX } from "@/lib/instance-settings";
 import { useLocation, useNavigate } from "@/lib/router";
+import { i18n } from "@/i18n";
 
 const items = [
-  { value: "general", label: "General", href: "/company/settings" },
-  { value: "export", label: "Export", href: "/company/export" },
-  { value: "import", label: "Import", href: "/company/import" },
-  { value: "members", label: "Members", href: "/company/settings/members" },
-  { value: "secrets", label: "Secrets", href: "/company/settings/secrets" },
-  { value: "instance-profile", label: "Profile", href: `${INSTANCE_SETTINGS_PATH_PREFIX}/profile` },
-  { value: "instance-environments", label: "Environments", href: `${INSTANCE_SETTINGS_PATH_PREFIX}/environments` },
-  { value: "connections", label: "Connections", href: "/company/settings/connections" },
-  { value: "instance-access", label: "Access", href: `${INSTANCE_SETTINGS_PATH_PREFIX}/access` },
-  { value: "instance-experimental", label: "Experimental", href: `${INSTANCE_SETTINGS_PATH_PREFIX}/experimental` },
-  { value: "instance-plugins", label: "Plugins", href: `${INSTANCE_SETTINGS_PATH_PREFIX}/plugins` },
-  { value: "instance-adapters", label: "Adapters", href: `${INSTANCE_SETTINGS_PATH_PREFIX}/adapters` },
+  { value: "general", get label() {
+    return i18n.t("settings.companySettingsNav.general");
+  }, href: "/company/settings" },
+  { value: "export", get label() {
+    return i18n.t("settings.companySettingsNav.export");
+  }, href: "/company/export" },
+  { value: "import", get label() {
+    return i18n.t("settings.companySettingsNav.import");
+  }, href: "/company/import" },
+  { value: "members", get label() {
+    return i18n.t("settings.companySettingsNav.members");
+  }, href: "/company/settings/members" },
+  { value: "secrets", get label() {
+    return i18n.t("settings.companySettingsNav.secrets");
+  }, href: "/company/settings/secrets" },
+  { value: "instance-profile", get label() {
+    return i18n.t("settings.companySettingsNav.profile");
+  }, href: `${INSTANCE_SETTINGS_PATH_PREFIX}/profile` },
+  { value: "instance-environments", get label() {
+    return i18n.t("settings.companySettingsNav.environments");
+  }, href: `${INSTANCE_SETTINGS_PATH_PREFIX}/environments` },
+  { value: "connections", get label() {
+    return i18n.t("settings.companySettingsNav.connections");
+  }, href: "/company/settings/connections" },
+  { value: "instance-access", get label() {
+    return i18n.t("settings.companySettingsNav.access");
+  }, href: `${INSTANCE_SETTINGS_PATH_PREFIX}/access` },
+  { value: "instance-experimental", get label() {
+    return i18n.t("settings.companySettingsNav.experimental");
+  }, href: `${INSTANCE_SETTINGS_PATH_PREFIX}/experimental` },
+  { value: "instance-plugins", get label() {
+    return i18n.t("settings.companySettingsNav.plugins");
+  }, href: `${INSTANCE_SETTINGS_PATH_PREFIX}/plugins` },
+  { value: "instance-adapters", get label() {
+    return i18n.t("settings.companySettingsNav.adapters");
+  }, href: `${INSTANCE_SETTINGS_PATH_PREFIX}/adapters` },
 ] as const;
 
 type CompanySettingsTab = (typeof items)[number]["value"];

@@ -10,31 +10,47 @@ import { Link } from "@/lib/router";
 import { queryKeys } from "@/lib/queryKeys";
 import { copyTextToClipboard } from "@/lib/clipboard";
 import { Badge } from "@/components/ui/badge";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 const inviteRoleOptions = [
   {
     value: "viewer",
-    label: "Viewer",
-    description: "Can view organization work and follow along.",
+    get label() {
+    return i18n.t("settings.invitesSection.viewer");
+  },
+    get description() {
+    return i18n.t("settings.invitesSection.canViewOrganizationWorkAnd");
+  },
     gets: "View-only organization membership.",
   },
   {
     value: "operator",
-    label: "Operator",
-    description: "Can edit organization work and invite people.",
+    get label() {
+    return i18n.t("settings.invitesSection.operator");
+  },
+    get description() {
+    return i18n.t("settings.invitesSection.canEditOrganizationWorkAnd");
+  },
     gets: "Full editing and audit access. Cannot approve join requests or manage member permissions.",
   },
   {
     value: "admin",
-    label: "Admin",
-    description: "Recommended for operators who need to invite people, create agents, and approve joins.",
+    get label() {
+    return i18n.t("settings.invitesSection.admin");
+  },
+    get description() {
+    return i18n.t("settings.invitesSection.recommendedForOperatorsWhoNeed");
+  },
     gets: "Can create agents, invite users, assign tasks, and approve join requests.",
   },
   {
     value: "owner",
-    label: "Owner",
-    description: "Full organization access, including membership management.",
+    get label() {
+    return i18n.t("settings.invitesSection.owner");
+  },
+    get description() {
+    return i18n.t("settings.invitesSection.fullOrganizationAccessIncludingMembership");
+  },
     gets: "Everything in Admin, plus managing members.",
   },
 ] as const;

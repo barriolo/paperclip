@@ -362,7 +362,7 @@ export function ApprovalDetail() {
             onClick={() => addCommentMutation.mutate()}
             disabled={!commentBody.trim() || addCommentMutation.isPending}
           >
-            {addCommentMutation.isPending ? "Posting…" : "Post comment"}
+            {addCommentMutation.isPending ? t("approvals.approvalDetail.posting") : t("approvals.approvalDetail.postComment")}
           </Button>
         </div>
       </div>

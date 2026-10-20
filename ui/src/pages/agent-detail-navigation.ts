@@ -1,4 +1,5 @@
 import { auditSectionHref, type AuditSection } from "./audit/audit-navigation";
+import { i18n } from "@/i18n";
 
 export type AgentDetailView =
   | "overview"
@@ -20,28 +21,54 @@ export const AGENT_DETAIL_NAVIGATION: ReadonlyArray<{
   items: ReadonlyArray<{ value: AgentLocalDetailView; label: string }>;
 }> = [
   {
-    label: "Agent",
+    get label() {
+    return i18n.t("agents.agentDetailNavigation.agent");
+  },
     items: [
-      { value: "overview", label: "Overview" },
-      { value: "instructions", label: "Instructions" },
-      { value: "skills", label: "Skills" },
+      { value: "overview", get label() {
+    return i18n.t("agents.agentDetailNavigation.overview");
+  } },
+      { value: "instructions", get label() {
+    return i18n.t("agents.agentDetailNavigation.instructions");
+  } },
+      { value: "skills", get label() {
+    return i18n.t("agents.agentDetailNavigation.skills");
+  } },
     ],
   },
   {
-    label: "Runtime",
+    get label() {
+    return i18n.t("agents.agentDetailNavigation.runtime");
+  },
     items: [
-      { value: "runtime", label: "Harness / Runtime" },
-      { value: "secrets", label: "Secrets" },
-      { value: "tools", label: "Tools" },
-      { value: "channels", label: "Channels" },
+      { value: "runtime", get label() {
+    return i18n.t("agents.agentDetailNavigation.harnessRuntime");
+  } },
+      { value: "secrets", get label() {
+    return i18n.t("agents.agentDetailNavigation.secrets");
+  } },
+      { value: "tools", get label() {
+    return i18n.t("agents.agentDetailNavigation.tools");
+  } },
+      { value: "channels", get label() {
+    return i18n.t("agents.agentDetailNavigation.channels");
+  } },
     ],
   },
   {
-    label: "Governance",
+    get label() {
+    return i18n.t("agents.agentDetailNavigation.governance");
+  },
     items: [
-      { value: "permissions", label: "Permissions / Trust" },
-      { value: "api-keys", label: "API Keys" },
-      { value: "revisions", label: "Revisions" },
+      { value: "permissions", get label() {
+    return i18n.t("agents.agentDetailNavigation.permissionsTrust");
+  } },
+      { value: "api-keys", get label() {
+    return i18n.t("agents.agentDetailNavigation.aPIKeys");
+  } },
+      { value: "revisions", get label() {
+    return i18n.t("agents.agentDetailNavigation.revisions");
+  } },
     ],
   },
 ] as const;

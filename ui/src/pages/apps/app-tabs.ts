@@ -1,8 +1,13 @@
 import { Inbox, ShieldCheck } from "lucide-react";
+import { i18n } from "@/i18n";
 
 export const APP_TABS = [
-  { key: "permissions", label: "Permissions", icon: ShieldCheck },
-  { key: "review", label: "Review", icon: Inbox },
+  { key: "permissions", get label() {
+    return i18n.t("rest.appTabs.permissions");
+  }, icon: ShieldCheck },
+  { key: "review", get label() {
+    return i18n.t("rest.appTabs.review");
+  }, icon: Inbox },
 ] as const;
 
 export type AppTabKey = (typeof APP_TABS)[number]["key"];

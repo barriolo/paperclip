@@ -314,15 +314,33 @@ function scrollToContainerBottom(container: ScrollContainer, behavior: ScrollBeh
 export const AGENT_DETAIL_TABS = AGENT_DETAIL_NAVIGATION.flatMap((section) => section.items);
 
 const LEGACY_AGENT_DETAIL_TABS = [
-  { value: "dashboard", label: "Dashboard" },
-  { value: "instructions", label: "Instructions" },
-  { value: "skills", label: "Skills" },
-  { value: "configuration", label: "Configuration" },
-  { value: "secrets", label: "Secrets" },
-  { value: "tools", label: "Tools" },
-  { value: "runs", label: "Runs" },
-  { value: "audit", label: "Audit" },
-  { value: "budget", label: "Budget" },
+  { value: "dashboard", get label() {
+    return i18n.t("agents.agentDetail.dashboard");
+  } },
+  { value: "instructions", get label() {
+    return i18n.t("agents.agentDetail.instructions");
+  } },
+  { value: "skills", get label() {
+    return i18n.t("agents.agentDetail.skills");
+  } },
+  { value: "configuration", get label() {
+    return i18n.t("agents.agentDetail.configuration");
+  } },
+  { value: "secrets", get label() {
+    return i18n.t("agents.agentDetail.secrets");
+  } },
+  { value: "tools", get label() {
+    return i18n.t("agents.agentDetail.tools");
+  } },
+  { value: "runs", get label() {
+    return i18n.t("agents.agentDetail.runs");
+  } },
+  { value: "audit", get label() {
+    return i18n.t("agents.agentDetail.audit");
+  } },
+  { value: "budget", get label() {
+    return i18n.t("agents.agentDetail.budget");
+  } },
 ] as const;
 
 export const DISCARD_AGENT_CONFIG_CHANGES_MESSAGE = "Discard unsaved agent configuration changes?";

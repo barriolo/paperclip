@@ -8,43 +8,103 @@ import {
 import type { AdapterEnvironmentTestResult } from "@paperclipai/shared";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 export type TestState = "idle" | "running" | "pass" | "fail";
 
 const copy = {
   idle: {
-    title: "Test your agent",
-    description: "Check that your runtime and model can respond.",
-    action: "Run test",
+    get title() {
+    return i18n.t("agents.runtimeTestCard.testYourAgent");
+  },
+    get description() {
+    return i18n.t("agents.runtimeTestCard.checkThatYourRuntimeAnd");
+  },
+    get action() {
+    return i18n.t("agents.runtimeTestCard.runTest");
+  },
   },
   running: {
-    title: "Testing connection",
-    description: "Checking the runtime and waiting for a model response…",
-    action: "Testing…",
+    get title() {
+    return i18n.t("agents.runtimeTestCard.testingConnection");
+  },
+    get description() {
+    return i18n.t("agents.runtimeTestCard.checkingTheRuntimeAndWaiting");
+  },
+    get action() {
+    return i18n.t("agents.runtimeTestCard.testing");
+  },
   },
   pass: {
-    title: "Connection successful",
-    description: "Your runtime checks passed. Review the details below.",
-    action: "Test again",
+    get title() {
+    return i18n.t("agents.runtimeTestCard.connectionSuccessful");
+  },
+    get description() {
+    return i18n.t("agents.runtimeTestCard.yourRuntimeChecksPassedReview");
+  },
+    get action() {
+    return i18n.t("agents.runtimeTestCard.testAgain");
+  },
   },
   warn: {
-    title: "Connection needs attention",
-    description: "Review the test details before running your agent.",
-    action: "Test again",
+    get title() {
+    return i18n.t("agents.runtimeTestCard.connectionNeedsAttention");
+  },
+    get description() {
+    return i18n.t("agents.runtimeTestCard.reviewTheTestDetailsBefore");
+  },
+    get action() {
+    return i18n.t("agents.runtimeTestCard.testAgain");
+  },
   },
   fail: {
-    title: "Couldn't connect",
-    description: "Check your model and provider connection, then try again.",
-    action: "Retry test",
+    get title() {
+    return i18n.t("agents.runtimeTestCard.couldntConnect");
+  },
+    get description() {
+    return i18n.t("agents.runtimeTestCard.checkYourModelAndProvider");
+  },
+    get action() {
+    return i18n.t("agents.runtimeTestCard.retryTest");
+  },
   },
 } as const;
 
 const prerequisiteCopy = {
-  idle: { title: "Check prerequisites", description: "Check instance settings and public connection configuration.", action: "Check setup" },
-  running: { title: "Checking prerequisites", description: "Checking instance settings and public connection configuration…", action: "Checking…" },
-  pass: { title: "Setup checks passed", description: "Review the setup details before assigning work.", action: "Check again" },
-  warn: { title: "Pairing required", description: "Create this agent, then pair it and verify event delivery.", action: "Check again" },
-  fail: { title: "Prerequisite check failed", description: "Review the setup details and retry.", action: "Retry check" },
+  idle: { get title() {
+    return i18n.t("agents.runtimeTestCard.checkPrerequisites");
+  }, get description() {
+    return i18n.t("agents.runtimeTestCard.checkInstanceSettingsAndPublic");
+  }, get action() {
+    return i18n.t("agents.runtimeTestCard.checkSetup");
+  } },
+  running: { get title() {
+    return i18n.t("agents.runtimeTestCard.checkingPrerequisites");
+  }, get description() {
+    return i18n.t("agents.runtimeTestCard.checkingInstanceSettingsAndPublic");
+  }, get action() {
+    return i18n.t("agents.runtimeTestCard.checking");
+  } },
+  pass: { get title() {
+    return i18n.t("agents.runtimeTestCard.setupChecksPassed");
+  }, get description() {
+    return i18n.t("agents.runtimeTestCard.reviewTheSetupDetailsBefore");
+  }, get action() {
+    return i18n.t("agents.runtimeTestCard.checkAgain");
+  } },
+  warn: { get title() {
+    return i18n.t("agents.runtimeTestCard.pairingRequired");
+  }, get description() {
+    return i18n.t("agents.runtimeTestCard.createThisAgentThenPair");
+  }, get action() {
+    return i18n.t("agents.runtimeTestCard.checkAgain");
+  } },
+  fail: { get title() {
+    return i18n.t("agents.runtimeTestCard.prerequisiteCheckFailed");
+  }, get description() {
+    return i18n.t("agents.runtimeTestCard.reviewTheSetupDetailsAnd");
+  }, get action() {
+    return i18n.t("agents.runtimeTestCard.retryCheck");
+  } },
 } as const;
 
 export function RuntimeTestCard({

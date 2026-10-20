@@ -24,43 +24,59 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { AiConnectionCredentialStep } from "./AiConnectionCredentialStep";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 const providers = [
   {
     id: "openai",
     name: "OpenAI",
-    description: "ChatGPT subscription or API key",
+    get description() {
+    return i18n.t("rest.aiProviderSetup.chatGPTSubscriptionOrApiKey");
+  },
   },
   {
     id: "anthropic",
     name: "Anthropic",
-    description: "Claude subscription or API key",
+    get description() {
+    return i18n.t("rest.aiProviderSetup.claudeSubscriptionOrApiKey");
   },
-  { id: "google", name: "Google", description: "Gemini API key" },
-  { id: "xai", name: "xAI", description: "Grok subscription or API key" },
+  },
+  { id: "google", name: "Google", get description() {
+    return i18n.t("rest.aiProviderSetup.geminiApiKey");
+  } },
+  { id: "xai", name: "xAI", get description() {
+    return i18n.t("rest.aiProviderSetup.grokSubscriptionOrApiKey");
+  } },
   {
     id: "openrouter",
     name: "OpenRouter",
-    description: "Models through one API key",
+    get description() {
+    return i18n.t("rest.aiProviderSetup.modelsThroughOneApiKey");
+  },
     advanced: true,
   },
   {
     id: "bedrock",
     name: "Amazon Bedrock",
-    description: "Bedrock API key and AWS region",
+    get description() {
+    return i18n.t("rest.aiProviderSetup.bedrockApiKeyAndAws");
+  },
     advanced: true,
   },
   {
     id: "gateway",
     name: "Custom gateway",
-    description: "Emissary or another compatible endpoint",
+    get description() {
+    return i18n.t("rest.aiProviderSetup.emissaryOrAnotherCompatibleEndpoint");
+  },
     advanced: true,
   },
   {
     id: "local",
     name: "Local endpoint",
-    description: "A model server in the agent’s environment",
+    get description() {
+    return i18n.t("rest.aiProviderSetup.aModelServerInThe");
+  },
     advanced: true,
   },
 ] as const;

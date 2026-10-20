@@ -67,7 +67,7 @@ import {
 } from "./TaskChatComposerTakeoverContext";
 import { TaskChatPlanPreviewCard } from "./TaskChatPlanPreviewCard";
 import { TaskChatRichInput } from "./TaskChatRichInput";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 const TAKEOVER_TEXTAREA_CLASS =
   "min-h-16 resize-y border-0 bg-muted/35 text-sm shadow-none focus-visible:ring-0 focus-visible:ring-offset-0";
@@ -88,33 +88,57 @@ export interface TaskChatCompactInteractionCardProps extends SharedInteractionPr
 
 const KIND_COPY = {
   suggest_tasks: {
-    fallbackTitle: "Suggested tasks",
-    label: "Tasks",
+    get fallbackTitle() {
+    return i18n.t("issues.taskChatCompactInteractionCard.suggestedTasks");
+  },
+    get label() {
+    return i18n.t("issues.taskChatCompactInteractionCard.tasks");
+  },
     icon: GitBranch,
   },
   ask_user_questions: {
-    fallbackTitle: "Questions",
-    label: "Questions",
+    get fallbackTitle() {
+    return i18n.t("issues.taskChatCompactInteractionCard.questions");
+  },
+    get label() {
+    return i18n.t("issues.taskChatCompactInteractionCard.questions");
+  },
     icon: CircleHelp,
   },
   request_confirmation: {
-    fallbackTitle: "Confirmation",
-    label: "Confirmation",
+    get fallbackTitle() {
+    return i18n.t("issues.taskChatCompactInteractionCard.confirmation");
+  },
+    get label() {
+    return i18n.t("issues.taskChatCompactInteractionCard.confirmation");
+  },
     icon: CheckCircle2,
   },
   request_checkbox_confirmation: {
-    fallbackTitle: "Choose options",
-    label: "Selection",
+    get fallbackTitle() {
+    return i18n.t("issues.taskChatCompactInteractionCard.chooseOptions");
+  },
+    get label() {
+    return i18n.t("issues.taskChatCompactInteractionCard.selection");
+  },
     icon: ListChecks,
   },
   request_item_verdicts: {
-    fallbackTitle: "Review items",
-    label: "Review",
+    get fallbackTitle() {
+    return i18n.t("issues.taskChatCompactInteractionCard.reviewItems");
+  },
+    get label() {
+    return i18n.t("issues.taskChatCompactInteractionCard.review");
+  },
     icon: MessageSquareQuote,
   },
   connection_intent: {
-    fallbackTitle: "Connect service",
-    label: "Connection",
+    get fallbackTitle() {
+    return i18n.t("issues.taskChatCompactInteractionCard.connectService");
+  },
+    get label() {
+    return i18n.t("issues.taskChatCompactInteractionCard.connection");
+  },
     icon: Plug,
   },
 } as const;

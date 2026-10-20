@@ -9,7 +9,7 @@ import { AgentSetupPrompt } from "../AgentSetupPrompt";
 import { Button } from "../ui/button";
 import { DialogDescription, DialogTitle } from "../ui/dialog";
 import { cn } from "@/lib/utils";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 export type ExternalAgentPreset = "dot" | "grok_bot" | "muse" | "hermes" | "other";
 export type DotConnectionState = {
@@ -18,11 +18,21 @@ export type DotConnectionState = {
 };
 
 const presets = [
-  { id: "dot", name: "Dot", adapter: "openai_dot", description: "Your Dot in ChatGPT" },
-  { id: "grok_bot", name: "Grok Bot", adapter: "grok_bot", description: "An existing Bot in Grok" },
-  { id: "muse", name: "Muse — Personal agent", adapter: "muse", description: "Your personal Muse at muse.ai" },
-  { id: "hermes", name: "Hermes", adapter: "hermes_gateway", description: "An existing Hermes agent" },
-  { id: "other", name: "Other", adapter: "http", description: "Any agent that can connect to Paperclip" },
+  { id: "dot", name: "Dot", adapter: "openai_dot", get description() {
+    return i18n.t("agents.externalAgentInviteContent.yourDotInChatgpt");
+  } },
+  { id: "grok_bot", name: "Grok Bot", adapter: "grok_bot", get description() {
+    return i18n.t("agents.externalAgentInviteContent.anExistingBotInGrok");
+  } },
+  { id: "muse", name: "Muse — Personal agent", adapter: "muse", get description() {
+    return i18n.t("agents.externalAgentInviteContent.yourPersonalMuseAtMuseai");
+  } },
+  { id: "hermes", name: "Hermes", adapter: "hermes_gateway", get description() {
+    return i18n.t("agents.externalAgentInviteContent.anExistingHermesAgent");
+  } },
+  { id: "other", name: "Other", adapter: "http", get description() {
+    return i18n.t("agents.externalAgentInviteContent.anyAgentThatCanConnect");
+  } },
 ] as const;
 
 export function ExternalAgentPresetPicker({ onSelect, dotDisabledReason, grokDisabledReason, museEnabled = false }: { onSelect: (preset: ExternalAgentPreset) => void; dotDisabledReason?: string; grokDisabledReason?: string; museEnabled?: boolean }) {
