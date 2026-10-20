@@ -14389,5 +14389,20 @@
       "pending": "Pendentes",
       "all": "Todas"
     }
+  },
+  "common": {
+    "time": {
+      "justNow": "agora mesmo",
+      "minutesAgo_one": "há {{count}} min",
+      "minutesAgo_other": "há {{count}} min",
+      "hoursAgo_one": "há {{count}} h",
+      "hoursAgo_other": "há {{count}} h",
+      "daysAgo_one": "há {{count}} dia",
+      "daysAgo_other": "há {{count}} dias",
+      "weeksAgo_one": "há {{count}} sem.",
+      "weeksAgo_other": "há {{count}} sem.",
+      "monthsAgo_one": "há {{count}} mês",
+      "monthsAgo_other": "há {{count}} meses"
+    }
   }
 }
