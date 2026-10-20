@@ -14,8 +14,10 @@ import { queryKeys } from "@/lib/queryKeys";
 import { Button } from "@/components/ui/button";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { SearchableSelect, type SearchableSelectGroup } from "@/components/SearchableSelect";
+import { useTranslation } from "@/i18n";
 
 export function ProjectAccessMembers({ project, canManage }: { project: Project; canManage: boolean }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [selection, setSelection] = useState("");
   const queryClient = useQueryClient();
@@ -46,7 +48,7 @@ export function ProjectAccessMembers({ project, canManage }: { project: Project;
       .map((entry) => ({
         key: `user:${entry.user!.id}`,
         value: `user:${entry.user!.id}`,
-        label: entry.user!.name ?? entry.user!.email ?? "Unknown user",
+        label: entry.user!.name ?? entry.user!.email ?? t("settings.projectAccessMembers.unknownUser"),
         searchText: entry.user!.email ?? "",
         identity: <Identity name={entry.user!.name ?? entry.user!.email ?? "Unknown user"} avatarUrl={entry.user!.image} size="sm" />,
       }));
@@ -54,10 +56,10 @@ export function ProjectAccessMembers({ project, canManage }: { project: Project;
       .filter((agent) => !activeKeys.has(`agent:${agent.id}`))
       .map((agent) => ({ key: `agent:${agent.id}`, value: `agent:${agent.id}`, label: agent.name, identity: <><AgentAvatar agent={agent} size={24} /><span className="truncate">{agent.name}</span></> }));
     return [
-      ...(people.length ? [{ id: "people", label: "People", options: people }] : []),
-      ...(agentOptions.length ? [{ id: "agents", label: "Agents", options: agentOptions }] : []),
+      ...(people.length ? [{ id: "people", label: t("settings.projectAccessMembers.people"), options: people }] : []),
+      ...(agentOptions.length ? [{ id: "agents", label: t("settings.projectAccessMembers.agents"), options: agentOptions }] : []),
     ];
-  }, [activeKeys, agentsQuery.data, directoryQuery.data]);
+  }, [activeKeys, agentsQuery.data, directoryQuery.data, t]);
   const selectedAgent = selection.startsWith("agent:")
     ? agentsQuery.data?.find(agent => agent.id === selection.slice("agent:".length)) : null;
   const sharingWithSharedAgent = selectedAgent
@@ -72,9 +74,9 @@ export function ProjectAccessMembers({ project, canManage }: { project: Project;
       queryClient.invalidateQueries({ queryKey: membersKey });
       // Project membership changes task access, descendants and cached discovery.
       queryClient.invalidateQueries({ queryKey: ["issues"] });
-      pushToast({ title: "Project access added", tone: "success" });
+      pushToast({ title: t("settings.projectAccessMembers.projectAccessAdded"), tone: "success" });
     },
-    onError: (error) => pushToast({ title: "Couldn't add project access", body: (error as Error).message, tone: "error" }),
+    onError: (error) => pushToast({ title: t("settings.projectAccessMembers.couldntAddProjectAccess"), body: (error as Error).message, tone: "error" }),
   });
   const removeMember = useMutation({
     mutationFn: (memberId: string) => projectsApi.removeAccessMember(project.id, memberId, project.companyId),
@@ -82,27 +84,27 @@ export function ProjectAccessMembers({ project, canManage }: { project: Project;
       queryClient.invalidateQueries({ queryKey: membersKey });
       // Project membership changes task access, descendants and cached discovery.
       queryClient.invalidateQueries({ queryKey: ["issues"] });
-      pushToast({ title: "Project access removed", tone: "success" });
+      pushToast({ title: t("settings.projectAccessMembers.projectAccessRemoved"), tone: "success" });
     },
-    onError: (error) => pushToast({ title: "Couldn't remove project access", body: (error as Error).message, tone: "error" }),
+    onError: (error) => pushToast({ title: t("settings.projectAccessMembers.couldntRemoveProjectAccess"), body: (error as Error).message, tone: "error" }),
   });
 
   return (
     <>
       <Button variant="outline" size="sm" onClick={() => setOpen(true)}>
-        <Lock className="h-3.5 w-3.5" aria-hidden="true" /> {canManage ? "Manage access" : "View access"}
+        <Lock className="h-3.5 w-3.5" aria-hidden="true" /> {canManage ? t("settings.projectAccessMembers.manageAccess") : t("settings.projectAccessMembers.viewAccess")}
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-md">
           <DialogHeader>
-            <DialogTitle>Private project access</DialogTitle>
+            <DialogTitle>{t("settings.projectAccessMembers.privateProjectAccess")}</DialogTitle>
             <DialogDescription>
-              Members can discover this project and read every task in it. A task can still be shared directly.
+              {t("settings.projectAccessMembers.membersCanDiscoverThisProject")}
             </DialogDescription>
           </DialogHeader>
           <div className="space-y-3">
             {directoryQuery.isError || agentsQuery.isError ? (
-              <p className="text-sm text-destructive">Couldn&apos;t load the company access directory.</p>
+              <p className="text-sm text-destructive">{t("settings.projectAccessMembers.couldntLoadTheCompanyAccess")}</p>
             ) : null}
             <div className="flex items-end gap-2">
               <SearchableSelect
@@ -111,20 +113,19 @@ export function ProjectAccessMembers({ project, canManage }: { project: Project;
                 renderValue={(option) => option ? renderAccessIdentity(option) : "Add a person or agent"}
                 renderOption={renderAccessIdentity}
                 onValueChange={(value) => setSelection(value)}
-                placeholder="Add a person or agent"
-                searchPlaceholder="Search people and agents"
-                emptyMessage="No more company members to add"
+                placeholder={t("settings.projectAccessMembers.addAPersonOrAgent")}
+                searchPlaceholder={t("settings.projectAccessMembers.searchPeopleAndAgents")}
+                emptyMessage={t("settings.projectAccessMembers.noMoreCompanyMembersTo")}
                 loading={directoryQuery.isLoading || agentsQuery.isLoading}
                 className="min-w-0 flex-1"
               />
               <Button size="sm" disabled={!canManage || !selection || addMember.isPending} onClick={() => addMember.mutate()}>
-                <UserPlus className="h-3.5 w-3.5" aria-hidden="true" /> Add
+                <UserPlus className="h-3.5 w-3.5" aria-hidden="true" />{" "}{t("settings.projectAccessMembers.add")}
               </Button>
             </div>
             {sharingWithSharedAgent ? (
               <p className="rounded-md border border-border bg-muted px-3 py-2 text-sm text-foreground">
-                This agent can retain private project context in its memory and workspace for later runs.
-                Removing access cannot erase what it has already learned.
+                {t("settings.projectAccessMembers.thisAgentCanRetainPrivate")}
               </p>
             ) : null}
             <div className="divide-y divide-border/60">
@@ -133,16 +134,16 @@ export function ProjectAccessMembers({ project, canManage }: { project: Project;
                 return (
                   <div key={member.id} className="flex items-center gap-3 py-2">
                     <div className="min-w-0 flex-1">
-                      <div className="truncate text-sm font-medium">{member.subjectDisplayName ?? "Unknown member"}</div>
+                      <div className="truncate text-sm font-medium">{member.subjectDisplayName ?? t("settings.projectAccessMembers.unknownMember")}</div>
                       <div className="text-xs text-muted-foreground">
-                        {isPersonalOwner ? "Owner" : member.subjectType === "agent" ? "Agent" : "Person"}
+                        {isPersonalOwner ? t("settings.projectAccessMembers.owner") : member.subjectType === "agent" ? t("settings.projectAccessMembers.agent") : t("settings.projectAccessMembers.person")}
                       </div>
                     </div>
                     {!isPersonalOwner ? (
                       <Button
                         variant="ghost"
                         size="icon-sm"
-                        aria-label={`Remove ${member.subjectDisplayName ?? "member"}`}
+                        aria-label={t("settings.projectAccessMembers.remove", { subjectDisplayName: member.subjectDisplayName ?? "member" })}
                         disabled={!canManage || removeMember.isPending}
                         onClick={() => removeMember.mutate(member.id)}
                       >
@@ -152,9 +153,9 @@ export function ProjectAccessMembers({ project, canManage }: { project: Project;
                   </div>
                 );
               })}
-              {membersQuery.isLoading ? <p className="py-3 text-sm text-muted-foreground">Loading access…</p> : null}
+              {membersQuery.isLoading ? <p className="py-3 text-sm text-muted-foreground">{t("settings.projectAccessMembers.loadingAccess")}</p> : null}
               {membersQuery.isError ? (
-                <p className="py-3 text-sm text-destructive">Couldn&apos;t load project access members.</p>
+                <p className="py-3 text-sm text-destructive">{t("settings.projectAccessMembers.couldntLoadProjectAccessMembers")}</p>
               ) : null}
             </div>
           </div>

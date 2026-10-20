@@ -24,35 +24,70 @@ import {
 import { agentsApi } from "@/api/agents";
 import { AgentSelect } from "@/components/AgentMultiSelect";
 import { ToolsPageHeader, LoadingState, ErrorState, RelativeTime } from "./shared";
+import { i18n, useTranslation } from "@/i18n";
 
 const PAGE_SIZE = 50;
 const ALL = "__all";
 
 /** Outcome chip vocabulary (spec §4C / §5): Allowed · Blocked · Asked first · Failed · Waiting. */
 const OUTCOME_META: Record<ToolAuditOutcome, { label: string; status: string }> = {
-  allowed: { label: "Allowed", status: "allowed" },
-  blocked: { label: "Blocked", status: "denied" },
-  asked_first: { label: "Asked first", status: "require-approval" },
-  waiting: { label: "Waiting", status: "deferred" },
-  failed: { label: "Failed", status: "failed" },
-  unknown: { label: "Recorded", status: "unchecked" },
+  allowed: { get label() {
+    return i18n.t("settings.auditTab.allowed");
+  }, status: "allowed" },
+  blocked: { get label() {
+    return i18n.t("settings.auditTab.blocked");
+  }, status: "denied" },
+  asked_first: { get label() {
+    return i18n.t("settings.auditTab.askedFirst");
+  }, status: "require-approval" },
+  waiting: { get label() {
+    return i18n.t("settings.auditTab.waiting");
+  }, status: "deferred" },
+  failed: { get label() {
+    return i18n.t("settings.auditTab.failed");
+  }, status: "failed" },
+  unknown: { get label() {
+    return i18n.t("settings.auditTab.recorded");
+  }, status: "unchecked" },
 };
 
 const OUTCOME_FILTERS: { value: string; label: string }[] = [
-  { value: ALL, label: "All outcomes" },
-  { value: "allowed", label: "Allowed" },
-  { value: "blocked", label: "Blocked" },
-  { value: "asked_first", label: "Asked first" },
-  { value: "waiting", label: "Waiting" },
-  { value: "failed", label: "Failed" },
+  { value: ALL, get label() {
+    return i18n.t("settings.auditTab.allOutcomes");
+  } },
+  { value: "allowed", get label() {
+    return i18n.t("settings.auditTab.allowed");
+  } },
+  { value: "blocked", get label() {
+    return i18n.t("settings.auditTab.blocked");
+  } },
+  { value: "asked_first", get label() {
+    return i18n.t("settings.auditTab.askedFirst");
+  } },
+  { value: "waiting", get label() {
+    return i18n.t("settings.auditTab.waiting");
+  } },
+  { value: "failed", get label() {
+    return i18n.t("settings.auditTab.failed");
+  } },
 ];
 
 const WINDOW_FILTERS: { value: ToolAuditWindow; label: string }[] = [
-  { value: "all", label: "All time" },
-  { value: "1h", label: "Last 1 hour" },
-  { value: "24h", label: "Last 24 hours" },
-  { value: "7d", label: "Last 7 days" },
-  { value: "30d", label: "Last 30 days" },
+  { value: "all", get label() {
+    return i18n.t("settings.auditTab.allTime");
+  } },
+  { value: "1h", get label() {
+    return i18n.t("settings.auditTab.last1Hour");
+  } },
+  { value: "24h", get label() {
+    return i18n.t("settings.auditTab.last24Hours");
+  } },
+  { value: "7d", get label() {
+    return i18n.t("settings.auditTab.last7Days");
+  } },
+  { value: "30d", get label() {
+    return i18n.t("settings.auditTab.last30Days");
+  } },
 ];
 
 function detailString(details: Record<string, unknown> | null, key: string): string | undefined {
@@ -163,6 +198,7 @@ function ActivityRow({
   event: ToolGatewayActivityEvent;
   ruleNamesById: Map<string, string>;
 }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [detailsOpen, setDetailsOpen] = useState(false);
 
@@ -216,9 +252,9 @@ function ActivityRow({
             <span className="block text-foreground">{lifecycle}</span>
           ) : isRuntimeMcpDeliveryDiagnostic ? (
             <span className="block text-foreground">
-              <span className="font-medium">{who}</span>'s run received 0 MCP servers —{" "}
+              <span className="font-medium">{who}</span>{t("settings.auditTab.sRunReceived0Mcp")}{" "}
               <span className="font-medium">{permittedNotInstalledCount ?? permittedNotInstalledConnections.length}</span>{" "}
-              permitted {(permittedNotInstalledCount ?? permittedNotInstalledConnections.length) === 1 ? "connection" : "connections"} not installed
+              permitted {(permittedNotInstalledCount ?? permittedNotInstalledConnections.length) === 1 ? "connection" : "connections"}{" "}{t("settings.auditTab.notInstalled")}
             </span>
           ) : (
             <span className="block text-foreground">
@@ -255,12 +291,12 @@ function ActivityRow({
           <div className="flex flex-wrap gap-3 text-xs">
             {issueId ? (
               <Link to={`/issues/${issueId}`} className="text-primary hover:underline">
-                View task
+                {t("settings.auditTab.viewTask")}
               </Link>
             ) : null}
             {runId && agentId ? (
               <Link to={`/agents/${agentId}/runs/${runId}`} className="text-primary hover:underline">
-                View run
+                {t("settings.auditTab.viewRun")}
               </Link>
             ) : null}
           </div>
@@ -272,32 +308,32 @@ function ActivityRow({
               className="flex items-center gap-1 text-xs font-medium text-muted-foreground hover:text-foreground"
             >
               {detailsOpen ? <ChevronDown className="h-3.5 w-3.5" /> : <ChevronRight className="h-3.5 w-3.5" />}
-              Details
+              {t("settings.auditTab.details")}
             </button>
             {detailsOpen ? (
               <div className="mt-2 space-y-1.5 text-xs">
-                {rawTool ? <DetailFact label="Action name" value={rawTool} mono /> : null}
-                <DetailFact label="Reason code" value={reasonCode} mono />
-                <DetailFact label="Actor type" value={event.actorType ?? "—"} />
-                {runId ? <DetailFact label="Run ID" value={runId} mono /> : null}
-                {transport ? <DetailFact label="Transport" value={transport} mono /> : null}
-                {requestMethod && endpoint ? <DetailFact label="HTTP request" value={`${requestMethod} ${endpoint}`} mono /> : null}
-                {mcpMethod ? <DetailFact label="MCP method" value={mcpMethod} mono /> : null}
-                {requestId ? <DetailFact label="Request ID" value={requestId} mono /> : null}
-                {request ? <DetailFact label="Dispatched" value={request.dispatched === true ? "Yes" : "No"} /> : null}
-                {httpStatus !== undefined ? <DetailFact label="HTTP status" value={String(httpStatus)} mono /> : null}
-                {contentType ? <DetailFact label="Content type" value={contentType} mono /> : null}
-                {responseBytes !== undefined ? <DetailFact label="Response size" value={`${responseBytes} bytes`} /> : null}
-                {upstreamRequestId ? <DetailFact label="Upstream ID" value={upstreamRequestId} mono /> : null}
+                {rawTool ? <DetailFact label={t("settings.auditTab.actionName")} value={rawTool} mono /> : null}
+                <DetailFact label={t("settings.auditTab.reasonCode")} value={reasonCode} mono />
+                <DetailFact label={t("settings.auditTab.actorType")} value={event.actorType ?? "—"} />
+                {runId ? <DetailFact label={t("settings.auditTab.runId")} value={runId} mono /> : null}
+                {transport ? <DetailFact label={t("settings.auditTab.transport")} value={transport} mono /> : null}
+                {requestMethod && endpoint ? <DetailFact label={t("settings.auditTab.hTTPRequest")} value={`${requestMethod} ${endpoint}`} mono /> : null}
+                {mcpMethod ? <DetailFact label={t("settings.auditTab.mCPMethod")} value={mcpMethod} mono /> : null}
+                {requestId ? <DetailFact label={t("settings.auditTab.requestId")} value={requestId} mono /> : null}
+                {request ? <DetailFact label={t("settings.auditTab.dispatched")} value={request.dispatched === true ? "Yes" : "No"} /> : null}
+                {httpStatus !== undefined ? <DetailFact label={t("settings.auditTab.hTTPStatus")} value={String(httpStatus)} mono /> : null}
+                {contentType ? <DetailFact label={t("settings.auditTab.contentType")} value={contentType} mono /> : null}
+                {responseBytes !== undefined ? <DetailFact label={t("settings.auditTab.responseSize")} value={`${responseBytes} bytes`} /> : null}
+                {upstreamRequestId ? <DetailFact label={t("settings.auditTab.upstreamId")} value={upstreamRequestId} mono /> : null}
                 {isRuntimeMcpDeliveryDiagnostic ? (
                   <>
-                    <DetailFact label="Delivered MCP servers" value="0" mono />
+                    <DetailFact label={t("settings.auditTab.deliveredMcpServers")} value="0" mono />
                     {permittedNotInstalledConnections.map((connection) => {
                       const connectionId = detailString(connection, "id");
                       const connectionName = detailString(connection, "name") ?? "Unnamed connection";
                       return connectionId ? (
                         <div key={connectionId} className="flex gap-2">
-                          <span className="shrink-0 text-muted-foreground">Not installed</span>
+                          <span className="shrink-0 text-muted-foreground">{t("settings.auditTab.notInstalled2")}</span>
                           <Link to={`/apps/${connectionId}/permissions`} className="font-medium text-primary hover:underline">
                             {connectionName}
                           </Link>
@@ -308,7 +344,7 @@ function ActivityRow({
                 ) : null}
                 {argumentsText ? (
                   <div className="space-y-1">
-                    <span className="text-muted-foreground">Parameters (redacted)</span>
+                    <span className="text-muted-foreground">{t("settings.auditTab.parametersRedacted")}</span>
                     <pre className="whitespace-pre-wrap break-words rounded-md border border-border bg-background p-3 font-mono text-xs text-foreground">
                       {argumentsText}
                     </pre>
@@ -324,6 +360,7 @@ function ActivityRow({
 }
 
 export function AuditTab({ companyId }: { companyId: string }) {
+  const { t } = useTranslation();
   const [app, setApp] = useState<string>(ALL);
   const [agent, setAgent] = useState<string>(ALL);
   const [outcome, setOutcome] = useState<string>(ALL);
@@ -396,17 +433,17 @@ export function AuditTab({ companyId }: { companyId: string }) {
   return (
     <div className="space-y-4">
       <ToolsPageHeader
-        title="Activity"
-        description="What your agents actually did with your apps, newest first. Each line is one decision — allowed, blocked, asked first, waiting, or failed."
+        title={t("settings.auditTab.activity")}
+        description={t("settings.auditTab.whatYourAgentsActuallyDid")}
       />
 
       <div className="flex flex-wrap items-center gap-2">
         <Select value={app} onValueChange={setApp}>
           <SelectTrigger className="w-40">
-            <SelectValue placeholder="App" />
+            <SelectValue placeholder={t("settings.auditTab.app")} />
           </SelectTrigger>
           <SelectContent>
-            <SelectItem value={ALL}>All apps</SelectItem>
+            <SelectItem value={ALL}>{t("settings.auditTab.allApps")}</SelectItem>
             {(apps.data?.applications ?? []).map((a) => (
               <SelectItem key={a.id} value={a.id}>
                 {a.name}
@@ -445,14 +482,14 @@ export function AuditTab({ companyId }: { companyId: string }) {
           </SelectContent>
         </Select>
         <Input
-          placeholder="Search activity…"
+          placeholder={t("settings.auditTab.searchActivity")}
           value={searchInput}
           onChange={(e) => setSearchInput(e.target.value)}
           className="max-w-xs"
         />
         {hasActiveFilters ? (
           <Button variant="ghost" size="sm" onClick={clearFilters}>
-            Clear filters
+            {t("settings.auditTab.clearFilters")}
           </Button>
         ) : null}
       </div>
@@ -467,13 +504,13 @@ export function AuditTab({ companyId }: { companyId: string }) {
             <CardContent className="flex flex-col items-center gap-3 py-14 text-center">
               <ScrollText className="h-10 w-10 text-muted-foreground/40" />
               <div>
-                <p className="text-sm font-medium text-foreground">No activity matches these filters</p>
+                <p className="text-sm font-medium text-foreground">{t("settings.auditTab.noActivityMatchesTheseFilters")}</p>
                 <p className="mt-1 max-w-md text-sm text-muted-foreground">
-                  Try a wider time window or different filters.
+                  {t("settings.auditTab.tryAWiderTimeWindow")}
                 </p>
               </div>
               <Button variant="outline" size="sm" onClick={clearFilters}>
-                Clear filters
+                {t("settings.auditTab.clearFilters")}
               </Button>
             </CardContent>
           </Card>
@@ -482,9 +519,9 @@ export function AuditTab({ companyId }: { companyId: string }) {
             <CardContent className="flex flex-col items-center gap-3 py-14 text-center">
               <ScrollText className="h-10 w-10 text-muted-foreground/40" />
               <div>
-                <p className="text-sm font-medium text-foreground">Nothing here yet</p>
+                <p className="text-sm font-medium text-foreground">{t("settings.auditTab.nothingHereYet")}</p>
                 <p className="mt-1 max-w-md text-sm text-muted-foreground">
-                  As soon as your agents start using connected apps, what they do shows up here.
+                  {t("settings.auditTab.asSoonAsYourAgents")}
                 </p>
               </div>
             </CardContent>
@@ -510,7 +547,7 @@ export function AuditTab({ companyId }: { companyId: string }) {
             onClick={() => activity.fetchNextPage()}
             disabled={activity.isFetchingNextPage}
           >
-            {activity.isFetchingNextPage ? "Loading…" : "Load more"}
+            {activity.isFetchingNextPage ? t("settings.auditTab.loading") : t("settings.auditTab.loadMore")}
           </Button>
         </div>
       ) : null}
