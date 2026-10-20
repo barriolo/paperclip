@@ -10,6 +10,7 @@ import {
   DialogHeader,
   DialogTitle,
 } from "./ui/dialog";
+import { useTranslation } from "@/i18n";
 
 /** Shared by the task header and its Storybook composition. */
 export function TaskTreeControlMenuItems({
@@ -35,6 +36,7 @@ export function TaskTreeControlMenuItems({
   onCancel: () => void;
   onRestore: () => void;
 }) {
+  const { t } = useTranslation();
   const itemClass =
     "flex items-center gap-2 w-full px-2 py-1.5 text-xs rounded hover:bg-accent/50 disabled:opacity-50 disabled:pointer-events-none";
   return (
@@ -58,13 +60,13 @@ export function TaskTreeControlMenuItems({
           onClick={onCancel}
         >
           <XCircle className="h-3 w-3" />
-          Cancel subtree...
+          {t("issues.taskTreeControls.cancelSubtree")}
         </button>
       ) : null}
       {canRestore ? (
         <button disabled={pending} className={itemClass} onClick={onRestore}>
           <Repeat className="h-3 w-3" />
-          Restore subtree...
+          {t("issues.taskTreeControls.restoreSubtree")}
         </button>
       ) : null}
     </>
@@ -102,6 +104,7 @@ export function TaskTreeControlDialog({
   onRetry: () => void;
   onApply: () => void;
 }) {
+  const { t } = useTranslation();
   const cancel = mode === "cancel";
   const tasks = `${affectedCount} task${affectedCount === 1 ? "" : "s"}`;
   const title = cancel
@@ -143,7 +146,7 @@ export function TaskTreeControlDialog({
               disabled={pending}
               onClick={onRetry}
             >
-              Retry preview
+              {t("issues.taskTreeControls.retryPreview")}
             </Button>
           </div>
         ) : null}
@@ -155,7 +158,7 @@ export function TaskTreeControlDialog({
               disabled={pending || loading || affectedAgentCount === 0}
               onChange={(event) => onWakeAgentsChange(event.target.checked)}
             />
-            Wake affected agents ({affectedAgentCount})
+            {t("issues.taskTreeControls.wakeAffectedAgents", { affectedAgentCount: affectedAgentCount })}
           </label>
         ) : null}
         <DialogFooter>

@@ -5,6 +5,7 @@ import {
   readIssueChangeReceipt,
 } from "../lib/issue-change-receipt";
 import { cn } from "../lib/utils";
+import { useTranslation } from "@/i18n";
 
 /**
  * Field-level audit receipt under an `issue.updated` row in the activity stream
@@ -30,6 +31,7 @@ export function IssueFieldChangeReceipt({
   resolveUserLabel?: (userId: string) => string | null | undefined;
   className?: string;
 }) {
+  const { t } = useTranslation();
   const rows = readIssueChangeReceipt(event.details, { resolveAgentLabel, resolveUserLabel });
   const reason = issueAuthorizationReasonLabel(
     typeof event.details?.authorizationReason === "string"
@@ -89,7 +91,7 @@ export function IssueFieldChangeReceipt({
               {" · "}
             </>
           ) : null}
-          authorized by {reason}
+          {t("issues.issueFieldChangeReceipt.authorizedBy")}{" "}{reason}
         </p>
       ) : null}
     </div>

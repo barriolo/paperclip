@@ -4,6 +4,7 @@ import { cn, relativeTime } from "@/lib/utils";
 import { formatBytes, outputFilename, type IssueOutputItem } from "@/lib/issue-output";
 import { OutputFileTile } from "./OutputFileTile";
 import { Card } from "@/components/ui/card";
+import { useTranslation } from "@/i18n";
 
 interface OutputRowProps {
   item: IssueOutputItem;
@@ -12,6 +13,7 @@ interface OutputRowProps {
 
 /** Compact row for a non-primary output ("ALSO PRODUCED"). */
 export function OutputRow({ item, creatorName }: OutputRowProps) {
+  const { t } = useTranslation();
   const filename = outputFilename(item);
   const meta = item.metadata;
 
@@ -41,13 +43,13 @@ export function OutputRow({ item, creatorName }: OutputRowProps) {
       </div>
       {meta ? (
         <div className="flex shrink-0 items-center gap-1">
-          <Button asChild variant="ghost" size="icon-sm" title="Open in new tab">
-            <a href={meta.openPath} target="_blank" rel="noreferrer" aria-label={`Open ${filename}`}>
+          <Button asChild variant="ghost" size="icon-sm" title={t("issues.outputRow.openInNewTab")}>
+            <a href={meta.openPath} target="_blank" rel="noreferrer" aria-label={t("issues.outputRow.open", { filename: filename })}>
               <ExternalLink className="h-4 w-4" />
             </a>
           </Button>
-          <Button asChild variant="ghost" size="icon-sm" title="Download">
-            <a href={meta.downloadPath} aria-label={`Download ${filename}`}>
+          <Button asChild variant="ghost" size="icon-sm" title={t("issues.outputRow.download")}>
+            <a href={meta.downloadPath} aria-label={t("issues.outputRow.download2", { filename: filename })}>
               <Download className="h-4 w-4" />
             </a>
           </Button>

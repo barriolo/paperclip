@@ -26,6 +26,7 @@ import {
 } from "./TaskChatComposerTakeoverContext";
 import { TaskChatRichInput } from "./TaskChatRichInput";
 import { matchSafeQuestionValidationPattern } from "./question-validation-pattern";
+import { useTranslation } from "@/i18n";
 
 type Question = PaperclipQuestionSet["questions"][number];
 type Answer = PaperclipQuestionResponse["answers"][string];
@@ -131,6 +132,7 @@ function SelectOption({
   disabled: boolean;
   onClick: () => void;
 }) {
+  const { t } = useTranslation();
   return (
     <button
       type="button"
@@ -173,7 +175,7 @@ function SelectOption({
           <span>{label}</span>
           {recommended ? (
             <span className="rounded-sm bg-background/70 px-1.5 py-0.5 text-(length:--text-micro) font-medium text-muted-foreground">
-              Recommended
+              {t("issues.questionForm.recommended")}
             </span>
           ) : null}
         </span>
@@ -248,6 +250,7 @@ function QuestionFormForRequest({
   onSubmit,
   onCancel,
 }: QuestionFormProps) {
+  const { t } = useTranslation();
   const takeoverActions = useTaskChatComposerTakeoverActions();
   // A provider default is an editable draft only. An existing response or
   // saved draft, including an explicitly cleared value, always wins. State
@@ -328,7 +331,7 @@ function QuestionFormForRequest({
   if (!question)
     return (
       <p className="text-sm text-muted-foreground">
-        No answerable questions were provided.
+        {t("issues.questionForm.noAnswerableQuestionsWereProvided")}
       </p>
     );
   const answer = answers[question.id] ?? {};
@@ -418,7 +421,7 @@ function QuestionFormForRequest({
         message:
           cause instanceof Error
             ? cause.message
-            : "The answers could not be submitted.",
+            : t("issues.questionForm.theAnswersCouldNotBe"),
       });
     } finally {
       setWorking(null);
@@ -437,7 +440,7 @@ function QuestionFormForRequest({
         message:
           cause instanceof Error
             ? cause.message
-            : "The questions could not be cancelled.",
+            : t("issues.questionForm.theQuestionsCouldNotBe"),
       });
     } finally {
       setWorking(null);
@@ -466,26 +469,26 @@ function QuestionFormForRequest({
     questionSet.questions.length > 1 ? (
       <nav
         className="flex shrink-0 items-center gap-1"
-        aria-label="Question pagination"
+        aria-label={t("issues.questionForm.questionPagination")}
       >
         <Button
           type="button"
           size="icon-xs"
           variant="ghost"
-          aria-label="Previous question"
+          aria-label={t("issues.questionForm.previousQuestion")}
           disabled={disabled || working != null || page === 0}
           onClick={() => setPage((current) => current - 1)}
         >
           <ChevronLeft aria-hidden />
         </Button>
         <span className="min-w-10 text-center tabular-nums">
-          {page + 1} of {questionSet.questions.length}
+          {page + 1}{" "}{t("issues.questionForm.of", { length: questionSet.questions.length })}
         </span>
         <Button
           type="button"
           size="icon-xs"
           variant="ghost"
-          aria-label="Next question"
+          aria-label={t("issues.questionForm.nextQuestion")}
           // The arrows browse; they do not validate. A send that finds an
           // earlier answer missing returns to that question (see submit).
           disabled={disabled || working != null || isLastPage}
@@ -532,7 +535,7 @@ function QuestionFormForRequest({
       {questionSet.description ? (
         <div
           role="region"
-          aria-label="Question context"
+          aria-label={t("issues.questionForm.questionContext")}
           tabIndex={0}
           className="mb-3 max-h-96 overflow-auto text-sm text-muted-foreground"
         >
@@ -541,7 +544,7 @@ function QuestionFormForRequest({
       ) : null}
       {question.answerMode === "text" ? (
         <div className="mb-2 flex items-center gap-3 text-xs text-muted-foreground">
-          {question.answerMode === "text" ? <span>Write an answer</span> : null}
+          {question.answerMode === "text" ? <span>{t("issues.questionForm.writeAnAnswer")}</span> : null}
         </div>
       ) : null}
       {pagination ? (
@@ -583,7 +586,7 @@ function QuestionFormForRequest({
             value={answer.text ?? ""}
             disabled={disabled || working != null}
             onChange={(value) => updateAnswer({ text: value })}
-            placeholder="Write your answer"
+            placeholder={t("issues.questionForm.writeYourAnswer")}
             imageUploadHandler={imageUploadHandler}
             mentions={mentions}
             autoFocus
@@ -614,7 +617,7 @@ function QuestionFormForRequest({
                     [question.id]: event.target.value,
                   }))
                 }
-                placeholder="Filter choices"
+                placeholder={t("issues.questionForm.filterChoices")}
                 aria-label={`Filter choices for ${question.prompt}`}
                 className="pl-8"
               />
@@ -637,7 +640,7 @@ function QuestionFormForRequest({
             <div className="space-y-1.5">
               <SelectOption
                 id={`${id}-${question.id}-custom`}
-                label={question.customAnswer?.label ?? "Other"}
+                label={question.customAnswer?.label ?? t("issues.questionForm.other")}
                 selected={isCustomActive}
                 multiple={multiple}
                 disabled={disabled || working != null}
@@ -649,7 +652,7 @@ function QuestionFormForRequest({
                   testId="question-other-answer-composer"
                   value={answer.customText ?? ""}
                   placeholder={
-                    question.customAnswer?.placeholder ?? "Type your answer"
+                    question.customAnswer?.placeholder ?? t("issues.questionForm.typeYourAnswer")
                   }
                   disabled={disabled || working != null}
                   onChange={(value) =>
@@ -691,8 +694,7 @@ function QuestionFormForRequest({
           >
             {working === "cancel" ? (
               <Loader2 aria-hidden className="h-4 w-4 animate-spin" />
-            ) : null}{" "}
-            Cancel
+            ) : null}{" "}{t("issues.questionForm.cancel")}
           </Button>
         ) : null}
         {!question.required ? (
@@ -703,7 +705,7 @@ function QuestionFormForRequest({
             disabled={busy}
             onClick={skipQuestion}
           >
-            Skip
+            {t("issues.questionForm.skip")}
           </Button>
         ) : null}
         <Button

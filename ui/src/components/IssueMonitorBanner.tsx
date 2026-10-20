@@ -25,6 +25,7 @@ import {
   type DerivedMonitorState,
   type MonitorDisplayState,
 } from "@/lib/issue-monitor";
+import { useTranslation } from "@/i18n";
 
 /** Matches the `Date | string` inputs accepted by the issue-monitor helpers. */
 type MonitorDate = Date | string;
@@ -191,6 +192,7 @@ function CheckNowButton({
 }
 
 function CancelMonitorButton({ onCancel }: { onCancel: () => Promise<unknown> }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const [pending, setPending] = useState(false);
   const [error, setError] = useState<string | null>(null);
@@ -209,18 +211,18 @@ function CancelMonitorButton({ onCancel }: { onCancel: () => Promise<unknown> })
   return (
     <AlertDialog open={open} onOpenChange={(next) => { if (!pending) { setOpen(next); setError(null); } }}>
       <AlertDialogTrigger asChild>
-        <Button type="button" variant="ghost" size="icon" className="absolute right-2 top-2" aria-label="Cancel monitor" title="Cancel monitor">
+        <Button type="button" variant="ghost" size="icon" className="absolute right-2 top-2" aria-label={t("issues.issueMonitorBanner.cancelMonitor")} title={t("issues.issueMonitorBanner.cancelMonitor")}>
           <X className="h-4 w-4" aria-hidden="true" />
         </Button>
       </AlertDialogTrigger>
       <AlertDialogContent>
         <AlertDialogHeader>
-          <AlertDialogTitle>Cancel monitor?</AlertDialogTitle>
-          <AlertDialogDescription>This removes the scheduled monitor check. The agent will no longer resume from this monitor. You can send a message to continue the task.</AlertDialogDescription>
+          <AlertDialogTitle>{t("issues.issueMonitorBanner.cancelMonitor2")}</AlertDialogTitle>
+          <AlertDialogDescription>{t("issues.issueMonitorBanner.thisRemovesTheScheduledMonitor")}</AlertDialogDescription>
         </AlertDialogHeader>
         {error ? <p role="alert" className="text-sm text-destructive">{error}</p> : null}
         <AlertDialogFooter>
-          <AlertDialogCancel disabled={pending}>Keep monitor</AlertDialogCancel>
+          <AlertDialogCancel disabled={pending}>{t("issues.issueMonitorBanner.keepMonitor")}</AlertDialogCancel>
           <Button type="button" variant="destructive" disabled={pending} onClick={() => void cancel()}>{pending ? "Cancelling…" : "Cancel monitor"}</Button>
         </AlertDialogFooter>
       </AlertDialogContent>

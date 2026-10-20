@@ -9,22 +9,35 @@ import { isAgentTaskTarget } from "@/lib/company-members";
 import { AgentMultiSelect } from "@/components/AgentMultiSelect";
 import { Button } from "@/components/ui/button";
 import { RadioCardGroup, type RadioCardOption } from "@/components/ui/radio-card";
+import { i18n, useTranslation } from "@/i18n";
 
 const MODE_OPTIONS: RadioCardOption[] = [
   {
     value: "open",
-    title: "Any of my agents",
-    description: "Let any agent you manage archive tasks out of your inbox.",
+    get title() {
+    return i18n.t("issues.inboxAgentPolicyControl.anyOfMyAgents");
+  },
+    get description() {
+    return i18n.t("issues.inboxAgentPolicyControl.letAnyAgentYouManage");
+  },
   },
   {
     value: "allowlist",
-    title: "Only chosen agents",
-    description: "Restrict inbox tidying to the agents you pick below.",
+    get title() {
+    return i18n.t("issues.inboxAgentPolicyControl.onlyChosenAgents");
+  },
+    get description() {
+    return i18n.t("issues.inboxAgentPolicyControl.restrictInboxTidyingToThe");
+  },
   },
   {
     value: "disabled",
-    title: "Off",
-    description: "Agents can never archive tasks from your inbox.",
+    get title() {
+    return i18n.t("issues.inboxAgentPolicyControl.off");
+  },
+    get description() {
+    return i18n.t("issues.inboxAgentPolicyControl.agentsCanNeverArchiveTasks");
+  },
   },
 ];
 
@@ -45,6 +58,7 @@ interface Draft {
  * "Archived by …" attribution live elsewhere (inbox rows / properties pane).
  */
 export function InboxAgentPolicyControl({ companyId }: { companyId: string | null | undefined }) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const [draft, setDraft] = useState<Draft | null>(null);
   const lastServerKeyRef = useRef<string | null>(null);
@@ -118,24 +132,23 @@ export function InboxAgentPolicyControl({ companyId }: { companyId: string | nul
   }
 
   if (policyQuery.isLoading || !draft) {
-    return <div className="text-sm text-muted-foreground">Loading inbox agent policy…</div>;
+    return <div className="text-sm text-muted-foreground">{t("issues.inboxAgentPolicyControl.loadingInboxAgentPolicy")}</div>;
   }
 
   return (
-    <section className="space-y-4" aria-label="Let agents tidy my inbox">
+    <section className="space-y-4" aria-label={t("issues.inboxAgentPolicyControl.letAgentsTidyMyInbox")}>
       <div className="space-y-1">
         <div className="flex items-center gap-2">
           <Inbox className="h-5 w-5 text-muted-foreground" />
-          <h2 className="text-base font-semibold">Let agents tidy my inbox</h2>
+          <h2 className="text-base font-semibold">{t("issues.inboxAgentPolicyControl.letAgentsTidyMyInbox")}</h2>
         </div>
         <p className="max-w-2xl text-sm text-muted-foreground">
-          Choose whether the agents you manage may archive tasks out of your inbox on your behalf. You can
-          undo any archive, and every agent archive is attributed in the task&apos;s properties.
+          {t("issues.inboxAgentPolicyControl.chooseWhetherTheAgentsYou")}
         </p>
       </div>
 
       <RadioCardGroup
-        ariaLabel="Inbox agent archiving policy"
+        ariaLabel={t("issues.inboxAgentPolicyControl.inboxAgentArchivingPolicy")}
         value={draft.mode}
         onValueChange={(value) => setDraft((current) => (current ? { ...current, mode: value as InboxAgentPolicyMode } : current))}
         options={MODE_OPTIONS}
@@ -144,7 +157,7 @@ export function InboxAgentPolicyControl({ companyId }: { companyId: string | nul
 
       {draft.mode === "allowlist" ? (
         <div className="max-w-2xl space-y-2">
-          <div className="text-sm font-medium">Agents allowed to tidy my inbox</div>
+          <div className="text-sm font-medium">{t("issues.inboxAgentPolicyControl.agentsAllowedToTidyMy")}</div>
           <AgentMultiSelect
             agents={agentOptions}
             selectedAgentIds={selectedAgentIds}
@@ -160,7 +173,7 @@ export function InboxAgentPolicyControl({ companyId }: { companyId: string | nul
             }
             triggerFullWidth={false}
             showSelectionPreview={false}
-            emptyMessage="You don’t manage any agents yet."
+            emptyMessage={t("issues.inboxAgentPolicyControl.youDontManageAnyAgents")}
           />
         </div>
       ) : null}
@@ -173,7 +186,7 @@ export function InboxAgentPolicyControl({ companyId }: { companyId: string | nul
 
       <div className="flex max-w-2xl items-center justify-end gap-3">
         {updateMutation.isSuccess && !isDirty ? (
-          <span className="text-xs text-muted-foreground" role="status">Saved</span>
+          <span className="text-xs text-muted-foreground" role="status">{t("issues.inboxAgentPolicyControl.saved")}</span>
         ) : null}
         <Button
           type="button"

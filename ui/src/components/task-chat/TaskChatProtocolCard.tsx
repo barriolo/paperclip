@@ -47,6 +47,7 @@ import type {
 import { QuestionForm, QuestionResponseSummary } from "./QuestionForm";
 import { TaskChatComposerTakeoverHeader } from "./TaskChatComposerTakeoverContext";
 import { RichWorkProductCard } from "./RichWorkProductCard";
+import { useTranslation } from "@/i18n";
 
 export interface TaskChatProtocolCardProps {
   item: TaskChatProtocolItem;
@@ -231,9 +232,10 @@ function CardShell({
 }
 
 function PlanSteps({ steps }: { steps: TaskChatProtocolStep[] }) {
+  const { t } = useTranslation();
   if (steps.length === 0) return null;
   return (
-    <ol className="flex flex-col gap-1.5" aria-label="Plan steps">
+    <ol className="flex flex-col gap-1.5" aria-label={t("issues.taskChatProtocolCard.planSteps")}>
       {steps.map((step) => (
         <li key={step.id} className="flex items-start gap-2 text-sm">
           <StatusIcon status={step.status} className="mt-0.5 shrink-0" />
@@ -257,6 +259,7 @@ function ProviderActivityCard({
 }: {
   item: TaskChatProviderActivityItem;
 }) {
+  const { t } = useTranslation();
   const Icon = FAMILY_ICON[item.family];
   const hasDetails =
     item.details.length > 0 ||
@@ -273,7 +276,7 @@ function ProviderActivityCard({
     >
       {item.steps.length > 0 ? <PlanSteps steps={item.steps} /> : null}
       {item.children.length > 0 ? (
-        <ul className="flex flex-col gap-2" aria-label="Delegated agents">
+        <ul className="flex flex-col gap-2" aria-label={t("issues.taskChatProtocolCard.delegatedAgents")}>
           {item.children.map((child) => (
             <li
               key={child.id}
@@ -306,7 +309,7 @@ function ProviderActivityCard({
         </ul>
       ) : null}
       {item.links.length > 0 ? (
-        <ul className="flex flex-col gap-2" aria-label="Research sources">
+        <ul className="flex flex-col gap-2" aria-label={t("issues.taskChatProtocolCard.researchSources")}>
           {item.links.map((link) => (
             <li key={link.href}>
               <a
@@ -337,7 +340,7 @@ function ProviderActivityCard({
           )}
         >
           <summary className="flex cursor-pointer list-none items-center gap-1 text-xs font-medium text-muted-foreground">
-            <ChevronDown aria-hidden className="h-3.5 w-3.5" /> Details
+            <ChevronDown aria-hidden className="h-3.5 w-3.5" />{" "}{t("issues.taskChatProtocolCard.details")}
           </summary>
           {item.details.length > 0 ? (
             <dl className="mt-2 flex min-w-0 flex-col gap-1.5 text-xs">
@@ -386,6 +389,7 @@ function diffStats(file: TaskChatWorkspaceChangeItem["files"][number]) {
 }
 
 function WorkspaceChangeCard({ item }: { item: TaskChatWorkspaceChangeItem }) {
+  const { t } = useTranslation();
   const [selectedPath, setSelectedPath] = useState<string | null>(null);
   const [expanded, setExpanded] = useState(false);
   const selected =
@@ -404,7 +408,7 @@ function WorkspaceChangeCard({ item }: { item: TaskChatWorkspaceChangeItem }) {
     <>
       <CardShell
         icon={GitBranch}
-        title="Workspace changes"
+        title={t("issues.taskChatProtocolCard.workspaceChanges")}
         status={item.complete ? "completed" : "running"}
         summary={summary}
         testId="task-chat-workspace-change"
@@ -452,7 +456,7 @@ function WorkspaceChangeCard({ item }: { item: TaskChatWorkspaceChangeItem }) {
               variant="outline"
               onClick={() => setSelectedPath(item.files[0].path)}
             >
-              Review diff
+              {t("issues.taskChatProtocolCard.reviewDiff")}
             </Button>
           ) : null}
         </div>
@@ -472,7 +476,7 @@ function WorkspaceChangeCard({ item }: { item: TaskChatWorkspaceChangeItem }) {
           {item.files.length > 1 ? (
             <div
               className="flex max-w-full gap-1 overflow-x-auto pb-1"
-              aria-label="Changed files"
+              aria-label={t("issues.taskChatProtocolCard.changedFiles")}
             >
               {item.files.map((file) => (
                 <Button
@@ -489,7 +493,7 @@ function WorkspaceChangeCard({ item }: { item: TaskChatWorkspaceChangeItem }) {
           ) : null}
           {selected?.binary ? (
             <p className="rounded-sm bg-muted/50 p-3 text-sm text-muted-foreground">
-              Binary file; text diff is unavailable.
+              {t("issues.taskChatProtocolCard.binaryFileTextDiffIs")}
             </p>
           ) : selected?.diff ? (
             <pre className="max-h-(--sz-70vh) overflow-auto whitespace-pre rounded-sm bg-muted/50 p-3 font-mono text-xs">
@@ -507,6 +511,7 @@ function WorkspaceChangeCard({ item }: { item: TaskChatWorkspaceChangeItem }) {
 }
 
 function WorkspaceFileCard({ item }: { item: TaskChatWorkspaceFileItem }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const extension = item.displayName.includes(".")
     ? item.displayName.split(".").at(-1)?.toUpperCase()
@@ -546,7 +551,7 @@ function WorkspaceFileCard({ item }: { item: TaskChatWorkspaceFileItem }) {
             variant="outline"
             onClick={() => setOpen(true)}
           >
-            Preview
+            {t("issues.taskChatProtocolCard.preview")}
           </Button>
         </div>
       </CardShell>
@@ -558,8 +563,7 @@ function WorkspaceFileCard({ item }: { item: TaskChatWorkspaceFileItem }) {
           <p className="font-mono text-xs text-muted-foreground">{item.path}</p>
           {item.preview == null ? (
             <p className="rounded-sm bg-muted/50 p-3 text-sm text-muted-foreground">
-              Preview unavailable. The verified workspace reference is still
-              available above.
+              {t("issues.taskChatProtocolCard.previewUnavailableTheVerifiedWorkspace")}
             </p>
           ) : item.presentation === "document" ? (
             <div className="max-h-(--sz-70vh) overflow-auto rounded-sm bg-muted/30 p-3">
@@ -696,6 +700,7 @@ function RuntimeRequestCard({
   imageUploadHandler?: (file: File) => Promise<string>;
   mentions?: MentionOption[];
 }) {
+  const { t } = useTranslation();
   const title =
     item.questionSet?.title ??
     (item.requestType === "permission"
@@ -704,7 +709,7 @@ function RuntimeRequestCard({
   const fields =
     item.fields.length > 0
       ? item.fields
-      : [{ name: "answer", label: "Response", placeholder: null }];
+      : [{ name: "answer", label: t("issues.taskChatProtocolCard.response"), placeholder: null }];
   const [values, setValues] = useState<Record<string, string>>(() =>
     draftKey ? loadStructuredDraft(draftKey, {}) : {},
   );
@@ -849,7 +854,7 @@ function RuntimeRequestCard({
                 disabled={!onDecision || submitting}
                 onClick={() => void submit({ action: "decline" })}
               >
-                Deny
+                {t("issues.taskChatProtocolCard.deny")}
               </Button>
             ) : null}
             {presentation === "timeline" ? (
@@ -860,7 +865,7 @@ function RuntimeRequestCard({
                 disabled={!onDecision || submitting}
                 onClick={() => void submit({ action: "cancel" })}
               >
-                Cancel
+                {t("issues.taskChatProtocolCard.cancel")}
               </Button>
             ) : null}
           </div>
@@ -899,7 +904,7 @@ function RuntimeRequestCard({
       ) : null}
       {item.status === "pending" && !onDecision ? (
         <p className="mt-2 text-xs text-muted-foreground">
-          Resolve this request in the active runtime session.
+          {t("issues.taskChatProtocolCard.resolveThisRequestInThe")}
         </p>
       ) : null}
       {error ? (
@@ -916,6 +921,7 @@ function ResultCard({
 }: {
   item: Extract<TaskChatProtocolItem, { surface: "run_result" }>;
 }) {
+  const { t } = useTranslation();
   const hasDetails =
     item.verification.length > 0 ||
     item.remainingWork.length > 0 ||
@@ -924,7 +930,7 @@ function ResultCard({
   return (
     <CardShell
       icon={PackageCheck}
-      title="Run result"
+      title={t("issues.taskChatProtocolCard.runResult")}
       status={item.disposition}
       summary={item.summary}
       testId="task-chat-run-result"
@@ -933,7 +939,7 @@ function ResultCard({
         <div className="flex flex-col gap-3 text-sm">
           {item.blocker ? (
             <div className="rounded-sm bg-muted/50 p-2">
-              <strong>Blocked: {item.blocker.reasonCode}</strong>
+              <strong>{t("issues.taskChatProtocolCard.blocked")}{" "}{item.blocker.reasonCode}</strong>
               <p className="mt-1 text-muted-foreground">
                 {item.blocker.unblockAction}
               </p>
@@ -942,7 +948,7 @@ function ResultCard({
           {item.verification.length > 0 ? (
             <ul
               className="flex flex-col gap-1"
-              aria-label="Verification results"
+              aria-label={t("issues.taskChatProtocolCard.verificationResults")}
             >
               {item.verification.map((check, index) => (
                 <li
@@ -1000,10 +1006,11 @@ function TerminalCard({
 }: {
   item: Extract<TaskChatProtocolItem, { surface: "run_terminal" }>;
 }) {
+  const { t } = useTranslation();
   return (
     <CardShell
       icon={TerminalSquare}
-      title="Run ended"
+      title={t("issues.taskChatProtocolCard.runEnded")}
       status={item.runState}
       summary={[item.disposition.replaceAll("_", " "), item.stopReason]
         .filter(Boolean)

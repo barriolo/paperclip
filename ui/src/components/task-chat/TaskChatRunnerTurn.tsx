@@ -21,6 +21,7 @@ import {
   paperclipRunnerFinalResponse,
   paperclipRunnerTimelineItems,
 } from "./transcript-adapter";
+import { useTranslation } from "@/i18n";
 
 function currentActivityStatusItems(
   items: readonly TaskChatItem[],
@@ -153,6 +154,7 @@ export function TaskChatRunnerTurn({
     decision: TaskChatRuntimeRequestDecision,
   ) => void | Promise<void>;
 }) {
+  const { t } = useTranslation();
   const terminal = isTerminalRunStatus(status);
   const waitingLabel = !terminal && execution?.phase === "waiting_for_provider" ? execution.label : null;
   const yielded = items.some(
@@ -237,7 +239,7 @@ export function TaskChatRunnerTurn({
           role="status"
           data-testid="task-chat-activity-unavailable"
         >
-          Live runner activity is temporarily unavailable. Retrying…
+          {t("issues.taskChatRunnerTurn.liveRunnerActivityIsTemporarily")}
         </div>
       ) : null}
       {timelineRows.length > 0 ? (
