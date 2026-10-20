@@ -59,7 +59,7 @@ export function AgentChannelsPanel({
         <div className="rounded-lg border border-dashed border-border p-5">
           <p className="text-sm font-medium">{t("agents.agentChannelsPanel.noChannelsConnected")}</p>
           <p className="mt-1 text-sm text-muted-foreground">
-            {enabled || githubEnabled ? "Connect an agent identity from Connectors." : "Connect AgentMail from Connectors."}
+            {enabled || githubEnabled ? t("agents.agentChannelsPanel.connectAnAgentIdentityFrom") : t("agents.agentChannelsPanel.connectAgentmailFromConnectors")}
           </p>
           <Button asChild className="mt-3" variant="outline" size="sm">
             <Link to="/apps">{t("agents.agentChannelsPanel.openConnectors")}</Link>
@@ -79,7 +79,7 @@ export function AgentChannelsPanel({
                 <p className="truncate text-xs text-muted-foreground">
                   {endpoint.botLabel ??
                     endpoint.providerAccountLabel ??
-                    "Provider identity"}
+                    t("agents.agentChannelsPanel.providerIdentity")}
                 </p>
               </div>
               <Badge variant="outline">{endpoint.status.replace(/[_-]/g, " ")}</Badge>

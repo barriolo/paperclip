@@ -361,6 +361,7 @@ function CommandActionButtons({
   square?: boolean;
   iconOnly?: boolean;
 }) {
+  const { t } = useTranslation();
   const actions: WorkspaceRuntimeAction[] =
     item.kind === "job"
       ? ["run"]
@@ -374,12 +375,12 @@ function CommandActionButtons({
         const request = buildRequest(item, action);
         const Icon = action === "stop" ? Square : action === "restart" ? RotateCcw : Play;
         const label = action === "run"
-          ? "Run"
+          ? t("agents.workspaceRuntimeControls.run")
           : action === "start"
-            ? "Start"
+            ? t("agents.workspaceRuntimeControls.start")
             : action === "stop"
-              ? "Stop"
-              : "Restart";
+              ? t("agents.workspaceRuntimeControls.stop")
+              : t("agents.workspaceRuntimeControls.restart");
         const showSpinner = isPending && requestMatchesPending(pendingRequest, request);
         const disabled =
           isPending
@@ -539,12 +540,12 @@ export function WorkspaceRuntimeControls({
               )}
             >
               <Activity className="h-3.5 w-3.5" />
-              {runningCount > 0 ? `${runningCount} services running` : "No services running"}
+              {runningCount > 0 ? t("agents.workspaceRuntimeControls.servicesRunning", { runningCount: runningCount }) : t("agents.workspaceRuntimeControls.noServicesRunning")}
             </Badge>
             <span className="text-xs text-muted-foreground">
               {sections.jobs.length > 0
-                ? `${sections.jobs.length} job${sections.jobs.length === 1 ? "" : "s"} available to run on demand.`
-                : "Each command can be controlled independently."}
+                ? t("agents.workspaceRuntimeControls.jobsAvailableToRunOn", { count: sections.jobs.length, length: sections.jobs.length })
+                : t("agents.workspaceRuntimeControls.eachCommandCanBeControlled")}
             </span>
           </div>
           {visibleDisabledHint ? <p className="text-xs text-muted-foreground">{visibleDisabledHint}</p> : null}

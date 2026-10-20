@@ -74,10 +74,10 @@ export function MuseConnectionDetails({ connection, pairing, busy, error, offlin
       {b.status === "revoked" && <p role="status" className="text-sm text-muted-foreground">{t("agents.museRunnerConnection.disconnectedPaperclipCredentialsAndExecution")}</p>}
       {(b.cleanup.pending || b.status === "revoked") && <div className="space-y-2 text-sm text-muted-foreground">
         {"detectorRemovalRequested" in b.cleanup && b.cleanup.detectorRemovalRequested === true && !b.cleanup.detectorRemoved && <p>{t("agents.museRunnerConnection.detectorRemovalRequestedCompletionIs")}</p>}
-        <p>{t("agents.museRunnerConnection.detectorRemoval")}{" "}{b.cleanup.detectorEvidence?.source === "operator_runtime_attestation" ? "operator-attested" : b.cleanup.detectorRemoved ? "acknowledged" : "not confirmed"}{t("agents.museRunnerConnection.workerQuiescence")}{" "}{b.cleanup.workerQuiescenceReported ? "reported" : "not confirmed"}.</p>
+        <p>{t("agents.museRunnerConnection.detectorRemoval")}{" "}{b.cleanup.detectorEvidence?.source === "operator_runtime_attestation" ? "operator-attested" : b.cleanup.detectorRemoved ? "acknowledged" : t("agents.museRunnerConnection.notConfirmed")}{t("agents.museRunnerConnection.workerQuiescence")}{" "}{b.cleanup.workerQuiescenceReported ? "reported" : t("agents.museRunnerConnection.notConfirmed")}.</p>
         {b.cleanup.authenticatedAfterRevocation === false && <p>{t("agents.museRunnerConnection.afterDisconnectTheReceiverDisables")}</p>}
         {b.cleanup.expiresAt && <p className="text-xs">{t("agents.museRunnerConnection.cleanupCapabilityExpires", { dateTime: formatDateTime(b.cleanup.expiresAt) })}</p>}
-        {b.cleanup.detectorEvidence && <p>{t("agents.museRunnerConnection.recorded")}{" "}{timestamp(b.cleanup.detectorEvidence.recordedAt)}: {b.cleanup.detectorEvidence.source === "operator_runtime_attestation" ? "operator attestation from a supported runtime hook listing" : "authenticated worker report"}{t("agents.museRunnerConnection.thisIsNotIndependentProvider")}</p>}
+        {b.cleanup.detectorEvidence && <p>{t("agents.museRunnerConnection.recorded")}{" "}{timestamp(b.cleanup.detectorEvidence.recordedAt)}: {b.cleanup.detectorEvidence.source === "operator_runtime_attestation" ? t("agents.museRunnerConnection.operatorAttestationFromASupported") : t("agents.museRunnerConnection.authenticatedWorkerReport")}{t("agents.museRunnerConnection.thisIsNotIndependentProvider")}</p>}
         {b.cleanup.attestationEligible && onAttestDetectorCleanup && !detectorSnapshot && <Button type="button" variant="outline" disabled={busy || offline} onClick={() => {
           if (!b.cleanup.hookScript) return;
           setDetectorSnapshot({ bindingId: b.id, generation: b.generation, expectedRevision: b.revision, qualificationId: b.qualification?.id ?? null, hookScript: b.cleanup.hookScript });
@@ -85,9 +85,9 @@ export function MuseConnectionDetails({ connection, pairing, busy, error, offlin
         <p>{t("agents.museRunnerConnection.detectorRemovalWorkerStoppingAnd")}</p>
       </div>}
       {b.stop.status !== "none" && <div className="space-y-3 text-sm">
-        <p className="text-muted-foreground">{b.stop.status === "operator_attested" ? "You attested that this assignment’s Muse worker stopped."
-          : b.stop.status === "worker_reported" ? "Muse reported that this assignment’s worker is quiescent. Independent private effects remain unconfirmed."
-          : "Paperclip fenced this assignment’s authority. Its external stop cannot be confirmed."}</p>
+        <p className="text-muted-foreground">{b.stop.status === "operator_attested" ? t("agents.museRunnerConnection.youAttestedThatThisAssignments")
+          : b.stop.status === "worker_reported" ? t("agents.museRunnerConnection.museReportedThatThisAssignments")
+          : t("agents.museRunnerConnection.paperclipFencedThisAssignmentsAuthority")}</p>
         {b.stop.nativeEffectsUnknown && <p role="status" className="text-muted-foreground">Native effect outcomes remain unknown and block replacement work. Worker attestation does not resolve or replay those effects.</p>}
         {b.stop.boundary && stopBindingRevision == null && b.stop.status !== "operator_attested" && <p role="status" className="text-muted-foreground">{t("agents.museRunnerConnection.stopBindingRevisionIsUnavailable")}</p>}
         {b.stop.boundary && b.stop.status !== "operator_attested" && !attestation && <Button type="button" variant="outline" disabled={busy || stopBindingRevision == null} onClick={() => {
@@ -111,7 +111,7 @@ export function MuseConnectionDetails({ connection, pairing, busy, error, offlin
     {attestation && <section aria-label={t("agents.museRunnerConnection.attestThisMuseWorkerStopped")} className="space-y-3 rounded-md border border-border p-3">
       <p className="text-sm font-medium">{t("agents.museRunnerConnection.confirmTheWorkerForThis")}</p>
       <dl className="space-y-2 text-xs">
-        {Object.entries(attestation.boundary).map(([key, value]) => <div key={key} className="flex flex-wrap items-baseline justify-between gap-2"><dt className="text-muted-foreground">{key}</dt><dd className="break-all font-mono">{value === null ? "None" : String(value)}</dd></div>)}
+        {Object.entries(attestation.boundary).map(([key, value]) => <div key={key} className="flex flex-wrap items-baseline justify-between gap-2"><dt className="text-muted-foreground">{key}</dt><dd className="break-all font-mono">{value === null ? t("agents.museRunnerConnection.none") : String(value)}</dd></div>)}
       </dl>
       <label className="flex items-start gap-2 text-sm"><input type="checkbox" checked={confirmed} onChange={event => setConfirmed(event.target.checked)} className="mt-1 accent-primary" /><span>{t("agents.museRunnerConnection.iHaveStoppedThisMuse")}</span></label>
       <div className="flex items-center justify-between gap-3">
@@ -124,8 +124,8 @@ export function MuseConnectionDetails({ connection, pairing, busy, error, offlin
       <p className="text-xs text-muted-foreground">{t("agents.museRunnerConnection.oneuseSetupExpiresMuseKeeps", { dateTime: formatDateTime(pairing.expiresAt) })}</p>
     </div>}
     <div className="flex flex-wrap items-center gap-2">
-      {live && <Button type="button" variant="outline" disabled={!configure || b.credentialState !== "active" || !b.paired || busy || testing} onClick={onTest}>{testing ? "Testing background reply…" : "Test background reply"}</Button>}
-      <Button type="button" variant="outline" disabled={!configure || busy} onClick={onRepair}>{b?.credentialState === "expired" ? "Reconnect Muse" : live ? "Repair connection" : "Connect Muse"}</Button>
+      {live && <Button type="button" variant="outline" disabled={!configure || b.credentialState !== "active" || !b.paired || busy || testing} onClick={onTest}>{testing ? t("agents.museRunnerConnection.testingBackgroundReply") : t("agents.museRunnerConnection.testBackgroundReply")}</Button>}
+      <Button type="button" variant="outline" disabled={!configure || busy} onClick={onRepair}>{b?.credentialState === "expired" ? t("agents.museRunnerConnection.reconnectMuse") : live ? t("agents.museRunnerConnection.repairConnection") : t("agents.museRunnerConnection.connectMuse")}</Button>
       {connection.agentStatus !== "paused" && connection.agentStatus !== "terminated" && <Button type="button" variant="outline" disabled={busy} onClick={onPause}>{t("agents.museRunnerConnection.pauseAgent")}</Button>}
       {live && <Button type="button" variant="outline" disabled={busy} onClick={onDisconnect}>{t("agents.museRunnerConnection.disconnect")}</Button>}
       <Button type="button" variant="ghost" disabled={busy} onClick={onRefresh}>{t("agents.museRunnerConnection.refresh")}</Button>
@@ -146,7 +146,7 @@ export function MuseRunnerConnection({ companyId, agentId }: { companyId?: strin
   if (!agentId) return <p className="text-sm text-muted-foreground">{t("agents.museRunnerConnection.saveTheAgentThenConnect")}</p>;
   const error = muse.state.error ?? muse.pair.error ?? muse.verify.error ?? muse.revoke.error ?? muse.attest.error ?? muse.attestDetector.error ?? pause.error;
   if (muse.identity.failed) return <div className="space-y-3"><p role="alert" className="text-sm text-destructive">{t("agents.museRunnerConnection.unableToConfirmYourAccount")}</p><Button type="button" variant="outline" onClick={() => { void cache.invalidateQueries({ queryKey: queryKeys.auth.session }); }}>{t("agents.museRunnerConnection.refresh")}</Button></div>;
-  if (!muse.state.data) return <div className="space-y-3"><p role="status" className="text-sm text-muted-foreground">{muse.state.error ? "Unable to load the Muse connection." : "Loading Muse connection…"}</p>{error && <p role="alert" className="text-sm text-destructive">{error.message}</p>}<Button type="button" variant="outline" onClick={() => { void muse.state.refetch(); }}>{t("agents.museRunnerConnection.refresh")}</Button></div>;
+  if (!muse.state.data) return <div className="space-y-3"><p role="status" className="text-sm text-muted-foreground">{muse.state.error ? t("agents.museRunnerConnection.unableToLoadTheMuse") : t("agents.museRunnerConnection.loadingMuseConnection")}</p>{error && <p role="alert" className="text-sm text-destructive">{error.message}</p>}<Button type="button" variant="outline" onClick={() => { void muse.state.refetch(); }}>{t("agents.museRunnerConnection.refresh")}</Button></div>;
   return <MuseConnectionDetails key={muse.identity.userId} connection={muse.state.data} pairing={muse.pairing} offline={muse.state.isError}
     busy={muse.pair.isPending || muse.verify.isPending || muse.revoke.isPending || muse.attest.isPending || muse.attestDetector.isPending || pause.isPending}
     error={error?.message} onTest={() => { if (muse.binding) muse.verify.mutate(muse.binding); }} onRepair={muse.repair}

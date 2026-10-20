@@ -63,7 +63,7 @@ export function AgentLifecycleStatus({ agent, onRetry, retryPending, refreshErro
     {phase && agent.lifecycleError && <div className="flex flex-wrap items-center gap-2 text-destructive">
       <span>{agent.lifecycleError}</span>
       <Button variant="outline" size="sm" disabled={retryPending} onClick={onRetry}>
-        {retryPending ? "Retrying…" : "Retry now"}
+        {retryPending ? t("agents.agentLifecycleStatus.retrying") : t("agents.agentLifecycleStatus.retryNow")}
       </Button>
     </div>}
     {phase && agent.lifecycleError && <p className="text-muted-foreground">{t("agents.agentLifecycleStatus.paperclipRetriesAutomaticallyRetryNow")}</p>}

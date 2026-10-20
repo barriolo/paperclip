@@ -922,8 +922,8 @@ export function AgentConfigForm(props: AgentConfigFormProps) {
   const inheritedEnvironmentLabel = instanceDefaultEnvironment
     ? environmentDisplayLabel(instanceDefaultEnvironment)
     : managedSandboxOnly
-      ? "Paperclip Computer"
-      : "Local";
+      ? t("agents.agentConfigForm.paperclipComputer")
+      : t("agents.agentConfigForm.local");
 
   const modelProvider = adapterType === "opencode_local" && aiConnectionBindingSchema.safeParse(
     (overlay.runtime.runtimeConfig as Record<string, unknown> | undefined)?.aiConnection ?? runtimeConfig.aiConnection,
@@ -1124,7 +1124,7 @@ export function AgentConfigForm(props: AgentConfigFormProps) {
   });
   const [testActionPending, setTestActionPending] = useState(false);
   const [testActionError, setTestActionError] = useState<string | null>(null);
-  const testActionLabel = "Test";
+  const testActionLabel = t("agents.agentConfigForm.test");
   const isSavePending = !isCreate && Boolean(props.isSaving);
   const testEnvironmentDisabled = testActionPending || isSavePending || !selectedCompanyId;
 
@@ -1432,7 +1432,7 @@ export function AgentConfigForm(props: AgentConfigFormProps) {
             <div className="flex items-center gap-3">
               <span className="text-xs text-muted-foreground">{t("agents.agentConfigForm.unsavedChanges")}</span>
               <Button size="sm" onClick={handleSave} disabled={props.isSaving}>
-                {props.isSaving ? "Saving..." : "Save"}
+                {props.isSaving ? t("agents.agentConfigForm.saving") : t("agents.agentConfigForm.save")}
               </Button>
             </div>
           </div>
@@ -1485,7 +1485,7 @@ export function AgentConfigForm(props: AgentConfigFormProps) {
               onClick={handleSave}
               disabled={!isCreate && props.isSaving}
             >
-              {!isCreate && props.isSaving ? "Saving..." : "Save"}
+              {!isCreate && props.isSaving ? t("agents.agentConfigForm.saving") : t("agents.agentConfigForm.save")}
             </Button>
           </div>
         </div>
@@ -1495,7 +1495,7 @@ export function AgentConfigForm(props: AgentConfigFormProps) {
       {!isCreate && (
         <div data-config-section="identity" className={cn(!cards && "border-b border-border")}>
           {cards
-            ? <h3 className="text-sm font-medium mb-3">{props.sectionTitles?.["identity"] ?? "Identity"}</h3>
+            ? <h3 className="text-sm font-medium mb-3">{props.sectionTitles?.["identity"] ?? t("agents.agentConfigForm.identity")}</h3>
             : <div className="px-4 py-2 text-xs font-medium text-muted-foreground">{t("agents.agentConfigForm.identity")}</div>
           }
           <div className={cn(cards ? "border border-border rounded-lg p-4 space-y-3" : "px-4 pb-3 space-y-3")}>
@@ -1618,7 +1618,7 @@ export function AgentConfigForm(props: AgentConfigFormProps) {
       <div data-config-section="adapter" className={cn(!cards && (isCreate ? "border-t border-border" : "border-b border-border"))}>
         <div className={cn(cards ? "flex items-center justify-between mb-3" : "px-4 py-2 flex items-center justify-between gap-2")}>
           {cards
-            ? <h3 className="text-sm font-medium">{props.sectionTitles?.["adapter"] ?? "Adapter"}</h3>
+            ? <h3 className="text-sm font-medium">{props.sectionTitles?.["adapter"] ?? t("agents.agentConfigForm.adapter")}</h3>
             : <span className="text-xs font-medium text-muted-foreground">{t("agents.agentConfigForm.adapter")}</span>
           }
           {showInlineAdapterTestEnvironmentButton && (
@@ -1730,7 +1730,7 @@ export function AgentConfigForm(props: AgentConfigFormProps) {
               {testActionError
                 ?? (testEnvironment.error instanceof Error
                   ? testEnvironment.error.message
-                  : "Environment test failed")}
+                  : t("agents.agentConfigForm.environmentTestFailed"))}
             </div>
           )}
 
@@ -1830,7 +1830,7 @@ export function AgentConfigForm(props: AgentConfigFormProps) {
                   {refreshModelsError
                     ?? (modelError instanceof Error
                       ? modelError.message
-                      : "Failed to load adapter models.")}
+                      : t("agents.agentConfigForm.failedToLoadAdapterModels"))}
                 </p>
               )}
               {adapterType === "opencode_local"
@@ -2292,10 +2292,10 @@ function AdapterLoginTerminalState({
   }
   const label =
     status === "timed_out"
-      ? "Login timed out"
+      ? t("agents.agentConfigForm.loginTimedOut")
       : status === "cancelled"
-        ? "Login cancelled"
-        : "Login failed";
+        ? t("agents.agentConfigForm.loginCancelled")
+        : t("agents.agentConfigForm.loginFailed");
   return (
     <div className="flex items-start gap-2 text-(length:--text-micro) text-destructive">
       <TriangleAlert className="size-3 shrink-0" />
@@ -2726,10 +2726,10 @@ function DisplayedCodeLoginPanel({
         ) : failed ? (
           <p role="alert" className="pl-2 text-xs text-destructive">
             {status === "timed_out"
-              ? "The login timed out. Start it again."
+              ? t("agents.agentConfigForm.theLoginTimedOutStart")
               : status === "cancelled"
-                ? "The login was cancelled."
-                : "The login did not finish. Start it again."}
+                ? t("agents.agentConfigForm.theLoginWasCancelled")
+                : t("agents.agentConfigForm.theLoginDidNotFinish")}
           </p>
         ) : (
           <OnboardingLoginCodeRow code={prompt?.code ?? ""} autoCopy />
@@ -3538,7 +3538,7 @@ function SubmittedBrowserCodeLoginPanel({
             disabled={startDisabled}
             onClick={() => startLogin.mutate()}
           >
-            {storedToken && !isActive && !isStored ? "Sign in to replace" : "Sign in"}
+            {storedToken && !isActive && !isStored ? t("agents.agentConfigForm.signInToReplace") : t("agents.agentConfigForm.signIn")}
           </Button>
         </div>
       </div>
@@ -3684,7 +3684,7 @@ function SubmittedBrowserCodeLoginPanel({
 export function AdapterEnvironmentResult({ result }: { result: AdapterEnvironmentTestResult }) {
   const { t } = useTranslation();
   const statusLabel =
-    result.status === "pass" ? "Passed" : result.status === "warn" ? "Warnings" : "Failed";
+    result.status === "pass" ? t("agents.agentConfigForm.passed") : result.status === "warn" ? t("agents.agentConfigForm.warnings") : t("agents.agentConfigForm.failed");
   const statusClass =
     result.status === "pass"
       ? "text-green-700 dark:text-green-300 border-green-300 dark:border-green-500/40 bg-green-50 dark:bg-green-500/10"
@@ -3897,7 +3897,7 @@ export function ModelDropdown({
           }}
         >
           <option value="" disabled={!allowDefault}>
-            {allowDefault ? (defaultLabel ?? "Default") : loadingModels ? "Loading models…" : required ? "Select model (required)" : "Select model"}
+            {allowDefault ? (defaultLabel ?? t("agents.agentConfigForm.default2")) : loadingModels ? t("agents.agentConfigForm.loadingModels") : required ? t("agents.agentConfigForm.selectModelRequired") : t("agents.agentConfigForm.selectModel")}
           </option>
           {extraModels.map(id => <option key={id} value={id}>{models.find(model => model.id === id)?.label ?? id}</option>)}
           {groupedModels.map(({ provider, entries }) => groupByProvider ? (
@@ -3916,7 +3916,7 @@ export function ModelDropdown({
         )}
         {loadingModels && <p role="status" className="mt-2 text-xs text-muted-foreground">{t("agents.agentConfigForm.loadingModels")}</p>}
         {onRefreshModels && <Button type="button" variant="ghost" size="sm" disabled={refreshingModels}
-          onClick={() => void onRefreshModels()}>{refreshingModels ? "Refreshing…" : "Refresh models"}</Button>}
+          onClick={() => void onRefreshModels()}>{refreshingModels ? t("agents.agentConfigForm.refreshing") : t("agents.agentConfigForm.refreshModels")}</Button>}
       </Field>
     );
   }
@@ -3925,7 +3925,7 @@ export function ModelDropdown({
     <Field label={t("agents.agentConfigForm.model")} hint={help.model}>
       <SelectPopover aria-label={t("agents.agentConfigForm.model")} value={value}
         displayValue={<span className={cn("truncate", !value && "text-muted-foreground")}>
-          {selected?.label ?? (value || (allowDefault ? (defaultLabel ?? "Default") : required ? "Select model (required)" : "Select model"))}
+          {selected?.label ?? (value || (allowDefault ? (defaultLabel ?? t("agents.agentConfigForm.default2")) : required ? t("agents.agentConfigForm.selectModelRequired") : t("agents.agentConfigForm.selectModel")))}
         </span>}
         open={open}
         onOpenChange={(nextOpen) => {
@@ -3968,7 +3968,7 @@ export function ModelDropdown({
                 <path d="M21 12a9 9 0 0 0-9-9 9.75 9.75 0 0 0-6.74 2.74L3 8" />
                 <path d="M3 3v5h5" />
               </svg>
-              {detectingModel ? "Detecting..." : detectedModel ? (detectModelLabel?.replace(/^Detect\b/, "Re-detect") ?? "Re-detect from config") : (detectModelLabel ?? "Detect from config")}
+              {detectingModel ? t("agents.agentConfigForm.detecting") : detectedModel ? (detectModelLabel?.replace(/^Detect\b/, "Re-detect") ?? t("agents.agentConfigForm.redetectFromConfig")) : (detectModelLabel ?? t("agents.agentConfigForm.detectFromConfig"))}
             </button>
           )}
           {onRefreshModels && !modelSearch.trim() && (
@@ -3986,7 +3986,7 @@ export function ModelDropdown({
                 <path d="M21 12a9 9 0 0 1-15.28 6.36L3 16" />
                 <path d="M8 16H3v5" />
               </svg>
-              {refreshingModels ? "Refreshing..." : "Refresh models"}
+              {refreshingModels ? t("agents.agentConfigForm.refreshing2") : t("agents.agentConfigForm.refreshModels")}
             </button>
           )}
           {value && (!models.some((m) => m.id === value) || promotedModelIds.has(value)) && (
@@ -4117,9 +4117,9 @@ export function ModelDropdown({
             {filteredModels.length === 0 && !canCreateManualModel && promotedModelIds.size === 0 && (
               <div className="px-2 py-2 space-y-2">
                 <p className="text-xs text-muted-foreground">
-                  {loadingModels ? "Loading models…" : onDetectModel
-                    ? (emptyDetectHint ?? "No model detected yet. Enter a provider/model manually.")
-                    : "No models found."}
+                  {loadingModels ? t("agents.agentConfigForm.loadingModels") : onDetectModel
+                    ? (emptyDetectHint ?? t("agents.agentConfigForm.noModelDetectedYetEnter"))
+                    : t("agents.agentConfigForm.noModelsFound")}
                 </p>
               </div>
             )}

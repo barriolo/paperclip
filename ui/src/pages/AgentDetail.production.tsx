@@ -577,15 +577,15 @@ function parseStoredLogContent(content: string): RunLogChunk[] {
 function workspaceOperationPhaseLabel(phase: WorkspaceOperation["phase"]) {
   switch (phase) {
     case "worktree_prepare":
-      return "Worktree setup";
+      return i18n.t("agents.agentDetail.worktreeSetup");
     case "workspace_config_freshness":
-      return "Config freshness";
+      return i18n.t("agents.agentDetail.configFreshness");
     case "workspace_provision":
-      return "Provision";
+      return i18n.t("agents.agentDetail.provision");
     case "workspace_teardown":
-      return "Teardown";
+      return i18n.t("agents.agentDetail.teardown");
     case "worktree_cleanup":
-      return "Worktree cleanup";
+      return i18n.t("agents.agentDetail.worktreeCleanup");
     default:
       return phase;
   }
@@ -647,14 +647,14 @@ function WorkspaceOperationLogViewer({
         className="text-(length:--text-micro) text-muted-foreground underline underline-offset-2 hover:text-foreground"
         onClick={() => setOpen((value) => !value)}
       >
-        {open ? "Hide full log" : "Show full log"}
+        {open ? t("agents.agentDetail.hideFullLog") : t("agents.agentDetail.showFullLog")}
       </button>
       {open && (
         <div className="rounded-md border border-border bg-background/70 p-2">
           {isLoading && <div className="text-xs text-muted-foreground">{t("agents.agentDetail.loadingLog")}</div>}
           {error && (
             <div className="text-xs text-destructive">
-              {error instanceof Error ? error.message : "Failed to load workspace operation log"}
+              {error instanceof Error ? error.message : t("agents.agentDetail.failedToLoadWorkspaceOperation")}
             </div>
           )}
           {!isLoading && !error && chunks.length === 0 && (
@@ -755,7 +755,7 @@ function WorkspaceOperationsSection({
               )}
               {typeof metadata?.created === "boolean" && (
                 <div className="text-xs text-muted-foreground">
-                  {metadata.created ? "Created by this run" : "Reused existing workspace"}
+                  {metadata.created ? t("agents.agentDetail.createdByThisRun") : t("agents.agentDetail.reusedExistingWorkspace")}
                 </div>
               )}
               {operation.stderrExcerpt && operation.stderrExcerpt.trim() && (
@@ -1399,7 +1399,7 @@ export function AgentDetail() {
               onClick={() => resetBuiltIn.mutate()}
               disabled={resetBuiltIn.isPending}
             >
-              {resetBuiltIn.isPending ? "Resetting…" : "Reset to defaults"}
+              {resetBuiltIn.isPending ? t("agents.agentDetail.resetting") : t("agents.agentDetail.resetToDefaults")}
             </Button>
           }
         >
@@ -1480,7 +1480,7 @@ export function AgentDetail() {
               onClick={() => saveConfigActionRef.current?.()}
               disabled={configSaving}
             >
-              {configSaving ? "Saving…" : "Save"}
+              {configSaving ? t("agents.agentDetail.saving") : t("agents.agentDetail.save")}
             </Button>
           </div>
         </div>
@@ -1506,7 +1506,7 @@ export function AgentDetail() {
               onClick={() => saveConfigActionRef.current?.()}
               disabled={configSaving}
             >
-              {configSaving ? "Saving…" : "Save"}
+              {configSaving ? t("agents.agentDetail.saving") : t("agents.agentDetail.save")}
             </Button>
           </div>
         </div>
@@ -1664,6 +1664,7 @@ function LatestRunCard({
   agentId: string;
   issuesById: Map<string, LatestRunIssue>;
 }) {
+  const { t } = useTranslation();
   const sorted = useMemo(
     () =>
       [...runs].sort(
@@ -1745,7 +1746,7 @@ function LatestRunCard({
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-blue-500" />
               </span>
             )}
-            <span>{isLive ? "Live Run" : "Latest Run"}</span>
+            <span>{isLive ? t("agents.agentDetail.liveRun") : t("agents.agentDetail.latestRun")}</span>
             <span className="font-mono text-xs font-normal text-muted-foreground">
               &middot; {run.id.slice(0, 8)}
             </span>
@@ -2092,7 +2093,7 @@ function AgentConfigurePage({
                     </div>
                     <p className="text-xs text-muted-foreground">
                       {t("agents.agentDetail.changed")}{" "}
-                      {revision.changedKeys.length > 0 ? revision.changedKeys.join(", ") : "no tracked changes"}
+                      {revision.changedKeys.length > 0 ? revision.changedKeys.join(", ") : t("agents.agentDetail.noTrackedChanges")}
                     </p>
                   </div>
                 ))}
@@ -2209,14 +2210,14 @@ function ConfigurationTab({
   const taskAssignLocked = agent.role === "ceo" || canCreateAgents;
   const taskAssignHint =
     taskAssignSource === "ceo_role"
-      ? "Enabled automatically for CEO agents."
+      ? t("agents.agentDetail.enabledAutomaticallyForCeoAgents")
       : taskAssignSource === "agent_creator"
-        ? "Enabled automatically while this agent can create new agents."
+        ? t("agents.agentDetail.enabledAutomaticallyWhileThisAgent")
         : taskAssignSource === "explicit_grant"
-          ? "Enabled via explicit company permission grant."
+          ? t("agents.agentDetail.enabledViaExplicitCompanyPermission")
           : taskAssignSource === "simple_default"
-            ? "Enabled by simple company-wide task assignment defaults."
-            : "Disabled unless explicitly granted.";
+            ? t("agents.agentDetail.enabledBySimpleCompanywideTask")
+            : t("agents.agentDetail.disabledUnlessExplicitlyGranted");
 
   return (
     <div className="space-y-6">
@@ -3009,9 +3010,9 @@ export function PromptsTab({
                 <p className="text-xs text-muted-foreground">
                   {selectedFileExists
                     ? selectedFileSummary?.deprecated
-                      ? "Deprecated virtual file"
+                      ? t("agents.agentDetail.deprecatedVirtualFile")
                       : `${selectedFileDetail?.language ?? "text"} file`
-                    : "New file in this bundle"}
+                    : t("agents.agentDetail.newFileInThisBundle")}
                 </p>
               </div>
             </div>
@@ -3221,7 +3222,7 @@ export function RunsTab({
   if (selectedRunId && !selectedRun) {
     if (selection.loading) return <p className="text-sm text-muted-foreground">{t("agents.agentDetail.loadingRun")}</p>;
     return <div role="alert">
-      <p className="text-sm text-destructive">{selection.error instanceof Error ? selection.error.message : "This run is unavailable for this agent."}</p>
+      <p className="text-sm text-destructive">{selection.error instanceof Error ? selection.error.message : t("agents.agentDetail.thisRunIsUnavailableFor")}</p>
       {selection.error && <Button variant="outline" onClick={() => { void selection.retry(); }}>{t("agents.agentDetail.tryAgain")}</Button>}
     </div>;
   }
@@ -3449,7 +3450,7 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
                   onClick={() => cancelRun.mutate()}
                   disabled={cancelRun.isPending}
                 >
-                  {cancelRun.isPending ? "Cancelling…" : "Cancel"}
+                  {cancelRun.isPending ? t("agents.agentDetail.cancelling") : t("agents.agentDetail.cancel")}
                 </Button>
               )}
               {canResumeLostRun && (
@@ -3461,7 +3462,7 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
                   disabled={resumeRun.isPending}
                 >
                   <RotateCcw className="h-3.5 w-3.5 mr-1" />
-                  {resumeRun.isPending ? "Resuming…" : "Resume"}
+                  {resumeRun.isPending ? t("agents.agentDetail.resuming") : t("agents.agentDetail.resume")}
                 </Button>
               )}
               {canRetryRun && !canResumeLostRun && (
@@ -3473,7 +3474,7 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
                   disabled={retryRun.isPending}
                 >
                   <RotateCcw className="h-3.5 w-3.5 mr-1" />
-                  {retryRun.isPending ? "Retrying…" : "Retry"}
+                  {retryRun.isPending ? t("agents.agentDetail.retrying") : t("agents.agentDetail.retry")}
                 </Button>
               )}
             </div>
@@ -3511,12 +3512,12 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
             )}
             {resumeRun.isError && (
               <div className="text-xs text-destructive">
-                {resumeRun.error instanceof Error ? resumeRun.error.message : "Failed to resume run"}
+                {resumeRun.error instanceof Error ? resumeRun.error.message : t("agents.agentDetail.failedToResumeRun")}
               </div>
             )}
             {retryRun.isError && (
               <div className="text-xs text-destructive">
-                {retryRun.error instanceof Error ? retryRun.error.message : "Failed to retry run"}
+                {retryRun.error instanceof Error ? retryRun.error.message : t("agents.agentDetail.failedToRetryRun")}
               </div>
             )}
             {startTime && (
@@ -3552,13 +3553,13 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
                   onClick={() => runClaudeLogin.mutate()}
                   disabled={runClaudeLogin.isPending}
                 >
-                  {runClaudeLogin.isPending ? "Running claude login..." : "Login to Claude Code"}
+                  {runClaudeLogin.isPending ? t("agents.agentDetail.runningClaudeLogin") : t("agents.agentDetail.loginToClaudeCode")}
                 </Button>
                 {runClaudeLogin.isError && (
                   <p className="text-xs text-destructive">
                     {runClaudeLogin.error instanceof Error
                       ? runClaudeLogin.error.message
-                      : "Failed to run Claude login"}
+                      : t("agents.agentDetail.failedToRunClaudeLogin")}
                   </p>
                 )}
                 {claudeLoginResult?.loginUrl && (
@@ -3666,7 +3667,7 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
               <div className="px-4 pb-3 space-y-1 text-xs">
                 {run.sessionIdBefore && (
                   <div className="flex items-center gap-2">
-                    <span className="text-muted-foreground w-12">{sessionChanged ? "Before" : "ID"}</span>
+                    <span className="text-muted-foreground w-12">{sessionChanged ? t("agents.agentDetail.before") : "ID"}</span>
                     <CopyText text={run.sessionIdBefore} className="font-mono" />
                   </div>
                 )}
@@ -3692,14 +3693,14 @@ function RunDetail({ run: initialRun, agentRouteId, adapterType, adapterConfig }
                       }}
                     >
                       {clearSessionsForTouchedIssues.isPending
-                        ? "clearing session..."
-                        : "clear session for these tasks"}
+                        ? t("agents.agentDetail.clearingSession")
+                        : t("agents.agentDetail.clearSessionForTheseTasks")}
                     </button>
                     {clearSessionsForTouchedIssues.isError && (
                       <p className="text-(length:--text-micro) text-destructive mt-1">
                         {clearSessionsForTouchedIssues.error instanceof Error
                           ? clearSessionsForTouchedIssues.error.message
-                          : "Failed to clear sessions"}
+                          : t("agents.agentDetail.failedToClearSessions")}
                       </p>
                     )}
                   </div>
@@ -4327,12 +4328,12 @@ export function LogViewer({ run, adapterType }: { run: HeartbeatRun; adapterType
               onClick={loadMorePersistedLog}
               disabled={loadingMoreLog}
             >
-              {loadingMoreLog ? "Loading..." : "Load more log"}
+              {loadingMoreLog ? t("agents.agentDetail.loading2") : t("agents.agentDetail.loadMoreLog")}
             </Button>
             <span className="text-xs text-muted-foreground">
               {t("agents.agentDetail.showingTheFirstKb", { localeString: Math.round(logOffset / 1024).toLocaleString("en-US") })}
               {typeof run.logBytes === "number" && run.logBytes > 0
-                ? ` of ${Math.round(run.logBytes / 1024).toLocaleString("en-US")} KB`
+                ? t("agents.agentDetail.ofKb", { localeString: Math.round(run.logBytes / 1024).toLocaleString("en-US") })
                 : ""}
             </span>
           </div>

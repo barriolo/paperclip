@@ -216,8 +216,8 @@ export function AgentMultiSelect({
               {triggerIcon}
               <span className="truncate">
                 {triggerLabel ?? (selectedCount === 0
-                  ? "Select agents"
-                  : `${selectedCount} ${selectedCount === 1 ? "agent" : "agents"} selected`)}
+                  ? t("agents.agentMultiSelect.selectAgents")
+                  : t("agents.agentMultiSelect.agentsSelected", { count: selectedCount, selectedCount: selectedCount }))}
               </span>
             </span>
             <ChevronRight className="h-4 w-4 shrink-0 text-muted-foreground" />
@@ -283,7 +283,7 @@ export function AgentMultiSelect({
         )}
           <div className="flex items-center justify-between border-t border-border px-3 py-2">
             <span className="text-xs text-muted-foreground">
-              {workingAgentIds.size === 0 ? "No agents selected" : `${workingAgentIds.size} selected`}
+              {workingAgentIds.size === 0 ? t("agents.agentMultiSelect.noAgentsSelected") : `${workingAgentIds.size} selected`}
             </span>
             <div className="flex items-center gap-2">
               {staged ? (
@@ -300,7 +300,7 @@ export function AgentMultiSelect({
                 }}
                 disabled={pending}
               >
-                {staged ? (pending ? "Saving…" : "Save") : "Done"}
+                {staged ? (pending ? t("agents.agentMultiSelect.saving") : t("agents.agentMultiSelect.save")) : t("agents.agentMultiSelect.done")}
               </Button>
             </div>
           </div>

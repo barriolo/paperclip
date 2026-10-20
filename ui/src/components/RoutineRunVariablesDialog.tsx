@@ -591,7 +591,7 @@ export function RoutineRunVariablesDialog({
             }}
             disabled={isPending || !canSubmit}
           >
-            {isPending ? "Running..." : "Run routine"}
+            {isPending ? t("agents.routineRunVariablesDialog.running") : t("agents.routineRunVariablesDialog.runRoutine")}
           </Button>
         </DialogFooter>
       </DialogContent>

@@ -341,7 +341,7 @@ export function CodexLocalConfigFields({
               {PAPERCLIP_RUNNER_ACPX_PROFILES.map(profile => (
                 <SelectItem key={profile.value} value={profile.value} disabled={!profile.qualified}>
                   <AdapterMark type={profile.value === "cursor" ? "cursor" : `${profile.value}_local`} className="size-4" />
-                  {profile.label}{profile.qualified ? "" : " — qualification pending"}
+                  {profile.label}{profile.qualified ? "" : t("agents.configFields.qualificationPending")}
                 </SelectItem>
               ))}
             </SelectContent>
@@ -540,7 +540,7 @@ export function CodexLocalConfigFields({
             <SelectTrigger aria-label={t("agents.configFields.permissionMode")} className="w-full font-sans">
               <SelectValue>
                 {runnerPermissionModeUnsupported
-                  ? "Unsupported saved mode — select a qualified mode"
+                  ? t("agents.configFields.unsupportedSavedModeSelectA")
                   : runnerPermissionCapability.options.find((option) => option.value === runnerPermissionMode)?.label}
               </SelectValue>
             </SelectTrigger>

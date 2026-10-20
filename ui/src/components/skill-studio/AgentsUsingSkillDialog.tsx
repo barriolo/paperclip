@@ -55,9 +55,10 @@ export function AgentsUsingSkillBadge({
   skill: CompanySkillDetail;
   canManage?: boolean;
 }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   const count = skill.usedByAgents.length;
-  const label = `${count} ${count === 1 ? "agent uses" : "agents use"} this skill`;
+  const label = t("agents.agentsUsingSkillDialog.agentsUseThisSkill", { count: count, count2: count });
 
   return (
     <>
@@ -237,8 +238,8 @@ export function AgentsUsingSkillDialog({
           <DialogTitle>{t("agents.agentsUsingSkillDialog.agentsUsing", { name: skill.name })}</DialogTitle>
           <DialogDescription>
             {count === 0
-              ? "No agents have this skill assigned yet."
-              : `${count} ${count === 1 ? "agent has" : "agents have"} this skill in their desired set.`}
+              ? t("agents.agentsUsingSkillDialog.noAgentsHaveThisSkill")
+              : t("agents.agentsUsingSkillDialog.agentsHaveThisSkillIn", { count: count, count2: count })}
           </DialogDescription>
         </DialogHeader>
 
@@ -246,8 +247,8 @@ export function AgentsUsingSkillDialog({
           {count === 0 ? (
             <div className="rounded-md border border-dashed border-border px-4 py-8 text-center text-sm text-muted-foreground">
               {canManage
-                ? "Add an agent below to assign this skill."
-                : "This skill isn't assigned to any agents."}
+                ? t("agents.agentsUsingSkillDialog.addAnAgentBelowTo")
+                : t("agents.agentsUsingSkillDialog.thisSkillIsntAssignedTo")}
             </div>
           ) : (
             <ul className="divide-y divide-border">
@@ -390,7 +391,7 @@ function AgentRow({
               disabled={busy}
               aria-label={t("agents.agentsUsingSkillDialog.confirmRemovingThisSkillFrom", { name: agent.name })}
             >
-              {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Remove"}
+              {busy ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : t("agents.agentsUsingSkillDialog.remove")}
             </Button>
             <Button variant="ghost" size="sm" onClick={onCancelRemove} disabled={busy}>
               {t("agents.agentsUsingSkillDialog.cancel")}

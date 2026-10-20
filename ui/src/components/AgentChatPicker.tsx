@@ -81,7 +81,7 @@ function AgentChatPickerResults({ agents, onSelect, onComplete, loading, error, 
         <CommandList>
           <CommandEmpty>
             <div className="flex flex-col items-center gap-2 px-4">
-              <span>{agents.length ? `No agents match “${search}”` : "No agents yet."}</span>
+              <span>{agents.length ? `No agents match “${search}”` : t("agents.agentChatPicker.noAgentsYet")}</span>
               {agents.length ? <>
                 <span className="text-xs text-muted-foreground">{t("agents.agentChatPicker.tryAnotherNameOrRole")}</span>
                 <Button variant="ghost" size="sm" onClick={() => setSearch("")}>{t("agents.agentChatPicker.clearSearch")}</Button>
@@ -103,7 +103,7 @@ function AgentChatPickerResults({ agents, onSelect, onComplete, loading, error, 
                   <span className="truncate font-medium">{agent.name}</span>
                   <span className="truncate text-xs text-muted-foreground">{agent.title ?? agent.role}</span>
                 </span>
-                {existingChatAgentIds && <span className="shrink-0 text-xs text-muted-foreground">{existingChatAgentIds.includes(agent.id) ? "Open chat" : "New chat"}</span>}
+                {existingChatAgentIds && <span className="shrink-0 text-xs text-muted-foreground">{existingChatAgentIds.includes(agent.id) ? t("agents.agentChatPicker.openChat") : t("agents.agentChatPicker.newChat")}</span>}
                 {agent.status === "paused" && <span className="text-xs text-(--status-agent-paused)">{t("agents.agentChatPicker.paused")}</span>}
                 {agent.status === "terminated" && <span className="text-xs text-muted-foreground">{t("agents.agentChatPicker.terminated")}</span>}
                 {agent.status === "pending_approval" && <span className="text-xs text-muted-foreground">{t("agents.agentChatPicker.awaitingApproval")}</span>}

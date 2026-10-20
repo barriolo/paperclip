@@ -52,10 +52,10 @@ export function AgentConnectionAccess({ connectionId, profiles, policies, catalo
         <div className="flex items-center justify-between gap-4">
           <div className="flex items-center gap-3">
             <AgentAvatar agent={agent ?? { id: agentId, name: "Agent" }} size={32} />
-            <span className="text-sm font-medium">{agent?.name ?? "Agent"}</span>
+            <span className="text-sm font-medium">{agent?.name ?? t("agents.agentConnectionAccess.agent")}</span>
           </div>
           {canManage && <Button variant="outline" size="sm" disabled={pending !== null} onClick={() => void remove(profile.id)}>
-            {pending === profile.id ? "Removing…" : "Remove grant"}
+            {pending === profile.id ? t("agents.agentConnectionAccess.removing") : t("agents.agentConnectionAccess.removeGrant")}
           </Button>}
         </div>
         <ul className="space-y-2">
@@ -66,7 +66,7 @@ export function AgentConnectionAccess({ connectionId, profiles, policies, catalo
               && policy.selectors?.catalogEntryId === tool.id);
             return <li key={tool.id} className="flex items-center justify-between gap-4 text-sm">
               <span className="min-w-0 break-all">{tool.title || tool.toolName}</span>
-              <span className="shrink-0 text-muted-foreground">{askFirst ? "Ask first" : "Allowed"}</span>
+              <span className="shrink-0 text-muted-foreground">{askFirst ? t("agents.agentConnectionAccess.askFirst") : t("agents.agentConnectionAccess.allowed")}</span>
             </li>;
           })}
         </ul>

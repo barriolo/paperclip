@@ -218,8 +218,8 @@ export function AgentTasksPanel({
       ) : visible.length === 0 ? (
         <PanelMessage>
           {capped
-            ? `No tasks match these filters among the ${AGENT_TASK_LIMIT} most recently updated.`
-            : "No tasks match these filters."}
+            ? t("agents.agentWorkPanels.noTasksMatchTheseFilters", { AGENT_TASK_LIMIT: AGENT_TASK_LIMIT })
+            : t("agents.agentWorkPanels.noTasksMatchTheseFilters2")}
         </PanelMessage>
       ) : (
         <div className="flex flex-col gap-2">

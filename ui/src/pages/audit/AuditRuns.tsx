@@ -257,7 +257,7 @@ export function AuditRuns({ companyId, routineId }: { companyId: string; routine
       ) : runs.error ? (
         <div className="flex flex-col items-center gap-3 border-y border-border py-14 text-center">
           <p className="text-sm text-muted-foreground">
-            {runs.error instanceof Error ? runs.error.message : "Failed to load runs."}
+            {runs.error instanceof Error ? runs.error.message : t("agents.auditRuns.failedToLoadRuns")}
           </p>
           <Button variant="outline" size="sm" onClick={() => runs.refetch()}>
             {t("agents.auditRuns.tryAgain")}
@@ -283,7 +283,7 @@ export function AuditRuns({ companyId, routineId }: { companyId: string; routine
                   <div className="min-w-0">
                     <div className="flex flex-wrap items-center gap-2">
                       <span className="font-medium text-foreground">
-                        {agent?.name ?? "Unknown agent"}
+                        {agent?.name ?? t("agents.auditRuns.unknownAgent")}
                       </span>
                       <span className="font-mono text-(length:--text-micro) text-muted-foreground">
                         {run.id.slice(0, 8)}

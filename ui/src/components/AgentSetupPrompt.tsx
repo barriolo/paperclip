@@ -264,10 +264,10 @@ export function AgentSetupPrompt({
               onClick={() => { if (prompt.trim()) void copyPrompt(); }}
             >
               {status === "copied" ? <Check className="agent-setup-check size-4" /> : <Copy className="size-4" />}
-              {status === "copied" ? "Copied to clipboard" : status === "copying" ? "Copying…" : status === "failed" ? "Try copying again" : "Copy prompt"}
+              {status === "copied" ? t("agents.agentSetupPrompt.copiedToClipboard") : status === "copying" ? t("agents.agentSetupPrompt.copying") : status === "failed" ? t("agents.agentSetupPrompt.tryCopyingAgain") : t("agents.agentSetupPrompt.copyPrompt")}
             </Button>
             <p className="text-center text-xs text-muted-foreground">
-              {status === "copied" ? `Ready to paste into ${recipient}.` : agent ? `Give this prompt to ${recipient}.` : "Works with Codex, ChatGPT, Claude, and more."}
+              {status === "copied" ? `Ready to paste into ${recipient}.` : agent ? `Give this prompt to ${recipient}.` : t("agents.agentSetupPrompt.worksWithCodexChatgptClaude")}
             </p>
           </div>
         </PopoverContent>

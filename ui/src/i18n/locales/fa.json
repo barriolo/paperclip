@@ -153,7 +153,8 @@
       "command": "Command",
       "egNodePython": "e.g. node, python",
       "argsCommaseparated": "Args (comma-separated)",
-      "egScriptjsFlag": "e.g. script.js, --flag"
+      "egScriptjsFlag": "e.g. script.js, --flag",
+      "qualificationPending": " — qualification pending"
     },
     "runtimeJsonFields": {
       "runtimeServicesJson": "Runtime services JSON",
@@ -164,7 +165,8 @@
     "schemaConfigFields": {
       "typeOrSelect": "Type or select...",
       "use": "Use \"",
-      "asCustomValuePressEnter": "\" as custom value (press Enter)"
+      "asCustomValuePressEnter": "\" as custom value (press Enter)",
+      "select": "Select..."
     },
     "activeAgentsPanel": {
       "running": "Running",
@@ -174,7 +176,12 @@
       "timedOut": "Timed out",
       "cancelled": "Cancelled",
       "interrupted": "Interrupted",
-      "viewRun": "{{agentName}} — {{statusLabel}}. View run"
+      "viewRun": "{{agentName}} — {{statusLabel}}. View run",
+      "moreActiverecentRuns_one": "{{hiddenRunCount}} more active/recent run",
+      "moreActiverecentRuns_other": "{{hiddenRunCount}} more active/recent runs",
+      "viewAllRuns": "View all runs",
+      "scheduledHeartbeat": "Scheduled heartbeat",
+      "noLinkedTask": "No linked task"
     },
     "agentActionButtons": {
       "resume": "Resume",
@@ -219,7 +226,10 @@
       "alwaysAllow": "Always allow",
       "dontAllow": "Don't allow",
       "youCanChangeThisLater": "You can change this later in Settings > General.",
-      "readOurTermsOfService": "Read our terms of service"
+      "readOurTermsOfService": "Read our terms of service",
+      "couldntCopyMessage": "Couldn’t copy message",
+      "saving": "Saving...",
+      "saveNote": "Save note"
     },
     "agentChatPicker": {
       "chatWithAnAgent": "Chat with an agent",
@@ -235,7 +245,10 @@
       "createAnAgentFromThe": "Create an agent from the Agents page to start chatting.",
       "paused": "Paused",
       "terminated": "Terminated",
-      "awaitingApproval": "Awaiting approval"
+      "awaitingApproval": "Awaiting approval",
+      "noAgentsYet": "No agents yet.",
+      "openChat": "Open chat",
+      "newChat": "New chat"
     },
     "agentConfigForm": {
       "auto": "Auto",
@@ -326,7 +339,34 @@
       "searchModels": "Search models...",
       "default2": "Default",
       "useManualModel": "Use manual model",
-      "thinkingEffort": "Thinking effort"
+      "thinkingEffort": "Thinking effort",
+      "paperclipComputer": "Paperclip Computer",
+      "local": "Local",
+      "test": "Test",
+      "saving": "Saving...",
+      "save": "Save",
+      "environmentTestFailed": "Environment test failed",
+      "failedToLoadAdapterModels": "Failed to load adapter models.",
+      "loginTimedOut": "Login timed out",
+      "loginCancelled": "Login cancelled",
+      "loginFailed": "Login failed",
+      "theLoginTimedOutStart": "The login timed out. Start it again.",
+      "theLoginWasCancelled": "The login was cancelled.",
+      "theLoginDidNotFinish": "The login did not finish. Start it again.",
+      "signInToReplace": "Sign in to replace",
+      "passed": "Passed",
+      "warnings": "Warnings",
+      "failed": "Failed",
+      "selectModelRequired": "Select model (required)",
+      "selectModel": "Select model",
+      "refreshing": "Refreshing…",
+      "refreshModels": "Refresh models",
+      "detecting": "Detecting...",
+      "redetectFromConfig": "Re-detect from config",
+      "detectFromConfig": "Detect from config",
+      "refreshing2": "Refreshing...",
+      "noModelDetectedYetEnter": "No model detected yet. Enter a provider/model manually.",
+      "noModelsFound": "No models found."
     },
     "agentIconPicker": {
       "searchIcons": "Search icons...",
@@ -334,14 +374,23 @@
     },
     "agentLifecycleStatus": {
       "couldNotRefreshAgentLifecycle": "Could not refresh agent lifecycle status.",
-      "paperclipRetriesAutomaticallyRetryNow": "Paperclip retries automatically; Retry now checks again immediately."
+      "paperclipRetriesAutomaticallyRetryNow": "Paperclip retries automatically; Retry now checks again immediately.",
+      "retrying": "Retrying…",
+      "retryNow": "Retry now"
     },
     "agentMultiSelect": {
       "filterAgents": "Filter agents",
       "select": "Select {{name}}",
       "noMatches": "No matches.",
       "allow": "Allow {{name}}",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "selectAgents": "Select agents",
+      "agentsSelected_one": "{{selectedCount}} agent selected",
+      "agentsSelected_other": "{{selectedCount}} agents selected",
+      "noAgentsSelected": "No agents selected",
+      "saving": "Saving…",
+      "save": "Save",
+      "done": "Done"
     },
     "agentProperties": {
       "status": "Status",
@@ -380,11 +429,20 @@
       "copied": "Copied!",
       "closeAgentSetup": "Close agent setup",
       "setupPrompt": "Setup prompt",
-      "couldNotCopyAutomaticallySelect": "Could not copy automatically. Select and copy the prompt above, or try again."
+      "couldNotCopyAutomaticallySelect": "Could not copy automatically. Select and copy the prompt above, or try again.",
+      "copiedToClipboard": "Copied to clipboard",
+      "copying": "Copying…",
+      "tryCopyingAgain": "Try copying again",
+      "copyPrompt": "Copy prompt",
+      "worksWithCodexChatgptClaude": "Works with Codex, ChatGPT, Claude, and more."
     },
     "builtInAgentBadges": {
       "waitingOnBoardHireApproval": "Waiting on board hire approval before the feature can run",
-      "needsAdaptermodelSetupBeforeThe": "Needs adapter/model setup before the feature can run"
+      "needsAdaptermodelSetupBeforeThe": "Needs adapter/model setup before the feature can run",
+      "approval": "Approval",
+      "pendingApproval": "Pending approval",
+      "setup": "Setup",
+      "needsSetup": "Needs setup"
     },
     "builtInAgentGate": {
       "setUpThe": "Set up the {{displayName}}",
@@ -395,7 +453,9 @@
       "itsBuiltinAgentWasPaused": "Its built-in agent was paused",
       "soNewIsntBeingGenerated": ", so new {{lowerCase}} isn't being generated.",
       "isPaused": "{{label}} is paused.",
-      "viewAgent": "View agent"
+      "viewAgent": "View agent",
+      "resuming": "Resuming…",
+      "resumeAgent": "Resume agent"
     },
     "configureBuiltInAgentModal": {
       "setUpThe": "Set up the {{displayName}}",
@@ -408,7 +468,10 @@
       "thisAdapterNeedsCommandOr": "This adapter needs command or endpoint fields before it can run. Provision the built-in row now, then finish those fields from the full agent configuration.",
       "monthlyBudgetOptional": "Monthly budget (optional)",
       "leaveBlankForNoCap": "Leave blank for no cap.",
-      "notNow": "Not now"
+      "notNow": "Not now",
+      "configureEnable": "Configure & enable {{displayName}}",
+      "provision": "Provision {{displayName}}",
+      "configuring": "Configuring…"
     },
     "dotRunnerConnection": {
       "saveTheAgentThenReturn": "Save the agent, then return here to pair your Dot.",
@@ -427,7 +490,10 @@
       "testEventDelivery": "Test event delivery",
       "refreshConnection": "Refresh connection",
       "revokeConnection": "Revoke connection",
-      "waitingForDotToRead": "Waiting for Dot to read and confirm the harmless mailbox challenge."
+      "waitingForDotToRead": "Waiting for Dot to read and confirm the harmless mailbox challenge.",
+      "waitingForDotToAccept": "waiting for Dot to accept",
+      "acceptedByDot": "accepted by Dot",
+      "connectionFailed": "Connection failed"
     },
     "gitHubAgentTrustWarning": {
       "isNotConfiguredForLowtrust": "{{name}} is not configured for low-trust review",
@@ -443,7 +509,9 @@
     "liveRunWidget": {
       "liveRuns": "Live Runs",
       "usesTheSharedChatstyleRun": "Uses the shared chat-style run surface from task activity.",
-      "openRun": "Open run"
+      "openRun": "Open run",
+      "stopping": "Stopping…",
+      "stop": "Stop"
     },
     "museRunnerConnection": {
       "museUsesItsOwnTools": "Muse uses its own tools and permissions. Paperclip coordinates company tasks and questions. Provider usage and cost are unavailable.",
@@ -492,7 +560,21 @@
       "refresh": "Refresh",
       "openMuse": "Open Muse",
       "saveTheAgentThenConnect": "Save the agent, then connect your personal Muse here.",
-      "unableToConfirmYourAccount": "Unable to confirm your account. Refresh to inspect this Muse connection."
+      "unableToConfirmYourAccount": "Unable to confirm your account. Refresh to inspect this Muse connection.",
+      "notConfirmed": "not confirmed",
+      "operatorAttestationFromASupported": "operator attestation from a supported runtime hook listing",
+      "authenticatedWorkerReport": "authenticated worker report",
+      "youAttestedThatThisAssignments": "You attested that this assignment’s Muse worker stopped.",
+      "museReportedThatThisAssignments": "Muse reported that this assignment’s worker is quiescent. Independent private effects remain unconfirmed.",
+      "paperclipFencedThisAssignmentsAuthority": "Paperclip fenced this assignment’s authority. Its external stop cannot be confirmed.",
+      "none": "None",
+      "testingBackgroundReply": "Testing background reply…",
+      "testBackgroundReply": "Test background reply",
+      "reconnectMuse": "Reconnect Muse",
+      "repairConnection": "Repair connection",
+      "connectMuse": "Connect Muse",
+      "unableToLoadTheMuse": "Unable to load the Muse connection.",
+      "loadingMuseConnection": "Loading Muse connection…"
     },
     "routineRunVariablesDialog": {
       "runRoutine": "Run routine",
@@ -513,7 +595,8 @@
       "defaultAgentRequiredForThis": "Default agent required for this run.",
       "missing": "Missing: {{join}}",
       "chooseAnExistingWorkspaceBefore": "Choose an existing workspace before running.",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "running": "Running..."
     },
     "runChatSurface": {
       "waitingForRunOutput": "Waiting for run output...",
@@ -533,7 +616,8 @@
       "unableToCreateAnIsolated": "Unable to create an isolated re-issue.",
       "recoveryResolutionFailed": "Recovery resolution failed",
       "unableToResolveRecoveryAction": "Unable to resolve recovery action",
-      "workspaceRecovery": "Workspace recovery"
+      "workspaceRecovery": "Workspace recovery",
+      "theStalledTask": "the stalled task"
     },
     "runnerInspector": {
       "overview": "Overview",
@@ -635,7 +719,13 @@
       "selectAFrameFromThe": "Select a frame from the chronological trace.",
       "framesExpires": "{{frameCount}} frames · {{bytes}} · expires {{localeString}}",
       "downloadExactTrace": "Download exact trace",
-      "deleteTrace": "Delete trace"
+      "deleteTrace": "Delete trace",
+      "rawTraceEnabled": "Raw trace enabled",
+      "incomplete": "Incomplete",
+      "truncated": "Truncated",
+      "deleted": "Deleted",
+      "expired": "Expired",
+      "expiresInH": "Expires in {{hours}}h"
     },
     "runtimeTestCard": {
       "runtimeTest": "Runtime test",
@@ -651,7 +741,16 @@
       "jobs": "Jobs",
       "oneshotCommandsThatRunNow": "One-shot commands that run now and exit when they finish.",
       "untrackedServices": "Untracked services",
-      "runningServicesThatNoLonger": "Running services that no longer match the current workspace command config."
+      "runningServicesThatNoLonger": "Running services that no longer match the current workspace command config.",
+      "run": "Run",
+      "start": "Start",
+      "stop": "Stop",
+      "restart": "Restart",
+      "servicesRunning": "{{runningCount}} services running",
+      "noServicesRunning": "No services running",
+      "jobsAvailableToRunOn_one": "{{length}} job available to run on demand.",
+      "jobsAvailableToRunOn_other": "{{length}} jobs available to run on demand.",
+      "eachCommandCanBeControlled": "Each command can be controlled independently."
     },
     "agentConfigPrimitives": {
       "choose": "Choose",
@@ -682,7 +781,10 @@
       "loadingChannels": "Loading channels…",
       "noChannelsConnected": "No channels connected",
       "openConnectors": "Open Connectors",
-      "openConnection": "Open connection"
+      "openConnection": "Open connection",
+      "connectAnAgentIdentityFrom": "Connect an agent identity from Connectors.",
+      "connectAgentmailFromConnectors": "Connect AgentMail from Connectors.",
+      "providerIdentity": "Provider identity"
     },
     "agentWorkPanels": {
       "agentTasks": "Agent tasks",
@@ -698,7 +800,9 @@
       "couldNotLoadThisAgents2": "Could not load this agent's artifacts.",
       "thisAgentHasntProducedAny": "This agent hasn't produced any artifacts yet.",
       "agentArtifacts": "Agent artifacts",
-      "showingThisAgentsMostRecent": "Showing this agent's {{length}} most recent artifacts."
+      "showingThisAgentsMostRecent": "Showing this agent's {{length}} most recent artifacts.",
+      "noTasksMatchTheseFilters": "No tasks match these filters among the {{AGENT_TASK_LIMIT}} most recently updated.",
+      "noTasksMatchTheseFilters2": "No tasks match these filters."
     },
     "agentBasicsDialog": {
       "newAgentProgress": "New agent progress",
@@ -714,7 +818,14 @@
       "chooseANativeHarness": "Choose a native harness…",
       "grokBuildPaperclipRunner": "Grok Build (Paperclip Runner)",
       "openCodePaperclipRunner": "OpenCode (Paperclip Runner)",
-      "back": "Back"
+      "back": "Back",
+      "meetYourNextAgent": "Meet your next agent",
+      "chooseAnAdapter": "Choose an adapter",
+      "startWithANameMake": "Start with a name. Make them your own.",
+      "howShouldWork": "How should {{trim}} work?",
+      "cancel": "Cancel",
+      "chooseAdapter": "Choose adapter",
+      "configureAgent": "Configure agent"
     },
     "agentProviderConnection": {
       "connectionType": "Connection type",
@@ -725,7 +836,12 @@
       "keyEnteredRetryTheConnection": "Key entered. Retry the connection.",
       "enterApiKeyHere": "Enter API key here",
       "couldNotCheckYourSaved": "Could not check your saved Claude subscription. Try again.",
-      "couldNotPrepareSigninReload": "Could not prepare sign-in. Reload this page to try again."
+      "couldNotPrepareSigninReload": "Could not prepare sign-in. Reload this page to try again.",
+      "keyAvailable": "key available",
+      "keysAvailable": "keys available",
+      "useYourSavedClaudeSubscription": "Use your saved Claude subscription for this agent.",
+      "useTheExistingProviderConnection": "Use the existing provider connection for this environment.",
+      "thisEnvironmentDoesNotSupport": "This environment does not support browser sign-in. Choose a sign-in environment or connect with an API key."
     },
     "externalAgentInviteContent": {
       "dotConnectionChecks": "Dot connection checks",
@@ -761,7 +877,41 @@
       "connectYourDot": "Connect your Dot",
       "inviteYourAgent": "Invite your agent",
       "sendThisWholePromptTo2": "Send this whole prompt to your Dot in ChatGPT.",
-      "sendThisWholePromptTo3": "Send this whole prompt to your agent."
+      "sendThisWholePromptTo3": "Send this whole prompt to your agent.",
+      "complete": ": complete",
+      "needsAttention": ": needs attention",
+      "inProgress": ": in progress",
+      "waiting": ": waiting",
+      "agentUnavailable": "Agent unavailable",
+      "updatesPaused": "Updates paused",
+      "needsAttention2": "Needs attention",
+      "finishingSetup": "Finishing setup…",
+      "connecting": "Connecting…",
+      "confirmingConnection": "Confirming connection…",
+      "inviteAnExternalAgent": "Invite an external agent",
+      "museIsConnected": "Muse is connected",
+      "inviteYourMuse": "Invite your Muse",
+      "yourDotIsConnected": "Your Dot is connected",
+      "inviteYourHermesAgent": "Invite your Hermes agent",
+      "bringAnAgentYouAlready": "Bring an agent you already use into {{companyName}}.",
+      "giveYourPersonalMuseA": "Give your personal Muse a name and role in {{companyName}}.",
+      "museRequiresAnAuthenticatedPaperclip": "Muse requires an authenticated Paperclip instance with a public HTTPS URL and a company operator account.",
+      "museCanReceiveAssignmentsAnd": "Muse can receive assignments and work with {{companyName}}.",
+      "wereCheckingWhetherThisInstance": "We’re checking whether this instance can prepare Muse setup.",
+      "pasteTheSetupPromptInto": "Paste the setup prompt into your current Muse conversation. Complete Connect Paperclip if Muse asks, then approve this Paperclip hostname. Muse keeps the connection credential in its secure vault. The hostname permission applies to future requests.",
+      "yourDotCanNowReceive": "Your Dot can now receive assignments and work with {{companyName}}.",
+      "yourDotIsConnectedThis": "Your Dot is connected. This agent must be available in Paperclip before it can receive assignments.",
+      "yourDotHasConnectedAnd": "Your Dot has connected and confirmed task updates. Paperclip is preparing it for assignments.",
+      "yourDotHasConnectedWere": "Your Dot has connected. We’re checking that task updates can travel both ways.",
+      "copyTheSetupPromptAnd": "Copy the setup prompt and send it to your Dot in ChatGPT. Your Dot will connect itself; we’ll watch for it here.",
+      "dot": "Dot",
+      "close": "Close",
+      "saveExit": "Save & exit",
+      "cancel": "Cancel",
+      "continue": "Continue",
+      "loadingSetup": "Loading setup…",
+      "refreshSetup": "Refresh setup",
+      "waitingForDot": "Waiting for Dot…"
     },
     "grokBotSetupContent": {
       "grokBotSetup": "Grok Bot setup",
@@ -799,7 +949,27 @@
       "grokRunsExternallyUsageAnd": "Grok runs externally. Usage and spending are not reported. Paperclip contact does not prove the Bot is continuously available.",
       "back": "Back",
       "saveExit": "Save & exit",
-      "reviewApproval": "Review approval"
+      "reviewApproval": "Review approval",
+      "yourGrokBotIsConnected": "Your Grok Bot is connected",
+      "connectYourGrokBot": "Connect your Grok Bot",
+      "canReceiveAssignmentsAndWork": "{{botName}} can receive assignments and work with {{companyName}}.",
+      "bringAnExistingBotInto": "Bring an existing Bot into {{companyName}}. It continues to run in Grok Bot.",
+      "agentAccessConnected": "Agent access connected.",
+      "watchingForAuthorizationThisConnection": "Watching for authorization. This connection works as the named agent.",
+      "complete": "Complete",
+      "waiting": "Waiting",
+      "recoveryNeededInspectGroksActivity": "Recovery needed. Inspect Grok’s activity in this agent’s configuration before another delivery.",
+      "bothDirectionsVerifiedYourBot": "Both directions verified. Your Bot is ready for tasks.",
+      "bothDirectionsVerifiedPaperclipIs": "Both directions verified. Paperclip is finishing agent setup.",
+      "theRoutineRejectedDeliveryCheck": "The routine rejected delivery. Check its URL and key, then try again.",
+      "theRoutineAcceptedDeliveryWaiting": "The routine accepted delivery. Waiting for an authenticated reply to Paperclip.",
+      "sendAHarmlessChallengeThis": "Send a harmless challenge. This creates no task.",
+      "saving": "Saving…",
+      "done": "Done",
+      "waitingForReply": "Waiting for reply…",
+      "finishingSetup": "Finishing setup…",
+      "verifyConnection": "Verify connection",
+      "continue": "Continue"
     },
     "newAgentSetup": {
       "selectAnOrganizationToCreate": "Select an organization to create an agent.",
@@ -838,7 +1008,30 @@
       "repositoryDefault": "Repository default",
       "default": "Default: {{environmentLabel}}",
       "connection": "Connection",
-      "connectModel": "Connect model"
+      "connectModel": "Connect model",
+      "couldNotLoadTheCreated": "Could not load the created agent. Return to Agents to view it.",
+      "loadingYourAgent": "Loading your agent…",
+      "cursorCloud": "Cursor Cloud",
+      "hermesGateway": "Hermes Gateway",
+      "localMachine": "Local machine",
+      "nativeAppServerRunner": "Native app server runner",
+      "paperclipRunner": "Paperclip Runner",
+      "agentSubmittedForApproval": "Agent submitted for approval",
+      "yourDotAgentHasBeen": "Your Dot agent has been created",
+      "yourAgentIsReady": "Your agent is ready",
+      "anOrganizationAdministratorMustApprove": "An organization administrator must approve this agent before it can work.",
+      "pairYourDotAndTest": "Pair your Dot and test event delivery in configuration before assigning work.",
+      "assignATaskWhenYoure": "Assign a task when you’re ready for this agent to work.",
+      "backToAgents": "Back to Agents",
+      "editConfiguration": "Edit configuration",
+      "pairDot": "Pair Dot",
+      "assignATask": "Assign {{name}} a Task",
+      "openRouter": "OpenRouter",
+      "openAI": "OpenAI",
+      "anthropic": "Anthropic",
+      "useAModelId": " Use a {{provider}}/model ID.",
+      "creating": "Creating…",
+      "finishSetup": "Finish setup"
     },
     "agentObservabilitySettings": {
       "userPrompts": "User prompts",
@@ -877,7 +1070,19 @@
       "disableExport": "Disable export",
       "loadingAgentObservability": "Loading agent observability…",
       "agentObservabilitySettingsCouldNot": "Agent observability settings could not be loaded.",
-      "retry": "Retry"
+      "retry": "Retry",
+      "anotherAdministratorChangedTheseSettings": "Another administrator changed these settings. Reload the saved settings to continue.",
+      "testPayloadAccepted": "Test payload accepted",
+      "someTestRecordsWereRejected": "Some test records were rejected",
+      "testPayloadFailed": "Test payload failed",
+      "logs": "Logs",
+      "traces": "Traces",
+      "saving": "Saving…",
+      "saveChanges": "Save changes",
+      "testing": "Testing…",
+      "testSavedSettings": "Test saved settings",
+      "removing": "Removing…",
+      "removeConfiguration": "Remove configuration"
     },
     "primaryAgentPresentation": {
       "myPrimaryAgent": "My primary agent",
@@ -886,7 +1091,9 @@
       "changeYourPrimaryAgent": "Change your primary agent?",
       "thisWillMakeYourPrimary": "This will make {{name}} your primary agent, do you want to do this?",
       "cancel": "Cancel",
-      "setAsMyPrimary": "Set as my primary"
+      "setAsMyPrimary": "Set as my primary",
+      "loadingPrimary": "Loading primary…",
+      "settingPrimary": "Setting primary…"
     },
     "agentsUsingSkillDialog": {
       "updateFailed": "Update failed",
@@ -900,7 +1107,15 @@
       "removeThisSkillFrom": "Remove this skill from {{name}}",
       "addAgent": "Add agent…",
       "searchAgents": "Search agents...",
-      "allEligibleAgentsAlreadyHave": "All eligible agents already have this skill."
+      "allEligibleAgentsAlreadyHave": "All eligible agents already have this skill.",
+      "agentsUseThisSkill_one": "{{count2}} agent uses this skill",
+      "agentsUseThisSkill_other": "{{count2}} agents use this skill",
+      "noAgentsHaveThisSkill": "No agents have this skill assigned yet.",
+      "agentsHaveThisSkillIn_one": "{{count2}} agent has this skill in their desired set.",
+      "agentsHaveThisSkillIn_other": "{{count2}} agents have this skill in their desired set.",
+      "addAnAgentBelowTo": "Add an agent below to assign this skill.",
+      "thisSkillIsntAssignedTo": "This skill isn't assigned to any agents.",
+      "remove": "Remove"
     },
     "runTranscriptView": {
       "needsApproval": "Needs approval",
@@ -936,14 +1151,20 @@
       "log": "{{length}} log",
       "system": "{{length}} system",
       "collapseStdout": "Collapse stdout",
-      "expandStdout": "Expand stdout"
+      "expandStdout": "Expand stdout",
+      "running": "Running",
+      "errored": "Errored",
+      "completed": "Completed",
+      "waitingForResult": "Waiting for result..."
     },
     "voiceTranscript": {
       "theTranscriptIsUnavailableYour": "The transcript is unavailable. Your task history is still available.",
       "yourConversationWillAppearHere": "Your conversation will appear here.",
       "conversationTranscript": "Conversation transcript",
       "speaking": "· Speaking",
-      "interrupted": "· Interrupted"
+      "interrupted": "· Interrupted",
+      "you": "You",
+      "paperclip": "Paperclip"
     },
     "primaryAgentProvider": {
       "couldntChangeYourPrimaryAgent": "Couldn't change your primary agent.",
@@ -953,7 +1174,15 @@
       "saved": "{{label}} · saved {{dateTime}}"
     },
     "agentMailIntentSetup": {
-      "notNow": "Not now"
+      "notNow": "Not now",
+      "yourInboxIsReadyContinue": "Your inbox is ready. Continue to resume the chat.",
+      "aPIKeySavedFinishCreating": "API key saved. Finish creating the inbox.",
+      "checkingSetup": "Checking setup…",
+      "changeApiKey": "Change API key",
+      "connecting": "Connecting…",
+      "continue": "Continue",
+      "finishSetup": "Finish setup",
+      "connectAgentmail": "Connect AgentMail"
     },
     "agentChat": {
       "loadingConversation": "Loading conversation…",
@@ -1178,7 +1407,63 @@
       "runsInGrokBotUsage": "Runs in Grok Bot. Usage not reported. Stopping this session revokes Paperclip authority; remote execution may continue. Open the Grok Bot desktop app to inspect it. This view contains Paperclip-reported activity.",
       "inspectRun": "Inspect run",
       "gitHubIdentityHistory": "GitHub identity history",
-      "noGithubOperationRecorded": "No GitHub operation recorded"
+      "noGithubOperationRecorded": "No GitHub operation recorded",
+      "worktreeSetup": "Worktree setup",
+      "configFreshness": "Config freshness",
+      "provision": "Provision",
+      "teardown": "Teardown",
+      "worktreeCleanup": "Worktree cleanup",
+      "hideFullLog": "Hide full log",
+      "showFullLog": "Show full log",
+      "failedToLoadWorkspaceOperation": "Failed to load workspace operation log",
+      "createdByThisRun": "Created by this run",
+      "reusedExistingWorkspace": "Reused existing workspace",
+      "resetting": "Resetting…",
+      "resetToDefaults": "Reset to defaults",
+      "saving": "Saving…",
+      "save": "Save",
+      "liveRun": "Live Run",
+      "latestRun": "Latest Run",
+      "noTrackedChanges": "no tracked changes",
+      "enabledAutomaticallyForCeoAgents": "Enabled automatically for CEO agents.",
+      "enabledAutomaticallyWhileThisAgent": "Enabled automatically while this agent can create new agents.",
+      "enabledViaExplicitCompanyPermission": "Enabled via explicit company permission grant.",
+      "enabledBySimpleCompanywideTask": "Enabled by simple company-wide task assignment defaults.",
+      "disabledUnlessExplicitlyGranted": "Disabled unless explicitly granted.",
+      "deprecatedVirtualFile": "Deprecated virtual file",
+      "newFileInThisBundle": "New file in this bundle",
+      "thisRunIsUnavailableFor": "This run is unavailable for this agent.",
+      "cancelling": "Cancelling…",
+      "resuming": "Resuming…",
+      "resume": "Resume",
+      "retrying": "Retrying…",
+      "retry": "Retry",
+      "failedToResumeRun": "Failed to resume run",
+      "failedToRetryRun": "Failed to retry run",
+      "runningClaudeLogin": "Running claude login...",
+      "loginToClaudeCode": "Login to Claude Code",
+      "failedToRunClaudeLogin": "Failed to run Claude login",
+      "before": "Before",
+      "clearingSession": "clearing session...",
+      "clearSessionForTheseTasks": "clear session for these tasks",
+      "failedToClearSessions": "Failed to clear sessions",
+      "loading2": "Loading...",
+      "loadMoreLog": "Load more log",
+      "ofKb": " of {{localeString}} KB",
+      "secretsVariables": "Secrets & variables",
+      "savingChanges": "Saving changes…",
+      "youHaveUnsavedChanges": "You have unsaved changes.",
+      "saveChanges": "Save changes",
+      "notSet": "Not set",
+      "noSession": "No session",
+      "noRuns": "No runs",
+      "enabledViaExplicitOrganizationPermission": "Enabled via explicit organization permission grant.",
+      "enabledBySimpleOrganizationwideTask": "Enabled by simple organization-wide task assignment defaults.",
+      "stoppingPaperclipWork": "Stopping Paperclip work…",
+      "stopPaperclipWork": "Stop Paperclip work",
+      "starting": "Starting…",
+      "rerunWithProviderTrace": "Re-run with provider trace",
+      "noResponsiblePerson": "No responsible person"
     },
     "agentToolsTab": {
       "gitHubIdentity": "GitHub identity",
@@ -1229,7 +1514,14 @@
       "noEnabledPolicyCurrentlyMutates": "No enabled policy currently mutates this agent's allow list.",
       "unavailableTools": "Unavailable tools",
       "checkingTools": "Checking tools…",
-      "everyKnownToolThisAgent": "Every known tool this agent could name is allowed."
+      "everyKnownToolThisAgent": "Every known tool this agent could name is allowed.",
+      "dedicatedGithubAccount": "Dedicated GitHub account",
+      "installedFromTheAppPage": "Installed from the app page for every agent. Remove the all-agents install there.",
+      "loadedIntoThisAgentsRuntime": "Loaded into this agent's runtime context.",
+      "installedForAll": "Installed for all",
+      "installed": "Installed",
+      "permittedOnly": "Permitted only",
+      "notPermitted": "Not permitted"
     },
     "agents": {
       "all": "All",
@@ -1258,7 +1550,8 @@
       "live": "Live",
       "selectAnOrganizationToView": "Select an organization to view agents.",
       "chat": "Chat",
-      "agentView": "Agent view"
+      "agentView": "Agent view",
+      "sandbox": "Sandbox"
     },
     "newAgentTestSupport": {
       "model": "Model",
@@ -1275,7 +1568,8 @@
     },
     "agentSkillReleasePicker": {
       "skillRelease": "Skill release",
-      "beta": "Beta"
+      "beta": "Beta",
+      "released": "{{name}} · released {{date}}"
     },
     "agentSkillRow": {
       "readonly": "Read-only"
@@ -1297,11 +1591,22 @@
       "savingSoon": "Saving soon…",
       "saved": "Saved",
       "noSkillsInTheOrganization": "No skills in the organization library",
-      "installSkillsToTheOrganization": "Install skills to the organization, then enable them on this agent."
+      "installSkillsToTheOrganization": "Install skills to the organization, then enable them on this agent.",
+      "failedToUpdateSkills": "Failed to update skills",
+      "noEnabledSkillsMatchYour": "No enabled skills match your search.",
+      "noSkillsEnabledOnThis": "No skills enabled on this agent yet.",
+      "noAvailableSkillsMatchYour": "No available skills match your search.",
+      "importSkillsIntoTheOrganization": "Import skills into the organization library to enable them here.",
+      "everyLibrarySkillIsEnabled": "Every library skill is enabled on this agent."
     },
     "agentConnectionAccess": {
       "additionalAgentAccess": "Additional agent access",
-      "theseAgentsCanUseThe": "These agents can use the listed actions in addition to the permissions above. Removing a grant restores their other permissions."
+      "theseAgentsCanUseThe": "These agents can use the listed actions in addition to the permissions above. Removing a grant restores their other permissions.",
+      "agent": "Agent",
+      "removing": "Removing…",
+      "removeGrant": "Remove grant",
+      "askFirst": "Ask first",
+      "allowed": "Allowed"
     },
     "auditRuns": {
       "loadingRoutineRuns": "Loading routine runs…",
@@ -1321,7 +1626,118 @@
       "noRunsMatchTheseFilters": "No runs match these filters.",
       "noRunsYet": "No runs yet.",
       "recentRuns": "Recent runs",
-      "showingTheMostRecentRuns": "Showing the {{RUN_LIMIT}} most recent runs."
+      "showingTheMostRecentRuns": "Showing the {{RUN_LIMIT}} most recent runs.",
+      "failedToLoadRuns": "Failed to load runs.",
+      "unknownAgent": "Unknown agent"
+    },
+    "adapterDisplayRegistry": {
+      "aCPXRetired": "ACPX (retired)",
+      "retiredStandaloneAcpxAdapter": "Retired standalone ACPX adapter",
+      "claudeCode": "Claude Code",
+      "claudeCodeCliHarness": "Claude Code CLI harness",
+      "codex": "Codex",
+      "codexCliHarness": "Codex CLI harness",
+      "paperclipRunner": "Paperclip Runner",
+      "experimentalRustRunnerWithA": "Experimental Rust runner with a Codex provider",
+      "geminiCli": "Gemini CLI",
+      "geminiCliHarness": "Gemini CLI harness",
+      "grokBuild": "Grok Build",
+      "grokBuildHarness": "Grok Build harness",
+      "kimiCode": "Kimi Code",
+      "kimiCodeCliHarness": "Kimi Code CLI harness",
+      "hermesGateway": "Hermes Gateway",
+      "remoteHermesApiServer": "Remote Hermes API server",
+      "hermes": "Hermes",
+      "hermesHarness": "Hermes harness",
+      "openCode": "OpenCode",
+      "openCodeMultiproviderHarness": "OpenCode multi-provider harness",
+      "pi": "Pi",
+      "piHarness": "Pi harness",
+      "cursor": "Cursor",
+      "cursorCliHarness": "Cursor CLI harness",
+      "grokBot": "Grok Bot",
+      "anExistingExternalBotIn": "An existing external Bot in Grok",
+      "openAIDot": "OpenAI Dot",
+      "yourDotInChatgpt": "Your Dot in ChatGPT",
+      "musePersonalAgent": "Muse — Personal agent",
+      "yourPersonalMuseAtMuseai": "Your personal Muse at muse.ai",
+      "cursorCloud": "Cursor Cloud",
+      "managedRemoteCursorAgent": "Managed remote Cursor agent",
+      "openClawGateway": "OpenClaw Gateway",
+      "externalGatewayAdapter": "External gateway adapter",
+      "process": "Process",
+      "internalProcessAdapter": "Internal process adapter",
+      "internalHttpAdapter": "Internal HTTP adapter",
+      "externalAdapter": "External adapter"
+    },
+    "index": {
+      "claudeCode": "Claude Code",
+      "codex": "Codex",
+      "cursorCloud": "Cursor Cloud",
+      "cursor": "Cursor",
+      "geminiCli": "Gemini CLI",
+      "grokBuild": "Grok Build",
+      "hermesGateway": "Hermes Gateway",
+      "hermes": "Hermes",
+      "hTTPWebhook": "HTTP Webhook",
+      "kimiCode": "Kimi Code",
+      "openClawGateway": "OpenClaw Gateway",
+      "openCode": "OpenCode",
+      "paperclipRunner": "Paperclip Runner",
+      "pi": "Pi",
+      "shellProcess": "Shell Process"
+    },
+    "transcript": {
+      "unknownParserError": "unknown parser error"
+    },
+    "agentIdentity": {
+      "agent": "Agent"
+    },
+    "nativeRunEvents": {
+      "runCompleted": "Run completed",
+      "providerNotice": "Provider notice"
+    },
+    "agentChatDraft": {
+      "chatWith": "Chat with {{name}}"
+    },
+    "agentCreator": {
+      "formerMember": "Former member"
+    },
+    "builtInAgentToast": {
+      "isPaused": "{{displayName}} is paused",
+      "viewAgent": "View agent"
+    },
+    "routineRunDisplay": {
+      "skippedNoActivitySinceLast": "Skipped — no activity since last run",
+      "skippedRoutinePaused": "Skipped — routine paused",
+      "skippedWorktreeExecutionCutoff": "Skipped — worktree execution cutoff"
+    },
+    "runRetryState": {
+      "modelAtCapacity": "Model at capacity",
+      "waitingForPoolUsageTo": "Waiting for pool usage to recover",
+      "transientFailure": "Transient failure",
+      "missingTaskComment": "Missing task comment",
+      "processLost": "Process lost",
+      "assignmentRecovery": "Assignment recovery",
+      "continuationNeeded": "Continuation needed",
+      "maxturnContinuation": "Max-turn continuation",
+      "poolExhausted": "Pool exhausted",
+      "continuationScheduled": "Continuation scheduled",
+      "retryScheduled": "Retry scheduled",
+      "continuationExhausted": "Continuation exhausted",
+      "retryExhausted": "Retry exhausted",
+      "continuedRun": "Continued run",
+      "retriedRun": "Retried run"
+    },
+    "transcriptPresentation": {
+      "command": "Command",
+      "input": "Input"
+    },
+    "agentSkillSource": {
+      "localFolder": "Local folder",
+      "catalog": "Catalog",
+      "gitHub": "GitHub",
+      "paperclipManaged": "Paperclip managed"
     }
   }
 }

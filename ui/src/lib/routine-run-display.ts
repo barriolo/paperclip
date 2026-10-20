@@ -1,4 +1,5 @@
 import type { RoutineRunSummary, RoutineVariable } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 /**
  * Format a single resolved variable value for the runs-row subtitle (§3.6).
@@ -36,9 +37,15 @@ export function dedupedTriggerLabel(
  * turn it into a one-line "why" for the runs list.
  */
 const SKIP_REASON_LABELS: Record<string, string> = {
-  no_external_activity: "Skipped — no activity since last run",
-  paused: "Skipped — routine paused",
-  worktree_execution_cutoff: "Skipped — worktree execution cutoff",
+  get no_external_activity() {
+    return i18n.t("agents.routineRunDisplay.skippedNoActivitySinceLast");
+  },
+  get paused() {
+    return i18n.t("agents.routineRunDisplay.skippedRoutinePaused");
+  },
+  get worktree_execution_cutoff() {
+    return i18n.t("agents.routineRunDisplay.skippedWorktreeExecutionCutoff");
+  },
 };
 
 /**

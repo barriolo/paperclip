@@ -443,7 +443,7 @@ export function AgentSkillsTab({ agent, companyId }: { agent: Agent; companyId?:
 
         {syncSkills.isError ? (
           <p className="text-xs text-destructive">
-            {syncSkills.error instanceof Error ? syncSkills.error.message : "Failed to update skills"}
+            {syncSkills.error instanceof Error ? syncSkills.error.message : t("agents.agentSkillsTab.failedToUpdateSkills")}
           </p>
         ) : null}
       </div>
@@ -490,7 +490,7 @@ export function AgentSkillsTab({ agent, companyId }: { agent: Agent; companyId?:
               filteredEnabled.map((row) => renderRow(row, "enabled"))
             ) : (
               <SectionEmpty>
-                {search ? "No enabled skills match your search." : "No skills enabled on this agent yet."}
+                {search ? t("agents.agentSkillsTab.noEnabledSkillsMatchYour") : t("agents.agentSkillsTab.noSkillsEnabledOnThis")}
               </SectionEmpty>
             )}
           </SkillSection>
@@ -501,10 +501,10 @@ export function AgentSkillsTab({ agent, companyId }: { agent: Agent; companyId?:
             ) : (
               <SectionEmpty>
                 {search
-                  ? "No available skills match your search."
+                  ? t("agents.agentSkillsTab.noAvailableSkillsMatchYour")
                   : libraryEmpty
-                    ? "Import skills into the organization library to enable them here."
-                    : "Every library skill is enabled on this agent."}
+                    ? t("agents.agentSkillsTab.importSkillsIntoTheOrganization")
+                    : t("agents.agentSkillsTab.everyLibrarySkillIsEnabled")}
               </SectionEmpty>
             )}
           </SkillSection>

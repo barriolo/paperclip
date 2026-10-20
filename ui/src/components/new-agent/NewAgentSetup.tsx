@@ -652,8 +652,8 @@ function Setup({
         className="text-sm text-muted-foreground"
       >
         {savedAgent.error
-          ? "Could not load the created agent. Return to Agents to view it."
-          : "Loading your agent…"}
+          ? t("agents.newAgentSetup.couldNotLoadTheCreated")
+          : t("agents.newAgentSetup.loadingYourAgent")}
       </p>
     );
   if (!name || !adapterType)
@@ -694,12 +694,12 @@ function Setup({
     "Default";
   const environmentLabel =
     adapterType === "cursor_cloud"
-      ? "Cursor Cloud"
+      ? t("agents.newAgentSetup.cursorCloud")
       : adapterType === "hermes_gateway"
-        ? "Hermes Gateway"
+        ? t("agents.newAgentSetup.hermesGateway")
         : confirmationEnvironment
           ? environmentDisplayLabel(confirmationEnvironment)
-          : "Local machine";
+          : t("agents.newAgentSetup.localMachine");
   const setupError =
     adapters.error ??
     adapterInventory.error ??
@@ -725,8 +725,8 @@ function Setup({
                 <span>
                   ·{" "}
                   {runnerProvider === "codex"
-                    ? "Native app server runner"
-                    : "Paperclip Runner"}
+                    ? t("agents.newAgentSetup.nativeAppServerRunner")
+                    : t("agents.newAgentSetup.paperclipRunner")}
                 </span>
               )}
             </div>
@@ -868,8 +868,8 @@ function Setup({
                       <h2 className="flex items-center gap-3 text-lg font-semibold">
                         <Check className="size-5" />
                         {created.status === "pending_approval"
-                          ? "Agent submitted for approval"
-                          : isDot ? "Your Dot agent has been created" : "Your agent is ready"}
+                          ? t("agents.newAgentSetup.agentSubmittedForApproval")
+                          : isDot ? t("agents.newAgentSetup.yourDotAgentHasBeen") : t("agents.newAgentSetup.yourAgentIsReady")}
                       </h2>
                       <dl className="grid grid-cols-2 gap-4 text-sm">
                         <dt className="text-muted-foreground">{t("agents.newAgentSetup.adapter")}</dt>
@@ -887,8 +887,8 @@ function Setup({
                       </dl>
                       <p className="text-sm text-muted-foreground">
                         {created.status === "pending_approval"
-                          ? "An organization administrator must approve this agent before it can work."
-                          : isDot ? "Pair your Dot and test event delivery in configuration before assigning work." : "Assign a task when you’re ready for this agent to work."}
+                          ? t("agents.newAgentSetup.anOrganizationAdministratorMustApprove")
+                          : isDot ? t("agents.newAgentSetup.pairYourDotAndTest") : t("agents.newAgentSetup.assignATaskWhenYoure")}
                       </p>
                     </div>
                     <div className="flex flex-wrap justify-between gap-3">
@@ -897,7 +897,7 @@ function Setup({
                         onClick={() => navigate(isDot ? "/agents/all" : `${agentUrl(created)}/runtime`)}
                       >
                         <Settings2 className="size-4" />
-                        {isDot ? "Back to Agents" : "Edit configuration"}
+                        {isDot ? t("agents.newAgentSetup.backToAgents") : t("agents.newAgentSetup.editConfiguration")}
                       </Button>
                       <Button
                         disabled={created.status === "pending_approval"}
@@ -906,7 +906,7 @@ function Setup({
                           : openNewIssue({ assigneeAgentId: created.id, status: "todo" })
                         }
                       >
-                        {isDot ? "Pair Dot" : `Assign ${created.name} a Task`}
+                        {isDot ? t("agents.newAgentSetup.pairDot") : t("agents.newAgentSetup.assignATask", { name: created.name })}
                         <ArrowRight className="size-4" />
                       </Button>
                     </div>
@@ -1023,11 +1023,11 @@ function Setup({
                                   {Object.keys(providerKeys).map((key) => (
                                     <option key={key} value={key}>
                                       {key === "openrouter"
-                                        ? "OpenRouter"
+                                        ? t("agents.newAgentSetup.openRouter")
                                         : key === "openai"
-                                          ? "OpenAI"
+                                          ? t("agents.newAgentSetup.openAI")
                                           : key === "anthropic"
-                                            ? "Anthropic"
+                                            ? t("agents.newAgentSetup.anthropic")
                                             : ({
                                                 google: "Google",
                                                 xai: "xAI",
@@ -1114,7 +1114,7 @@ function Setup({
                             )}
                             <p className="text-xs text-muted-foreground sm:col-span-2">
                               {t("agents.newAgentSetup.newKeysAreSavedAs")}
-                              {multiProvider && ` Use a ${provider}/model ID.`}
+                              {multiProvider && t("agents.newAgentSetup.useAModelId", { provider: provider })}
                             </p>
                           </div>
                         )}
@@ -1286,7 +1286,7 @@ function Setup({
                           Boolean(connectionAdapter && !connection)
                         }
                       >
-                        {saving ? "Creating…" : "Finish setup"}
+                        {saving ? t("agents.newAgentSetup.creating") : t("agents.newAgentSetup.finishSetup")}
                         <Check className="size-4" />
                       </Button>}
                     </div>

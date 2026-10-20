@@ -158,15 +158,15 @@ function statusVariant(status: string | undefined) {
 }
 
 function traceBadgeLabel(status: string, expiresAt: string | Date) {
-  if (status === "capturing") return "Raw trace enabled";
-  if (status === "incomplete") return "Incomplete";
-  if (status === "truncated") return "Truncated";
-  if (status === "deleted") return "Deleted";
-  if (status === "expired") return "Expired";
+  if (status === "capturing") return i18n.t("agents.runnerInspector.rawTraceEnabled");
+  if (status === "incomplete") return i18n.t("agents.runnerInspector.incomplete");
+  if (status === "truncated") return i18n.t("agents.runnerInspector.truncated");
+  if (status === "deleted") return i18n.t("agents.runnerInspector.deleted");
+  if (status === "expired") return i18n.t("agents.runnerInspector.expired");
   const remainingMs = new Date(expiresAt).getTime() - Date.now();
-  if (!Number.isFinite(remainingMs) || remainingMs <= 0) return "Expired";
+  if (!Number.isFinite(remainingMs) || remainingMs <= 0) return i18n.t("agents.runnerInspector.expired");
   const hours = Math.max(1, Math.ceil(remainingMs / (60 * 60 * 1_000)));
-  return `Expires in ${hours}h`;
+  return i18n.t("agents.runnerInspector.expiresInH", { hours: hours });
 }
 
 function frameParsed(entry: TraceEntry) {

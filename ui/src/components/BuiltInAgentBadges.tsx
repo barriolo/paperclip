@@ -35,7 +35,7 @@ export function BuiltInLifecycleChip({
           : t("agents.builtInAgentBadges.needsAdaptermodelSetupBeforeThe")
       }
     >
-      {isPendingApproval ? (compact ? "Approval" : "Pending approval") : compact ? "Setup" : "Needs setup"}
+      {isPendingApproval ? (compact ? t("agents.builtInAgentBadges.approval") : t("agents.builtInAgentBadges.pendingApproval")) : compact ? t("agents.builtInAgentBadges.setup") : t("agents.builtInAgentBadges.needsSetup")}
     </Badge>
   );
 }

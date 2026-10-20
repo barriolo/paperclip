@@ -78,7 +78,7 @@ function GitHubIdentitySection({
             ) : dedicatedIdentity ? (
               <>
                 <p className="mt-0.5 text-sm font-medium text-foreground">
-                  {dedicatedLogin ? `@${dedicatedLogin}` : "Dedicated GitHub account"}
+                  {dedicatedLogin ? `@${dedicatedLogin}` : t("agents.agentToolsTab.dedicatedGithubAccount")}
                 </p>
                 <p className="mt-0.5 text-xs text-muted-foreground">
                   {t("agents.agentToolsTab.usedOnlyByThisDedicated", { agentName: agentName })}
@@ -245,9 +245,9 @@ function InstalledAppsSection({
                       </span>
                       <span className="mt-0.5 block text-xs text-muted-foreground">
                         {installedForAll
-                          ? "Installed from the app page for every agent. Remove the all-agents install there."
+                          ? t("agents.agentToolsTab.installedFromTheAppPage")
                           : checked
-                            ? "Loaded into this agent's runtime context."
+                            ? t("agents.agentToolsTab.loadedIntoThisAgentsRuntime")
                             : INSTALLED_HINT}
                       </span>
                     </span>
@@ -288,7 +288,8 @@ function InstallBadge({
   installedForAll: boolean;
   permitted: boolean;
 }) {
-  const label = installed ? (installedForAll ? "Installed for all" : "Installed") : permitted ? "Permitted only" : "Not permitted";
+  const { t } = useTranslation();
+  const label = installed ? (installedForAll ? t("agents.agentToolsTab.installedForAll") : t("agents.agentToolsTab.installed")) : permitted ? t("agents.agentToolsTab.permittedOnly") : t("agents.agentToolsTab.notPermitted");
   return (
     <span
       className={cn(

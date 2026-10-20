@@ -153,7 +153,8 @@
       "command": "Comando",
       "egNodePython": "ex.: node, python",
       "argsCommaseparated": "Argumentos (separados por vírgula)",
-      "egScriptjsFlag": "ex.: script.js, --flag"
+      "egScriptjsFlag": "ex.: script.js, --flag",
+      "qualificationPending": " — qualificação pendente"
     },
     "runtimeJsonFields": {
       "runtimeServicesJson": "JSON de serviços de runtime",
@@ -164,7 +165,8 @@
     "schemaConfigFields": {
       "typeOrSelect": "Digite ou selecione...",
       "use": "Usar \"",
-      "asCustomValuePressEnter": "\" como valor personalizado (pressione Enter)"
+      "asCustomValuePressEnter": "\" como valor personalizado (pressione Enter)",
+      "select": "Selecionar..."
     },
     "activeAgentsPanel": {
       "running": "Em execução",
@@ -174,7 +176,12 @@
       "timedOut": "Tempo esgotado",
       "cancelled": "Cancelada",
       "interrupted": "Interrompida",
-      "viewRun": "{{agentName}} — {{statusLabel}}. Ver execução"
+      "viewRun": "{{agentName}} — {{statusLabel}}. Ver execução",
+      "moreActiverecentRuns_one": "Mais {{hiddenRunCount}} execução ativa/recente",
+      "moreActiverecentRuns_other": "Mais {{hiddenRunCount}} execuções ativas/recentes",
+      "viewAllRuns": "Ver todas as execuções",
+      "scheduledHeartbeat": "Heartbeat agendado",
+      "noLinkedTask": "Nenhuma tarefa vinculada"
     },
     "agentActionButtons": {
       "resume": "Retomar",
@@ -219,7 +226,10 @@
       "alwaysAllow": "Sempre permitir",
       "dontAllow": "Não permitir",
       "youCanChangeThisLater": "Dá para alterar isso depois em Configurações > Geral.",
-      "readOurTermsOfService": "Leia nossos termos de serviço"
+      "readOurTermsOfService": "Leia nossos termos de serviço",
+      "couldntCopyMessage": "Não foi possível copiar a mensagem",
+      "saving": "Salvando...",
+      "saveNote": "Salvar nota"
     },
     "agentChatPicker": {
       "chatWithAnAgent": "Conversar com um agente",
@@ -235,7 +245,10 @@
       "createAnAgentFromThe": "Crie um agente na página Agentes para começar a conversar.",
       "paused": "Pausado",
       "terminated": "Encerrado",
-      "awaitingApproval": "Aguardando aprovação"
+      "awaitingApproval": "Aguardando aprovação",
+      "noAgentsYet": "Nenhum agente ainda.",
+      "openChat": "Abrir chat",
+      "newChat": "Novo chat"
     },
     "agentConfigForm": {
       "auto": "Auto",
@@ -326,7 +339,34 @@
       "searchModels": "Buscar modelos...",
       "default2": "Padrão",
       "useManualModel": "Usar modelo manual",
-      "thinkingEffort": "Esforço de raciocínio"
+      "thinkingEffort": "Esforço de raciocínio",
+      "paperclipComputer": "Paperclip Computer",
+      "local": "Local",
+      "test": "Testar",
+      "saving": "Salvando...",
+      "save": "Salvar",
+      "environmentTestFailed": "Falha no teste do ambiente",
+      "failedToLoadAdapterModels": "Falha ao carregar os modelos do adaptador.",
+      "loginTimedOut": "Tempo de login esgotado",
+      "loginCancelled": "Login cancelado",
+      "loginFailed": "Falha no login",
+      "theLoginTimedOutStart": "O tempo do login se esgotou. Inicie novamente.",
+      "theLoginWasCancelled": "O login foi cancelado.",
+      "theLoginDidNotFinish": "O login não foi concluído. Inicie novamente.",
+      "signInToReplace": "Entre para substituir",
+      "passed": "Aprovado",
+      "warnings": "Avisos",
+      "failed": "Falhou",
+      "selectModelRequired": "Selecionar modelo (obrigatório)",
+      "selectModel": "Selecionar modelo",
+      "refreshing": "Atualizando…",
+      "refreshModels": "Atualizar modelos",
+      "detecting": "Detectando...",
+      "redetectFromConfig": "Detectar novamente pela configuração",
+      "detectFromConfig": "Detectar pela configuração",
+      "refreshing2": "Atualizando...",
+      "noModelDetectedYetEnter": "Nenhum modelo detectado ainda. Informe um provedor/modelo manualmente.",
+      "noModelsFound": "Nenhum modelo encontrado."
     },
     "agentIconPicker": {
       "searchIcons": "Buscar ícones...",
@@ -334,14 +374,23 @@
     },
     "agentLifecycleStatus": {
       "couldNotRefreshAgentLifecycle": "Não foi possível atualizar o status do ciclo de vida do agente.",
-      "paperclipRetriesAutomaticallyRetryNow": "O Paperclip tenta de novo automaticamente; Tentar agora verifica de novo imediatamente."
+      "paperclipRetriesAutomaticallyRetryNow": "O Paperclip tenta de novo automaticamente; Tentar agora verifica de novo imediatamente.",
+      "retrying": "Tentando novamente…",
+      "retryNow": "Tentar novamente agora"
     },
     "agentMultiSelect": {
       "filterAgents": "Filtrar agentes",
       "select": "Selecionar {{name}}",
       "noMatches": "Nenhum resultado.",
       "allow": "Permitir {{name}}",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "selectAgents": "Selecionar agentes",
+      "agentsSelected_one": "{{selectedCount}} agente selecionado",
+      "agentsSelected_other": "{{selectedCount}} agentes selecionados",
+      "noAgentsSelected": "Nenhum agente selecionado",
+      "saving": "Salvando…",
+      "save": "Salvar",
+      "done": "Concluir"
     },
     "agentProperties": {
       "status": "Status",
@@ -380,11 +429,20 @@
       "copied": "Copiado!",
       "closeAgentSetup": "Fechar configuração do agente",
       "setupPrompt": "Prompt de configuração",
-      "couldNotCopyAutomaticallySelect": "Não foi possível copiar automaticamente. Selecione e copie o prompt acima ou tente novamente."
+      "couldNotCopyAutomaticallySelect": "Não foi possível copiar automaticamente. Selecione e copie o prompt acima ou tente novamente.",
+      "copiedToClipboard": "Copiado para a área de transferência",
+      "copying": "Copiando…",
+      "tryCopyingAgain": "Tentar copiar novamente",
+      "copyPrompt": "Copiar prompt",
+      "worksWithCodexChatgptClaude": "Funciona com Codex, ChatGPT, Claude e outros."
     },
     "builtInAgentBadges": {
       "waitingOnBoardHireApproval": "Aguardando aprovação de contratação pelo conselho para o recurso funcionar",
-      "needsAdaptermodelSetupBeforeThe": "Precisa configurar adaptador/modelo para o recurso funcionar"
+      "needsAdaptermodelSetupBeforeThe": "Precisa configurar adaptador/modelo para o recurso funcionar",
+      "approval": "Aprovação",
+      "pendingApproval": "Aprovação pendente",
+      "setup": "Configuração",
+      "needsSetup": "Precisa de configuração"
     },
     "builtInAgentGate": {
       "setUpThe": "Configurar o {{displayName}}",
@@ -395,7 +453,9 @@
       "itsBuiltinAgentWasPaused": "O agente embutido foi pausado",
       "soNewIsntBeingGenerated": ", por isso não há nova geração de {{lowerCase}}.",
       "isPaused": "{{label}} está pausado.",
-      "viewAgent": "Ver agente"
+      "viewAgent": "Ver agente",
+      "resuming": "Retomando…",
+      "resumeAgent": "Retomar agente"
     },
     "configureBuiltInAgentModal": {
       "setUpThe": "Configurar o {{displayName}}",
@@ -408,7 +468,10 @@
       "thisAdapterNeedsCommandOr": "Este adaptador precisa dos campos de comando ou endpoint antes de executar. Provisione a linha embutida agora e depois preencha esses campos na configuração completa do agente.",
       "monthlyBudgetOptional": "Orçamento mensal (opcional)",
       "leaveBlankForNoCap": "Deixe em branco para não ter limite.",
-      "notNow": "Agora não"
+      "notNow": "Agora não",
+      "configureEnable": "Configurar e ativar {{displayName}}",
+      "provision": "Provisionar {{displayName}}",
+      "configuring": "Configurando…"
     },
     "dotRunnerConnection": {
       "saveTheAgentThenReturn": "Salve o agente e volte aqui para parear seu Dot.",
@@ -427,7 +490,10 @@
       "testEventDelivery": "Testar entrega de eventos",
       "refreshConnection": "Atualizar conexão",
       "revokeConnection": "Revogar conexão",
-      "waitingForDotToRead": "Aguardando o Dot ler e confirmar o desafio inofensivo da caixa de mensagens."
+      "waitingForDotToRead": "Aguardando o Dot ler e confirmar o desafio inofensivo da caixa de mensagens.",
+      "waitingForDotToAccept": "aguardando o Dot aceitar",
+      "acceptedByDot": "aceito pelo Dot",
+      "connectionFailed": "Falha na conexão"
     },
     "gitHubAgentTrustWarning": {
       "isNotConfiguredForLowtrust": "{{name}} não está configurado para revisão de baixa confiança",
@@ -443,7 +509,9 @@
     "liveRunWidget": {
       "liveRuns": "Execuções ao vivo",
       "usesTheSharedChatstyleRun": "Usa a superfície de execução compartilhada, em estilo chat, da atividade da tarefa.",
-      "openRun": "Abrir execução"
+      "openRun": "Abrir execução",
+      "stopping": "Parando…",
+      "stop": "Parar"
     },
     "museRunnerConnection": {
       "museUsesItsOwnTools": "O Muse usa as próprias ferramentas e permissões. O Paperclip coordena as tarefas e perguntas da empresa. Uso e custo do provedor não ficam disponíveis.",
@@ -492,7 +560,21 @@
       "refresh": "Atualizar",
       "openMuse": "Abrir Muse",
       "saveTheAgentThenConnect": "Salve o agente e depois conecte seu Muse pessoal aqui.",
-      "unableToConfirmYourAccount": "Não foi possível confirmar sua conta. Atualize para inspecionar esta conexão do Muse."
+      "unableToConfirmYourAccount": "Não foi possível confirmar sua conta. Atualize para inspecionar esta conexão do Muse.",
+      "notConfirmed": "não confirmado",
+      "operatorAttestationFromASupported": "atestado do operador a partir de uma listagem de hooks de runtime compatível",
+      "authenticatedWorkerReport": "relatório autenticado do worker",
+      "youAttestedThatThisAssignments": "Você atestou que o worker do Muse desta atribuição parou.",
+      "museReportedThatThisAssignments": "O Muse informou que o worker desta atribuição está inativo. Efeitos privados independentes continuam sem confirmação.",
+      "paperclipFencedThisAssignmentsAuthority": "O Paperclip isolou a autoridade desta atribuição. A parada externa dela não pode ser confirmada.",
+      "none": "Nenhum",
+      "testingBackgroundReply": "Testando resposta em segundo plano…",
+      "testBackgroundReply": "Testar resposta em segundo plano",
+      "reconnectMuse": "Reconectar Muse",
+      "repairConnection": "Reparar conexão",
+      "connectMuse": "Conectar Muse",
+      "unableToLoadTheMuse": "Não foi possível carregar a conexão do Muse.",
+      "loadingMuseConnection": "Carregando conexão do Muse…"
     },
     "routineRunVariablesDialog": {
       "runRoutine": "Executar rotina",
@@ -513,7 +595,8 @@
       "defaultAgentRequiredForThis": "É necessário um agente padrão para esta execução.",
       "missing": "Faltando: {{join}}",
       "chooseAnExistingWorkspaceBefore": "Escolha um workspace existente antes de executar.",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "running": "Executando..."
     },
     "runChatSurface": {
       "waitingForRunOutput": "Aguardando saída da execução...",
@@ -533,7 +616,8 @@
       "unableToCreateAnIsolated": "Não foi possível criar uma reemissão isolada.",
       "recoveryResolutionFailed": "Falha ao resolver a recuperação",
       "unableToResolveRecoveryAction": "Não foi possível resolver a ação de recuperação",
-      "workspaceRecovery": "Recuperação do workspace"
+      "workspaceRecovery": "Recuperação do workspace",
+      "theStalledTask": "a tarefa travada"
     },
     "runnerInspector": {
       "overview": "Visão geral",
@@ -635,7 +719,13 @@
       "selectAFrameFromThe": "Selecione um frame do trace cronológico.",
       "framesExpires": "{{frameCount}} frames · {{bytes}} · expira em {{localeString}}",
       "downloadExactTrace": "Baixar trace exato",
-      "deleteTrace": "Excluir trace"
+      "deleteTrace": "Excluir trace",
+      "rawTraceEnabled": "Trace bruto ativado",
+      "incomplete": "Incompleto",
+      "truncated": "Truncado",
+      "deleted": "Excluído",
+      "expired": "Expirado",
+      "expiresInH": "Expira em {{hours}}h"
     },
     "runtimeTestCard": {
       "runtimeTest": "Teste de runtime",
@@ -651,7 +741,16 @@
       "jobs": "Jobs",
       "oneshotCommandsThatRunNow": "Comandos pontuais que rodam agora e saem quando terminam.",
       "untrackedServices": "Serviços não rastreados",
-      "runningServicesThatNoLonger": "Serviços em execução que não correspondem mais à configuração atual de comandos do workspace."
+      "runningServicesThatNoLonger": "Serviços em execução que não correspondem mais à configuração atual de comandos do workspace.",
+      "run": "Executar",
+      "start": "Iniciar",
+      "stop": "Parar",
+      "restart": "Reiniciar",
+      "servicesRunning": "{{runningCount}} serviços em execução",
+      "noServicesRunning": "Nenhum serviço em execução",
+      "jobsAvailableToRunOn_one": "{{length}} job disponível para execução sob demanda.",
+      "jobsAvailableToRunOn_other": "{{length}} jobs disponíveis para execução sob demanda.",
+      "eachCommandCanBeControlled": "Cada comando pode ser controlado de forma independente."
     },
     "agentConfigPrimitives": {
       "choose": "Escolher",
@@ -682,7 +781,10 @@
       "loadingChannels": "Carregando canais…",
       "noChannelsConnected": "Nenhum canal conectado",
       "openConnectors": "Abrir conectores",
-      "openConnection": "Abrir conexão"
+      "openConnection": "Abrir conexão",
+      "connectAnAgentIdentityFrom": "Conecte uma identidade de agente em Conectores.",
+      "connectAgentmailFromConnectors": "Conecte o AgentMail em Conectores.",
+      "providerIdentity": "Identidade do provedor"
     },
     "agentWorkPanels": {
       "agentTasks": "Tarefas do agente",
@@ -698,7 +800,9 @@
       "couldNotLoadThisAgents2": "Não foi possível carregar os artefatos deste agente.",
       "thisAgentHasntProducedAny": "Este agente ainda não produziu nenhum artefato.",
       "agentArtifacts": "Artefatos do agente",
-      "showingThisAgentsMostRecent": "Mostrando os {{length}} artefatos mais recentes deste agente."
+      "showingThisAgentsMostRecent": "Mostrando os {{length}} artefatos mais recentes deste agente.",
+      "noTasksMatchTheseFilters": "Nenhuma tarefa corresponde a estes filtros entre as {{AGENT_TASK_LIMIT}} atualizadas mais recentemente.",
+      "noTasksMatchTheseFilters2": "Nenhuma tarefa corresponde a estes filtros."
     },
     "agentBasicsDialog": {
       "newAgentProgress": "Progresso do novo agente",
@@ -714,7 +818,14 @@
       "chooseANativeHarness": "Escolha um harness nativo…",
       "grokBuildPaperclipRunner": "Grok Build (Paperclip Runner)",
       "openCodePaperclipRunner": "OpenCode (Paperclip Runner)",
-      "back": "Voltar"
+      "back": "Voltar",
+      "meetYourNextAgent": "Conheça seu próximo agente",
+      "chooseAnAdapter": "Escolha um adaptador",
+      "startWithANameMake": "Comece por um nome. Deixe-o com a sua cara.",
+      "howShouldWork": "Como {{trim}} deve trabalhar?",
+      "cancel": "Cancelar",
+      "chooseAdapter": "Escolher adaptador",
+      "configureAgent": "Configurar agente"
     },
     "agentProviderConnection": {
       "connectionType": "Tipo de conexão",
@@ -725,7 +836,12 @@
       "keyEnteredRetryTheConnection": "Chave inserida. Tente a conexão novamente.",
       "enterApiKeyHere": "Insira a chave de API aqui",
       "couldNotCheckYourSaved": "Não foi possível verificar sua assinatura do Claude salva. Tente novamente.",
-      "couldNotPrepareSigninReload": "Não foi possível preparar o login. Recarregue a página para tentar novamente."
+      "couldNotPrepareSigninReload": "Não foi possível preparar o login. Recarregue a página para tentar novamente.",
+      "keyAvailable": "chave disponível",
+      "keysAvailable": "chaves disponíveis",
+      "useYourSavedClaudeSubscription": "Usar sua assinatura salva do Claude para este agente.",
+      "useTheExistingProviderConnection": "Usar a conexão de provedor existente para este ambiente.",
+      "thisEnvironmentDoesNotSupport": "Este ambiente não permite login pelo navegador. Escolha um ambiente com login ou conecte com uma chave de API."
     },
     "externalAgentInviteContent": {
       "dotConnectionChecks": "Verificações de conexão do Dot",
@@ -761,7 +877,41 @@
       "connectYourDot": "Conecte seu Dot",
       "inviteYourAgent": "Convide seu agente",
       "sendThisWholePromptTo2": "Envie este prompt completo para seu Dot no ChatGPT.",
-      "sendThisWholePromptTo3": "Envie este prompt completo para seu agente."
+      "sendThisWholePromptTo3": "Envie este prompt completo para seu agente.",
+      "complete": ": concluído",
+      "needsAttention": ": precisa de atenção",
+      "inProgress": ": em andamento",
+      "waiting": ": aguardando",
+      "agentUnavailable": "Agente indisponível",
+      "updatesPaused": "Atualizações pausadas",
+      "needsAttention2": "Precisa de atenção",
+      "finishingSetup": "Finalizando configuração…",
+      "connecting": "Conectando…",
+      "confirmingConnection": "Confirmando conexão…",
+      "inviteAnExternalAgent": "Convidar um agente externo",
+      "museIsConnected": "O Muse está conectado",
+      "inviteYourMuse": "Convide seu Muse",
+      "yourDotIsConnected": "Seu Dot está conectado",
+      "inviteYourHermesAgent": "Convide seu agente Hermes",
+      "bringAnAgentYouAlready": "Traga para {{companyName}} um agente que você já usa.",
+      "giveYourPersonalMuseA": "Dê ao seu Muse pessoal um nome e uma função em {{companyName}}.",
+      "museRequiresAnAuthenticatedPaperclip": "O Muse exige uma instância autenticada do Paperclip com URL HTTPS pública e uma conta de operador da empresa.",
+      "museCanReceiveAssignmentsAnd": "O Muse pode receber atribuições e trabalhar com {{companyName}}.",
+      "wereCheckingWhetherThisInstance": "Estamos verificando se esta instância consegue preparar a configuração do Muse.",
+      "pasteTheSetupPromptInto": "Cole o prompt de configuração na sua conversa atual com o Muse. Conclua o Connect Paperclip se o Muse pedir e depois aprove este hostname do Paperclip. O Muse guarda a credencial da conexão no cofre seguro dele. A permissão do hostname vale para requisições futuras.",
+      "yourDotCanNowReceive": "Seu Dot já pode receber atribuições e trabalhar com {{companyName}}.",
+      "yourDotIsConnectedThis": "Seu Dot está conectado. Este agente precisa estar disponível no Paperclip antes de receber atribuições.",
+      "yourDotHasConnectedAnd": "Seu Dot se conectou e confirmou as atualizações de tarefas. O Paperclip está preparando-o para receber atribuições.",
+      "yourDotHasConnectedWere": "Seu Dot se conectou. Estamos verificando se as atualizações de tarefas trafegam nos dois sentidos.",
+      "copyTheSetupPromptAnd": "Copie o prompt de configuração e envie ao seu Dot no ChatGPT. O Dot vai se conectar sozinho; vamos acompanhar por aqui.",
+      "dot": "Dot",
+      "close": "Fechar",
+      "saveExit": "Salvar e sair",
+      "cancel": "Cancelar",
+      "continue": "Continuar",
+      "loadingSetup": "Carregando configuração…",
+      "refreshSetup": "Atualizar configuração",
+      "waitingForDot": "Aguardando o Dot…"
     },
     "grokBotSetupContent": {
       "grokBotSetup": "Configuração do Grok Bot",
@@ -799,7 +949,27 @@
       "grokRunsExternallyUsageAnd": "O Grok roda externamente. Uso e gastos não são informados. O contato com o Paperclip não prova que o Bot esteja continuamente disponível.",
       "back": "Voltar",
       "saveExit": "Salvar e sair",
-      "reviewApproval": "Revisar aprovação"
+      "reviewApproval": "Revisar aprovação",
+      "yourGrokBotIsConnected": "Seu Grok Bot está conectado",
+      "connectYourGrokBot": "Conecte seu Grok Bot",
+      "canReceiveAssignmentsAndWork": "{{botName}} pode receber atribuições e trabalhar com {{companyName}}.",
+      "bringAnExistingBotInto": "Traga um Bot existente para {{companyName}}. Ele continua rodando no Grok Bot.",
+      "agentAccessConnected": "Acesso do agente conectado.",
+      "watchingForAuthorizationThisConnection": "Aguardando autorização. Esta conexão atua como o agente indicado.",
+      "complete": "Concluído",
+      "waiting": "Aguardando",
+      "recoveryNeededInspectGroksActivity": "Recuperação necessária. Inspecione a atividade do Grok na configuração deste agente antes de outra entrega.",
+      "bothDirectionsVerifiedYourBot": "Os dois sentidos foram verificados. Seu Bot está pronto para tarefas.",
+      "bothDirectionsVerifiedPaperclipIs": "Os dois sentidos foram verificados. O Paperclip está finalizando a configuração do agente.",
+      "theRoutineRejectedDeliveryCheck": "A rotina rejeitou a entrega. Confira a URL e a chave dela e tente novamente.",
+      "theRoutineAcceptedDeliveryWaiting": "A rotina aceitou a entrega. Aguardando uma resposta autenticada ao Paperclip.",
+      "sendAHarmlessChallengeThis": "Envie um desafio inofensivo. Isso não cria nenhuma tarefa.",
+      "saving": "Salvando…",
+      "done": "Concluir",
+      "waitingForReply": "Aguardando resposta…",
+      "finishingSetup": "Finalizando configuração…",
+      "verifyConnection": "Verificar conexão",
+      "continue": "Continuar"
     },
     "newAgentSetup": {
       "selectAnOrganizationToCreate": "Selecione uma empresa para criar um agente.",
@@ -838,7 +1008,30 @@
       "repositoryDefault": "Padrão do repositório",
       "default": "Padrão: {{environmentLabel}}",
       "connection": "Conexão",
-      "connectModel": "Conectar modelo"
+      "connectModel": "Conectar modelo",
+      "couldNotLoadTheCreated": "Não foi possível carregar o agente criado. Volte para Agentes para vê-lo.",
+      "loadingYourAgent": "Carregando seu agente…",
+      "cursorCloud": "Cursor Cloud",
+      "hermesGateway": "Hermes Gateway",
+      "localMachine": "Máquina local",
+      "nativeAppServerRunner": "Runner nativo do servidor de apps",
+      "paperclipRunner": "Paperclip Runner",
+      "agentSubmittedForApproval": "Agente enviado para aprovação",
+      "yourDotAgentHasBeen": "Seu agente Dot foi criado",
+      "yourAgentIsReady": "Seu agente está pronto",
+      "anOrganizationAdministratorMustApprove": "Um administrador da empresa precisa aprovar este agente antes que ele possa trabalhar.",
+      "pairYourDotAndTest": "Pareie seu Dot e teste a entrega de eventos na configuração antes de atribuir trabalho.",
+      "assignATaskWhenYoure": "Atribua uma tarefa quando quiser que este agente comece a trabalhar.",
+      "backToAgents": "Voltar para Agentes",
+      "editConfiguration": "Editar configuração",
+      "pairDot": "Parear Dot",
+      "assignATask": "Atribuir uma tarefa a {{name}}",
+      "openRouter": "OpenRouter",
+      "openAI": "OpenAI",
+      "anthropic": "Anthropic",
+      "useAModelId": " Use um ID no formato {{provider}}/modelo.",
+      "creating": "Criando…",
+      "finishSetup": "Concluir configuração"
     },
     "agentObservabilitySettings": {
       "userPrompts": "Prompts do usuário",
@@ -877,7 +1070,19 @@
       "disableExport": "Desativar exportação",
       "loadingAgentObservability": "Carregando observabilidade de agentes…",
       "agentObservabilitySettingsCouldNot": "Não foi possível carregar as configurações de observabilidade de agentes.",
-      "retry": "Tentar novamente"
+      "retry": "Tentar novamente",
+      "anotherAdministratorChangedTheseSettings": "Outro administrador alterou estas configurações. Recarregue as configurações salvas para continuar.",
+      "testPayloadAccepted": "Payload de teste aceito",
+      "someTestRecordsWereRejected": "Alguns registros de teste foram rejeitados",
+      "testPayloadFailed": "Falha no payload de teste",
+      "logs": "Logs",
+      "traces": "Traces",
+      "saving": "Salvando…",
+      "saveChanges": "Salvar alterações",
+      "testing": "Testando…",
+      "testSavedSettings": "Testar configurações salvas",
+      "removing": "Removendo…",
+      "removeConfiguration": "Remover configuração"
     },
     "primaryAgentPresentation": {
       "myPrimaryAgent": "Meu agente principal",
@@ -886,7 +1091,9 @@
       "changeYourPrimaryAgent": "Trocar seu agente principal?",
       "thisWillMakeYourPrimary": "{{name}} passará a ser seu agente principal. Deseja continuar?",
       "cancel": "Cancelar",
-      "setAsMyPrimary": "Definir como principal"
+      "setAsMyPrimary": "Definir como principal",
+      "loadingPrimary": "Carregando principal…",
+      "settingPrimary": "Definindo principal…"
     },
     "agentsUsingSkillDialog": {
       "updateFailed": "Falha na atualização",
@@ -900,7 +1107,15 @@
       "removeThisSkillFrom": "Remover esta skill de {{name}}",
       "addAgent": "Adicionar agente…",
       "searchAgents": "Buscar agentes...",
-      "allEligibleAgentsAlreadyHave": "Todos os agentes elegíveis já têm esta skill."
+      "allEligibleAgentsAlreadyHave": "Todos os agentes elegíveis já têm esta skill.",
+      "agentsUseThisSkill_one": "{{count2}} agente usa esta skill",
+      "agentsUseThisSkill_other": "{{count2}} agentes usam esta skill",
+      "noAgentsHaveThisSkill": "Nenhum agente tem esta skill atribuída ainda.",
+      "agentsHaveThisSkillIn_one": "{{count2}} agente tem esta skill no conjunto desejado.",
+      "agentsHaveThisSkillIn_other": "{{count2}} agentes têm esta skill no conjunto desejado.",
+      "addAnAgentBelowTo": "Adicione um agente abaixo para atribuir esta skill.",
+      "thisSkillIsntAssignedTo": "Esta skill não está atribuída a nenhum agente.",
+      "remove": "Remover"
     },
     "runTranscriptView": {
       "needsApproval": "Requer aprovação",
@@ -936,14 +1151,20 @@
       "log": "{{length}} log",
       "system": "{{length}} sistema",
       "collapseStdout": "Recolher stdout",
-      "expandStdout": "Expandir stdout"
+      "expandStdout": "Expandir stdout",
+      "running": "Em execução",
+      "errored": "Com erro",
+      "completed": "Concluída",
+      "waitingForResult": "Aguardando resultado..."
     },
     "voiceTranscript": {
       "theTranscriptIsUnavailableYour": "A transcrição não está disponível. Seu histórico de tarefas continua disponível.",
       "yourConversationWillAppearHere": "Sua conversa aparecerá aqui.",
       "conversationTranscript": "Transcrição da conversa",
       "speaking": "· Falando",
-      "interrupted": "· Interrompido"
+      "interrupted": "· Interrompido",
+      "you": "Você",
+      "paperclip": "Paperclip"
     },
     "primaryAgentProvider": {
       "couldntChangeYourPrimaryAgent": "Não foi possível trocar seu agente principal.",
@@ -953,7 +1174,15 @@
       "saved": "{{label}} · salvo em {{dateTime}}"
     },
     "agentMailIntentSetup": {
-      "notNow": "Agora não"
+      "notNow": "Agora não",
+      "yourInboxIsReadyContinue": "Sua caixa de entrada está pronta. Continue para retomar o chat.",
+      "aPIKeySavedFinishCreating": "Chave de API salva. Termine de criar a caixa de entrada.",
+      "checkingSetup": "Verificando configuração…",
+      "changeApiKey": "Alterar chave de API",
+      "connecting": "Conectando…",
+      "continue": "Continuar",
+      "finishSetup": "Concluir configuração",
+      "connectAgentmail": "Conectar AgentMail"
     },
     "agentChat": {
       "loadingConversation": "Carregando conversa…",
@@ -1178,7 +1407,63 @@
       "runsInGrokBotUsage": "Roda no Grok Bot. Uso não informado. Encerrar esta sessão revoga a autoridade do Paperclip; a execução remota pode continuar. Abra o app desktop do Grok Bot para inspecioná-la. Esta visualização contém a atividade informada pelo Paperclip.",
       "inspectRun": "Inspecionar execução",
       "gitHubIdentityHistory": "Histórico de identidade no GitHub",
-      "noGithubOperationRecorded": "Nenhuma operação no GitHub registrada"
+      "noGithubOperationRecorded": "Nenhuma operação no GitHub registrada",
+      "worktreeSetup": "Configuração do worktree",
+      "configFreshness": "Atualidade da configuração",
+      "provision": "Provisionamento",
+      "teardown": "Desmontagem",
+      "worktreeCleanup": "Limpeza do worktree",
+      "hideFullLog": "Ocultar log completo",
+      "showFullLog": "Mostrar log completo",
+      "failedToLoadWorkspaceOperation": "Falha ao carregar o log de operações do workspace",
+      "createdByThisRun": "Criado por esta execução",
+      "reusedExistingWorkspace": "Workspace existente reutilizado",
+      "resetting": "Redefinindo…",
+      "resetToDefaults": "Restaurar padrões",
+      "saving": "Salvando…",
+      "save": "Salvar",
+      "liveRun": "Execução ao vivo",
+      "latestRun": "Última execução",
+      "noTrackedChanges": "nenhuma alteração rastreada",
+      "enabledAutomaticallyForCeoAgents": "Ativado automaticamente para agentes CEO.",
+      "enabledAutomaticallyWhileThisAgent": "Ativado automaticamente enquanto este agente puder criar novos agentes.",
+      "enabledViaExplicitCompanyPermission": "Ativado por concessão explícita de permissão da empresa.",
+      "enabledBySimpleCompanywideTask": "Ativado pelos padrões simples de atribuição de tarefas de toda a empresa.",
+      "disabledUnlessExplicitlyGranted": "Desativado, a menos que concedido explicitamente.",
+      "deprecatedVirtualFile": "Arquivo virtual descontinuado",
+      "newFileInThisBundle": "Novo arquivo neste pacote",
+      "thisRunIsUnavailableFor": "Esta execução não está disponível para este agente.",
+      "cancelling": "Cancelando…",
+      "resuming": "Retomando…",
+      "resume": "Retomar",
+      "retrying": "Tentando novamente…",
+      "retry": "Tentar novamente",
+      "failedToResumeRun": "Falha ao retomar a execução",
+      "failedToRetryRun": "Falha ao tentar a execução novamente",
+      "runningClaudeLogin": "Executando claude login...",
+      "loginToClaudeCode": "Fazer login no Claude Code",
+      "failedToRunClaudeLogin": "Falha ao executar o login do Claude",
+      "before": "Antes",
+      "clearingSession": "limpando sessão...",
+      "clearSessionForTheseTasks": "limpar sessão destas tarefas",
+      "failedToClearSessions": "Falha ao limpar as sessões",
+      "loading2": "Carregando...",
+      "loadMoreLog": "Carregar mais log",
+      "ofKb": " de {{localeString}} KB",
+      "secretsVariables": "Segredos e variáveis",
+      "savingChanges": "Salvando alterações…",
+      "youHaveUnsavedChanges": "Há alterações não salvas.",
+      "saveChanges": "Salvar alterações",
+      "notSet": "Não definido",
+      "noSession": "Nenhuma sessão",
+      "noRuns": "Nenhuma execução",
+      "enabledViaExplicitOrganizationPermission": "Ativado por concessão explícita de permissão da empresa.",
+      "enabledBySimpleOrganizationwideTask": "Ativado pelos padrões simples de atribuição de tarefas de toda a empresa.",
+      "stoppingPaperclipWork": "Parando o trabalho no Paperclip…",
+      "stopPaperclipWork": "Parar trabalho no Paperclip",
+      "starting": "Iniciando…",
+      "rerunWithProviderTrace": "Executar novamente com trace do provedor",
+      "noResponsiblePerson": "Nenhum responsável"
     },
     "agentToolsTab": {
       "gitHubIdentity": "Identidade no GitHub",
@@ -1229,7 +1514,14 @@
       "noEnabledPolicyCurrentlyMutates": "Nenhuma política ativada altera hoje a lista de permissões deste agente.",
       "unavailableTools": "Ferramentas indisponíveis",
       "checkingTools": "Verificando ferramentas…",
-      "everyKnownToolThisAgent": "Toda ferramenta conhecida que este agente poderia citar está permitida."
+      "everyKnownToolThisAgent": "Toda ferramenta conhecida que este agente poderia citar está permitida.",
+      "dedicatedGithubAccount": "Conta dedicada do GitHub",
+      "installedFromTheAppPage": "Instalado pela página do app para todos os agentes. Remova a instalação para todos os agentes lá.",
+      "loadedIntoThisAgentsRuntime": "Carregado no contexto de runtime deste agente.",
+      "installedForAll": "Instalado para todos",
+      "installed": "Instalado",
+      "permittedOnly": "Apenas permitido",
+      "notPermitted": "Não permitido"
     },
     "agents": {
       "all": "Todos",
@@ -1258,7 +1550,8 @@
       "live": "Ao vivo",
       "selectAnOrganizationToView": "Selecione uma empresa para ver os agentes.",
       "chat": "Chat",
-      "agentView": "Visualização do agente"
+      "agentView": "Visualização do agente",
+      "sandbox": "Sandbox"
     },
     "newAgentTestSupport": {
       "model": "Modelo",
@@ -1275,7 +1568,8 @@
     },
     "agentSkillReleasePicker": {
       "skillRelease": "Versão da skill",
-      "beta": "Beta"
+      "beta": "Beta",
+      "released": "{{name}} · lançado em {{date}}"
     },
     "agentSkillRow": {
       "readonly": "Somente leitura"
@@ -1297,11 +1591,22 @@
       "savingSoon": "Salvando em instantes…",
       "saved": "Salvo",
       "noSkillsInTheOrganization": "Nenhuma skill na biblioteca da empresa",
-      "installSkillsToTheOrganization": "Instale skills na empresa e depois ative-as neste agente."
+      "installSkillsToTheOrganization": "Instale skills na empresa e depois ative-as neste agente.",
+      "failedToUpdateSkills": "Falha ao atualizar as skills",
+      "noEnabledSkillsMatchYour": "Nenhuma skill ativada corresponde à sua busca.",
+      "noSkillsEnabledOnThis": "Nenhuma skill ativada neste agente ainda.",
+      "noAvailableSkillsMatchYour": "Nenhuma skill disponível corresponde à sua busca.",
+      "importSkillsIntoTheOrganization": "Importe skills para a biblioteca da empresa para ativá-las aqui.",
+      "everyLibrarySkillIsEnabled": "Todas as skills da biblioteca estão ativadas neste agente."
     },
     "agentConnectionAccess": {
       "additionalAgentAccess": "Acesso adicional de agentes",
-      "theseAgentsCanUseThe": "Estes agentes podem usar as ações listadas além das permissões acima. Remover uma concessão restaura as outras permissões deles."
+      "theseAgentsCanUseThe": "Estes agentes podem usar as ações listadas além das permissões acima. Remover uma concessão restaura as outras permissões deles.",
+      "agent": "Agente",
+      "removing": "Removendo…",
+      "removeGrant": "Remover concessão",
+      "askFirst": "Perguntar antes",
+      "allowed": "Permitido"
     },
     "auditRuns": {
       "loadingRoutineRuns": "Carregando execuções da rotina…",
@@ -1321,7 +1626,118 @@
       "noRunsMatchTheseFilters": "Nenhuma execução corresponde a estes filtros.",
       "noRunsYet": "Nenhuma execução ainda.",
       "recentRuns": "Execuções recentes",
-      "showingTheMostRecentRuns": "Mostrando as {{RUN_LIMIT}} execuções mais recentes."
+      "showingTheMostRecentRuns": "Mostrando as {{RUN_LIMIT}} execuções mais recentes.",
+      "failedToLoadRuns": "Falha ao carregar as execuções.",
+      "unknownAgent": "Agente desconhecido"
+    },
+    "adapterDisplayRegistry": {
+      "aCPXRetired": "ACPX (descontinuado)",
+      "retiredStandaloneAcpxAdapter": "Adaptador ACPX standalone descontinuado",
+      "claudeCode": "Claude Code",
+      "claudeCodeCliHarness": "Harness da CLI do Claude Code",
+      "codex": "Codex",
+      "codexCliHarness": "Harness da CLI do Codex",
+      "paperclipRunner": "Paperclip Runner",
+      "experimentalRustRunnerWithA": "Runner experimental em Rust com provedor Codex",
+      "geminiCli": "Gemini CLI",
+      "geminiCliHarness": "Harness do Gemini CLI",
+      "grokBuild": "Grok Build",
+      "grokBuildHarness": "Harness do Grok Build",
+      "kimiCode": "Kimi Code",
+      "kimiCodeCliHarness": "Harness da CLI do Kimi Code",
+      "hermesGateway": "Hermes Gateway",
+      "remoteHermesApiServer": "Servidor remoto da API do Hermes",
+      "hermes": "Hermes",
+      "hermesHarness": "Harness do Hermes",
+      "openCode": "OpenCode",
+      "openCodeMultiproviderHarness": "Harness multiprovedor do OpenCode",
+      "pi": "Pi",
+      "piHarness": "Harness do Pi",
+      "cursor": "Cursor",
+      "cursorCliHarness": "Harness da CLI do Cursor",
+      "grokBot": "Grok Bot",
+      "anExistingExternalBotIn": "Um Bot externo existente no Grok",
+      "openAIDot": "OpenAI Dot",
+      "yourDotInChatgpt": "Seu Dot no ChatGPT",
+      "musePersonalAgent": "Muse — Agente pessoal",
+      "yourPersonalMuseAtMuseai": "Seu Muse pessoal em muse.ai",
+      "cursorCloud": "Cursor Cloud",
+      "managedRemoteCursorAgent": "Agente remoto gerenciado do Cursor",
+      "openClawGateway": "OpenClaw Gateway",
+      "externalGatewayAdapter": "Adaptador de gateway externo",
+      "process": "Processo",
+      "internalProcessAdapter": "Adaptador de processo interno",
+      "internalHttpAdapter": "Adaptador HTTP interno",
+      "externalAdapter": "Adaptador externo"
+    },
+    "index": {
+      "claudeCode": "Claude Code",
+      "codex": "Codex",
+      "cursorCloud": "Cursor Cloud",
+      "cursor": "Cursor",
+      "geminiCli": "Gemini CLI",
+      "grokBuild": "Grok Build",
+      "hermesGateway": "Hermes Gateway",
+      "hermes": "Hermes",
+      "hTTPWebhook": "Webhook HTTP",
+      "kimiCode": "Kimi Code",
+      "openClawGateway": "OpenClaw Gateway",
+      "openCode": "OpenCode",
+      "paperclipRunner": "Paperclip Runner",
+      "pi": "Pi",
+      "shellProcess": "Processo de shell"
+    },
+    "transcript": {
+      "unknownParserError": "erro desconhecido do parser"
+    },
+    "agentIdentity": {
+      "agent": "Agente"
+    },
+    "nativeRunEvents": {
+      "runCompleted": "Execução concluída",
+      "providerNotice": "Aviso do provedor"
+    },
+    "agentChatDraft": {
+      "chatWith": "Conversar com {{name}}"
+    },
+    "agentCreator": {
+      "formerMember": "Ex-membro"
+    },
+    "builtInAgentToast": {
+      "isPaused": "{{displayName}} está pausado",
+      "viewAgent": "Ver agente"
+    },
+    "routineRunDisplay": {
+      "skippedNoActivitySinceLast": "Ignorada — sem atividade desde a última execução",
+      "skippedRoutinePaused": "Ignorada — rotina pausada",
+      "skippedWorktreeExecutionCutoff": "Ignorada — corte de execução do worktree"
+    },
+    "runRetryState": {
+      "modelAtCapacity": "Modelo no limite de capacidade",
+      "waitingForPoolUsageTo": "Aguardando o uso do pool se normalizar",
+      "transientFailure": "Falha transitória",
+      "missingTaskComment": "Comentário da tarefa ausente",
+      "processLost": "Processo perdido",
+      "assignmentRecovery": "Recuperação de atribuição",
+      "continuationNeeded": "Continuação necessária",
+      "maxturnContinuation": "Continuação por limite de turnos",
+      "poolExhausted": "Pool esgotado",
+      "continuationScheduled": "Continuação agendada",
+      "retryScheduled": "Nova tentativa agendada",
+      "continuationExhausted": "Continuações esgotadas",
+      "retryExhausted": "Tentativas esgotadas",
+      "continuedRun": "Execução continuada",
+      "retriedRun": "Execução repetida"
+    },
+    "transcriptPresentation": {
+      "command": "Comando",
+      "input": "Entrada"
+    },
+    "agentSkillSource": {
+      "localFolder": "Pasta local",
+      "catalog": "Catálogo",
+      "gitHub": "GitHub",
+      "paperclipManaged": "Gerenciado pelo Paperclip"
     }
   }
 }

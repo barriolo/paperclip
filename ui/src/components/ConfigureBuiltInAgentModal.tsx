@@ -129,8 +129,8 @@ export function ConfigureBuiltInAgentModal({
     modelKnown &&
     (setupSupportedInModal ? !modelRequired || normalizedModel.length > 0 : true);
   const submitLabel = setupSupportedInModal
-    ? `Configure & enable ${definition.displayName}`
-    : `Provision ${definition.displayName}`;
+    ? t("agents.configureBuiltInAgentModal.configureEnable", { displayName: definition.displayName })
+    : t("agents.configureBuiltInAgentModal.provision", { displayName: definition.displayName });
 
   const provision = useMutation({
     mutationFn: async () => {
@@ -265,7 +265,7 @@ export function ConfigureBuiltInAgentModal({
             }}
             disabled={!canSubmit || provision.isPending}
           >
-            {provision.isPending ? "Configuring…" : submitLabel}
+            {provision.isPending ? t("agents.configureBuiltInAgentModal.configuring") : submitLabel}
           </Button>
         </DialogFooter>
       </DialogContent>

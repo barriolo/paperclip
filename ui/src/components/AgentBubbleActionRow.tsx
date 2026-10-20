@@ -49,8 +49,9 @@ export function agentBubbleDateLabel(date: Date | string | undefined): string {
  * re-declaring the same button markup on each surface.
  */
 export function BubbleCopyButton({ copyText }: { copyText: string }) {
+  const { t } = useTranslation();
   const { copied, failed, copy } = useCopyAction(2000);
-  const label = failed ? "Couldn’t copy message" : "Copy message";
+  const label = failed ? t("agents.agentBubbleActionRow.couldntCopyMessage") : t("agents.agentBubbleActionRow.copyMessage");
 
   return (
     <button
@@ -317,7 +318,7 @@ export function IssueChatFeedbackButtons({
               disabled={isSaving || !downvoteReason.trim()}
               onClick={handleSubmitReason}
             >
-              {isSaving ? "Saving..." : "Save note"}
+              {isSaving ? t("agents.agentBubbleActionRow.saving") : t("agents.agentBubbleActionRow.saveNote")}
             </Button>
           </div>
         </PopoverContent>
@@ -370,7 +371,7 @@ export function IssueChatFeedbackButtons({
                 ).then(() => setPendingSharingDialog(null));
               }}
             >
-              {isSaving ? "Saving..." : "Don't allow"}
+              {isSaving ? t("agents.agentBubbleActionRow.saving") : t("agents.agentBubbleActionRow.dontAllow")}
             </Button>
             <Button
               type="button"
@@ -383,7 +384,7 @@ export function IssueChatFeedbackButtons({
                 }).then(() => setPendingSharingDialog(null));
               }}
             >
-              {isSaving ? "Saving..." : "Always allow"}
+              {isSaving ? t("agents.agentBubbleActionRow.saving") : t("agents.agentBubbleActionRow.alwaysAllow")}
             </Button>
           </DialogFooter>
         </DialogContent>
