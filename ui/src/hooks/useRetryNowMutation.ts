@@ -5,6 +5,7 @@ import { ApiError } from "../api/client";
 import { issuesApi } from "../api/issues";
 import { useToastActions } from "../context/ToastContext";
 import { queryKeys } from "../lib/queryKeys";
+import { useTranslation } from "@/i18n";
 
 export type RetryNowError = {
   message: string;
@@ -34,6 +35,7 @@ export function useRetryNowMutation(
 ): UseMutationResult<IssueRetryNowResponse, unknown, void, unknown> & {
   lastError: RetryNowError | null;
 } {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { pushToast } = useToastActions();
 
@@ -66,7 +68,7 @@ export function useRetryNowMutation(
     },
     onError: (error) => {
       pushToast({
-        title: "Couldn't retry now",
+        title: t("rest.useRetryNowMutation.couldntRetryNow"),
         body: readErrorMessage(error),
         tone: "error",
       });

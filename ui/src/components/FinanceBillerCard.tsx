@@ -1,12 +1,14 @@
 import type { FinanceByBiller } from "@paperclipai/shared";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { formatCents, providerDisplayName } from "@/lib/utils";
+import { useTranslation } from "@/i18n";
 
 interface FinanceBillerCardProps {
   row: FinanceByBiller;
 }
 
 export function FinanceBillerCard({ row }: FinanceBillerCardProps) {
+  const { t } = useTranslation();
   return (
     <Card>
       <CardHeader className="px-4 pt-4 pb-1">
@@ -14,7 +16,7 @@ export function FinanceBillerCard({ row }: FinanceBillerCardProps) {
           <div>
             <CardTitle className="text-base">{providerDisplayName(row.biller)}</CardTitle>
             <CardDescription className="mt-1 text-xs">
-              {row.eventCount} event{row.eventCount === 1 ? "" : "s"} across {row.kindCount} kind{row.kindCount === 1 ? "" : "s"}
+              {t("rest.financeBillerCard.event", { eventCount: row.eventCount })}{row.eventCount === 1 ? "" : "s"}{" "}{t("rest.financeBillerCard.acrossKind", { kindCount: row.kindCount })}{row.kindCount === 1 ? "" : "s"}
             </CardDescription>
           </div>
           <div className="text-right">

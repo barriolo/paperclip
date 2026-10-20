@@ -1,4 +1,5 @@
 import { cn } from "@/lib/utils";
+import { i18n } from "@/i18n";
 
 export type MatchSourceChipKind = "title" | "identifier" | "comment" | "document";
 
@@ -14,10 +15,18 @@ const chipStyles: Record<MatchSourceChipKind, string> = {
 };
 
 const chipLabels: Record<MatchSourceChipKind, string> = {
-  title: "Title",
-  identifier: "Identifier",
-  comment: "Comment",
-  document: "Doc",
+  get title() {
+    return i18n.t("rest.matchSourceChip.title");
+  },
+  get identifier() {
+    return i18n.t("rest.matchSourceChip.identifier");
+  },
+  get comment() {
+    return i18n.t("rest.matchSourceChip.comment");
+  },
+  get document() {
+    return i18n.t("rest.matchSourceChip.doc");
+  },
 };
 
 export interface MatchSourceChipProps {

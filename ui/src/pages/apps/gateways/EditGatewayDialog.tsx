@@ -15,6 +15,7 @@ import {
 import { useToast } from "@/context/ToastContext";
 import { allowedToolsLabel } from "./gateway-helpers";
 import { gatewaysQueryKey } from "./NewGatewayDialog";
+import { useTranslation } from "@/i18n";
 
 export function EditGatewayDialog({
   companyId,
@@ -29,6 +30,7 @@ export function EditGatewayDialog({
   open: boolean;
   onOpenChange: (open: boolean) => void;
 }) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { pushToast } = useToast();
   const [name, setName] = useState(gateway.name);
@@ -51,13 +53,13 @@ export function EditGatewayDialog({
         profileId,
       }),
     onSuccess: async (updated) => {
-      pushToast({ title: "Gateway updated", body: updated.name, tone: "success" });
+      pushToast({ title: t("rest.editGatewayDialog.gatewayUpdated"), body: updated.name, tone: "success" });
       await queryClient.invalidateQueries({ queryKey: gatewaysQueryKey(companyId) });
       onOpenChange(false);
     },
     onError: (error) => {
       pushToast({
-        title: "Gateway was not updated",
+        title: t("rest.editGatewayDialog.gatewayWasNotUpdated"),
         body: error instanceof Error ? error.message : String(error),
         tone: "error",
       });
@@ -74,18 +76,18 @@ export function EditGatewayDialog({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Edit gateway</DialogTitle>
+          <DialogTitle>{t("rest.editGatewayDialog.editGateway")}</DialogTitle>
           <DialogDescription>
-            Change the label or the access profile that controls which tools this endpoint exposes.
+            {t("rest.editGatewayDialog.changeTheLabelOrThe")}
           </DialogDescription>
         </DialogHeader>
         <form className="space-y-4" onSubmit={submit}>
           <label className="block space-y-1.5">
-            <span className="text-xs font-medium text-muted-foreground">Name</span>
+            <span className="text-xs font-medium text-muted-foreground">{t("rest.editGatewayDialog.name")}</span>
             <Input value={name} onChange={(event) => setName(event.target.value)} required autoFocus />
           </label>
           <label className="block space-y-1.5">
-            <span className="text-xs font-medium text-muted-foreground">Access profile</span>
+            <span className="text-xs font-medium text-muted-foreground">{t("rest.editGatewayDialog.accessProfile")}</span>
             <select
               className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               value={profileId}
@@ -100,20 +102,20 @@ export function EditGatewayDialog({
             </select>
           </label>
           <label className="block space-y-1.5">
-            <span className="text-xs font-medium text-muted-foreground">Description (optional)</span>
+            <span className="text-xs font-medium text-muted-foreground">{t("rest.editGatewayDialog.descriptionOptional")}</span>
             <textarea
               className="min-h-16 w-full rounded-md border border-input bg-background px-3 py-2 text-sm"
               value={description}
               onChange={(event) => setDescription(event.target.value)}
-              placeholder="Who this endpoint is for."
+              placeholder={t("rest.editGatewayDialog.whoThisEndpointIsFor")}
             />
           </label>
           <DialogFooter>
             <Button type="button" variant="ghost" onClick={() => onOpenChange(false)}>
-              Cancel
+              {t("rest.editGatewayDialog.cancel")}
             </Button>
             <Button type="submit" disabled={updateMutation.isPending || !name.trim() || !profileId}>
-              {updateMutation.isPending ? "Saving…" : "Save changes"}
+              {updateMutation.isPending ? t("rest.editGatewayDialog.saving") : t("rest.editGatewayDialog.saveChanges")}
             </Button>
           </DialogFooter>
         </form>

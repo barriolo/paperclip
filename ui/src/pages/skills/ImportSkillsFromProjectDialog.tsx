@@ -47,6 +47,7 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { EmptyState } from "../../components/EmptyState";
 import { cn } from "../../lib/utils";
+import { useTranslation } from "@/i18n";
 
 type Step = "pick" | "scanning" | "select" | "result";
 export type SkillSelection = { workspaceId: string; path: string; slug?: string };
@@ -234,6 +235,7 @@ function CandidateStatusBadge({
 }: {
   status: CompanySkillProjectScanCandidate["status"];
 }) {
+  const { t } = useTranslation();
   switch (status) {
     case "already_imported":
       return (
@@ -241,7 +243,7 @@ function CandidateStatusBadge({
           variant="outline"
           className="gap-1 px-1.5 py-0 font-normal text-muted-foreground border-border/60"
         >
-          <Link2 className="h-3 w-3" /> Imported
+          <Link2 className="h-3 w-3" />{" "}{t("rest.importSkillsFromProjectDialog.imported")}
         </Badge>
       );
     case "conflict":
@@ -250,7 +252,7 @@ function CandidateStatusBadge({
           variant="outline"
           className="gap-1 px-1.5 py-0 font-normal text-amber-600 border-amber-500/40 dark:text-amber-400"
         >
-          <AlertTriangle className="h-3 w-3" /> Conflict
+          <AlertTriangle className="h-3 w-3" />{" "}{t("rest.importSkillsFromProjectDialog.conflict")}
         </Badge>
       );
     case "skipped":
@@ -259,7 +261,7 @@ function CandidateStatusBadge({
           variant="outline"
           className="gap-1 px-1.5 py-0 font-normal text-muted-foreground border-border/60"
         >
-          <FileWarning className="h-3 w-3" /> Skipped
+          <FileWarning className="h-3 w-3" />{" "}{t("rest.importSkillsFromProjectDialog.skipped")}
         </Badge>
       );
     case "new":
@@ -269,7 +271,7 @@ function CandidateStatusBadge({
           variant="outline"
           className="gap-1 px-1.5 py-0 font-normal text-emerald-600 border-emerald-500/40 dark:text-emerald-400"
         >
-          <CheckCircle2 className="h-3 w-3" /> New
+          <CheckCircle2 className="h-3 w-3" />{" "}{t("rest.importSkillsFromProjectDialog.new")}
         </Badge>
       );
   }
@@ -281,6 +283,7 @@ export function ImportSkillsFromProjectDialog({
   companyId,
   onImportFromPath,
 }: ImportSkillsFromProjectDialogProps) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const toast = useToastActions();
 
@@ -367,17 +370,17 @@ export function ImportSkillsFromProjectDialog({
       const importedCount = result.imported.length;
       toast.pushToast({
         tone: importedCount > 0 ? "success" : "warn",
-        title: importedCount > 0 ? "Skills imported" : "Nothing imported",
+        title: importedCount > 0 ? t("rest.importSkillsFromProjectDialog.skillsImported") : t("rest.importSkillsFromProjectDialog.nothingImported"),
         body:
           importedCount > 0
-            ? `${importedCount} skill${importedCount === 1 ? "" : "s"} imported as references from ${selectedProject?.name ?? "the project"}.`
-            : "No skills were imported.",
+            ? t("rest.importSkillsFromProjectDialog.skillsImportedAsReferencesFrom", { count: importedCount, importedCount: importedCount, name: selectedProject?.name ?? "the project" })
+            : t("rest.importSkillsFromProjectDialog.noSkillsWereImported"),
       });
     },
     onError: (error) => {
       toast.pushToast({
         tone: "error",
-        title: "Import failed",
+        title: t("rest.importSkillsFromProjectDialog.importFailed"),
         body: readableErrorMessage(error),
       });
     },
@@ -463,12 +466,12 @@ export function ImportSkillsFromProjectDialog({
       } else {
         toast.pushToast({
           tone: "warn",
-          title: candidate?.status === "already_imported" ? "Skill already imported" : "Skill could not be added",
-          body: candidate?.reason ?? "The selected folder does not contain a valid SKILL.md file.",
+          title: candidate?.status === "already_imported" ? t("rest.importSkillsFromProjectDialog.skillAlreadyImported") : t("rest.importSkillsFromProjectDialog.skillCouldNotBeAdded"),
+          body: candidate?.reason ?? t("rest.importSkillsFromProjectDialog.theSelectedFolderDoesNot"),
         });
       }
     } catch (error) {
-      toast.pushToast({ tone: "error", title: "Could not inspect skill", body: readableErrorMessage(error) });
+      toast.pushToast({ tone: "error", title: t("rest.importSkillsFromProjectDialog.couldNotInspectSkill"), body: readableErrorMessage(error) });
     } finally {
       setBrowseAddingKey(null);
     }
@@ -513,17 +516,17 @@ export function ImportSkillsFromProjectDialog({
         <header className="flex shrink-0 items-start justify-between gap-3 border-b border-border/60 px-5 py-4">
           <div className="flex flex-col gap-1">
             <DialogTitle className="text-base font-semibold">
-              Import skills from project
+              {t("rest.importSkillsFromProjectDialog.importSkillsFromProject")}
             </DialogTitle>
             <DialogDescription className="text-xs text-muted-foreground">
-              Pick a project, scan its workspaces for skills, and import them as references.
+              {t("rest.importSkillsFromProjectDialog.pickAProjectScanIts")}
             </DialogDescription>
           </div>
           <button
             type="button"
             className="rounded-sm text-muted-foreground opacity-70 transition-opacity hover:opacity-100"
             onClick={handleClose}
-            aria-label="Close import dialog"
+            aria-label={t("rest.importSkillsFromProjectDialog.closeImportDialog")}
           >
             <X className="h-4 w-4" />
           </button>
@@ -570,7 +573,7 @@ export function ImportSkillsFromProjectDialog({
             <div className="min-w-0 flex-1 text-xs text-muted-foreground">
               <span className="flex items-center gap-1.5">
                 <Link2 className="h-3.5 w-3.5 shrink-0" />
-                Files stay in the project — Studio edits save directly to them.
+                {t("rest.importSkillsFromProjectDialog.filesStayInTheProject")}
               </span>
             </div>
           ) : (
@@ -588,7 +591,7 @@ export function ImportSkillsFromProjectDialog({
                       disabled={selectableCandidates.length === 0}
                       data-testid="select-all"
                     >
-                      Select all
+                      {t("rest.importSkillsFromProjectDialog.selectAll")}
                     </Button>
                     <Button
                       variant="ghost"
@@ -597,12 +600,12 @@ export function ImportSkillsFromProjectDialog({
                       disabled={selectedCount === 0}
                       data-testid="deselect-all"
                     >
-                      Deselect all
+                      {t("rest.importSkillsFromProjectDialog.deselectAll")}
                     </Button>
                   </div>
                 )}
                 <Button variant="outline" size="sm" onClick={backToPick}>
-                  <ArrowLeft className="mr-1 h-3.5 w-3.5" /> Back
+                  <ArrowLeft className="mr-1 h-3.5 w-3.5" />{" "}{t("rest.importSkillsFromProjectDialog.back")}
                 </Button>
                 {!scanError && candidates.length > 0 && (
                   <Button
@@ -613,10 +616,10 @@ export function ImportSkillsFromProjectDialog({
                   >
                     {importMutation.isPending ? (
                       <>
-                        <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> Importing…
+                        <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" />{" "}{t("rest.importSkillsFromProjectDialog.importing")}
                       </>
                     ) : (
-                      `Import ${selectedCount} skill${selectedCount === 1 ? "" : "s"}`
+                      t("rest.importSkillsFromProjectDialog.importSkills", { count: selectedCount, selectedCount: selectedCount })
                     )}
                   </Button>
                 )}
@@ -624,12 +627,12 @@ export function ImportSkillsFromProjectDialog({
             )}
             {step === "pick" && (
               <Button variant="ghost" size="sm" onClick={handleClose}>
-                Cancel
+                {t("rest.importSkillsFromProjectDialog.cancel")}
               </Button>
             )}
             {step === "result" && (
               <Button size="sm" onClick={handleClose}>
-                Done
+                {t("rest.importSkillsFromProjectDialog.done")}
               </Button>
             )}
           </div>
@@ -658,6 +661,7 @@ function PickProjectStep({
   onFilterChange,
   onPick,
 }: PickProjectStepProps) {
+  const { t } = useTranslation();
   return (
     <div className="flex min-h-0 flex-1 flex-col">
       <div className="border-b border-border/60 px-5 py-3">
@@ -666,16 +670,16 @@ function PickProjectStep({
           <Input
             value={filter}
             onChange={(event) => onFilterChange(event.target.value)}
-            placeholder="Filter projects"
+            placeholder={t("rest.importSkillsFromProjectDialog.filterProjects")}
             className="pl-7 text-xs"
-            aria-label="Filter projects"
+            aria-label={t("rest.importSkillsFromProjectDialog.filterProjects")}
             data-testid="project-filter"
           />
         </div>
       </div>
       <div className="min-h-0 flex-1 overflow-y-auto">
         {loading ? (
-          <div className="p-6 text-center text-sm text-muted-foreground">Loading projects…</div>
+          <div className="p-6 text-center text-sm text-muted-foreground">{t("rest.importSkillsFromProjectDialog.loadingProjects")}</div>
         ) : error ? (
           <div
             className="m-5 flex items-start gap-3 rounded-md border border-destructive/40 bg-destructive/10 p-4 text-sm text-destructive"
@@ -685,7 +689,7 @@ function PickProjectStep({
             <div>{readableErrorMessage(error)}</div>
           </div>
         ) : totalProjects === 0 ? (
-          <EmptyState icon={Layers} message="This organization has no projects yet." />
+          <EmptyState icon={Layers} message={t("rest.importSkillsFromProjectDialog.thisOrganizationHasNoProjects")} />
         ) : projects.length === 0 ? (
           <EmptyState icon={Search} message={`No projects match "${filter}".`} />
         ) : (
@@ -713,19 +717,19 @@ function PickProjectStep({
                     <div className="min-w-0 flex-1">
                       <div className="truncate text-sm font-medium">{project.name}</div>
                       <div className="mt-0.5 text-xs text-muted-foreground">
-                        {project.workspaces.length} workspace
+                        {t("rest.importSkillsFromProjectDialog.workspace", { length: project.workspaces.length })}
                         {project.workspaces.length === 1 ? "" : "s"}
                         {kinds ? ` · ${kinds}` : ""}
                       </div>
                       {disabled && (
                         <div className="mt-1 text-(length:--text-micro) text-muted-foreground">
-                          Remote-only project — no locally scannable workspaces to import from.
+                          {t("rest.importSkillsFromProjectDialog.remoteonlyProjectNoLocallyScannable")}
                         </div>
                       )}
                     </div>
                     {!disabled && (
                       <Badge variant="outline" className="shrink-0 px-1.5 py-0 font-normal">
-                        {scannable.length} scannable
+                        {t("rest.importSkillsFromProjectDialog.scannable", { length: scannable.length })}
                       </Badge>
                     )}
                   </button>
@@ -740,6 +744,7 @@ function PickProjectStep({
 }
 
 function ScanningStep({ projectName }: { projectName: string }) {
+  const { t } = useTranslation();
   return (
     <div
       className="flex min-h-0 flex-1 flex-col items-center justify-center gap-4 p-8 text-center"
@@ -750,9 +755,9 @@ function ScanningStep({ projectName }: { projectName: string }) {
         <Loader2 className="h-5 w-5 animate-spin text-muted-foreground" />
       </div>
       <div>
-        <p className="text-sm font-medium">Scanning {projectName || "project"} for skills…</p>
+        <p className="text-sm font-medium">{t("rest.importSkillsFromProjectDialog.scanning")}{" "}{projectName || "project"}{" "}{t("rest.importSkillsFromProjectDialog.forSkills")}</p>
         <p className="mt-1 text-xs text-muted-foreground">
-          Looking in well-known skill folders across each workspace.
+          {t("rest.importSkillsFromProjectDialog.lookingInWellknownSkillFolders")}
         </p>
       </div>
       <div className="flex max-w-md flex-wrap justify-center gap-1.5">
@@ -790,6 +795,7 @@ function ProjectSkillBrowser({
   onAddSkill: (workspaceId: string, path: string) => void;
   addingKey: string | null;
 }) {
+  const { t } = useTranslation();
   const workspaces = scannableWorkspaces(project);
   const initialWorkspace = workspaces.find((workspace) => workspace.isPrimary) ?? workspaces[0] ?? null;
   const [workspaceId, setWorkspaceId] = useState(initialWorkspace?.id ?? "");
@@ -815,15 +821,15 @@ function ProjectSkillBrowser({
       <div className="shrink-0 border-b border-border/60 px-5 py-3">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div>
-            <p className="text-sm font-medium">Browse project folders</p>
-            <p className="mt-0.5 text-xs text-muted-foreground">Open any folder and add directories or individual SKILL.md files.</p>
+            <p className="text-sm font-medium">{t("rest.importSkillsFromProjectDialog.browseProjectFolders")}</p>
+            <p className="mt-0.5 text-xs text-muted-foreground">{t("rest.importSkillsFromProjectDialog.openAnyFolderAndAdd")}</p>
           </div>
           <Button variant="outline" size="sm" onClick={onBack}>
-            <ArrowLeft className="mr-1 h-3.5 w-3.5" /> Discovered skills
+            <ArrowLeft className="mr-1 h-3.5 w-3.5" />{" "}{t("rest.importSkillsFromProjectDialog.discoveredSkills")}
           </Button>
         </div>
         {workspaces.length > 1 && (
-          <div className="mt-3 flex flex-wrap gap-1.5" aria-label="Project workspace">
+          <div className="mt-3 flex flex-wrap gap-1.5" aria-label={t("rest.importSkillsFromProjectDialog.projectWorkspace")}>
             {workspaces.map((workspace) => (
               <Button
                 key={workspace.id}
@@ -844,7 +850,7 @@ function ProjectSkillBrowser({
           size="sm"
           onClick={() => result?.parentPath && setFolderPath(result.parentPath)}
           disabled={!result?.parentPath}
-          aria-label="Open parent folder"
+          aria-label={t("rest.importSkillsFromProjectDialog.openParentFolder")}
         >
           <ArrowLeft className="h-3.5 w-3.5" />
         </Button>
@@ -853,7 +859,7 @@ function ProjectSkillBrowser({
       <div className="min-h-0 flex-1 overflow-y-auto">
         {browseQuery.isLoading ? (
           <div className="flex items-center justify-center gap-2 p-8 text-sm text-muted-foreground">
-            <Loader2 className="h-4 w-4 animate-spin" /> Loading folder…
+            <Loader2 className="h-4 w-4 animate-spin" />{" "}{t("rest.importSkillsFromProjectDialog.loadingFolder")}
           </div>
         ) : browseQuery.error ? (
           <div className="p-6 text-sm text-destructive">{readableErrorMessage(browseQuery.error)}</div>
@@ -881,7 +887,7 @@ function ProjectSkillBrowser({
                   </button>
                   {entry.isSkill ? (
                     <Button size="sm" onClick={() => onAddSkill(workspaceId, entry.path)} disabled={addingKey === key}>
-                      {addingKey === key ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : "Add skill"}
+                      {addingKey === key ? <Loader2 className="h-3.5 w-3.5 animate-spin" /> : t("rest.importSkillsFromProjectDialog.addSkill")}
                     </Button>
                   ) : entry.kind === "directory" ? (
                     <ChevronRight className="h-4 w-4 text-muted-foreground" />
@@ -891,10 +897,10 @@ function ProjectSkillBrowser({
             })}
           </ul>
         ) : (
-          <div className="p-8 text-center text-sm text-muted-foreground">This folder is empty.</div>
+          <div className="p-8 text-center text-sm text-muted-foreground">{t("rest.importSkillsFromProjectDialog.thisFolderIsEmpty")}</div>
         )}
         {result?.truncated && (
-          <p className="border-t border-border/60 px-5 py-2 text-xs text-muted-foreground">Showing the first 250 entries.</p>
+          <p className="border-t border-border/60 px-5 py-2 text-xs text-muted-foreground">{t("rest.importSkillsFromProjectDialog.showingTheFirst250Entries")}</p>
         )}
       </div>
     </div>
@@ -938,6 +944,7 @@ function SelectStep({
   onAddBrowsedSkill,
   browseAddingKey,
 }: SelectStepProps) {
+  const { t } = useTranslation();
   if (scanError) {
     const grant = isGrantError(scanError);
     return (
@@ -951,16 +958,16 @@ function SelectStep({
             )}
           </div>
           <p className="text-base font-semibold">
-            {grant ? "You can't import skills here" : "Scan failed"}
+            {grant ? t("rest.importSkillsFromProjectDialog.youCantImportSkillsHere") : t("rest.importSkillsFromProjectDialog.scanFailed")}
           </p>
           <p className="mt-1.5 text-sm text-muted-foreground">
             {grant
-              ? "Your account doesn't have permission to add skills to this organization. Ask an owner to grant the skills permission, then try again."
+              ? t("rest.importSkillsFromProjectDialog.yourAccountDoesntHavePermission")
               : readableErrorMessage(scanError)}
           </p>
           {!grant && (
             <Button variant="outline" size="sm" className="mt-4" onClick={onRetry}>
-              Try again
+              {t("rest.importSkillsFromProjectDialog.tryAgain")}
             </Button>
           )}
         </div>
@@ -990,13 +997,11 @@ function SelectStep({
           <div className="mx-auto mb-4 w-fit bg-muted/50 p-4">
             <FolderSearch className="h-10 w-10 text-muted-foreground/50" />
           </div>
-          <p className="text-base font-semibold">No skills found</p>
+          <p className="text-base font-semibold">{t("rest.importSkillsFromProjectDialog.noSkillsFound")}</p>
           <p className="mt-1.5 text-sm text-muted-foreground">
-            None of the well-known skill folders in this project's workspaces contain a{" "}
-            <code className="rounded bg-muted px-1 py-0.5 text-xs">SKILL.md</code>. We searched{" "}
-            {HIGHLIGHTED_SCAN_FOLDERS.join(", ")} and {APPROX_TOTAL_SCAN_FOLDERS -
-              HIGHLIGHTED_SCAN_FOLDERS.length}{" "}
-            other agent-harness folders.
+            {t("rest.importSkillsFromProjectDialog.noneOfTheWellknownSkill")}{" "}
+            <code className="rounded bg-muted px-1 py-0.5 text-xs">{t("rest.importSkillsFromProjectDialog.sKILLmd")}</code>{t("rest.importSkillsFromProjectDialog.weSearchedAnd", { join: HIGHLIGHTED_SCAN_FOLDERS.join(", ") })}{" "}{APPROX_TOTAL_SCAN_FOLDERS -
+              HIGHLIGHTED_SCAN_FOLDERS.length}{" "}{t("rest.importSkillsFromProjectDialog.otherAgentharnessFolders")}
           </p>
           <Button
             variant="outline"
@@ -1005,17 +1010,17 @@ function SelectStep({
             onClick={() => onBrowseOpenChange(true)}
             data-testid="browse-project-folders-empty"
           >
-            <FolderOpen className="mr-1.5 h-3.5 w-3.5" /> Browse project folders
+            <FolderOpen className="mr-1.5 h-3.5 w-3.5" />{" "}{t("rest.importSkillsFromProjectDialog.browseProjectFolders")}
           </Button>
           {onImportFromPath && (
             <p className="mt-3 text-sm text-muted-foreground">
-              For skills in non-standard folders, use{" "}
+              {t("rest.importSkillsFromProjectDialog.forSkillsInNonstandardFolders")}{" "}
               <button
                 type="button"
                 className="font-medium text-foreground underline underline-offset-2"
                 onClick={onImportFromPath}
               >
-                Import from path or URL
+                {t("rest.importSkillsFromProjectDialog.importFromPathOrUrl")}
               </button>
               .
             </p>
@@ -1028,9 +1033,9 @@ function SelectStep({
   return (
     <div className="flex min-h-0 flex-1 flex-col" data-testid="candidate-list">
       <div className="flex shrink-0 items-center justify-between gap-3 border-b border-border/60 px-5 py-2.5">
-        <p className="text-xs text-muted-foreground">Choose discovered skills, or browse any workspace folder.</p>
+        <p className="text-xs text-muted-foreground">{t("rest.importSkillsFromProjectDialog.chooseDiscoveredSkillsOrBrowse")}</p>
         <Button variant="outline" size="sm" onClick={() => onBrowseOpenChange(true)} data-testid="browse-project-folders">
-          <FolderOpen className="mr-1.5 h-3.5 w-3.5" /> Browse folders
+          <FolderOpen className="mr-1.5 h-3.5 w-3.5" />{" "}{t("rest.importSkillsFromProjectDialog.browseFolders")}
         </Button>
       </div>
       <div className="shrink-0 border-b border-border/60 px-5 py-2.5">
@@ -1039,23 +1044,23 @@ function SelectStep({
           <Input
             value={filter}
             onChange={(event) => onFilterChange(event.target.value)}
-            placeholder="Search discovered skills…"
+            placeholder={t("rest.importSkillsFromProjectDialog.searchDiscoveredSkills")}
             className="h-8 pl-8 text-xs"
-            aria-label="Search discovered skills"
+            aria-label={t("rest.importSkillsFromProjectDialog.searchDiscoveredSkills2")}
           />
         </div>
       </div>
       <div className="min-h-0 flex-1 overflow-y-auto">
         {groups.length === 0 ? (
           <div className="flex h-full items-center justify-center p-6 text-sm text-muted-foreground">
-            No skills match “{filter.trim()}”.
+            {t("rest.importSkillsFromProjectDialog.noSkillsMatch", { trim: filter.trim() })}
           </div>
         ) : (
           groups.map((group, groupIndex) => (
             <section key={group.key}>
               {groupIndex > 0 && !group.isPrimary && groups[groupIndex - 1]?.isPrimary && (
                 <header className="border-y border-border/60 bg-muted/30 px-5 py-2 text-xs uppercase tracking-wide text-muted-foreground">
-                  Other Workspaces
+                  {t("rest.importSkillsFromProjectDialog.otherWorkspaces")}
                 </header>
               )}
               <header className="sticky top-0 z-10 border-b border-border/60 bg-background px-5 py-2 text-sm font-medium text-foreground">
@@ -1090,7 +1095,7 @@ function SelectStep({
                               checked={isSelected}
                               onCheckedChange={() => toggleCandidate(candidate)}
                               disabled={!selectable}
-                              aria-label={`Select ${candidate.name}`}
+                              aria-label={t("rest.importSkillsFromProjectDialog.select", { name: candidate.name })}
                             />
                           </div>
                           <div className="min-w-0 flex-1">
@@ -1129,7 +1134,7 @@ function SelectStep({
                                   htmlFor={`rename-${candidate.workspaceId}-${candidate.slug}`}
                                   className="shrink-0 text-xs text-muted-foreground"
                                 >
-                                  Import as
+                                  {t("rest.importSkillsFromProjectDialog.importAs")}
                                 </label>
                                 <Input
                                   id={`rename-${candidate.workspaceId}-${candidate.slug}`}
@@ -1138,7 +1143,7 @@ function SelectStep({
                                     renameCandidate(candidate, event.target.value)
                                   }
                                   className="h-7 max-w-xs font-mono text-xs"
-                                  aria-label={`Rename ${candidate.name}`}
+                                  aria-label={t("rest.importSkillsFromProjectDialog.rename", { name: candidate.name })}
                                   aria-invalid={
                                     selectedValue
                                       ? !isValidSelectionSlug(selectedValue)
@@ -1147,7 +1152,7 @@ function SelectStep({
                                 />
                                 {selectedValue && !isValidSelectionSlug(selectedValue) && (
                                   <span className="text-xs text-destructive">
-                                    Use a lowercase URL-safe slug.
+                                    {t("rest.importSkillsFromProjectDialog.useALowercaseUrlsafeSlug")}
                                   </span>
                                 )}
                               </div>
@@ -1172,6 +1177,7 @@ interface ResultStepProps {
 }
 
 function ResultStep({ result }: ResultStepProps) {
+  const { t } = useTranslation();
   const importedSkills: CompanySkill[] = useMemo(
     () => [...result.imported, ...result.updated],
     [result],
@@ -1183,24 +1189,22 @@ function ResultStep({ result }: ResultStepProps) {
         <div className="flex items-start gap-3 rounded-md border border-emerald-500/30 bg-emerald-500/5 p-3">
           <Link2 className="mt-0.5 h-4 w-4 shrink-0 text-emerald-600 dark:text-emerald-400" />
           <div className="text-xs leading-relaxed text-muted-foreground">
-            <span className="font-medium text-foreground">No files were copied.</span> These skills
-            reference the files in the project workspace — editing them in Skill Studio saves
-            directly back to those files.
+            <span className="font-medium text-foreground">{t("rest.importSkillsFromProjectDialog.noFilesWereCopied")}</span>{" "}{t("rest.importSkillsFromProjectDialog.theseSkillsReferenceTheFiles")}
           </div>
         </div>
         <div className="mt-3 flex flex-wrap items-center gap-3 text-xs text-muted-foreground">
           <span className="text-emerald-600 dark:text-emerald-400">
-            ✓ {result.imported.length} imported
+            {t("rest.importSkillsFromProjectDialog.imported2", { length: result.imported.length })}
           </span>
-          {result.updated.length > 0 && <span>↻ {result.updated.length} updated</span>}
-          {result.skipped.length > 0 && <span>⊘ {result.skipped.length} skipped</span>}
+          {result.updated.length > 0 && <span>{t("rest.importSkillsFromProjectDialog.updated", { length: result.updated.length })}</span>}
+          {result.skipped.length > 0 && <span>{t("rest.importSkillsFromProjectDialog.skipped2", { length: result.skipped.length })}</span>}
         </div>
       </div>
       <div className="min-h-0 flex-1 overflow-y-auto">
         {importedSkills.length > 0 && (
           <section>
             <header className="bg-muted/30 px-5 py-1.5 text-xs uppercase tracking-wide text-muted-foreground">
-              Imported · {importedSkills.length}
+              {t("rest.importSkillsFromProjectDialog.imported3", { length: importedSkills.length })}
             </header>
             <ul className="divide-y divide-border/60" data-testid="result-imported">
               {importedSkills.map((skill) => (
@@ -1220,7 +1224,7 @@ function ResultStep({ result }: ResultStepProps) {
                     to={skillStudioRoute(skill.id)}
                     className="inline-flex shrink-0 items-center gap-1 text-xs font-medium text-foreground no-underline hover:underline"
                   >
-                    Open <ExternalLink className="h-3 w-3" />
+                    {t("rest.importSkillsFromProjectDialog.open")}{" "}<ExternalLink className="h-3 w-3" />
                   </Link>
                 </li>
               ))}
@@ -1230,7 +1234,7 @@ function ResultStep({ result }: ResultStepProps) {
         {result.skipped.length > 0 && (
           <section>
             <header className="bg-muted/30 px-5 py-1.5 text-xs uppercase tracking-wide text-muted-foreground">
-              Skipped · {result.skipped.length}
+              {t("rest.importSkillsFromProjectDialog.skipped3", { length: result.skipped.length })}
             </header>
             <ul className="divide-y divide-border/60" data-testid="result-skipped">
               {result.skipped.map((row, index) => (
@@ -1253,7 +1257,7 @@ function ResultStep({ result }: ResultStepProps) {
         {result.warnings.length > 0 && (
           <section>
             <header className="bg-muted/30 px-5 py-1.5 text-xs uppercase tracking-wide text-muted-foreground">
-              Warnings · {result.warnings.length}
+              {t("rest.importSkillsFromProjectDialog.warnings", { length: result.warnings.length })}
             </header>
             <ul className="divide-y divide-border/60" data-testid="result-warnings">
               {result.warnings.map((warning, index) => (

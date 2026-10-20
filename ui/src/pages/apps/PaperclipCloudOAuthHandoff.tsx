@@ -7,6 +7,7 @@ import {
   prepareOAuthNavigation,
   readPendingCloudHandoff,
 } from "@/lib/oauthHandoff";
+import { useTranslation } from "@/i18n";
 
 export type ManagedOAuthHandoffPhase = "loading" | "reauthenticating" | "error";
 
@@ -21,6 +22,7 @@ export function ManagedOAuthHandoffState({
   onRetry: () => void;
   onCancel: () => void;
 }) {
+  const { t } = useTranslation();
   const failed = phase === "error";
   return (
     <main className="flex min-h-screen items-center justify-center bg-background p-6">
@@ -34,19 +36,19 @@ export function ManagedOAuthHandoffState({
         </span>
         <div className="min-w-0">
           <h1 className="text-xl font-bold tracking-tight">
-            {failed ? "Sign-in couldn’t continue" : "Preparing secure sign-in"}
+            {failed ? t("rest.paperclipCloudoAuthHandoff.signinCouldntContinue") : t("rest.paperclipCloudoAuthHandoff.preparingSecureSignin")}
           </h1>
           <p className="mt-1 text-sm text-muted-foreground">
             {failed
-              ? error ?? "Paperclip couldn’t prepare the provider sign-in. Try again."
+              ? error ?? t("rest.paperclipCloudoAuthHandoff.paperclipCouldntPrepareTheProvider")
               : phase === "reauthenticating"
-                ? "Your Paperclip sign-in is being refreshed."
-                : "Paperclip is opening the provider securely."}
+                ? t("rest.paperclipCloudoAuthHandoff.yourPaperclipSigninIsBeing")
+                : t("rest.paperclipCloudoAuthHandoff.paperclipIsOpeningTheProvider")}
           </p>
           {failed ? (
             <div className="mt-6 flex items-center gap-2">
-              <Button type="button" onClick={onRetry}>Try again</Button>
-              <Button type="button" variant="ghost" onClick={onCancel}>Return to Paperclip</Button>
+              <Button type="button" onClick={onRetry}>{t("rest.paperclipCloudoAuthHandoff.tryAgain")}</Button>
+              <Button type="button" variant="ghost" onClick={onCancel}>{t("rest.paperclipCloudoAuthHandoff.returnToPaperclip")}</Button>
             </div>
           ) : null}
         </div>

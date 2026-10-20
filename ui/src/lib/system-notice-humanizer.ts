@@ -1,5 +1,6 @@
 import type { IssueCommentPresentation } from "@paperclipai/shared";
 import type { SystemNoticeTone } from "../components/SystemNotice";
+import { i18n } from "@/i18n";
 
 /**
  * Pure classifier for system comments in the chat shell (PAP-443 / PAP-442
@@ -58,19 +59,19 @@ export function humanizeSystemNotice(input: {
 
   if (code === "claude_auth_required") {
     return {
-      title: "Task paused — Claude needs re-authentication",
+      title: i18n.t("rest.systemNoticeHumanizer.taskPausedClaudeNeedsReauthentication"),
       tone: presentationTone ?? "warning",
     };
   }
   if (code === "configuration_incomplete" || body.includes("secret/env bindings are missing")) {
     return {
-      title: "Task paused — a secret/config binding is missing",
+      title: i18n.t("rest.systemNoticeHumanizer.taskPausedASecretconfigBinding"),
       tone: presentationTone ?? "warning",
     };
   }
   if (code === "workspace_validation_failed" || body.includes("workspace failed validation")) {
     return {
-      title: "Task paused — workspace problem",
+      title: i18n.t("rest.systemNoticeHumanizer.taskPausedWorkspaceProblem"),
       tone: presentationTone ?? "warning",
     };
   }
@@ -79,7 +80,7 @@ export function humanizeSystemNotice(input: {
     return {
       title: owner
         ? `Task paused — waiting on ${owner}`
-        : "Task paused — waiting on a recovery owner",
+        : i18n.t("rest.systemNoticeHumanizer.taskPausedWaitingOnA"),
       tone: presentationTone ?? "warning",
     };
   }

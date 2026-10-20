@@ -1,4 +1,5 @@
 import type { StatusCard, StatusCardRefreshPolicy } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 /**
  * The lifecycle states a status card renders as on the board (plan §7,
@@ -52,60 +53,92 @@ export const STATUS_CARD_LIFECYCLE_PRESENTATION: Record<
   StatusCardLifecyclePresentation
 > = {
   compiling: {
-    label: "Setting up",
+    get label() {
+    return i18n.t("rest.statusCardState.settingUp");
+  },
     dotClassName: "bg-cyan-400 animate-pulse",
-    description: "Just created; setting up and generating the first summary.",
+    get description() {
+    return i18n.t("rest.statusCardState.justCreatedSettingUpAnd");
+  },
     dashedBorder: true,
     keepsLastSummary: false,
   },
   fresh: {
-    label: "Fresh",
+    get label() {
+    return i18n.t("rest.statusCardState.fresh");
+  },
     dotClassName: "bg-emerald-400",
-    description: "Summary reflects all known changes; nothing pending.",
+    get description() {
+    return i18n.t("rest.statusCardState.summaryReflectsAllKnownChanges");
+  },
     dashedBorder: false,
     keepsLastSummary: true,
   },
   stale: {
-    label: "Stale",
+    get label() {
+    return i18n.t("rest.statusCardState.stale");
+  },
     dotClassName: "bg-amber-400",
-    description: "Changes are pending since the last update.",
+    get description() {
+    return i18n.t("rest.statusCardState.changesArePendingSinceThe");
+  },
     dashedBorder: false,
     keepsLastSummary: true,
   },
   updating: {
     // Blue (distinct from fresh-emerald and compiling-cyan) so an in-flight
     // update never reads as "fresh" on a glance-scan of the board.
-    label: "Updating",
+    get label() {
+    return i18n.t("rest.statusCardState.updating");
+  },
     dotClassName: "bg-blue-500 animate-pulse",
-    description: "An update is streaming in now.",
+    get description() {
+    return i18n.t("rest.statusCardState.anUpdateIsStreamingIn");
+  },
     dashedBorder: false,
     keepsLastSummary: true,
   },
   error: {
-    label: "Error",
+    get label() {
+    return i18n.t("rest.statusCardState.error");
+  },
     dotClassName: "bg-red-500",
-    description: "The last run failed; the last good summary stays visible.",
+    get description() {
+    return i18n.t("rest.statusCardState.theLastRunFailedThe");
+  },
     dashedBorder: false,
     keepsLastSummary: true,
   },
   paused_budget: {
-    label: "Paused — budget",
+    get label() {
+    return i18n.t("rest.statusCardState.pausedBudget");
+  },
     dotClassName: "bg-orange-400",
-    description: "The daily token cap was hit; auto-updates are suspended.",
+    get description() {
+    return i18n.t("rest.statusCardState.theDailyTokenCapWas");
+  },
     dashedBorder: false,
     keepsLastSummary: true,
   },
   paused_hours: {
-    label: "Paused — hours",
+    get label() {
+    return i18n.t("rest.statusCardState.pausedHours");
+  },
     dotClassName: "bg-orange-400",
-    description: "Outside active hours; changes batch into one update at window open.",
+    get description() {
+    return i18n.t("rest.statusCardState.outsideActiveHoursChangesBatch");
+  },
     dashedBorder: false,
     keepsLastSummary: true,
   },
   archived: {
-    label: "Archived",
+    get label() {
+    return i18n.t("rest.statusCardState.archived");
+  },
     dotClassName: "bg-muted-foreground/50",
-    description: "No auto-updates and no watches. Restore to start watching again.",
+    get description() {
+    return i18n.t("rest.statusCardState.noAutoupdatesAndNoWatches");
+  },
     dashedBorder: false,
     keepsLastSummary: true,
   },

@@ -59,6 +59,7 @@ import {
 import { cn } from "../lib/utils";
 import { NotFoundPage } from "../pages/NotFound";
 import { PluginSlotMount, resolveRouteSidebarSlot, usePluginSlots } from "../plugins/slots";
+import { useTranslation } from "@/i18n";
 
 function getCompanyRouteSegment(pathname: string, companyPrefix: string | undefined): string | null {
   return getCompanyPathSegments(pathname, companyPrefix)[0]?.toLowerCase() ?? null;
@@ -79,6 +80,7 @@ const RESERVED_APP_SUBPATHS = new Set([
 ]);
 
 export function Layout({ sidebarSections }: { sidebarSections?: ReactNode }) {
+  const { t } = useTranslation();
   const {
     sidebarOpen,
     setSidebarOpen,
@@ -309,8 +311,8 @@ export function Layout({ sidebarSections }: { sidebarSections?: ReactNode }) {
     });
     if (bounce) {
       pushToast?.({
-        title: `${matchedCompany.name} is archived`,
-        body: `Switched to ${bounce.name}.`,
+        title: t("rest.layout.isArchived", { name: matchedCompany.name }),
+        body: t("rest.layout.switchedTo", { name: bounce.name }),
         tone: "info",
         dedupeKey: `archived-company-bounce:${matchedCompany.id}`,
       });
@@ -339,7 +341,7 @@ export function Layout({ sidebarSections }: { sidebarSections?: ReactNode }) {
     pushToast,
     selectionSource,
     selectedCompanyId,
-    setSelectedCompanyId,
+    setSelectedCompanyId, t,
   ]);
 
   const togglePanel = togglePanelVisible;
@@ -587,7 +589,7 @@ export function Layout({ sidebarSections }: { sidebarSections?: ReactNode }) {
         href="#main-content"
         className="sr-only focus:not-sr-only focus:fixed focus:left-3 focus:top-3 focus:z-(--z-200) focus:rounded-md focus:bg-background focus:px-3 focus:py-2 focus:text-sm focus:font-medium focus:shadow-lg focus:outline-none focus-visible:ring-2 focus-visible:ring-ring"
       >
-        Skip to Main Content
+        {t("rest.layout.skipToMainContent")}
       </a>
       <WorktreeBanner />
       <DevRestartBanner devServer={health?.devServer} />
@@ -597,7 +599,7 @@ export function Layout({ sidebarSections }: { sidebarSections?: ReactNode }) {
             type="button"
             className="fixed inset-0 z-40 bg-black/50"
             onClick={() => setSidebarOpen(false)}
-            aria-label="Close sidebar"
+            aria-label={t("rest.layout.closeSidebar")}
           />
         )}
 

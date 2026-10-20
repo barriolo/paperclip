@@ -25,15 +25,24 @@ import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover
 import { ArrowUpDown, Check, Hexagon, Plus } from "lucide-react";
 import { Lock } from "lucide-react";
 import { Card } from "@/components/ui/card";
+import { i18n, useTranslation } from "@/i18n";
 
 type ProjectSortField = "name" | "updated" | "created" | "targetDate";
 type ProjectSortDir = "asc" | "desc";
 
 const PROJECT_SORT_OPTIONS: Array<{ field: ProjectSortField; label: string }> = [
-  { field: "name", label: "Name" },
-  { field: "updated", label: "Updated" },
-  { field: "created", label: "Created" },
-  { field: "targetDate", label: "Target date" },
+  { field: "name", get label() {
+    return i18n.t("rest.projects.name");
+  } },
+  { field: "updated", get label() {
+    return i18n.t("rest.projects.updated");
+  } },
+  { field: "created", get label() {
+    return i18n.t("rest.projects.created");
+  } },
+  { field: "targetDate", get label() {
+    return i18n.t("rest.projects.targetDate");
+  } },
 ];
 
 function compareProjectNames(left: Project, right: Project) {
@@ -78,6 +87,7 @@ function sortProjects(projects: Project[], sortField: ProjectSortField, sortDir:
 }
 
 export function Projects() {
+  const { t } = useTranslation();
   const { selectedCompanyId } = useCompany();
   const { openNewProject } = useDialogActions();
   const { setBreadcrumbs } = useBreadcrumbs();
@@ -85,8 +95,8 @@ export function Projects() {
   const [sortDir, setSortDir] = useState<ProjectSortDir>("asc");
 
   useEffect(() => {
-    setBreadcrumbs([{ label: "Projects" }]);
-  }, [setBreadcrumbs]);
+    setBreadcrumbs([{ label: t("rest.projects.projects") }]);
+  }, [setBreadcrumbs, t]);
 
   const { data: allProjects, isLoading, error } = useQuery({
     queryKey: queryKeys.projects.list(selectedCompanyId!),
@@ -117,10 +127,10 @@ export function Projects() {
 
     return groups;
   }, [membershipsQuery.data, sortedProjects]);
-  const sortLabel = PROJECT_SORT_OPTIONS.find((option) => option.field === sortField)?.label ?? "Name";
+  const sortLabel = PROJECT_SORT_OPTIONS.find((option) => option.field === sortField)?.label ?? t("rest.projects.name");
 
   if (!selectedCompanyId) {
-    return <EmptyState icon={Hexagon} message="Select an organization to view projects." />;
+    return <EmptyState icon={Hexagon} message={t("rest.projects.selectAnOrganizationToView")} />;
   }
 
   if (isLoading) {
@@ -132,9 +142,9 @@ export function Projects() {
       <div className="flex flex-col gap-2 sm:flex-row sm:items-center sm:justify-between">
         <Popover>
           <PopoverTrigger asChild>
-            <Button variant="ghost" size="sm" className="w-fit text-xs" title="Sort">
+            <Button variant="ghost" size="sm" className="w-fit text-xs" title={t("rest.projects.sort")}>
               <ArrowUpDown className="h-3.5 w-3.5 sm:h-3 sm:w-3 sm:mr-1" />
-              <span>Sort: {sortLabel}</span>
+              <span>{t("rest.projects.sort2", { sortLabel: sortLabel })}</span>
             </Button>
           </PopoverTrigger>
           <PopoverContent align="start" className="w-44 p-0">
@@ -161,7 +171,7 @@ export function Projects() {
                   {sortField === option.field ? (
                     <span className="flex items-center gap-1 text-xs text-muted-foreground">
                       <Check className="h-3 w-3" />
-                      {sortDir === "asc" ? "Asc" : "Desc"}
+                      {sortDir === "asc" ? t("rest.projects.asc") : t("rest.projects.desc")}
                     </span>
                   ) : null}
                 </button>
@@ -171,7 +181,7 @@ export function Projects() {
         </Popover>
         <Button size="sm" variant="outline" onClick={openNewProject}>
           <Plus className="h-4 w-4 mr-1" />
-          Add Project
+          {t("rest.projects.addProject")}
         </Button>
       </div>
 
@@ -180,8 +190,8 @@ export function Projects() {
       {!isLoading && projects.length === 0 && (
         <EmptyState
           icon={Hexagon}
-          message="No projects yet."
-          action="Add Project"
+          message={t("rest.projects.noProjectsYet")}
+          action={t("rest.projects.addProject")}
           onAction={openNewProject}
         />
       )}
@@ -199,7 +209,7 @@ export function Projects() {
                 <div className="flex items-center justify-between">
                   <h2 className="text-sm font-medium">{label}</h2>
                   <span className="text-xs text-muted-foreground">
-                    {sectionProjects.length} project{sectionProjects.length === 1 ? "" : "s"}
+                    {t("rest.projects.project", { length: sectionProjects.length })}{sectionProjects.length === 1 ? "" : "s"}
                   </span>
                 </div>
                 <Card className="block py-0 overflow-hidden divide-y divide-border">
@@ -222,12 +232,12 @@ export function Projects() {
                         className={state === "left" ? "group text-foreground/55" : "group"}
                         trailing={
                           <div className="flex items-center gap-3">
-                            {project.visibility === "private" ? <Lock className="size-4 shrink-0 text-muted-foreground" aria-label="Private project" /> : null}
+                            {project.visibility === "private" ? <Lock className="size-4 shrink-0 text-muted-foreground" aria-label={t("rest.projects.privateProject")} /> : null}
                             <span
                               className="hidden text-xs text-muted-foreground tabular-nums sm:inline"
                               title={`${formatNumber(project.taskCount ?? 0)} task${(project.taskCount ?? 0) === 1 ? "" : "s"}`}
                             >
-                              {formatNumber(project.taskCount ?? 0)} task{(project.taskCount ?? 0) === 1 ? "" : "s"}
+                              {t("rest.projects.task", { number: formatNumber(project.taskCount ?? 0) })}{(project.taskCount ?? 0) === 1 ? "" : "s"}
                             </span>
                             {project.budget && (
                               <span className="hidden text-xs text-muted-foreground tabular-nums sm:inline">

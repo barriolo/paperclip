@@ -7,6 +7,7 @@ import type {
   ToolProfileWithDetails,
 } from "@paperclipai/shared";
 import { humanizeConnectionDisplayName, isToolConnectionAttentionHealth } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 /** Days before expiry at which we surface a token as "Expiring". */
 export const TOKEN_EXPIRING_WINDOW_DAYS = 14;
@@ -38,10 +39,18 @@ export function tokenStatus(
 }
 
 export const TOKEN_STATUS_LABEL: Record<TokenStatus, string> = {
-  active: "Active",
-  expiring: "Expiring",
-  expired: "Expired",
-  revoked: "Revoked",
+  get active() {
+    return i18n.t("rest.gatewayHelpers.active");
+  },
+  get expiring() {
+    return i18n.t("rest.gatewayHelpers.expiring");
+  },
+  get expired() {
+    return i18n.t("rest.gatewayHelpers.expired");
+  },
+  get revoked() {
+    return i18n.t("rest.gatewayHelpers.revoked");
+  },
 };
 
 /** Count of tokens that can currently authenticate (not revoked, not expired). */
@@ -103,13 +112,13 @@ export function isGatewayOn(gateway: ToolMcpGatewayWithTokens): boolean {
 
 /** Human summary of how many tools a profile allows. */
 export function allowedToolsLabel(profile: ToolProfileWithDetails | undefined): string {
-  if (!profile) return "Profile unavailable";
+  if (!profile) return i18n.t("rest.gatewayHelpers.profileUnavailable");
   const { accessMode, allowedToolCount, totalToolCount, excludedToolCount } = profile.summary;
   const count =
     accessMode === "all_except"
       ? Math.max(totalToolCount - excludedToolCount, 0)
       : allowedToolCount;
-  if (count === 0) return "No tools allowed";
+  if (count === 0) return i18n.t("rest.gatewayHelpers.noToolsAllowed");
   return `${count} ${count === 1 ? "tool" : "tools"}`;
 }
 

@@ -5,6 +5,7 @@ import type {
   ConnectionGrantStatus,
   ToolConnectionCredentialPolicy,
 } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 /**
  * Canonical user-facing vocabulary for connection identity (PAP-17835).
@@ -15,17 +16,17 @@ import type {
  * card cannot drift into three different names for the same thing.
  */
 
-export type ConnectionTypeLabel = "Personal" | "Dedicated agent" | "Organization";
+export type ConnectionTypeLabel = string;
 
 /** The two connection types shown throughout the product. */
 export function connectionTypeLabel(
   credentialPolicy: ToolConnectionCredentialPolicy,
 ): ConnectionTypeLabel {
   return credentialPolicy === "per_user"
-    ? "Personal"
+    ? i18n.t("rest.connectionIdentity.personal")
     : credentialPolicy === "per_agent"
-      ? "Dedicated agent"
-      : "Organization";
+      ? i18n.t("rest.connectionIdentity.dedicatedAgent")
+      : i18n.t("rest.connectionIdentity.organization");
 }
 
 const ORGANIZATION_NAME_SUFFIX = " for the organization";
@@ -61,7 +62,7 @@ export function connectionNameForCredentialPolicy(
 ): string {
   return connectionNameForGrantKind(
     name,
-    connectionTypeLabel(credentialPolicy) === "Organization" ? "organization" : "user",
+    credentialPolicy !== "per_user" && credentialPolicy !== "per_agent" ? "organization" : "user",
   );
 }
 
@@ -73,15 +74,15 @@ export function connectionNameForCredentialPolicy(
 export function grantStatusLabel(status: ConnectionGrantStatus | null): string {
   switch (status) {
     case "active":
-      return "Connected";
+      return i18n.t("rest.connectionIdentity.connected");
     case "needs_reauthorization":
-      return "Needs attention";
+      return i18n.t("rest.connectionIdentity.needsAttention");
     case "expired":
-      return "Expired";
+      return i18n.t("rest.connectionIdentity.expired");
     case "revoked":
-      return "Revoked";
+      return i18n.t("rest.connectionIdentity.revoked");
     default:
-      return "Not connected";
+      return i18n.t("rest.connectionIdentity.notConnected");
   }
 }
 
@@ -114,7 +115,7 @@ export function grantAccountLabel(
   if (tenantName) return tenantName;
   if (grant?.kind === "user") return options.subjectLabel?.trim() || "Connected account";
   if (grant?.kind === "agent") return options.subjectLabel?.trim() || "Dedicated account";
-  return "Shared credential";
+  return i18n.t("rest.connectionIdentity.sharedCredential");
 }
 
 /**

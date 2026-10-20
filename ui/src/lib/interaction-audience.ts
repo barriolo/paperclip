@@ -28,6 +28,7 @@ import {
   type IssueThreadInteractionResolverPolicyProvenance,
 } from "@paperclipai/shared";
 import type { IssueThreadInteraction } from "./issue-thread-interactions";
+import { i18n } from "@/i18n";
 
 /**
  * The open default. Creation surfaces present this first and requesters omit
@@ -37,9 +38,15 @@ export const DEFAULT_RESOLVER_POLICY: IssueThreadInteractionCanonicalResolverPol
 
 /** Short label for a resolver audience — badges, select options, table cells. */
 const RESOLVER_POLICY_LABELS: Record<IssueThreadInteractionCanonicalResolverPolicy, string> = {
-  anyone: "Anyone",
-  not_creator: "Anyone except creator",
-  human_only: "Human only",
+  get anyone() {
+    return i18n.t("rest.interactionAudience.anyone");
+  },
+  get not_creator() {
+    return i18n.t("rest.interactionAudience.anyoneExceptCreator");
+  },
+  get human_only() {
+    return i18n.t("rest.interactionAudience.humanOnly");
+  },
 };
 
 /**
@@ -246,7 +253,7 @@ export function describeResolverAudience({
     // while the sentence next to it names one actor. `human_only` wins for an
     // agent addressee, while a user addressee is the narrower human audience.
     label: (policy !== "human_only" || isUserAddressee) && hasAddressee
-      ? "Addressed"
+      ? i18n.t("rest.interactionAudience.addressed")
       : RESOLVER_POLICY_LABELS[policy],
     summary,
     shortSummary,

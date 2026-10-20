@@ -5,6 +5,7 @@ import { StatusBadge } from "@/components/StatusBadge";
 import { Link } from "@/lib/router";
 import { formatDateTime } from "@/lib/utils";
 import { AppLogo } from "../AppLogo";
+import { useTranslation } from "@/i18n";
 
 export function conversationDestination(
   row: ChatConversation,
@@ -34,23 +35,24 @@ export function ChatConversationList({
   rows: ChatConversation[];
   provider: ChatProvider;
 }) {
+  const { t } = useTranslation();
   if (!rows.length)
     return (
       <EmptyState
         icon={MessageSquare}
-        message="No conversations yet"
+        message={t("rest.chatConversationList.noConversationsYet")}
         description={
           provider === "speko"
-            ? "Open an assigned task and choose Talk to agent."
+            ? t("rest.chatConversationList.openAnAssignedTaskAnd")
             : provider === "agentmail"
-            ? "Send an email to this agent’s address to start one."
-            : "Mention the agent in an enabled destination to start one."
+            ? t("rest.chatConversationList.sendAnEmailToThis")
+            : t("rest.chatConversationList.mentionTheAgentInAn")
         }
       />
     );
   return (
     <ul
-      aria-label="Conversations"
+      aria-label={t("rest.chatConversationList.conversations")}
       className="divide-y divide-border border-y border-border"
     >
       {rows.map((row) => (
@@ -73,11 +75,11 @@ export function ChatConversationList({
                   className="break-words font-medium hover:underline"
                   to={`/issues/${row.issueId}`}
                 >
-                  {row.issueTitle ?? row.issueIdentifier ?? "Paperclip task"}
+                  {row.issueTitle ?? row.issueIdentifier ?? t("rest.chatConversationList.paperclipTask")}
                 </Link>
               ) : (
                 <span className="font-medium">
-                  {row.issueTitle ?? "Waiting for task"}
+                  {row.issueTitle ?? t("rest.chatConversationList.waitingForTask")}
                 </span>
               )}
             </div>
@@ -99,7 +101,7 @@ export function ChatConversationList({
                   {formatDateTime(row.updatedAt)}
                 </time>
               )}
-              {row.state === "completed" && <span>Completed</span>}
+              {row.state === "completed" && <span>{t("rest.chatConversationList.completed")}</span>}
             </div>
           </div>
           {row.state !== "active" && row.state !== "completed" && (

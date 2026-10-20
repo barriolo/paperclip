@@ -31,6 +31,7 @@ import { AgentCharacter } from "./components/AgentCharacter";
 import { SleepingZs } from "./components/onboarding/SleepingZs";
 import { Stepper } from "./components/onboarding/Stepper";
 import "./index.css";
+import { i18n, useTranslation } from "@/i18n";
 
 /**
  * Backend-free walkthrough of the connect step's sign-in, deployed so the flow
@@ -72,10 +73,14 @@ function OpenAiBlossom({ className }: { className?: string }) {
 const MODEL_SOURCES: ModelSource[] = [
   {
     id: "claude_local",
-    label: "Claude",
+    get label() {
+    return i18n.t("rest.connectFlowPreviewMain.claude");
+  },
     icon: <img src="/brands/claude-color.svg" alt="" className="size-full" />,
   },
-  { id: "codex_local", label: "OpenAI", icon: <OpenAiBlossom className="size-full" /> },
+  { id: "codex_local", get label() {
+    return i18n.t("rest.connectFlowPreviewMain.openAI");
+  }, icon: <OpenAiBlossom className="size-full" /> },
 ];
 
 /**
@@ -121,6 +126,7 @@ function ConnectFlowPreview({
   initialSourceId: string | null;
   initialPhase: Phase;
 }) {
+  const { t } = useTranslation();
   const [selectedId, setSelectedId] = useState<string | null>(initialSourceId);
   const [useApiKeys, setUseApiKeys] = useState(false);
   const [phase, setPhase] = useState<Phase>(initialPhase);
@@ -130,7 +136,7 @@ function ConnectFlowPreview({
 
   const mode: CredentialMode = useApiKeys ? "api" : "subscription";
   const providerName = selectedId === "codex_local" ? "OpenAI" : "Claude";
-  const signInLabel = `Sign in to ${providerName}`;
+  const signInLabel = t("rest.connectFlowPreviewMain.signInTo", { providerName: providerName });
   /*
     Claude takes a code back from the customer; OpenAI hands one over. That is
     the only difference between the two cards — the sentence and the last row —
@@ -277,18 +283,18 @@ function ConnectFlowPreview({
     phase === "unwindCard"
       ? { label: signInLabel, icon: "none" as const, disabled: true }
       : done
-      ? { label: "Start over", icon: "arrow" as const, disabled: false }
+      ? { label: t("rest.connectFlowPreviewMain.startOver"), icon: "arrow" as const, disabled: false }
       : phase === "ready" && apiMode
         ? // A key is typed here rather than fetched elsewhere, so the button is
           // the submit and stays dead until there is something to submit.
-          { label: "Connect", icon: "arrow" as const, disabled: !apiKey.trim() }
+          { label: t("rest.connectFlowPreviewMain.connect"), icon: "arrow" as const, disabled: !apiKey.trim() }
         : phase === "ready"
         ? { label: signInLabel, icon: "none" as const, disabled: false }
         : phase === "waiting"
-          ? { label: "Waiting for code", icon: "spinner" as const, disabled: true }
+          ? { label: t("rest.connectFlowPreviewMain.waitingForCode"), icon: "spinner" as const, disabled: true }
           : phase === "connecting"
-            ? { label: "Connecting", icon: "spinner" as const, disabled: true }
-            : { label: "Next", icon: "arrow" as const, disabled: true };
+            ? { label: t("rest.connectFlowPreviewMain.connecting"), icon: "spinner" as const, disabled: true }
+            : { label: t("rest.connectFlowPreviewMain.next"), icon: "arrow" as const, disabled: true };
 
   return (
     <MotionConfig reducedMotion="user">
@@ -308,7 +314,7 @@ function ConnectFlowPreview({
         <div className="pt-6">
           <OnboardingHeading
             center
-            title={done ? "Connected" : "Connect a model"}
+            title={done ? t("rest.connectFlowPreviewMain.connected") : t("rest.connectFlowPreviewMain.connectAModel")}
             lede={
               done
                 ? "The step advances straight to Review — there is no success screen."
@@ -321,7 +327,7 @@ function ConnectFlowPreview({
           <>
             <div className="space-y-2 pt-12">
               <ModelSourceTiles
-                label="Model source"
+                label={t("rest.connectFlowPreviewMain.modelSource")}
                 sources={MODEL_SOURCES}
                 mode={mode}
                 selectedId={selectedId}
@@ -420,8 +426,8 @@ function ConnectFlowPreview({
                     {/* The one place the three paths differ. */}
                     {apiMode ? (
                       <OnboardingCardField
-                        label="API key"
-                        placeholder="Enter API key here"
+                        label={t("rest.connectFlowPreviewMain.aPIKey")}
+                        placeholder={t("rest.connectFlowPreviewMain.enterApiKeyHere")}
                         masked
                         value={apiKey}
                         onChange={setApiKey}

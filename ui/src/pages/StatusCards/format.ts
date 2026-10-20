@@ -1,4 +1,5 @@
 import type { StatusCardRefreshPolicy, StatusCardUpdate } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 /** "1.1k tok" / "940 tok" — compact token count for footers and chips. */
 export function formatTokens(tokens: number | null | undefined): string | null {
@@ -147,7 +148,7 @@ export function updateKindLabel(kind: StatusCardUpdate["kind"]): string {
     case "compile":
       return "compile";
     case "full":
-      return "full rebuild";
+      return i18n.t("rest.format.fullRebuild");
     case "incremental":
       return "incremental";
     default:

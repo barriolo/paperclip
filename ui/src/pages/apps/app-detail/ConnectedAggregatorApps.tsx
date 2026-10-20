@@ -9,10 +9,12 @@ import { toolsApi } from "@/api/tools";
 import { Button } from "@/components/ui/button";
 import { queryKeys } from "@/lib/queryKeys";
 import { AppLogo } from "../AppLogo";
+import { useTranslation } from "@/i18n";
 
 const catalogBySlug = new Map(AGGREGATOR_APP_CATALOG.map(app => [app.slug, app]));
 
 export function ConnectedAggregatorApps({ connection }: { connection: ToolConnection }) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { userId, settled, failed } = useAccountIdentity();
   const queryKey = queryKeys.tools.aggregatorApps(connection.id, userId);
@@ -54,22 +56,22 @@ export function ConnectedAggregatorApps({ connection }: { connection: ToolConnec
 
   return <section aria-labelledby="connected-aggregator-apps-heading" className="space-y-3">
     <div className="flex flex-wrap items-center justify-between gap-3">
-      <h2 id="connected-aggregator-apps-heading" className="text-sm font-semibold">Connected apps</h2>
-      <Button variant="outline" size="sm" aria-label={`Refresh ${providerName}`}
+      <h2 id="connected-aggregator-apps-heading" className="text-sm font-semibold">{t("rest.connectedAggregatorApps.connectedApps")}</h2>
+      <Button variant="outline" size="sm" aria-label={t("rest.connectedAggregatorApps.refresh", { providerName: providerName })}
         disabled={!settled || query.isLoading || syncing || Boolean(unavailable)}
         onClick={() => refresh.mutate(userId)}>
         <RefreshCw className={syncing ? "size-4 animate-spin" : "size-4"} aria-hidden="true" />
-        {syncing ? "Refreshing…" : `Refresh ${providerName}`}
+        {syncing ? t("rest.connectedAggregatorApps.refreshing") : t("rest.connectedAggregatorApps.refresh", { providerName: providerName })}
       </Button>
     </div>
     {loadFailed || syncFailed ? <p role="alert" className="text-sm text-destructive">
-      Couldn’t refresh {providerName} apps.{apps.length ? " Last known apps are shown." : " Try refreshing again."}
+      {t("rest.connectedAggregatorApps.couldntRefreshApps", { providerName: providerName })}{apps.length ? t("rest.connectedAggregatorApps.lastKnownAppsAreShown") : t("rest.connectedAggregatorApps.tryRefreshingAgain")}
     </p> : null}
     {syncing ? <p role="status" className="text-sm text-muted-foreground">
-      Refreshing apps…{data?.sync.total ? ` ${data.sync.checked} of ${data.sync.total}` : ""}
-    </p> : refresh.isSuccess && !syncFailed && !unavailable ? <p role="status" className="text-sm text-muted-foreground">Apps refreshed.</p> : null}
-    {(!settled && !failed) || query.isLoading ? <p role="status" className="text-sm text-muted-foreground">Loading apps…</p>
-      : apps.length ? <ul aria-label={`Connected ${providerName} apps`} tabIndex={0}
+      {t("rest.connectedAggregatorApps.refreshingApps")}{data?.sync.total ? ` ${data.sync.checked} of ${data.sync.total}` : ""}
+    </p> : refresh.isSuccess && !syncFailed && !unavailable ? <p role="status" className="text-sm text-muted-foreground">{t("rest.connectedAggregatorApps.appsRefreshed")}</p> : null}
+    {(!settled && !failed) || query.isLoading ? <p role="status" className="text-sm text-muted-foreground">{t("rest.connectedAggregatorApps.loadingApps")}</p>
+      : apps.length ? <ul aria-label={t("rest.connectedAggregatorApps.connectedApps2", { providerName: providerName })} tabIndex={0}
         className="max-h-80 overflow-y-auto rounded-lg border border-border divide-y divide-border">
         {apps.map(snapshots => {
           const app = snapshots[0];
@@ -84,7 +86,7 @@ export function ConnectedAggregatorApps({ connection }: { connection: ToolConnec
             <AppLogo name={app.appName} brandKey={app.appSlug} logoUrl={logoUrl} />
             <div className="min-w-0 flex-1">
               <p className="truncate text-sm font-medium" title={app.appName}>{app.appName}</p>
-              {accounts.length > 1 ? <p className="text-xs text-muted-foreground">{accounts.length} accounts</p>
+              {accounts.length > 1 ? <p className="text-xs text-muted-foreground">{t("rest.connectedAggregatorApps.accounts", { length: accounts.length })}</p>
                 : accounts[0]?.alias ? <p className="truncate text-xs text-muted-foreground">{accounts[0].alias}</p> : null}
             </div>
             <span className="flex shrink-0 items-center gap-1.5 text-xs text-muted-foreground">
@@ -94,7 +96,7 @@ export function ConnectedAggregatorApps({ connection }: { connection: ToolConnec
           </li>;
         })}
       </ul> : !loadFailed && !syncFailed && !syncing ? <p className="text-sm text-muted-foreground">
-        {data?.discovery.message ?? `No connected apps found in ${providerName}.`}
+        {data?.discovery.message ?? t("rest.connectedAggregatorApps.noConnectedAppsFoundIn", { providerName: providerName })}
       </p> : null}
   </section>;
 }

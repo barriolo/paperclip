@@ -5,6 +5,7 @@ import {
   type RoutineListProjectSummary,
   type RoutineListRowItem,
 } from "@/components/RoutineList";
+import { useTranslation } from "@/i18n";
 
 export type ManagedRoutinesListAgent = RoutineListAgentSummary & { id: string };
 
@@ -89,6 +90,7 @@ export function ManagedRoutinesList({
   onReconcile,
   onReset,
 }: ManagedRoutinesListProps) {
+  const { t } = useTranslation();
   const agentById = new Map<string, RoutineListAgentSummary>(
     agents.map((agent) => [agent.id, agent]),
   );
@@ -132,7 +134,7 @@ export function ManagedRoutinesList({
               secondaryDetails={
                 <span className="flex flex-wrap items-center gap-x-3 gap-y-1">
                   {routine.resourceKey ? <span>{routine.resourceKey}</span> : null}
-                  {routine.cronExpression ? <span>Schedule {routine.cronExpression}</span> : null}
+                  {routine.cronExpression ? <span>{t("rest.managedRoutinesList.schedule")}{" "}{routine.cronExpression}</span> : null}
                 </span>
               }
               onRunNow={() => onRunNow?.(routine)}
@@ -148,8 +150,8 @@ export function ManagedRoutinesList({
               >
                 <span>
                   {missingRefs.length
-                    ? `Missing ${missingRefs.map((ref) => `${ref.resourceKind}:${ref.resourceKey}`).join(", ")}`
-                    : "Routine defaults can be repaired."}
+                    ? t("rest.managedRoutinesList.missing", { join: missingRefs.map((ref) => `${ref.resourceKind}:${ref.resourceKey}`).join(", ") })
+                    : t("rest.managedRoutinesList.routineDefaultsCanBeRepaired")}
                 </span>
                 <span className="flex items-center gap-2">
                   {onReconcile ? (
@@ -159,7 +161,7 @@ export function ManagedRoutinesList({
                       disabled={reconcilingRoutineKey === routine.key}
                       onClick={() => onReconcile(routine)}
                     >
-                      {reconcilingRoutineKey === routine.key ? "Reconciling..." : "Reconcile"}
+                      {reconcilingRoutineKey === routine.key ? t("rest.managedRoutinesList.reconciling") : t("rest.managedRoutinesList.reconcile")}
                     </Button>
                   ) : null}
                   {onReset ? (
@@ -169,7 +171,7 @@ export function ManagedRoutinesList({
                       disabled={resettingRoutineKey === routine.key}
                       onClick={() => onReset(routine)}
                     >
-                      {resettingRoutineKey === routine.key ? "Resetting..." : "Reset"}
+                      {resettingRoutineKey === routine.key ? t("rest.managedRoutinesList.resetting") : t("rest.managedRoutinesList.reset")}
                     </Button>
                   ) : null}
                 </span>

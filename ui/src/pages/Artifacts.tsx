@@ -25,23 +25,42 @@ import {
 import { cn } from "@/lib/utils";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
+import { i18n, useTranslation } from "@/i18n";
 
 const ARTIFACTS_PAGE_SIZE = 30;
 const SEARCH_DEBOUNCE_MS = 250;
 
 export const ARTIFACT_KIND_FILTERS: { value: ArtifactKindFilter; label: string }[] = [
-  { value: "all", label: "All" },
-  { value: "image", label: "Images" },
-  { value: "video", label: "Videos" },
-  { value: "document", label: "Documents" },
-  { value: "text", label: "Text" },
-  { value: "file", label: "Files" },
+  { value: "all", get label() {
+    return i18n.t("rest.artifacts.all");
+  } },
+  { value: "image", get label() {
+    return i18n.t("rest.artifacts.images");
+  } },
+  { value: "video", get label() {
+    return i18n.t("rest.artifacts.videos");
+  } },
+  { value: "document", get label() {
+    return i18n.t("rest.artifacts.documents");
+  } },
+  { value: "text", get label() {
+    return i18n.t("rest.artifacts.text");
+  } },
+  { value: "file", get label() {
+    return i18n.t("rest.artifacts.files");
+  } },
 ];
 
 export const ARTIFACT_GROUP_OPTIONS: { value: ArtifactGroupBy; label: string }[] = [
-  { value: "none", label: "None" },
-  { value: "task", label: "Task" },
-  { value: "parent_task", label: "Parent task" },
+  { value: "none", get label() {
+    return i18n.t("rest.artifacts.none");
+  } },
+  { value: "task", get label() {
+    return i18n.t("rest.artifacts.task");
+  } },
+  { value: "parent_task", get label() {
+    return i18n.t("rest.artifacts.parentTask");
+  } },
 ];
 
 const KIND_VALUES = new Set(ARTIFACT_KIND_FILTERS.map((filter) => filter.value));
@@ -62,6 +81,7 @@ export function artifactGroupByLabel(value: ArtifactGroupBy): string {
 }
 
 export function Artifacts() {
+  const { t } = useTranslation();
   const { selectedCompanyId } = useCompany();
   const { setBreadcrumbs } = useBreadcrumbs();
   const [searchParams, setSearchParams] = useSearchParams();
@@ -218,16 +238,16 @@ export function Artifacts() {
   useEffect(() => {
     if (viewingSelectedStack && selectedGroup) {
       setBreadcrumbs([
-        { label: "Artifacts", href: "/artifacts" },
+        { label: t("rest.artifacts.artifacts"), href: "/artifacts" },
         { label: `${selectedGroup.issue.identifier} · ${selectedGroup.title}` },
       ]);
     } else {
-      setBreadcrumbs([{ label: "Artifacts" }]);
+      setBreadcrumbs([{ label: t("rest.artifacts.artifacts") }]);
     }
-  }, [setBreadcrumbs, viewingSelectedStack, selectedGroup]);
+  }, [setBreadcrumbs, viewingSelectedStack, selectedGroup, t]);
 
   if (!selectedCompanyId) {
-    return <EmptyState icon={Package} message="Select an organization to view artifacts." />;
+    return <EmptyState icon={Package} message={t("rest.artifacts.selectAnOrganizationToView")} />;
   }
 
   const showGroupCards = viewingStackList;
@@ -253,15 +273,15 @@ export function Artifacts() {
           <Input
             value={draftQuery}
             onChange={(event) => setDraftQuery(event.currentTarget.value)}
-            placeholder="Search artifacts..."
-            aria-label="Search artifacts"
+            placeholder={t("rest.artifacts.searchArtifacts")}
+            aria-label={t("rest.artifacts.searchArtifacts2")}
             className="h-9 pl-9 pr-9 text-sm"
           />
           {draftQuery.length > 0 ? (
             <button
               type="button"
               onClick={() => setDraftQuery("")}
-              aria-label="Clear artifact search"
+              aria-label={t("rest.artifacts.clearArtifactSearch")}
               className="absolute right-2 top-1/2 inline-flex h-6 w-6 -translate-y-1/2 items-center justify-center rounded text-muted-foreground transition-colors hover:bg-accent/50 hover:text-foreground"
             >
               <X className="h-3.5 w-3.5" />
@@ -276,8 +296,8 @@ export function Artifacts() {
                 type="button"
                 variant="outline"
                 size="icon"
-                aria-label={`Group artifacts (currently ${artifactGroupByLabel(groupBy)})`}
-                title="Group artifacts"
+                aria-label={t("rest.artifacts.groupArtifactsCurrently", { artifactGroupByLabel: artifactGroupByLabel(groupBy) })}
+                title={t("rest.artifacts.groupArtifacts")}
                 data-testid="artifact-group-control"
                 data-group-by={groupBy}
                 className={cn("h-8 w-8 shrink-0", grouping && "bg-accent")}
@@ -286,7 +306,7 @@ export function Artifacts() {
               </Button>
             </DropdownMenuTrigger>
             <DropdownMenuContent align="end" className="w-44">
-              <DropdownMenuLabel>Group by</DropdownMenuLabel>
+              <DropdownMenuLabel>{t("rest.artifacts.groupBy")}</DropdownMenuLabel>
               {ARTIFACT_GROUP_OPTIONS.map((option) => (
                 <DropdownMenuItem
                   key={option.value}
@@ -302,7 +322,7 @@ export function Artifacts() {
             </DropdownMenuContent>
           </DropdownMenu>
 
-          <div className="flex flex-wrap items-center gap-1.5" role="tablist" aria-label="Filter artifacts by type">
+          <div className="flex flex-wrap items-center gap-1.5" role="tablist" aria-label={t("rest.artifacts.filterArtifactsByType")}>
             {ARTIFACT_KIND_FILTERS.map((filter) => (
               <button
                 key={filter.value}
@@ -332,7 +352,7 @@ export function Artifacts() {
             className="inline-flex items-center gap-1 rounded-md px-2 py-1 text-xs font-medium text-muted-foreground transition-colors hover:bg-accent/50 hover:text-foreground"
           >
             <ArrowLeft className="h-3.5 w-3.5" aria-hidden="true" />
-            All stacks
+            {t("rest.artifacts.allStacks")}
           </Link>
           {selectedGroup ? (
             <span className="truncate text-muted-foreground">
@@ -362,11 +382,11 @@ export function Artifacts() {
           </div>
           <div ref={loadMoreRef} className="flex min-h-10 items-center justify-center pb-2 text-xs text-muted-foreground">
             {isFetchingNextPage
-              ? "Loading more artifacts..."
+              ? t("rest.artifacts.loadingMoreArtifacts")
               : hasNextPage
                 ? null
                 : isFetching
-                  ? "Updating artifacts..."
+                  ? t("rest.artifacts.updatingArtifacts")
                   : null}
           </div>
         </>

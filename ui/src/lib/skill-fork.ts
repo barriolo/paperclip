@@ -4,6 +4,7 @@ import type {
   CompanySkillSourceType,
   CompanySkillUsageAgent,
 } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 /**
  * Pure logic for the Skill Studio "Edit a copy" fork flow (PAP-13112). Kept
@@ -27,17 +28,17 @@ export function shortSha(ref: string | null | undefined): string | null {
 function sourceTypeFallbackLabel(sourceType: CompanySkillSourceType): string {
   switch (sourceType) {
     case "github":
-      return "GitHub";
+      return i18n.t("rest.skillFork.gitHub");
     case "skills_sh":
       return "skills.sh";
     case "url":
-      return "a URL";
+      return i18n.t("rest.skillFork.aUrl");
     case "catalog":
-      return "the catalog";
+      return i18n.t("rest.skillFork.theCatalog");
     case "local_path":
-      return "a local path";
+      return i18n.t("rest.skillFork.aLocalPath");
     default:
-      return "its source";
+      return i18n.t("rest.skillFork.itsSource");
   }
 }
 

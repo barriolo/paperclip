@@ -7,6 +7,7 @@ import { ToggleSwitch } from "@/components/ui/toggle-switch";
 import { appDefinitionSlug } from "../app-definition-display";
 import type { AppDetailSectionProps } from "./types";
 import { googleSheetsConfigWithAllowlist, parseGoogleSheetIds } from "../google-sheets";
+import { useTranslation } from "@/i18n";
 
 export function SetupPanel({
   connection,
@@ -34,13 +35,14 @@ export function SetupPanel({
   permissionsLoading: boolean;
   onOpenPermissions: () => void;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="space-y-10">
       {identities}
-      <SetupLinkSection title="Agents" summary={agentsSummary} onClick={onOpenPermissions} />
+      <SetupLinkSection title={t("rest.setupPanel.agents")} summary={agentsSummary} onClick={onOpenPermissions} />
       <SetupLinkSection
-        title="Actions"
-        summary={permissionsLoading ? "Loading permissions…" : permissionsSummary ?? "Manage permissions"}
+        title={t("rest.setupPanel.actions")}
+        summary={permissionsLoading ? t("rest.setupPanel.loadingPermissions") : permissionsSummary ?? t("rest.setupPanel.managePermissions")}
         onClick={onOpenPermissions}
       />
       {appDefinitionSlug(galleryEntry) === "google-sheets" && (
@@ -104,6 +106,7 @@ export function connectionProviderName(
 }
 
 function PostHogConfigurationSection({ connection }: { connection: ToolConnection }) {
+  const { t } = useTranslation();
   const raw = connection.config?.methodConfig;
   const config = raw && typeof raw === "object" && !Array.isArray(raw)
     ? raw as Record<string, unknown>
@@ -121,9 +124,9 @@ function PostHogConfigurationSection({ connection }: { connection: ToolConnectio
   ];
   return (
     <section>
-      <h2 className="text-sm font-bold text-foreground">PostHog access scope</h2>
+      <h2 className="text-sm font-bold text-foreground">{t("rest.setupPanel.postHogAccessScope")}</h2>
       <p className="mt-0.5 text-sm text-muted-foreground">
-        PostHog uses its normal account defaults unless you narrow the optional controls below.
+        {t("rest.setupPanel.postHogUsesItsNormalAccount")}
       </p>
       <dl className="mt-4 divide-y divide-border">
         {rows.map(([label, value]) => (
@@ -155,6 +158,7 @@ function GoogleSheetsAllowlistSection({
   disabled: boolean;
   onUpdateConfig: (config: Record<string, unknown>) => void;
 }) {
+  const { t } = useTranslation();
   const [draft, setDraft] = useState("");
   const [error, setError] = useState<string | null>(null);
   const ids = currentSpreadsheetIds(connection);
@@ -164,15 +168,15 @@ function GoogleSheetsAllowlistSection({
   return (
     <section>
       <div>
-        <h2 className="text-sm font-bold text-foreground">Sheets agents can use</h2>
+        <h2 className="text-sm font-bold text-foreground">{t("rest.setupPanel.sheetsAgentsCanUse")}</h2>
         <p className="mt-0.5 text-sm text-muted-foreground">
-          Agents can only use the sheets listed here.
+          {t("rest.setupPanel.agentsCanOnlyUseThe")}
         </p>
       </div>
 
       <div className="mt-4 space-y-2">
         {ids.length === 0 ? (
-          <div className="text-sm text-muted-foreground">No sheets are connected yet.</div>
+          <div className="text-sm text-muted-foreground">{t("rest.setupPanel.noSheetsAreConnectedYet")}</div>
         ) : (
           ids.map((id) => {
             const sheetUrl = googleSheetsUrlForId(id);
@@ -184,12 +188,12 @@ function GoogleSheetsAllowlistSection({
                   rel="noreferrer"
                   className="min-w-0 flex-1 text-sm font-medium text-foreground underline-offset-2 hover:underline"
                 >
-                  <span className="block truncate">Open sheet</span>
+                  <span className="block truncate">{t("rest.setupPanel.openSheet")}</span>
                   <span className="block truncate font-mono text-xs font-normal text-muted-foreground">
                     {sheetUrl}
                   </span>
                   <span className="block truncate font-mono text-(length:--text-micro) font-normal text-muted-foreground/80">
-                    ID: {id}
+                    {t("rest.setupPanel.iD", { id: id })}
                   </span>
                 </a>
                 <Button
@@ -197,10 +201,10 @@ function GoogleSheetsAllowlistSection({
                   size="sm"
                   variant="outline"
                   disabled={disabled || ids.length <= 1}
-                  title={ids.length <= 1 ? "Add another sheet before removing this one." : undefined}
+                  title={ids.length <= 1 ? t("rest.setupPanel.addAnotherSheetBeforeRemoving") : undefined}
                   onClick={() => saveIds(ids.filter((current) => current !== id))}
                 >
-                  Remove
+                  {t("rest.setupPanel.remove")}
                 </Button>
               </div>
             );
@@ -236,7 +240,7 @@ function GoogleSheetsAllowlistSection({
             setDraft("");
           }}
         >
-          Add sheet
+          {t("rest.setupPanel.addSheet")}
         </Button>
       </div>
       {error && <div className="mt-2 text-xs text-destructive">{error}</div>}
@@ -253,6 +257,7 @@ export function QuarantinedActionsReview({
   disabled: boolean;
   onSubmit: (enabledIds: string[]) => void;
 }) {
+  const { t } = useTranslation();
   const [enabledIds, setEnabledIds] = useState<Set<string>>(new Set());
   const count = entries.length;
   const selectedIds = entries.filter((entry) => enabledIds.has(entry.id)).map((entry) => entry.id);
@@ -261,7 +266,7 @@ export function QuarantinedActionsReview({
       <div className="flex flex-wrap items-start justify-between gap-3">
         <div>
           <div className="text-sm font-semibold text-amber-800 dark:text-amber-200">
-            Review {count} new {count === 1 ? "action" : "actions"}
+            {t("rest.setupPanel.reviewNew", { count: count })}{" "}{count === 1 ? "action" : "actions"}
           </div>
           <p className="mt-1 text-xs text-amber-700 dark:text-amber-300">
             Turn on the actions agents may use. Anything left off stays blocked when you save.
@@ -274,7 +279,7 @@ export function QuarantinedActionsReview({
             disabled={disabled}
             onClick={() => setEnabledIds(new Set(entries.map((entry) => entry.id)))}
           >
-            Turn all on
+            {t("rest.setupPanel.turnAllOn")}
           </button>
           <button
             type="button"
@@ -282,7 +287,7 @@ export function QuarantinedActionsReview({
             disabled={disabled}
             onClick={() => setEnabledIds(new Set())}
           >
-            Turn all off
+            {t("rest.setupPanel.turnAllOff")}
           </button>
         </div>
       </div>
@@ -317,10 +322,10 @@ export function QuarantinedActionsReview({
       </div>
       <div className="flex items-center justify-between gap-3">
         <span className="text-xs text-amber-700 dark:text-amber-300">
-          {selectedIds.length} of {count} will be on
+          {t("rest.setupPanel.ofWillBeOn", { length: selectedIds.length, count: count })}
         </span>
         <Button size="sm" disabled={disabled} onClick={() => onSubmit(selectedIds)}>
-          {disabled ? "Saving…" : "Save choices"}
+          {disabled ? t("rest.setupPanel.saving") : t("rest.setupPanel.saveChoices")}
         </Button>
       </div>
     </section>

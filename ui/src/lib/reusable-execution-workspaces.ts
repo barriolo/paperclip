@@ -1,4 +1,5 @@
 import { scoreFuzzyTextFields } from "./searchable-select";
+import { i18n } from "@/i18n";
 
 export interface ReusableExecutionWorkspaceLike {
   id: string;
@@ -139,8 +140,8 @@ export function buildReusableExecutionWorkspaceOptionGroups<T extends ReusableEx
     .map((workspace) => toOption(workspace, "all"));
 
   return [
-    ...(recent.length > 0 ? [{ id: "recent" as const, label: "Recent", options: recent }] : []),
-    { id: "all", label: "All workspaces", options: all },
+    ...(recent.length > 0 ? [{ id: "recent" as const, label: i18n.t("rest.reusableExecutionWorkspaces.recent"), options: recent }] : []),
+    { id: "all", label: i18n.t("rest.reusableExecutionWorkspaces.allWorkspaces"), options: all },
   ];
 }
 

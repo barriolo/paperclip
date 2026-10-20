@@ -9,6 +9,7 @@ import {
   TAG_SWAP_EXIT,
   TAG_SWAP_TRAVEL,
 } from "./onboarding-motion";
+import { i18n } from "@/i18n";
 
 /**
  * The connect step's row of model sources, and the tag under each one saying
@@ -33,9 +34,15 @@ export type ModelSource = {
 };
 
 const CREDENTIAL_TAG_LABEL: Record<ModelConnectionMode, string> = {
-  subscription: "Subscription",
-  api: "API key",
-  advanced: "Custom Gateway",
+  get subscription() {
+    return i18n.t("rest.modelSourceTiles.subscription");
+  },
+  get api() {
+    return i18n.t("rest.modelSourceTiles.aPIKey");
+  },
+  get advanced() {
+    return i18n.t("rest.modelSourceTiles.customGateway");
+  },
 };
 
 /**

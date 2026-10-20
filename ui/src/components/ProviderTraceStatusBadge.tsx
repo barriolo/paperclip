@@ -1,6 +1,7 @@
 import type { ProviderTraceMetadata } from "@paperclipai/shared";
 import { Bug, CircleOff } from "lucide-react";
 import { cn } from "@/lib/utils";
+import { useTranslation } from "@/i18n";
 
 export function runRequestedProviderTrace(
   contextSnapshot: Record<string, unknown> | null | undefined,
@@ -26,28 +27,29 @@ export function ProviderTraceStatusBadge({
   showOff?: boolean;
   className?: string;
 }) {
+  const { t } = useTranslation();
   const status = trace?.status;
   const expired = trace
     ? new Date(trace.expiresAt).getTime() <= Date.now()
     : false;
   const label = expired
-    ? "Trace expired"
+    ? t("rest.providerTraceStatusBadge.traceExpired")
     : status === "capturing"
-      ? "Raw tracing enabled"
+      ? t("rest.providerTraceStatusBadge.rawTracingEnabled")
       : status === "complete"
-        ? "Trace captured"
+        ? t("rest.providerTraceStatusBadge.traceCaptured")
         : status === "incomplete"
-          ? "Trace incomplete"
+          ? t("rest.providerTraceStatusBadge.traceIncomplete")
           : status === "truncated"
             ? "Trace truncated"
             : status === "expired"
-              ? "Trace expired"
+              ? t("rest.providerTraceStatusBadge.traceExpired")
               : status === "deleted"
-                ? "Trace deleted"
+                ? t("rest.providerTraceStatusBadge.traceDeleted")
                 : requested
-                  ? "Trace requested"
+                  ? t("rest.providerTraceStatusBadge.traceRequested")
                   : showOff
-                    ? "Trace off"
+                    ? t("rest.providerTraceStatusBadge.traceOff")
                     : null;
   if (!label) return null;
   const warning =
@@ -70,10 +72,10 @@ export function ProviderTraceStatusBadge({
       )}
       title={
         trace
-          ? `${trace.frameCount} frames · ${trace.byteCount} bytes · expires ${new Date(trace.expiresAt).toLocaleString()}`
+          ? t("rest.providerTraceStatusBadge.framesBytesExpires", { frameCount: trace.frameCount, byteCount: trace.byteCount, localeString: new Date(trace.expiresAt).toLocaleString() })
           : requested
-            ? "This run requested sensitive provider-frame capture."
-            : "Raw provider-frame capture was disabled for this run."
+            ? t("rest.providerTraceStatusBadge.thisRunRequestedSensitiveProviderframe")
+            : t("rest.providerTraceStatusBadge.rawProviderframeCaptureWasDisabled")
       }
     >
       <Icon className="h-3 w-3" />

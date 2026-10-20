@@ -49,6 +49,7 @@ import type {
   AgentPermissions,
   EmailEndpointSummary,
 } from "@paperclipai/shared";
+import { useTranslation } from "@/i18n";
 const selectClass =
   "w-full rounded-md border border-input bg-background px-3 py-2 text-sm";
 
@@ -83,13 +84,15 @@ function readEmailSetupDraft(key: string): Partial<EmailSetupDraft> {
 }
 
 export function EmailEndpointSetup() {
+  const { t } = useTranslation();
   const { selectedCompanyId } = useCompany();
   const [params] = useSearchParams();
-  if (!selectedCompanyId) return <p role="status" className="p-6 text-sm text-muted-foreground">Loading email setup…</p>;
+  if (!selectedCompanyId) return <p role="status" className="p-6 text-sm text-muted-foreground">{t("rest.emailEndpointSetup.loadingEmailSetup")}</p>;
   return <EmailEndpointSetupForm key={`${selectedCompanyId}:${params.get("resume") ?? params.get("setupId") ?? params.get("connectionId") ?? "new"}:${params.get("agentId") ?? "choose"}`} companyId={selectedCompanyId} />;
 }
 
 function EmailEndpointSetupForm({ companyId }: { companyId: string }) {
+  const { t } = useTranslation();
   const [params] = useSearchParams();
   const navigate = useNavigate();
   const cache = useQueryClient();
@@ -324,55 +327,55 @@ function EmailEndpointSetupForm({ companyId }: { companyId: string }) {
   };
   return <div className="mx-auto max-w-xl space-y-6 p-6">
     <header className="space-y-2">
-      <h1 className="text-xl font-bold">{step === 2 ? "Your agent’s email is ready" : "Give an agent an email address"}</h1>
+      <h1 className="text-xl font-bold">{step === 2 ? t("rest.emailEndpointSetup.yourAgentsEmailIsReady") : t("rest.emailEndpointSetup.giveAnAgentAnEmail")}</h1>
     </header>
     {step < 2 && inboxes.isError && <div role="alert" className="space-y-2 text-sm">
-      <p className="text-destructive">Could not load email setup progress. {inboxes.error.message}</p>
+      <p className="text-destructive">{t("rest.emailEndpointSetup.couldNotLoadEmailSetup", { message: inboxes.error.message })}</p>
       <Button type="button" variant="outline" size="sm" disabled={busy || inboxes.isFetching} onClick={() => { void inboxes.refetch(); }}>
-        {inboxes.isFetching ? "Loading…" : "Retry loading inboxes"}
+        {inboxes.isFetching ? t("rest.emailEndpointSetup.loading") : t("rest.emailEndpointSetup.retryLoadingInboxes")}
       </Button>
     </div>}
-    {step < 2 && resumeId === requestId && inboxes.isSuccess && !pendingEndpoint && <p role="alert" className="text-sm text-destructive">This email setup could not be found. Return to Connectors and start a new connection.</p>}
+    {step < 2 && resumeId === requestId && inboxes.isSuccess && !pendingEndpoint && <p role="alert" className="text-sm text-destructive">{t("rest.emailEndpointSetup.thisEmailSetupCouldNot")}</p>}
     {step < 2 && <ChatSetupNavigation labels={["Agent", "Email address"]} step={step}
       availableStep={step} disabled={busy} onSelect={index => { setup.reset(); setStep(index as 0 | 1); }} />}
     {step === 0 && <form className="space-y-6" onSubmit={event => { event.preventDefault(); if (canContinue) connect.mutate(); }}>
       <div className="space-y-2">
-        <Label htmlFor="email-agent">Agent</Label>
+        <Label htmlFor="email-agent">{t("rest.emailEndpointSetup.agent")}</Label>
         <AgentSelect id="email-agent" value={agentId} disabled={busy || agents.isPending || !inboxes.isSuccess || !!pendingEndpoint}
-          placeholder="Choose an agent" emptyMessage="No agents found." triggerClassName="h-10"
+          placeholder={t("rest.emailEndpointSetup.chooseAnAgent")} emptyMessage={t("rest.emailEndpointSetup.noAgentsFound")} triggerClassName="h-10"
           agents={(agents.data ?? []).filter(a => !["terminated", "pending_approval"].includes(a.status))}
           onChange={id => { setAgentId(id); setUsername((agents.data?.find(a => a.id === id)?.name ?? "").toLowerCase().replace(/[^a-z0-9._-]+/g, "-").slice(0, 64)); }} />
       </div>
       {!pendingAddress && <AgentMailCredentialField companyId={companyId} connectionId={selectedCredentialId}
         onConnectionChange={selectCredential} value={apiKey} onChange={value => { setApiKey(value); connect.reset(); }} disabled={busy} />}
       {restrictedInbox && <div className="space-y-2 text-sm">
-        <p className="text-muted-foreground">That key only connects {restrictedInbox}. Choose a saved account key or enter one to create a new address.</p>
+        <p className="text-muted-foreground">{t("rest.emailEndpointSetup.thatKeyOnlyConnects")}{" "}{restrictedInbox}{t("rest.emailEndpointSetup.chooseASavedAccountKey")}</p>
         <Button type="button" variant="link" size="sm" className="h-auto p-0" disabled={busy || !(selectedCredentialId || apiKey.trim())}
-          onClick={() => { setAllowInboxKey(true); setRestrictedInbox(""); connect.reset(); }}>Use the existing inbox instead</Button>
+          onClick={() => { setAllowInboxKey(true); setRestrictedInbox(""); connect.reset(); }}>{t("rest.emailEndpointSetup.useTheExistingInboxInstead")}</Button>
       </div>}
       {lowTrust && !scoped && <div role="alert" className="space-y-2 text-sm">
-        <p>This agent needs a work boundary before it can receive email.</p>
-        <Button type="button" variant="outline" size="sm" onClick={openTrust}>Configure work boundary</Button>
+        <p>{t("rest.emailEndpointSetup.thisAgentNeedsAWork")}</p>
+        <Button type="button" variant="outline" size="sm" onClick={openTrust}>{t("rest.emailEndpointSetup.configureWorkBoundary")}</Button>
       </div>}
       {error && <p role="alert" className="text-sm text-destructive">{error.message}</p>}
       <div className="flex items-center justify-between gap-3 border-t border-border pt-5">
-        <Button type="button" variant="ghost" disabled={busy} onClick={cancel}>Cancel</Button>
-        <Button disabled={!canContinue}>{connect.isPending ? "Connecting…" : "Continue"}<ArrowRight className="size-4" /></Button>
+        <Button type="button" variant="ghost" disabled={busy} onClick={cancel}>{t("rest.emailEndpointSetup.cancel")}</Button>
+        <Button disabled={!canContinue}>{connect.isPending ? t("rest.emailEndpointSetup.connecting") : t("rest.emailEndpointSetup.continue")}<ArrowRight className="size-4" /></Button>
       </div>
     </form>}
     {step === 1 && <form className="space-y-6" onSubmit={event => { event.preventDefault(); if (canCreate) setup.mutate(); }}>
       <div className="space-y-2">
-        <Label htmlFor={addressMode === "new" ? "email-name" : "email-existing"}>{chosen?.name}’s email address</Label>
+        <Label htmlFor={addressMode === "new" ? "email-name" : "email-existing"}>{t("rest.emailEndpointSetup.sEmailAddress", { name: chosen?.name })}</Label>
         {pendingAddress ? <>
           <p className="text-sm font-medium">{pendingAddress}</p>
-          <p className="text-sm text-muted-foreground">This address was created in AgentMail. Finish connecting it to {chosen?.name}{scopedKey ? "." : ", or choose a different address. The original inbox will stay in AgentMail."}</p>
-          {!scopedKey && <Button type="button" variant="link" size="sm" className="h-auto p-0" disabled={busy} onClick={chooseAnotherAddress}>Choose a different address</Button>}
+          <p className="text-sm text-muted-foreground">{t("rest.emailEndpointSetup.thisAddressWasCreatedIn", { name: chosen?.name })}{scopedKey ? "." : t("rest.emailEndpointSetup.orChooseADifferentAddress")}</p>
+          {!scopedKey && <Button type="button" variant="link" size="sm" className="h-auto p-0" disabled={busy} onClick={chooseAnotherAddress}>{t("rest.emailEndpointSetup.chooseADifferentAddress")}</Button>}
         </> : addressMode === "new" ? <>
           <div className="flex items-center gap-2">
             <Input id="email-name" className="min-w-0" value={username} maxLength={64} autoComplete="off" spellCheck={false} disabled={busy}
               aria-invalid={!!addressError} aria-describedby={addressError ? "email-address-error" : "email-address-status"}
               onChange={event => { setUsername(event.target.value.toLowerCase()); setup.reset(); }} />
-            <select id="email-domain" aria-label="Email domain" className={`${selectClass} max-w-1/2 shrink-0`} value={domain}
+            <select id="email-domain" aria-label={t("rest.emailEndpointSetup.emailDomain")} className={`${selectClass} max-w-1/2 shrink-0`} value={domain}
               disabled={busy || !inspected.data} onChange={event => { setDomainSelected(true); setDomain(event.target.value); setup.reset(); }}>
               {[...new Set([...customDomains, "agentmail.to", domain])]
                 .map(value => <option key={value} value={value}>@{value}</option>)}
@@ -381,77 +384,76 @@ function EmailEndpointSetupForm({ companyId }: { companyId: string }) {
         </> : <select id="email-existing" className={selectClass} value={pendingAddress ?? inboxId} disabled={busy || scopedKey || !!pendingAddress}
           aria-invalid={!!addressError} aria-describedby={addressError ? "email-address-error" : undefined}
           onChange={event => { setInboxId(event.target.value); setup.reset(); }}>
-          <option value="">Choose an inbox</option>
+          <option value="">{t("rest.emailEndpointSetup.chooseAnInbox")}</option>
           {inspected.data?.inboxes.map(i => {
             const assigned = inboxes.data?.some(e => e.id !== requestId && e.address === i.inbox_id && e.status !== "archived");
-            return <option key={i.inbox_id} value={i.inbox_id} disabled={assigned}>{i.inbox_id}{assigned ? " — already assigned" : ""}</option>;
+            return <option key={i.inbox_id} value={i.inbox_id} disabled={assigned}>{i.inbox_id}{assigned ? t("rest.emailEndpointSetup.alreadyAssigned") : ""}</option>;
           })}
         </select>}
         {scopedKey && !pendingAddress && <Button type="button" variant="link" size="sm" className="h-auto p-0" disabled={busy}
-          onClick={() => { setAllowInboxKey(false); setStep(0); }}>Choose a key for a new address</Button>}
+          onClick={() => { setAllowInboxKey(false); setStep(0); }}>{t("rest.emailEndpointSetup.chooseAKeyForA")}</Button>}
         {addressError && <p id="email-address-error" role="alert" className="text-sm text-destructive">{addressError}</p>}
         {checkingNewAddress && !addressError && <p id="email-address-status" role="status" className="text-sm text-muted-foreground">
-          {addressCheck.checking ? "Checking address…" : addressCheck.error ? `Could not check this address. ${addressCheck.error}`
-            : addressCheck.result?.status === "unknown" ? "AgentMail confirms availability when you create the address." : null}
+          {addressCheck.checking ? t("rest.emailEndpointSetup.checkingAddress") : addressCheck.error ? `Could not check this address. ${addressCheck.error}`
+            : addressCheck.result?.status === "unknown" ? t("rest.emailEndpointSetup.agentMailConfirmsAvailabilityWhenYou") : null}
         </p>}
-        {suggestions.length > 0 && <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm" aria-label="Suggested email addresses">
-          <span className="text-muted-foreground">Try:</span>
+        {suggestions.length > 0 && <div className="flex flex-wrap items-center gap-x-3 gap-y-1 text-sm" aria-label={t("rest.emailEndpointSetup.suggestedEmailAddresses")}>
+          <span className="text-muted-foreground">{t("rest.emailEndpointSetup.try")}</span>
           {suggestions.map(name => <Button key={name} type="button" variant="link" size="sm" className="h-auto p-0" disabled={busy}
             onClick={() => { setUsername(name); setup.reset(); }}>{name}@{domain}</Button>)}
         </div>}
         {!scopedKey && !pendingAddress && <Button type="button" variant="link" size="sm" className="h-auto p-0" disabled={busy}
           onClick={() => { setAddressMode(addressMode === "new" ? "existing" : "new"); setup.reset(); }}>
-          {addressMode === "new" ? "Use an existing inbox" : "Create a new address"}
+          {addressMode === "new" ? t("rest.emailEndpointSetup.useAnExistingInbox") : t("rest.emailEndpointSetup.createANewAddress")}
         </Button>}
       </div>
       <Card className="py-4">
         <CardHeader className="px-4">
-          <h2 className="text-sm font-medium">How it Works</h2>
-          <CardDescription>Incoming email creates tasks for {chosen?.name}. Replies stay in the same task.</CardDescription>
+          <h2 className="text-sm font-medium">{t("rest.emailEndpointSetup.howItWorks")}</h2>
+          <CardDescription>{t("rest.emailEndpointSetup.incomingEmailCreatesTasksFor", { name: chosen?.name })}</CardDescription>
         </CardHeader>
       </Card>
       <details className="space-y-4">
-        <summary className="cursor-pointer text-sm text-muted-foreground">Advanced options</summary>
+        <summary className="cursor-pointer text-sm text-muted-foreground">{t("rest.emailEndpointSetup.advancedOptions")}</summary>
         <div className="space-y-4">
           {addressMode === "new" && <div className="space-y-2">
-            <a className="text-sm underline" href="https://docs.agentmail.to/custom-domains" target="_blank" rel="noreferrer">Set up a custom domain ↗</a>
+            <a className="text-sm underline" href="https://docs.agentmail.to/custom-domains" target="_blank" rel="noreferrer">{t("rest.emailEndpointSetup.setUpACustomDomain")}</a>
           </div>}
           <div className="space-y-2">
-            <Label htmlFor="email-mode">Receiving</Label>
+            <Label htmlFor="email-mode">{t("rest.emailEndpointSetup.receiving")}</Label>
             <select id="email-mode" value={mode} disabled={busy} className={selectClass} onChange={event => setMode(event.target.value as typeof mode)}>
-              <option value="websocket">Live connection</option><option value="webhook">Webhook</option>
+              <option value="websocket">{t("rest.emailEndpointSetup.liveConnection")}</option><option value="webhook">{t("rest.emailEndpointSetup.webhook")}</option>
             </select>
           </div>
           <EmailSafetyNotice />
           <div className="space-y-2 text-sm">
-            <p>{lowTrust && scoped ? "Low-trust review configured" : "Manage which tasks and tools this agent can access."}</p>
-            <Button type="button" variant="outline" size="sm" onClick={openTrust}>Review trust settings</Button>
+            <p>{lowTrust && scoped ? t("rest.emailEndpointSetup.lowtrustReviewConfigured") : t("rest.emailEndpointSetup.manageWhichTasksAndTools")}</p>
+            <Button type="button" variant="outline" size="sm" onClick={openTrust}>{t("rest.emailEndpointSetup.reviewTrustSettings")}</Button>
           </div>
         </div>
       </details>
       {error && <p role="alert" className="text-sm text-destructive">{error.message}</p>}
-      {inspected.isPending && <p role="status" className="text-sm text-muted-foreground">Loading email options…</p>}
+      {inspected.isPending && <p role="status" className="text-sm text-muted-foreground">{t("rest.emailEndpointSetup.loadingEmailOptions")}</p>}
       <div className="flex items-center justify-between gap-3 border-t border-border pt-5">
-        <Button type="button" variant="ghost" disabled={busy} onClick={() => { setup.reset(); setStep(0); }}><ArrowLeft className="size-4" />Back</Button>
+        <Button type="button" variant="ghost" disabled={busy} onClick={() => { setup.reset(); setStep(0); }}><ArrowLeft className="size-4" />{t("rest.emailEndpointSetup.back")}</Button>
         <Button disabled={!canCreate}>
-          {setup.isPending ? "Connecting…" : pendingAddress ? "Finish connecting" : addressMode === "new" ? "Create email address" : "Connect email address"}<ArrowRight className="size-4" />
+          {setup.isPending ? t("rest.emailEndpointSetup.connecting") : pendingAddress ? t("rest.emailEndpointSetup.finishConnecting") : addressMode === "new" ? t("rest.emailEndpointSetup.createEmailAddress") : t("rest.emailEndpointSetup.connectEmailAddress")}<ArrowRight className="size-4" />
         </Button>
       </div>
     </form>}
     {step === 2 && <div className="space-y-6">
       <div className="space-y-2"><p className="flex items-center gap-2 font-medium"><Check className="size-4" />{setup.data?.address}</p>
-        <p className="text-sm text-muted-foreground">{chosen?.name} can now receive email at this address.</p></div>
+        <p className="text-sm text-muted-foreground">{t("rest.emailEndpointSetup.canNowReceiveEmailAt", { name: chosen?.name })}</p></div>
       <div className="flex items-center justify-between gap-3 border-t border-border pt-5">
-        <Button variant="ghost" onClick={leave}>Email settings</Button><Button onClick={() => navigate("/apps")}>Done</Button>
+        <Button variant="ghost" onClick={leave}>{t("rest.emailEndpointSetup.emailSettings")}</Button><Button onClick={() => navigate("/apps")}>{t("rest.emailEndpointSetup.done")}</Button>
       </div>
     </div>}
       <Dialog open={trustOpen} onOpenChange={setTrustOpen}>
         <DialogContent className="max-h-screen overflow-y-auto sm:max-w-2xl">
           <DialogHeader>
-            <DialogTitle>Trust settings · {chosen?.name}</DialogTitle>
+            <DialogTitle>{t("rest.emailEndpointSetup.trustSettings", { name: chosen?.name })}</DialogTitle>
             <DialogDescription>
-              Changes apply to all of this agent’s work. Use a dedicated email
-              agent if its other tasks need broader access.
+              {t("rest.emailEndpointSetup.changesApplyToAllOf")}
             </DialogDescription>
           </DialogHeader>
           <TrustPresetSection
@@ -470,8 +472,7 @@ function EmailEndpointSetupForm({ companyId }: { companyId: string }) {
             candidatesLoading={projects.isPending || boundaryIssues.isPending}
           />
           <p className="text-xs text-muted-foreground">
-            Low trust limits Paperclip access; it does not sandbox the runtime.
-            Review filesystem, tool, and secret access separately.
+            {t("rest.emailEndpointSetup.lowTrustLimitsPaperclipAccess")}
           </p>
           {(trust.error || projects.error || boundaryIssues.error) && (
             <p role="alert" className="text-sm text-destructive">
@@ -480,7 +481,7 @@ function EmailEndpointSetupForm({ companyId }: { companyId: string }) {
           )}
           <DialogFooter>
             <Button variant="ghost" onClick={() => setTrustOpen(false)}>
-              Cancel
+              {t("rest.emailEndpointSetup.cancel")}
             </Button>
             <Button
               disabled={
@@ -492,7 +493,7 @@ function EmailEndpointSetupForm({ companyId }: { companyId: string }) {
               }
               onClick={() => trust.mutate()}
             >
-              Save trust settings
+              {t("rest.emailEndpointSetup.saveTrustSettings")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -509,6 +510,7 @@ export function EmailConnectionInboxes({
   connectionId: string;
   canConfigure: boolean;
 }) {
+  const { t } = useTranslation();
   const query = useQuery({
     queryKey: ["email-inboxes", companyId],
     queryFn: () => emailApi.list(companyId),
@@ -532,10 +534,10 @@ export function EmailConnectionInboxes({
       <div className="flex flex-wrap items-center justify-between gap-4 rounded-xl border border-border p-6">
         <div className="space-y-1">
           <h2 className="text-lg font-semibold">
-            Give an agent an email address
+            {t("rest.emailEndpointSetup.giveAnAgentAnEmail")}
           </h2>
           <p className="text-sm text-muted-foreground">
-            Each email conversation becomes a task.
+            {t("rest.emailEndpointSetup.eachEmailConversationBecomesA")}
           </p>
         </div>
         {canConfigure && (
@@ -543,7 +545,7 @@ export function EmailConnectionInboxes({
             <Link
               to={`/apps/chat/connect?provider=agentmail&connectionId=${connectionId}`}
             >
-              Give an agent an email address
+              {t("rest.emailEndpointSetup.giveAnAgentAnEmail")}
             </Link>
           </Button>
         )}
@@ -561,7 +563,7 @@ export function EmailConnectionInboxes({
           </Link>
           <span className="text-xs text-muted-foreground">
             {i.lastError ??
-              (i.status === "active" ? "Receiving email" : i.status)}
+              (i.status === "active" ? t("rest.emailEndpointSetup.receivingEmail") : i.status)}
           </span>
         </div>
       ))}
@@ -583,6 +585,7 @@ export function EmailEndpointSettings({
   companyId: string;
   assignedAgentName: string;
 }) {
+  const { t } = useTranslation();
   const cache = useQueryClient();
   const query = useQuery({
     queryKey: ["email-inboxes", companyId],
@@ -624,77 +627,76 @@ export function EmailEndpointSettings({
     },
   });
   if (removed)
-    return <p>Inbox disconnected. Email history remains in its tasks.</p>;
+    return <p>{t("rest.emailEndpointSetup.inboxDisconnectedEmailHistoryRemains")}</p>;
   if (!inbox)
     return (
       <p role={query.error ? "alert" : undefined}>
-        {query.error?.message ?? "Loading email inbox…"}
+        {query.error?.message ?? t("rest.emailEndpointSetup.loadingEmailInbox")}
       </p>
     );
   return (
     <div className="max-w-2xl space-y-8 pb-8">
       <header className="space-y-2">
-        <p className="text-sm text-muted-foreground">{assignedAgentName}’s email address</p>
+        <p className="text-sm text-muted-foreground">{t("rest.emailEndpointSetup.sEmailAddress2", { assignedAgentName: assignedAgentName })}</p>
         <div className="flex flex-wrap items-center gap-x-4 gap-y-2">
           <h1 aria-label={inbox.address ?? undefined} className="min-w-0 break-all text-xl font-bold">
             {inbox.address ? (
-              <CopyText text={inbox.address} ariaLabel="Copy email address" title="Copy email address"
+              <CopyText text={inbox.address} ariaLabel={t("rest.emailEndpointSetup.copyEmailAddress")} title={t("rest.emailEndpointSetup.copyEmailAddress")}
                 containerClassName="max-w-full" className="flex min-w-0 items-center gap-2 rounded-md text-left">
                 <span className="min-w-0 break-all">{inbox.address}</span>
                 <Copy aria-hidden="true" className="size-4 shrink-0 text-muted-foreground" />
               </CopyText>
-            ) : "Email inbox"}
+            ) : t("rest.emailEndpointSetup.emailInbox")}
           </h1>
           {inbox.address && (
             <a href={`https://console.agentmail.to/dashboard/inboxes/${encodeURIComponent(inbox.address)}`}
               target="_blank" rel="noopener noreferrer"
               className="inline-flex items-center gap-1 text-sm text-muted-foreground underline underline-offset-4 hover:text-foreground">
-              View inbox <ExternalLink aria-hidden="true" className="size-3" />
+              {t("rest.emailEndpointSetup.viewInbox")}{" "}<ExternalLink aria-hidden="true" className="size-3" />
             </a>
           )}
         </div>
         {inbox.status === "active" && inbox.address && (
           <p className="text-sm text-muted-foreground">
-            Send an email to this address to start a task with {assignedAgentName}.
+            {t("rest.emailEndpointSetup.sendAnEmailToThis", { assignedAgentName: assignedAgentName })}
           </p>
         )}
       </header>
 
       <Card className="gap-2 p-4">
-        <h2 className="text-sm font-semibold">How it Works</h2>
+        <h2 className="text-sm font-semibold">{t("rest.emailEndpointSetup.howItWorks")}</h2>
         <p className="text-sm text-muted-foreground">
-          Incoming email creates tasks for {assignedAgentName}. Replies stay in the same task.
-          Task comments stay internal; use Email reply to send an email.
+          {t("rest.emailEndpointSetup.incomingEmailCreatesTasksFor2", { assignedAgentName: assignedAgentName })}
         </p>
       </Card>
 
       <section aria-labelledby="email-receiving-heading" className="space-y-4">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="flex items-center gap-2">
-            <h2 id="email-receiving-heading" className="text-sm font-semibold">Receiving email</h2>
+            <h2 id="email-receiving-heading" className="text-sm font-semibold">{t("rest.emailEndpointSetup.receivingEmail")}</h2>
             {(inbox.status !== "active" || inbox.lastError) && (
               <StatusBadge status={inbox.status === "active" ? "attention" : inbox.status}
-                label={inbox.status === "active" ? "Needs attention" : inbox.status === "revoked" ? "Access revoked" : undefined} />
+                label={inbox.status === "active" ? t("rest.emailEndpointSetup.needsAttention") : inbox.status === "revoked" ? t("rest.emailEndpointSetup.accessRevoked") : undefined} />
             )}
           </div>
           {["active", "paused"].includes(inbox.status) && (
             <Button variant="outline" size="sm" disabled={control.isPending}
               onClick={() => control.mutate(inbox.status === "active" ? "pause" : "resume")}>
-              {inbox.status === "active" ? "Pause" : "Resume"}
+              {inbox.status === "active" ? t("rest.emailEndpointSetup.pause") : t("rest.emailEndpointSetup.resume")}
             </Button>
           )}
         </div>
         {inbox.status === "paused" && (
-          <p className="text-sm text-muted-foreground">Receiving is paused. Resume to receive new email.</p>
+          <p className="text-sm text-muted-foreground">{t("rest.emailEndpointSetup.receivingIsPausedResumeTo")}</p>
         )}
         <dl className="grid gap-3 sm:grid-cols-2">
           <div className="space-y-1">
-            <dt className="text-xs text-muted-foreground">Receiving mode</dt>
-            <dd className="text-sm">{inbox.receiveMode === "websocket" ? "Live connection" : "Webhook"}</dd>
+            <dt className="text-xs text-muted-foreground">{t("rest.emailEndpointSetup.receivingMode")}</dt>
+            <dd className="text-sm">{inbox.receiveMode === "websocket" ? t("rest.emailEndpointSetup.liveConnection") : t("rest.emailEndpointSetup.webhook")}</dd>
           </div>
           <div className="space-y-1">
-            <dt className="text-xs text-muted-foreground">Last mail check</dt>
-            <dd className="font-mono text-xs">{inbox.lastSyncAt ? formatDateTime(inbox.lastSyncAt) : "Not checked yet"}</dd>
+            <dt className="text-xs text-muted-foreground">{t("rest.emailEndpointSetup.lastMailCheck")}</dt>
+            <dd className="font-mono text-xs">{inbox.lastSyncAt ? formatDateTime(inbox.lastSyncAt) : t("rest.emailEndpointSetup.notCheckedYet")}</dd>
           </div>
         </dl>
         {inbox.lastError && <p role="alert" className="text-sm text-destructive">{inbox.lastError}</p>}
@@ -704,26 +706,26 @@ export function EmailEndpointSettings({
       </section>
 
       <details open={reconnectOpen} onToggle={(event) => setReconnectOpen(event.currentTarget.open)} className="border-t border-border pt-5">
-        <summary className="cursor-pointer text-sm font-medium">Reconnect inbox</summary>
+        <summary className="cursor-pointer text-sm font-medium">{t("rest.emailEndpointSetup.reconnectInbox")}</summary>
         <div className="space-y-4 pt-4">
           <p className="text-sm text-muted-foreground">
-            Replace the API key or change how this inbox receives email. The email address and task history stay the same.
+            {t("rest.emailEndpointSetup.replaceTheApiKeyOr")}
           </p>
-          <AgentMailApiKeyField label="New API key" value={replacementKey} onChange={setReplacementKey} disabled={reconnect.isPending} />
+          <AgentMailApiKeyField label={t("rest.emailEndpointSetup.newApiKey")} value={replacementKey} onChange={setReplacementKey} disabled={reconnect.isPending} />
           <div className="space-y-2">
-            <Label htmlFor="email-reconnect-mode">Receiving mode</Label>
+            <Label htmlFor="email-reconnect-mode">{t("rest.emailEndpointSetup.receivingMode")}</Label>
             <select id="email-reconnect-mode" className={selectClass}
               disabled={reconnect.isPending} value={receiveMode || inbox.receiveMode}
               onChange={(e) => setReceiveMode(e.target.value as "websocket" | "webhook")}>
-              <option value="websocket">Live connection</option>
-              <option value="webhook">Webhook</option>
+              <option value="websocket">{t("rest.emailEndpointSetup.liveConnection")}</option>
+              <option value="webhook">{t("rest.emailEndpointSetup.webhook")}</option>
             </select>
           </div>
           {reconnect.error && <p role="alert" className="text-sm text-destructive">{reconnect.error.message}</p>}
-          {reconnect.isSuccess && <p role="status" className="text-sm">Inbox reconnected.</p>}
+          {reconnect.isSuccess && <p role="status" className="text-sm">{t("rest.emailEndpointSetup.inboxReconnected")}</p>}
           <div className="flex justify-end">
             <Button variant="outline" disabled={!replacementKey || reconnect.isPending} onClick={() => reconnect.mutate()}>
-              {reconnect.isPending ? "Reconnecting…" : "Reconnect inbox"}
+              {reconnect.isPending ? t("rest.emailEndpointSetup.reconnecting") : t("rest.emailEndpointSetup.reconnectInbox")}
             </Button>
           </div>
         </div>
@@ -732,12 +734,12 @@ export function EmailEndpointSettings({
       <section aria-labelledby="email-disconnect-heading" className="space-y-3 border-t border-border pt-5">
         <div className="flex flex-wrap items-center justify-between gap-3">
           <div className="space-y-1">
-            <h2 id="email-disconnect-heading" className="text-sm font-semibold">Disconnect inbox</h2>
-            <p className="text-sm text-muted-foreground">Stop receiving email in Paperclip. The inbox stays in AgentMail.</p>
+            <h2 id="email-disconnect-heading" className="text-sm font-semibold">{t("rest.emailEndpointSetup.disconnectInbox")}</h2>
+            <p className="text-sm text-muted-foreground">{t("rest.emailEndpointSetup.stopReceivingEmailInPaperclip")}</p>
           </div>
           <Button variant="outline" size="sm" disabled={control.isPending}
             onClick={() => control.mutate("remove")}>
-            Disconnect inbox
+            {t("rest.emailEndpointSetup.disconnectInbox")}
           </Button>
         </div>
         {control.error && control.variables === "remove" && (

@@ -23,6 +23,7 @@ import type {
   ExternalObjectSummary,
   ExternalObjectSummaryItem,
 } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 /**
  * Lucide icon for each status category. The mapping is host-owned per the
@@ -75,17 +76,39 @@ export function externalObjectIconForLiveness(liveness: string): LucideIcon | nu
 }
 
 const CATEGORY_LABELS: Record<string, string> = {
-  unknown: "Not yet resolved",
-  open: "Open",
-  waiting: "Waiting",
-  running: "Running",
-  succeeded: "Succeeded",
-  failed: "Failed",
-  blocked: "Blocked",
-  closed: "Closed",
-  archived: "Archived",
-  auth_required: "Authorization required",
-  unreachable: "Unreachable",
+  get unknown() {
+    return i18n.t("rest.externalObjects.notYetResolved");
+  },
+  get open() {
+    return i18n.t("rest.externalObjects.open");
+  },
+  get waiting() {
+    return i18n.t("rest.externalObjects.waiting");
+  },
+  get running() {
+    return i18n.t("rest.externalObjects.running");
+  },
+  get succeeded() {
+    return i18n.t("rest.externalObjects.succeeded");
+  },
+  get failed() {
+    return i18n.t("rest.externalObjects.failed");
+  },
+  get blocked() {
+    return i18n.t("rest.externalObjects.blocked");
+  },
+  get closed() {
+    return i18n.t("rest.externalObjects.closed");
+  },
+  get archived() {
+    return i18n.t("rest.externalObjects.archived");
+  },
+  get auth_required() {
+    return i18n.t("rest.externalObjects.authorizationRequired");
+  },
+  get unreachable() {
+    return i18n.t("rest.externalObjects.unreachable");
+  },
 };
 
 export function externalObjectCategoryLabel(category: string): string {
@@ -93,11 +116,21 @@ export function externalObjectCategoryLabel(category: string): string {
 }
 
 const LIVENESS_LABELS: Record<string, string> = {
-  unknown: "Not yet refreshed",
-  fresh: "Fresh",
-  stale: "Stale",
-  auth_required: "Requires auth",
-  unreachable: "Unreachable",
+  get unknown() {
+    return i18n.t("rest.externalObjects.notYetRefreshed");
+  },
+  get fresh() {
+    return i18n.t("rest.externalObjects.fresh");
+  },
+  get stale() {
+    return i18n.t("rest.externalObjects.stale");
+  },
+  get auth_required() {
+    return i18n.t("rest.externalObjects.requiresAuth");
+  },
+  get unreachable() {
+    return i18n.t("rest.externalObjects.unreachable");
+  },
 };
 
 export function externalObjectLivenessLabel(liveness: string): string {
@@ -116,7 +149,7 @@ export function externalObjectDisplayStatusLabel(input: {
   const isGenericUrl = input.providerKey === "url" && input.objectType === "link";
   const hasKnownObjectType = Boolean(input.providerKey && input.objectType);
   if (input.statusCategory === "unknown" && hasKnownObjectType && !isGenericUrl) {
-    if (input.liveness === "fresh") return "Status unavailable";
+    if (input.liveness === "fresh") return i18n.t("rest.externalObjects.statusUnavailable");
     return externalObjectLivenessLabel(input.liveness);
   }
   return externalObjectCategoryLabel(input.statusCategory);
@@ -161,18 +194,34 @@ export function externalObjectFallbackTone(
 }
 
 const PROVIDER_LABELS: Record<string, string> = {
-  github: "GitHub",
-  github_pull_request: "GitHub",
-  github_issue: "GitHub",
-  hubspot: "HubSpot",
-  linear: "Linear",
-  jira: "Jira",
-  notion: "Notion",
-  asana: "Asana",
+  get github() {
+    return i18n.t("rest.externalObjects.gitHub");
+  },
+  get github_pull_request() {
+    return i18n.t("rest.externalObjects.gitHub");
+  },
+  get github_issue() {
+    return i18n.t("rest.externalObjects.gitHub");
+  },
+  get hubspot() {
+    return i18n.t("rest.externalObjects.hubSpot");
+  },
+  get linear() {
+    return i18n.t("rest.externalObjects.linear");
+  },
+  get jira() {
+    return i18n.t("rest.externalObjects.jira");
+  },
+  get notion() {
+    return i18n.t("rest.externalObjects.notion");
+  },
+  get asana() {
+    return i18n.t("rest.externalObjects.asana");
+  },
 };
 
 export function externalObjectProviderLabel(providerKey: string | null | undefined): string {
-  if (!providerKey) return "External";
+  if (!providerKey) return i18n.t("rest.externalObjects.external");
   const lookup = PROVIDER_LABELS[providerKey];
   if (lookup) return lookup;
   return providerKey
@@ -182,10 +231,14 @@ export function externalObjectProviderLabel(providerKey: string | null | undefin
 }
 
 const OBJECT_TYPE_LABELS: Record<string, string> = {
-  pull_request: "pull request",
+  get pull_request() {
+    return i18n.t("rest.externalObjects.pullRequest");
+  },
   issue: "issue",
   deployment: "deployment",
-  workflow_run: "workflow run",
+  get workflow_run() {
+    return i18n.t("rest.externalObjects.workflowRun");
+  },
   ticket: "ticket",
   lead: "lead",
   url_link: "URL",

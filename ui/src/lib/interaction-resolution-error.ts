@@ -13,6 +13,7 @@
  */
 
 import type { InteractionAudienceDescription } from "./interaction-audience";
+import { i18n } from "@/i18n";
 
 /**
  * Denials that mean "you are outside this card's resolver audience". Mirrors the
@@ -143,14 +144,14 @@ export function describeInteractionResolutionFailure(
     return {
       kind: "settled",
       code,
-      message: reason ?? "This request is no longer waiting for a decision.",
+      message: reason ?? i18n.t("rest.interactionResolutionError.thisRequestIsNoLonger"),
     };
   }
 
   return {
     kind: "transient",
     code,
-    message: reason ? `${reason} Try again.` : "Couldn't submit. Try again.",
+    message: reason ? `${reason} Try again.` : i18n.t("rest.interactionResolutionError.couldntSubmitTryAgain"),
   };
 }
 

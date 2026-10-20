@@ -1,9 +1,9 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
-import en from "@/i18n/locales/en.json";
+import { expandCatalogCopy } from "@/i18n/expand-catalog-copy";
 
 function source(relativePath: string) {
-  return readFileSync(new URL(relativePath, import.meta.url), "utf8");
+  return expandCatalogCopy(readFileSync(new URL(relativePath, import.meta.url), "utf8"));
 }
 
 describe("chat connector UI contract", () => {
@@ -32,16 +32,12 @@ describe("chat connector UI contract", () => {
     expect(issue).toMatch(
       /agentsApi\.retryFailedRun\(\s*failedRun\.agentId,\s*failedRun\.runId,\s*companyId/,
     );
-    expect(issue).toContain('t("issues.issueDetail.retryQueued")');
-    expect(en.issues.issueDetail.retryQueued).toBe("Retry queued");
-    for (const [file, scope] of [["Inbox.tsx", "inbox"], ["LegacyInbox.tsx", "legacyInbox"]] as const) {
+    expect(issue).toContain("Retry queued");
+    for (const file of ["Inbox.tsx", "LegacyInbox.tsx"]) {
       const page = source(`../../${file}`);
       expect(page).toMatch(
-        new RegExp(
-          String.raw`const retryRunMutation = useMutation\(\{[\s\S]*?onError: \(error\) => \{\s*pushToast\(\{\s*title: t\("issues\.${scope}\.runRetryFailed"\)`,
-        ),
+        /const retryRunMutation = useMutation\(\{[\s\S]*?onError: \(error\) => \{\s*pushToast\(\{\s*title: "Run retry failed"/,
       );
-      expect(en.issues[scope].runRetryFailed).toBe("Run retry failed");
     }
   });
   it("keeps the exact dual-purpose choice and immutable searchable agent selection", () => {
@@ -189,9 +185,7 @@ describe("chat connector UI contract", () => {
     expect(setup).not.toContain("/setprivacy");
     expect(setup).toContain("/task@bot_username");
     expect(setup).toContain("registers its command menu automatically");
-    expect(setup).toContain(
-      "ordinary\n          mentions are not delivered to bots",
-    );
+    expect(setup.replace(/\s+/g, " ")).toContain("ordinary mentions are not delivered to bots");
     expect(setup).toContain("Create Azure Bot");
     expect(setup).toContain("Microsoft 365 work or school organization");
     expect(setup).toContain("teams.live.com");
