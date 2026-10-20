@@ -5,7 +5,11 @@
       "description": "Kom i gang ved at oprette en virksomhed.",
       "newCompany": "Ny virksomhed"
     },
-    "cloudCreateUnavailable": "Organizations are created in Paperclip Cloud. This instance can't reach it right now — try again from your Cloud portfolio."
+    "cloudCreateUnavailable": "Organizations are created in Paperclip Cloud. This instance can't reach it right now — try again from your Cloud portfolio.",
+    "language": {
+      "switchTo": "Switch language to {{language}}",
+      "description": "Change the interface language."
+    }
   },
   "nav": {
     "newTask": "New Task",

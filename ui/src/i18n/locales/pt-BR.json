@@ -5,7 +5,11 @@
       "description": "Comece criando uma empresa.",
       "newCompany": "Nova empresa"
     },
-    "cloudCreateUnavailable": "As empresas são criadas no Paperclip Cloud. Esta instância não consegue acessá-lo agora — tente de novo pelo seu portfólio no Cloud."
+    "cloudCreateUnavailable": "As empresas são criadas no Paperclip Cloud. Esta instância não consegue acessá-lo agora — tente de novo pelo seu portfólio no Cloud.",
+    "language": {
+      "switchTo": "Mudar o idioma para {{language}}",
+      "description": "Muda o idioma da interface."
+    }
   },
   "nav": {
     "newTask": "Nova tarefa",
