@@ -104,7 +104,7 @@
       "show": "Mostrar {{label}}",
       "storedSecretEnterANew": "Segredo armazenado; insira um novo valor para substituí-lo",
       "aPIBaseUrl": "URL base da API",
-      "hermesApiServerBaseUrl": "URL base do servidor de API do Hermes acessível pelo Paperclip, como http://127.0.0.1:8642 ou uma URL HTTPS privada. URLs padrão da raiz/chat do dashboard, como http://127.0.0.1:9119/chat, são aceitas e mapeadas para /api.",
+      "hermesApiServerBaseUrl": "URL base do servidor de API do Hermes acessível pelo Paperclip, como http://127.0.0.1:8642 ou uma URL HTTPS privada. URLs padrão da raiz/chat do dashboard, como http://127.0.0.1:9119/chat são aceitas e mapeadas para /api.",
       "aPIKey": "Chave de API",
       "hermesApiserverkeyNotPaperclipapikey": "API_SERVER_KEY do Hermes, não PAPERCLIP_API_KEY",
       "paperclipApiUrl": "URL da API do Paperclip",
