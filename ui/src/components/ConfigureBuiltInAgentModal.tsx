@@ -26,6 +26,7 @@ import {
   type BuiltInAgentState,
 } from "@/api/builtInAgents";
 import { adapterCuratesModelOrder } from "../lib/model-utils";
+import { useTranslation } from "@/i18n";
 
 /** Adapters whose config completeness is keyed on a non-empty `model`. */
 function isModelBasedAdapter(adapterType: string): boolean {
@@ -64,6 +65,7 @@ export function ConfigureBuiltInAgentModal({
   onOpenChange,
   onConfigured,
 }: ConfigureBuiltInAgentModalProps) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { definition } = state;
 
@@ -166,18 +168,17 @@ export function ConfigureBuiltInAgentModal({
     <Dialog open={open} onOpenChange={(next) => (provision.isPending ? undefined : onOpenChange(next))}>
       <DialogContent className="sm:max-w-lg">
         <DialogHeader>
-          <DialogTitle>Set up the {definition.displayName}</DialogTitle>
+          <DialogTitle>{t("agents.configureBuiltInAgentModal.setUpThe", { displayName: definition.displayName })}</DialogTitle>
           <DialogDescription>{definition.shortPurpose}</DialogDescription>
         </DialogHeader>
 
         <div className="space-y-4">
           <InlineBanner tone="info" compact>
-            Creates <strong>{definition.displayName}</strong> in your roster, badged{" "}
-            <strong>Built-in</strong>. Organizations that require hire approval will queue this for the
-            board.
+            {t("agents.configureBuiltInAgentModal.creates")}{" "}<strong>{definition.displayName}</strong>{" "}{t("agents.configureBuiltInAgentModal.inYourRosterBadged")}{" "}
+            <strong>{t("agents.configureBuiltInAgentModal.builtin")}</strong>{t("agents.configureBuiltInAgentModal.organizationsThatRequireHireApproval")}
           </InlineBanner>
 
-          <Field label="Harness">
+          <Field label={t("agents.configureBuiltInAgentModal.harness")}>
             <AdapterTypeDropdown
               value={adapterType}
               onChange={(next) => {
@@ -190,7 +191,7 @@ export function ConfigureBuiltInAgentModal({
           </Field>
 
           {["codex_local", "claude_local"].includes(adapterType) && <details className="space-y-3">
-            <summary className="cursor-pointer text-sm text-muted-foreground">Advanced</summary>
+            <summary className="cursor-pointer text-sm text-muted-foreground">{t("agents.configureBuiltInAgentModal.advanced")}</summary>
             <AgentRunnerSelect value={runner ?? (state.agent ? agentRunner(state.agent.adapterType) : "auto")}
               pending={adapters.isFetching} error={adapters.error?.message} onRetry={() => { void adapters.refetch(); }}
               defaultRunner={runnerAvailability?.defaultRunner} supportedRunners={runnerAvailability?.supportedRunners}
@@ -221,12 +222,11 @@ export function ConfigureBuiltInAgentModal({
 
           {!setupSupportedInModal && (
             <InlineBanner tone="warning" compact>
-              This adapter needs command or endpoint fields before it can run. Provision the
-              built-in row now, then finish those fields from the full agent configuration.
+              {t("agents.configureBuiltInAgentModal.thisAdapterNeedsCommandOr")}
             </InlineBanner>
           )}
 
-          <Field label="Monthly budget (optional)" hint="Leave blank for no cap.">
+          <Field label={t("agents.configureBuiltInAgentModal.monthlyBudgetOptional")} hint={t("agents.configureBuiltInAgentModal.leaveBlankForNoCap")}>
             <div className="flex items-center gap-2">
               <span className="text-sm text-muted-foreground">$</span>
               <Input
@@ -256,7 +256,7 @@ export function ConfigureBuiltInAgentModal({
             onClick={() => onOpenChange(false)}
             disabled={provision.isPending}
           >
-            Not now
+            {t("agents.configureBuiltInAgentModal.notNow")}
           </Button>
           <Button
             onClick={() => {

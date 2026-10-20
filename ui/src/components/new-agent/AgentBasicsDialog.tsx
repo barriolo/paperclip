@@ -21,6 +21,7 @@ import {
   DialogDescription,
   DialogTitle,
 } from "../ui/dialog";
+import { useTranslation } from "@/i18n";
 
 export type AgentBasics = {
   name: string;
@@ -48,6 +49,7 @@ export function AgentBasicsDialog({
   initialAdapter?: string;
   onInvite?: () => void;
 }) {
+  const { t } = useTranslation();
   const id = useId();
   const cloud = Boolean(useCloudInstance());
   const experimental = useQuery({
@@ -100,18 +102,18 @@ export function AgentBasicsDialog({
       >
         <div
           className="flex items-center gap-2 px-6 py-5 text-xs text-muted-foreground"
-          aria-label="New agent progress"
+          aria-label={t("agents.agentBasicsDialog.newAgentProgress")}
         >
           <span
             className={cn(step === "name" && "font-medium text-foreground")}
           >
-            1. Name
+            {t("agents.agentBasicsDialog.n1Name")}
           </span>
           <ChevronRight className="size-3" />
           <span
             className={cn(step === "adapter" && "font-medium text-foreground")}
           >
-            2. Adapter
+            {t("agents.agentBasicsDialog.n2Adapter")}
           </span>
         </div>
         <form
@@ -145,13 +147,13 @@ export function AgentBasicsDialog({
             {step === "name" ? (
               <div className="space-y-2">
                 <label htmlFor={id} className="text-sm font-medium">
-                  Agent name
+                  {t("agents.agentBasicsDialog.agentName")}
                 </label>
                 <Input
                   id={id}
                   autoFocus
                   maxLength={100}
-                  placeholder="e.g. Darnold"
+                  placeholder={t("agents.agentBasicsDialog.egDarnold")}
                   value={name}
                   onChange={(event) => setName(event.target.value)}
                   className="h-12 text-base"
@@ -163,16 +165,16 @@ export function AgentBasicsDialog({
                     className="px-0 text-muted-foreground"
                     onClick={onInvite}
                   >
-                    Invite an external agent
+                    {t("agents.agentBasicsDialog.inviteAnExternalAgent")}
                   </Button>
                 )}
               </div>
             ) : (
               <fieldset className="space-y-4">
-                <legend className="sr-only">Adapter</legend>
+                <legend className="sr-only">{t("agents.agentBasicsDialog.adapter")}</legend>
                 {isPending && (
                   <p role="status" className="text-sm text-muted-foreground">
-                    Loading adapters…
+                    {t("agents.agentBasicsDialog.loadingAdapters")}
                   </p>
                 )}
                 {error && (
@@ -217,16 +219,16 @@ export function AgentBasicsDialog({
                   })}
                 </div>
                 {experimentalRunnerAvailable && <details className="space-y-3">
-                  <summary className="cursor-pointer text-sm text-muted-foreground">Advanced</summary>
+                  <summary className="cursor-pointer text-sm text-muted-foreground">{t("agents.agentBasicsDialog.advanced")}</summary>
                   <div className="space-y-2">
-                    <label className="text-sm text-muted-foreground">Experimental harness</label>
-                    <SelectPopover aria-label="Experimental harness"
+                    <label className="text-sm text-muted-foreground">{t("agents.agentBasicsDialog.experimentalHarness")}</label>
+                    <SelectPopover aria-label={t("agents.agentBasicsDialog.experimentalHarness")}
                       value={adapterType === "paperclip_runner" ? runnerProvider : ""}
-                      placeholder="Choose a native harness…"
+                      placeholder={t("agents.agentBasicsDialog.chooseANativeHarness")}
                       onValueChange={provider => { setRunnerProvider(provider); setAdapterType("paperclip_runner"); }}
                       options={[
-                        { value: "grok", label: "Grok Build (Paperclip Runner)" },
-                        { value: "opencode", label: "OpenCode (Paperclip Runner)" },
+                        { value: "grok", label: t("agents.agentBasicsDialog.grokBuildPaperclipRunner") },
+                        { value: "opencode", label: t("agents.agentBasicsDialog.openCodePaperclipRunner") },
                       ]} />
                   </div>
                 </details>}
@@ -244,7 +246,7 @@ export function AgentBasicsDialog({
               ) : (
                 <>
                   <ArrowLeft className="size-4" />
-                  Back
+                  {t("agents.agentBasicsDialog.back")}
                 </>
               )}
             </Button>

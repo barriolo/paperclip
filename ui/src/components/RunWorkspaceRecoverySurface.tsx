@@ -16,6 +16,7 @@ import {
   canBoardManageRuntime,
   readRecoveryReconcileWorkspaceId,
 } from "../lib/recovery-reconcile";
+import { useTranslation } from "@/i18n";
 
 /** The run errorCode Paperclip stamps when it declines a run over a git workspace it can't validate. */
 export const WORKSPACE_VALIDATION_RUN_ERROR_CODE = "workspace_validation_failed";
@@ -52,6 +53,7 @@ function readRunIssueId(run: HeartbeatRun): string | null {
  * a live `workspace_validation` recovery action.
  */
 export function RunWorkspaceRecoverySurface({ run }: { run: HeartbeatRun }) {
+  const { t } = useTranslation();
   const navigate = useNavigate();
   const queryClient = useQueryClient();
   const { pushToast } = useToastActions();
@@ -103,21 +105,21 @@ export function RunWorkspaceRecoverySurface({ run }: { run: HeartbeatRun }) {
       pushToast(
         variables.mode === "quarantine_restore"
           ? {
-              title: "Workspace repaired",
-              body: "Dirty changes were quarantined onto a rescue branch and the recorded branch restored; the task will resume.",
+              title: t("agents.runWorkspaceRecoverySurface.workspaceRepaired"),
+              body: t("agents.runWorkspaceRecoverySurface.dirtyChangesWereQuarantinedOnto"),
               tone: "success",
             }
           : {
-              title: "Workspace branch reconciled",
-              body: "The recorded branch now matches the live branch; the task will resume.",
+              title: t("agents.runWorkspaceRecoverySurface.workspaceBranchReconciled"),
+              body: t("agents.runWorkspaceRecoverySurface.theRecordedBranchNowMatches"),
               tone: "success",
             },
       );
     },
     onError: (err) => {
       pushToast({
-        title: "Reconcile failed",
-        body: err instanceof Error ? err.message : "Unable to reconcile the workspace branch.",
+        title: t("agents.runWorkspaceRecoverySurface.reconcileFailed"),
+        body: err instanceof Error ? err.message : t("agents.runWorkspaceRecoverySurface.unableToReconcileTheWorkspace"),
         tone: "error",
       });
     },
@@ -158,10 +160,10 @@ export function RunWorkspaceRecoverySurface({ run }: { run: HeartbeatRun }) {
     onSuccess: (created) => {
       invalidate();
       pushToast({
-        title: "Isolated re-issue created",
+        title: t("agents.runWorkspaceRecoverySurface.isolatedReissueCreated"),
         body: created.identifier
-          ? `${created.identifier} will run on a fresh isolated workspace.`
-          : "A fresh isolated re-issue was created.",
+          ? t("agents.runWorkspaceRecoverySurface.willRunOnAFresh", { identifier: created.identifier })
+          : t("agents.runWorkspaceRecoverySurface.aFreshIsolatedReissueWas"),
         tone: "success",
       });
       if (created.identifier) {
@@ -170,8 +172,8 @@ export function RunWorkspaceRecoverySurface({ run }: { run: HeartbeatRun }) {
     },
     onError: (err) => {
       pushToast({
-        title: "Re-issue failed",
-        body: err instanceof Error ? err.message : "Unable to create an isolated re-issue.",
+        title: t("agents.runWorkspaceRecoverySurface.reissueFailed"),
+        body: err instanceof Error ? err.message : t("agents.runWorkspaceRecoverySurface.unableToCreateAnIsolated"),
         tone: "error",
       });
     },
@@ -194,8 +196,8 @@ export function RunWorkspaceRecoverySurface({ run }: { run: HeartbeatRun }) {
     },
     onError: (err) => {
       pushToast({
-        title: "Recovery resolution failed",
-        body: err instanceof Error ? err.message : "Unable to resolve recovery action",
+        title: t("agents.runWorkspaceRecoverySurface.recoveryResolutionFailed"),
+        body: err instanceof Error ? err.message : t("agents.runWorkspaceRecoverySurface.unableToResolveRecoveryAction"),
         tone: "error",
       });
     },
@@ -255,7 +257,7 @@ export function RunWorkspaceRecoverySurface({ run }: { run: HeartbeatRun }) {
   return (
     <div className="space-y-2" data-testid="run-workspace-recovery-surface">
       <div className="flex items-center justify-between gap-2">
-        <span className="text-xs font-medium text-muted-foreground">Workspace recovery</span>
+        <span className="text-xs font-medium text-muted-foreground">{t("agents.runWorkspaceRecoverySurface.workspaceRecovery")}</span>
         {issue?.identifier ? (
           <a
             href={`/issues/${issue.identifier}`}

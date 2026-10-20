@@ -13,6 +13,7 @@ import { StatusGlyph } from "./StatusGlyph";
 import { RunChatSurface } from "./RunChatSurface";
 import { useLiveRunTranscripts } from "./transcript/useLiveRunTranscripts";
 import { usePublishSharedQueryData, useSharedPollingQuery } from "../hooks/useSharedPolling";
+import { i18n, useTranslation } from "@/i18n";
 
 const MIN_DASHBOARD_RUNS = 4;
 const DASHBOARD_RUN_CARD_LIMIT = 4;
@@ -23,13 +24,27 @@ const EMPTY_TRANSCRIPT: TranscriptEntry[] = [];
 const EMPTY_RUNS: LiveRunForIssue[] = [];
 
 const runStatusLabels: Record<string, string> = {
-  running: "Running",
-  queued: "Queued",
-  succeeded: "Succeeded",
-  failed: "Failed",
-  timed_out: "Timed out",
-  cancelled: "Cancelled",
-  interrupted: "Interrupted",
+  get running() {
+    return i18n.t("agents.activeAgentsPanel.running");
+  },
+  get queued() {
+    return i18n.t("agents.activeAgentsPanel.queued");
+  },
+  get succeeded() {
+    return i18n.t("agents.activeAgentsPanel.succeeded");
+  },
+  get failed() {
+    return i18n.t("agents.activeAgentsPanel.failed");
+  },
+  get timed_out() {
+    return i18n.t("agents.activeAgentsPanel.timedOut");
+  },
+  get cancelled() {
+    return i18n.t("agents.activeAgentsPanel.cancelled");
+  },
+  get interrupted() {
+    return i18n.t("agents.activeAgentsPanel.interrupted");
+  },
 };
 
 interface ActiveAgentsPanelProps {
@@ -187,6 +202,7 @@ export const AgentRunCard = memo(function AgentRunCard({
   issueLoadFailed?: boolean;
   className?: string;
 }) {
+  const { t } = useTranslation();
   const statusLabel = runStatusLabels[run.status] ?? run.status.replace(/[_-]/g, " ");
   const runUrl = `/agents/${run.agentId}/runs/${run.id}`;
   const timestamp = run.finishedAt
@@ -208,7 +224,7 @@ export const AgentRunCard = memo(function AgentRunCard({
         <Link
           to={runUrl}
           title={`${run.agentName} — ${statusLabel} · ${timestamp}`}
-          aria-label={`${run.agentName} — ${statusLabel}. View run`}
+          aria-label={t("agents.activeAgentsPanel.viewRun", { agentName: run.agentName, statusLabel: statusLabel })}
           className="flex min-w-0 items-center gap-2 rounded-md text-foreground hover:underline focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
         >
           <AgentIdentity agent={{ id: run.agentId, name: run.agentName, appearance: run.agentAppearance }} size="sm" className="gap-2 font-medium" />
