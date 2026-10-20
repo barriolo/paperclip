@@ -305,7 +305,7 @@ export function GatewaysTab({ companyId }: { companyId: string }) {
                 disabled={activeProfiles.length === 0}
               >
                 <option value="" disabled>
-                  {profileLoading ? "Loading profiles..." : "Choose a profile"}
+                  {profileLoading ? t("settings.gatewaysTab.loadingProfiles") : t("settings.gatewaysTab.chooseAProfile")}
                 </option>
                 {activeProfiles.map((profile) => (
                   <option key={profile.id} value={profile.id}>
@@ -332,7 +332,7 @@ export function GatewaysTab({ companyId }: { companyId: string }) {
               {t("settings.gatewaysTab.cancel")}
             </Button>
             <Button type="submit" size="sm" disabled={createDisabled || !createDraft.name.trim() || !createDraft.profileId}>
-              {createGatewayMutation.isPending ? "Creating..." : "Create gateway"}
+              {createGatewayMutation.isPending ? t("settings.gatewaysTab.creating") : t("settings.gatewaysTab.createGateway")}
             </Button>
           </div>
         </form>
@@ -398,7 +398,7 @@ export function GatewaysTab({ companyId }: { companyId: string }) {
                   <div>
                     <dt className="text-xs font-medium text-muted-foreground">{t("settings.gatewaysTab.lastActivity")}</dt>
                     <dd className="mt-0.5 text-foreground">
-                      {lastActivity ? <RelativeTime value={lastActivity} /> : "Never used"}
+                      {lastActivity ? <RelativeTime value={lastActivity} /> : t("settings.gatewaysTab.neverUsed")}
                     </dd>
                   </div>
                 </dl>
@@ -501,7 +501,7 @@ export function GatewaysTab({ companyId }: { companyId: string }) {
                           !tokenDraft.expiresAt
                         }
                       >
-                        {createTokenMutation.isPending ? "Issuing..." : "Issue token"}
+                        {createTokenMutation.isPending ? t("settings.gatewaysTab.issuing") : t("settings.gatewaysTab.issueToken")}
                       </Button>
                     </div>
                   </form>
@@ -555,7 +555,7 @@ export function GatewaysTab({ companyId }: { companyId: string }) {
                                         expires <RelativeTime value={token.expiresAt} />
                                       </>
                                     ) : (
-                                      "no expiry"
+                                      t("settings.gatewaysTab.noExpiry")
                                     )}
                                   </span>
                                   {!revoked ? (

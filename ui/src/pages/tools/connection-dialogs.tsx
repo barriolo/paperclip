@@ -551,17 +551,17 @@ export function AddConnectionDialog({
                 {t("settings.connectionDialogs.back")}
               </Button>
               <Button disabled={!canCreate} onClick={() => create.mutate()}>
-                {create.isPending ? "Creating draft…" : "Create & probe"}
+                {create.isPending ? t("settings.connectionDialogs.creatingDraft") : t("settings.connectionDialogs.createProbe")}
               </Button>
             </>
           ) : (
             <>
               <Button variant="outline" disabled={probe.isPending} onClick={() => draft && probe.mutate(draft.id)}>
                 <Stethoscope className="mr-1 h-3.5 w-3.5" />
-                {probe.isPending ? "Probing…" : "Re-probe"}
+                {probe.isPending ? t("settings.connectionDialogs.probing") : t("settings.connectionDialogs.reprobe")}
               </Button>
               <Button disabled={activate.isPending || probe.isPending} onClick={() => draft && activate.mutate(draft.id)}>
-                {activate.isPending ? "Activating…" : "Activate"}
+                {activate.isPending ? t("settings.connectionDialogs.activating") : t("settings.connectionDialogs.activate")}
               </Button>
             </>
           )}

@@ -622,7 +622,7 @@ export function StepAssign({
           <span className="text-sm font-medium text-foreground">{t("settings.profileWizard.makeThisTheOrganizationDefault")}</span>
           <span className="text-xs text-muted-foreground">
             {t("settings.profileWizard.everyAgentWithoutItsOwn")}
-            {defaultProfileName ? ` Replaces “${defaultProfileName}”.` : ""}
+            {defaultProfileName ? t("settings.profileWizard.replaces", { defaultProfileName: defaultProfileName }) : ""}
           </span>
         </span>
       </label>

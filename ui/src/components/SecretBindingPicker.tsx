@@ -195,14 +195,14 @@ export function SecretBindingPicker({
             }}
             disabled={disabled || secretsQuery.isPending}
           >
-            <option value="">{secretsQuery.isPending ? "Loading…" : placeholder}</option>
+            <option value="">{secretsQuery.isPending ? t("settings.secretBindingPicker.loading") : placeholder}</option>
             {selectedMissing && value ? (
               <option value={value.secretId}>
                 {missingHint
                   ? `${missingHint.name} — ${missingHint.companyName ?? "another organization"}`
                   : hintsPending
-                    ? `Secret (${value.secretId.slice(0, 8)}…)`
-                    : `Missing secret (${value.secretId.slice(0, 8)}…)`}
+                    ? t("settings.secretBindingPicker.secret", { slice: value.secretId.slice(0, 8) })
+                    : t("settings.secretBindingPicker.missingSecret", { slice: value.secretId.slice(0, 8) })}
               </option>
             ) : null}
             {filteredSecrets.map((secret) => (
@@ -253,27 +253,27 @@ export function SecretBindingPicker({
 
       {selectedSecret ? (
         <p className={cn("text-(length:--text-micro) text-muted-foreground", statusTone(selectedSecret.status))}>
-          {selectedSecret.status !== "active" ? `Status: ${selectedSecret.status}. ` : null}
+          {selectedSecret.status !== "active" ? t("settings.secretBindingPicker.status", { status: selectedSecret.status }) : null}
           {t("settings.secretBindingPicker.boundTo")}{" "}{versionDisplay(value?.version)} · {selectedSecret.key}
         </p>
       ) : crossCompanyHint ? (
         <p className="text-(length:--text-micro) text-muted-foreground flex items-center gap-1">
           <AlertCircle className="h-3 w-3" />
-          {t("settings.secretBindingPicker.ownedBy")}{" "}{crossCompanyHint.companyName ? `the ${crossCompanyHint.companyName} organization` : "another organization"}{t("settings.secretBindingPicker.theBindingKeepsWorkingSelecting")}
+          {t("settings.secretBindingPicker.ownedBy")}{" "}{crossCompanyHint.companyName ? t("settings.secretBindingPicker.theOrganization", { companyName: crossCompanyHint.companyName }) : t("settings.secretBindingPicker.anotherOrganization")}{t("settings.secretBindingPicker.theBindingKeepsWorkingSelecting")}
         </p>
       ) : missingHint ? (
         <p className="text-(length:--text-micro) text-destructive flex items-center gap-1">
           <AlertCircle className="h-3 w-3" />
           {missingHint.status === "deleted"
-            ? "The previously selected secret was deleted. Pick another or remove the binding."
-            : `This secret is ${missingHint.status}; runs cannot resolve it until it is active again.`}
+            ? t("settings.secretBindingPicker.thePreviouslySelectedSecretWas")
+            : t("settings.secretBindingPicker.thisSecretIsRunsCannot", { status: missingHint.status })}
         </p>
       ) : hintsPending ? (
         <p className="text-(length:--text-micro) text-muted-foreground flex items-center gap-1">
           <AlertCircle className="h-3 w-3" />
           {hintsContext?.status === "error"
-            ? "Could not load this secret reference's details."
-            : "Checking this secret reference…"}
+            ? t("settings.secretBindingPicker.couldNotLoadThisSecret")
+            : t("settings.secretBindingPicker.checkingThisSecretReference")}
         </p>
       ) : selectedMissing ? (
         <p className="text-(length:--text-micro) text-destructive flex items-center gap-1">

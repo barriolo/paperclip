@@ -62,7 +62,7 @@ export function MyUserSecretsTab({ companyId }: { companyId: string }) {
           {t("settings.myUserSecretsTab.theseAreCredentialsOnlyYou")}
           {missingCount > 0 ? (
             <span className="font-medium">
-              {" "}{t("settings.myUserSecretsTab.requiredSecret", { missingCount: missingCount })}{missingCount === 1 ? " still needs" : "s still need"}{" "}{t("settings.myUserSecretsTab.yourValue")}
+              {" "}{t("settings.myUserSecretsTab.requiredSecret", { missingCount: missingCount })}{missingCount === 1 ? t("settings.myUserSecretsTab.stillNeeds") : t("settings.myUserSecretsTab.sStillNeed")}{" "}{t("settings.myUserSecretsTab.yourValue")}
             </span>
           ) : null}
         </p>
@@ -161,7 +161,7 @@ function MyUserSecretRow({
         </Badge>
         {!disabledDefinition ? (
           <Button size="sm" variant={secret ? "outline" : "default"} onClick={onSet}>
-            {secret ? "Update" : "Set value"}
+            {secret ? t("settings.myUserSecretsTab.update") : t("settings.myUserSecretsTab.setValue")}
           </Button>
         ) : null}
         {secret ? (

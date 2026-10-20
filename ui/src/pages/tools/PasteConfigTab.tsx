@@ -297,7 +297,7 @@ export function PasteConfigTab({ companyId }: { companyId: string }) {
           onClick={() => importMutation.mutate(draftText)}
           disabled={!canSubmit || Boolean(localParseError)}
         >
-          {importMutation.isPending ? "Checking…" : "Check config"}
+          {importMutation.isPending ? t("settings.pasteConfigTab.checking") : t("settings.pasteConfigTab.checkConfig")}
         </Button>
         <span className="text-xs text-muted-foreground">
           {t("settings.pasteConfigTab.wellReadItAndShow")}
@@ -564,7 +564,7 @@ function ActionGroup({
               <div className="min-w-0 flex-1">
                 <div className="truncate text-sm font-medium text-foreground">{action.title || action.toolName}</div>
                 <div className="truncate text-xs text-muted-foreground">
-                  {askFirstLevels.includes(action.riskLevel) ? "Ask first when enabled" : action.riskLevel}
+                  {askFirstLevels.includes(action.riskLevel) ? t("settings.pasteConfigTab.askFirstWhenEnabled") : action.riskLevel}
                 </div>
               </div>
               <ToggleSwitch checked={on} onCheckedChange={(next) => onToggle(action.catalogEntryId, next)} />

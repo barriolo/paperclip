@@ -72,7 +72,7 @@ export function InstanceGeneralSettings({ embedded = false }: { embedded?: boole
       <div className="text-sm text-destructive">
         {generalQuery.error instanceof Error
           ? generalQuery.error.message
-          : "Failed to load general settings."}
+          : t("settings.instanceGeneralSettings.failedToLoadGeneralSettings")}
       </div>
     );
   }
@@ -133,10 +133,10 @@ export function InstanceGeneralSettings({ embedded = false }: { embedded?: boole
           </div>
           <div className="text-sm text-muted-foreground">
             {healthQuery.data?.deploymentMode === "local_trusted"
-              ? "Local trusted mode is optimized for a local operator. Browser requests run as local board context and no sign-in is required."
+              ? t("settings.instanceGeneralSettings.localTrustedModeIsOptimized")
               : healthQuery.data?.deploymentExposure === "public"
-                ? "Authenticated public mode requires sign-in for board access and is intended for public URLs."
-                : "Authenticated private mode requires sign-in and is intended for LAN, VPN, or other private-network deployments."}
+                ? t("settings.instanceGeneralSettings.authenticatedPublicModeRequiresSignin")
+                : t("settings.instanceGeneralSettings.authenticatedPrivateModeRequiresSignin")}
           </div>
           <div className="grid gap-3 md:grid-cols-3">
             <StatusBox
@@ -219,7 +219,7 @@ export function InstanceGeneralSettings({ embedded = false }: { embedded?: boole
             <div className="flex flex-wrap gap-2">
               {WEEKLY_RETENTION_PRESETS.map((weeks) => {
                 const active = backupRetention.weeklyWeeks === weeks;
-                const label = weeks === 1 ? "1 week" : `${weeks} weeks`;
+                const label = weeks === 1 ? t("settings.instanceGeneralSettings.n1Week") : `${weeks} weeks`;
                 return (
                   <button
                     key={weeks}
@@ -249,7 +249,7 @@ export function InstanceGeneralSettings({ embedded = false }: { embedded?: boole
             <div className="flex flex-wrap gap-2">
               {MONTHLY_RETENTION_PRESETS.map((months) => {
                 const active = backupRetention.monthlyMonths === months;
-                const label = months === 1 ? "1 month" : `${months} months`;
+                const label = months === 1 ? t("settings.instanceGeneralSettings.n1Month") : `${months} months`;
                 return (
                   <button
                     key={months}
@@ -372,7 +372,7 @@ export function InstanceGeneralSettings({ embedded = false }: { embedded?: boole
             }}
           >
             <LogOut className="size-4" />
-            {signOutMutation.isPending ? "Signing out..." : "Sign out"}
+            {signOutMutation.isPending ? t("settings.instanceGeneralSettings.signingOut") : t("settings.instanceGeneralSettings.signOut")}
           </Button>
         </div>
       </section>

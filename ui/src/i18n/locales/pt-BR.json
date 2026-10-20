@@ -11,7 +11,13 @@
       "noOrganizationAccess": "Sem acesso à empresa",
       "thisAccountIsSignedIn": "Esta conta está conectada, mas não tem associação ativa a uma empresa nem acesso de administrador nesta instância do Paperclip.",
       "useAnOrganizationInviteOr": "Use um convite da empresa ou entre com uma conta que já pertença a ela.",
-      "connectionInterruptedReconnectingAutomatically": "Conexão interrompida. Reconectando automaticamente…"
+      "connectionInterruptedReconnectingAutomatically": "Conexão interrompida. Reconectando automaticamente…",
+      "reconnectingToPaperclip": "Reconectando ao Paperclip",
+      "unableToLoadPaperclip": "Não foi possível carregar o Paperclip",
+      "theServerMayBeRestarting": "O servidor pode estar reiniciando ou a conexão foi interrompida. Vamos tentar de novo a cada poucos segundos e reconectar automaticamente.",
+      "weCouldntCheckYourAccess": "Não foi possível verificar seu acesso a esta instância. Tente novamente ou contate o administrador da instância se o problema continuar.",
+      "connecting": "Conectando…",
+      "tryAgain": "Tentar novamente"
     },
     "emailConnectionAccess": {
       "loadingAccess": "Carregando acesso…",
@@ -21,12 +27,23 @@
       "whichAgentsCanUseThis2": "Quais agentes podem usar esta conexão",
       "justAgentsIPick": "Só os agentes que eu escolher",
       "anyAgent": "Qualquer agente",
-      "removingAnAssignedAgentStops": "Remover um agente atribuído interrompe o recebimento e o envio pela caixa de entrada dele."
+      "removingAnAssignedAgentStops": "Remover um agente atribuído interrompe o recebimento e o envio pela caixa de entrada dele.",
+      "anyHumanInTheOrganization": "Qualquer humano da empresa",
+      "justMe": "Só eu",
+      "onlyTheCredentialOwner": "Só o dono da credencial",
+      "accessRevoked": "Acesso revogado"
     },
     "memberMultiSelect": {
       "allow": "Permitir {{label}}",
       "noMatches": "Nenhum resultado.",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "selectPeople": "Selecionar pessoas",
+      "peopleSelected_one": "{{selectedCount}} pessoa selecionada",
+      "peopleSelected_other": "{{selectedCount}} pessoas selecionadas",
+      "noPeopleSelected": "Nenhuma pessoa selecionada",
+      "saving": "Salvando…",
+      "save": "Salvar",
+      "done": "Concluir"
     },
     "projectAccessMembers": {
       "unknownUser": "Usuário desconhecido",
@@ -46,7 +63,13 @@
       "thisAgentCanRetainPrivate": "Este agente pode reter contexto do projeto privado na memória e no workspace para execuções futuras. Remover o acesso não apaga o que ele já aprendeu.",
       "remove": "Remover {{subjectDisplayName}}",
       "loadingAccess": "Carregando acesso…",
-      "couldntLoadProjectAccessMembers": "Não foi possível carregar os membros com acesso ao projeto."
+      "couldntLoadProjectAccessMembers": "Não foi possível carregar os membros com acesso ao projeto.",
+      "manageAccess": "Gerenciar acesso",
+      "viewAccess": "Ver acesso",
+      "unknownMember": "Membro desconhecido",
+      "owner": "Dono",
+      "agent": "Agente",
+      "person": "Pessoa"
     },
     "secretBindingPicker": {
       "clear": "Limpar",
@@ -64,7 +87,17 @@
       "description": "Descrição",
       "optionalNotesNoValues": "Notas opcionais (sem valores)",
       "cancel": "Cancelar",
-      "createBind": "Criar e vincular"
+      "createBind": "Criar e vincular",
+      "loading": "Carregando…",
+      "secret": "Segredo ({{slice}}…)",
+      "missingSecret": "Segredo ausente ({{slice}}…)",
+      "status": "Status: {{status}}. ",
+      "theOrganization": "a empresa {{companyName}}",
+      "anotherOrganization": "outra empresa",
+      "thePreviouslySelectedSecretWas": "O segredo selecionado antes foi excluído. Escolha outro ou remova o vínculo.",
+      "thisSecretIsRunsCannot": "Este segredo está {{status}}; as execuções não conseguem resolvê-lo até que volte a ficar ativo.",
+      "couldNotLoadThisSecret": "Não foi possível carregar os detalhes desta referência de segredo.",
+      "checkingThisSecretReference": "Verificando esta referência de segredo…"
     },
     "stageSecretsPanel": {
       "secretsAreAvailableOnlyTo": "Segredos ficam disponíveis apenas para a automação da etapa. Escolha um agente para executar esta etapa e depois adicione os segredos de que ele precisa.",
@@ -74,7 +107,9 @@
       "namesAreReserved": "são nomes reservados.",
       "pAPERCLIP": "PAPERCLIP_*",
       "loadingSecrets": "Carregando segredos…",
-      "unsavedChanges": "Alterações não salvas"
+      "unsavedChanges": "Alterações não salvas",
+      "saving": "Salvando…",
+      "saveSecrets": "Salvar segredos"
     },
     "workspaceAccessCard": {
       "provisioning": "Provisionando",
@@ -121,7 +156,12 @@
       "action": "Ação",
       "reviewRequest": "Revisar solicitação",
       "revoke": "Revogar",
-      "inactive": "Inativo"
+      "inactive": "Inativo",
+      "creating": "Criando…",
+      "createInvite": "Criar convite",
+      "unknownInviter": "Autor do convite desconhecido",
+      "loadingMore": "Carregando mais…",
+      "viewMore": "Ver mais"
     },
     "decisionModelSettings": {
       "chooseAndSaveAConnection": "Escolha e salve uma conexão primeiro.",
@@ -149,7 +189,18 @@
       "couldNotLoadDecisionSettings": "Não foi possível carregar as configurações de decisão.",
       "tryAgain": "Tentar novamente",
       "addADecisionConnection": "Adicionar uma conexão de decisão",
-      "useASharedApiConnection": "Use uma conexão de API compartilhada para decisões da empresa."
+      "useASharedApiConnection": "Use uma conexão de API compartilhada para decisões da empresa.",
+      "manageConnection": "Gerenciar conexão",
+      "reconnectConnection": "Reconectar conexão",
+      "billingProblem": "Problema de cobrança",
+      "assignedTeam": "Equipe atribuída",
+      "disruptionScore": "Pontuação de impacto",
+      "runningTest": "Executando teste…",
+      "runTest": "Executar teste",
+      "saveChangesBeforeTesting": "Salve as alterações antes de testar.",
+      "runsASmallSampleWith": "Executa uma pequena amostra com cobrança de API.",
+      "saving": "Salvando…",
+      "saveDecisionModel": "Salvar modelo de decisão"
     },
     "createSecretPopover": {
       "movesTheTypedValueInto": "Move o valor digitado para um segredo criptografado da empresa e vincula",
@@ -160,7 +211,12 @@
       "secretValue": "Valor do segredo",
       "hideValue": "Ocultar valor",
       "showValue": "Mostrar valor",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "createBind": "Criar e vincular",
+      "storeBind": "Armazenar e vincular",
+      "createSecret": "Criar segredo",
+      "storeValueAsSecret": "Armazenar valor como segredo",
+      "thisVariable": "esta variável"
     },
     "secretPicker": {
       "upOneFolder": "Subir uma pasta",
@@ -197,13 +253,23 @@
       "tryAgain": "Tentar novamente",
       "addAFastResponseConnection": "Adicionar uma conexão de resposta rápida",
       "useASharedApiConnection": "Use uma conexão de API compartilhada para confirmações curtas.",
-      "sharedApiConnection": "Conexão de API compartilhada"
+      "sharedApiConnection": "Conexão de API compartilhada",
+      "theModelDidNotRespond": "O modelo não respondeu em três segundos. Tente um modelo mais rápido.",
+      "couldNotGenerateAResponse": "Não foi possível gerar uma resposta. Verifique a conexão e o modelo e tente novamente.",
+      "testing": "Testando…",
+      "testResponse": "Testar resposta",
+      "saveChangesBeforeTesting": "Salve as alterações antes de testar.",
+      "runsASmallSampleWith": "Executa uma pequena amostra com cobrança de API.",
+      "saving": "Salvando…",
+      "saveFastResponse": "Salvar resposta rápida"
     },
     "honchoWorkspaceSettings": {
       "honchoWorkspace": "Workspace do Honcho",
       "workspaceId": "ID do workspace",
       "enterAWorkspaceToInclude": "Informe um workspace para incluir as instruções do Honcho. As ferramentas existentes continuam disponíveis.",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "saving": "Salvando…",
+      "saveWorkspace": "Salvar workspace"
     },
     "companyAccess": {
       "organization": "Empresa",
@@ -264,7 +330,14 @@
       "corePaperclipKeepsEnforcingOrganization": "O núcleo do Paperclip continua aplicando os limites da empresa e quaisquer dados de política restritiva existentes, mas editar permissões avançadas exige uma extensão instalada.",
       "pluginExtensionsUnavailable": "Extensões de plugin indisponíveis: {{errorMessage}}",
       "openMembers": "Abrir Membros",
-      "openInvites": "Abrir Convites"
+      "openInvites": "Abrir Convites",
+      "saving": "Salvando…",
+      "saveMember": "Salvar membro",
+      "checkingAssignedTasks": "Verificando tarefas atribuídas...",
+      "openAssignedTasks_one": "{{length}} tarefa atribuída em aberto",
+      "openAssignedTasks_other": "{{length}} tarefas atribuídas em aberto",
+      "removing": "Removendo...",
+      "thisMember": "este membro"
     },
     "companyEnvironments": {
       "browserTerminal": "Terminal no navegador",
@@ -392,7 +465,31 @@
       "reassign": "Reatribuir",
       "reassignAgentsToEnvironment": "Reatribuir agentes ao ambiente",
       "default2": "Padrão:",
-      "affected": "Afetados: {{join}}"
+      "affected": "Afetados: {{join}}",
+      "reconnect": "Reconectar",
+      "openTerminal": "Abrir terminal",
+      "templateSetupCouldNotBe": "Não foi possível carregar a configuração do template.",
+      "notInUseTheEnvironment": "Fora de uso: a configuração do ambiente mudou desde que esta imagem foi capturada. As execuções usam a configuração base até você vincular esta imagem de novo ou capturar uma nova.",
+      "captureACustomImageWith": "Capture uma imagem personalizada de {{providerDisplayName}} com suas ferramentas já autenticadas.",
+      "sSHHost": "Host SSH",
+      "testing": "Testando...",
+      "testConnection": "Testar conexão",
+      "testProvider": "Testar provedor",
+      "yourAgentRunsOnA": "Seu agente roda em um computador gerenciado pelo Paperclip.",
+      "saving": "Salvando...",
+      "saveEnvironmentVariables": "Salvar variáveis de ambiente",
+      "test": "Testar",
+      "creating": "Criando...",
+      "saveEnvironment": "Salvar ambiente",
+      "createEnvironment": "Criar ambiente",
+      "checkingWhatUsesThisEnvironment": "Verificando o que usa este ambiente...",
+      "couldNotCheckWhatUses": "Não foi possível verificar o que usa este ambiente. Feche esta janela e tente novamente.",
+      "thisEnvironmentWillBePermanently": "Este ambiente será excluído permanentemente e as próximas execuções deixarão de usá-lo.",
+      "n1SandboxLease": "1 lease de sandbox",
+      "sandboxLeases": "{{leaseCount}} leases de sandbox",
+      "deletingDestroysTheseSandboxesThe": "Excluir destrói estes sandboxes; os workspaces continuam abertos.",
+      "closeTheseWorkspacesToLet": "Feche estes workspaces para o Paperclip destruir os sandboxes deles e tente excluir de novo.",
+      "deleting": "Excluindo..."
     },
     "companySettings": {
       "isArchived": "{{archivedName}} está arquivada",
@@ -417,7 +514,17 @@
       "requireBoardApprovalForNew": "Exigir aprovação do conselho para novas contratações",
       "newAgentHiresStayPending": "Novos agentes contratados ficam pendentes até a aprovação do conselho.",
       "dangerZone": "Zona de perigo",
-      "archiveThisOrganizationToHide": "Arquive esta empresa para ocultá-la da barra lateral. Isso fica salvo no banco de dados."
+      "archiveThisOrganizationToHide": "Arquive esta empresa para ocultá-la da barra lateral. Isso fica salvo no banco de dados.",
+      "removing": "Removendo...",
+      "removeLogo": "Remover logo",
+      "logoUploadFailed": "Falha no envio do logo",
+      "saving": "Salvando...",
+      "saveChanges": "Salvar alterações",
+      "failedToSave": "Falha ao salvar",
+      "archiving": "Arquivando...",
+      "alreadyArchived": "Já arquivada",
+      "archiveOrganization": "Arquivar empresa",
+      "failedToArchiveOrganization": "Falha ao arquivar empresa"
     },
     "companySettingsPluginPage": {
       "settings": "Configurações",
@@ -445,7 +552,12 @@
       "loadingUserAccess": "Carregando acesso do usuário…",
       "organizationAccess": "Acesso às empresas",
       "toggleOrganizationMembershipForThis": "Ative ou desative o vínculo deste usuário com cada empresa. Novos acessos entram como vínculo ativo de operador.",
-      "currentMemberships": "Vínculos atuais"
+      "currentMemberships": "Vínculos atuais",
+      "failedToLoadUserAccess": "Falha ao carregar o acesso do usuário.",
+      "removeInstanceAdmin": "Remover admin da instância",
+      "promoteToInstanceAdmin": "Promover a admin da instância",
+      "saving": "Salvando…",
+      "saveOrganizationAccess": "Salvar acesso à empresa"
     },
     "instanceExperimentalSettings": {
       "managedByPaperclipCloud": "Gerenciado pelo Paperclip Cloud",
@@ -568,7 +680,10 @@
       "toggleClassicTaskInterfaceExperimental": "Alternar configuração experimental da interface clássica de tarefas",
       "goalsSidebarLink": "Link de metas na barra lateral",
       "restoreTheGoalsItemIn": "Restaura o item Metas na barra lateral principal enquanto a área de metas está em avaliação.",
-      "toggleGoalsSidebarLinkExperimental": "Alternar configuração experimental do link de metas na barra lateral"
+      "toggleGoalsSidebarLinkExperimental": "Alternar configuração experimental do link de metas na barra lateral",
+      "failedToLoadExperimentalSettings": "Falha ao carregar as configurações experimentais.",
+      "thisSettingWasArmedIn": "Esta configuração foi armada em outra instância e copiada para cá, então nenhuma tarefa roda automaticamente.",
+      "thisSettingIsMissingIts": "Esta configuração não tem a data de corte de ativação, então nenhuma tarefa roda automaticamente."
     },
     "instanceGeneralSettings": {
       "settings": "Configurações",
@@ -602,7 +717,14 @@
       "unsetAnd": ". Ausente e",
       "bothMeanNoDefaultHas": "significam, ambos, que nenhum padrão foi escolhido ainda.",
       "signOut": "Sair",
-      "signOutOfThisPaperclip": "Sair desta instância do Paperclip. Você será redirecionado para a página de login."
+      "signOutOfThisPaperclip": "Sair desta instância do Paperclip. Você será redirecionado para a página de login.",
+      "failedToLoadGeneralSettings": "Falha ao carregar as configurações gerais.",
+      "localTrustedModeIsOptimized": "O modo local confiável é otimizado para um operador local. As requisições do navegador rodam no contexto local do conselho e não exigem login.",
+      "authenticatedPublicModeRequiresSignin": "O modo público autenticado exige login para acesso do conselho e é indicado para URLs públicas.",
+      "authenticatedPrivateModeRequiresSignin": "O modo privado autenticado exige login e é indicado para deploys em LAN, VPN ou outras redes privadas.",
+      "n1Week": "1 semana",
+      "n1Month": "1 mês",
+      "signingOut": "Saindo..."
     },
     "inviteLanding": {
       "anAccountAlreadyExistsFor": "Já existe uma conta para {{emailLabel}}. Entre abaixo para continuar com este convite.",
@@ -645,7 +767,38 @@
       "pleaseFillInAllRequired": "Preencha todos os campos obrigatórios.",
       "name": "Nome",
       "email": "E-mail",
-      "password": "Senha"
+      "password": "Senha",
+      "thatEmail": "esse e-mail",
+      "anOrganizationAdmin": "Um admin da empresa",
+      "thisAccount": "esta conta",
+      "thisJoinRequestWasNot": "Este pedido de entrada não foi aprovado.",
+      "thisInviteHasAlreadyBeen": "Este convite já foi usado.",
+      "setUpPaperclip": "Configurar o Paperclip",
+      "join": "Entrar em {{companyDisplayName}}",
+      "reviewTheInviteDetailsThen": "Revise os detalhes do convite e envie as informações do agente abaixo para iniciar o pedido de entrada.",
+      "createYourPaperclipAccountFirst": "Crie sua conta no Paperclip primeiro. Se já tiver uma, mude para o login e continue o convite com o mesmo e-mail.",
+      "yourAccountIsReadyReview": "Sua conta está pronta. Revise os detalhes do convite e aceite-o para continuar.",
+      "paperclipBoard": "Conselho do Paperclip",
+      "agentJoinRequest": "Pedido de entrada de agente",
+      "organizationAccess": "Acesso à empresa",
+      "comingSoon": " (Em breve)",
+      "working": "Processando...",
+      "createYourAccount": "Criar sua conta",
+      "signInToContinue": "Entre para continuar",
+      "startWithAPaperclipAccount": "Comece com uma conta no Paperclip. Depois, você volta direto para cá para aceitar o convite de {{companyDisplayName}}.",
+      "useThePaperclipAccountThat": "Use a conta do Paperclip que já corresponde a este convite. Se ainda não tiver uma, volte para criar conta.",
+      "signInAndContinue": "Entrar e continuar",
+      "createAccountAndContinue": "Criar conta e continuar",
+      "alreadySignedUpBeforeUse": "Já se cadastrou antes? Use a opção de conta existente para que o convite caia no usuário certo do Paperclip.",
+      "noAccountYetSwitchBack": "Ainda não tem conta? Volte para criar conta e aceitar o convite com um novo login.",
+      "alreadyInThisOrganization": "Já faz parte desta empresa",
+      "completingOrganizationAccess": "Concluindo o acesso à empresa",
+      "acceptBootstrapInvite": "Aceitar convite de bootstrap",
+      "acceptOrganizationInvite": "Aceitar convite da empresa",
+      "grantingYourAccessTo": "Concedendo seu acesso a {{companyDisplayName}}.",
+      "thisAccountAlreadyBelongsTo": "Esta conta já pertence a {{companyDisplayName}}.",
+      "submittingRequest": "Enviando pedido...",
+      "finishingSignin": "Concluindo o login..."
     },
     "pluginSettings": {
       "organization": "Empresa",
@@ -712,7 +865,15 @@
       "configuredRootWasNotInspected": "A raiz configurada não foi inspecionada.",
       "loadingConfiguration": "Carregando configuração...",
       "saving": "Salvando...",
-      "testing": "Testando..."
+      "testing": "Testando...",
+      "thisPlugin": "Este plugin",
+      "failedToLoadLocalFolder": "Falha ao carregar as configurações da pasta local.",
+      "healthy": "Saudável",
+      "needsAttention": "Precisa de atenção",
+      "readwrite": "Leitura/escrita",
+      "readOnly": "Somente leitura",
+      "saveConfiguration": "Salvar Configuração",
+      "testConfiguration": "Testar Configuração"
     },
     "profileSettings": {
       "settings": "Configurações",
@@ -725,7 +886,15 @@
       "board": "Conselho",
       "shownInTheSidebarAccount": "Exibido no rodapé da conta na barra lateral e na autoria dos comentários.",
       "email": "E-mail",
-      "emailIsManagedByYour": "O e-mail é gerenciado pela sua sessão de autenticação e é somente leitura aqui."
+      "emailIsManagedByYour": "O e-mail é gerenciado pela sua sessão de autenticação e é somente leitura aqui.",
+      "failedToLoadProfile": "Falha ao carregar o perfil.",
+      "storedInPaperclipFileStorage": "Armazenado no armazenamento de arquivos do Paperclip para {{name}}.",
+      "selectAnOrganizationToUpload": "Selecione uma empresa para enviar um avatar ao armazenamento do Paperclip.",
+      "changePhoto": "Trocar foto",
+      "uploadPhoto": "Enviar foto",
+      "noEmail": "Sem e-mail",
+      "saving": "Salvando...",
+      "saveProfile": "Salvar perfil"
     },
     "secrets": {
       "secrets": "Segredos",
@@ -961,7 +1130,58 @@
       "aPIAlias": "Alias da API",
       "noAccessEventsRecordedYet": "Nenhum evento de acesso registrado ainda. Cada resolução em runtime grava aqui uma entrada com dados ocultados.",
       "responsibleUser": "Usuário responsável:",
-      "credentialOwner": "Dono da credencial:"
+      "credentialOwner": "Dono da credencial:",
+      "paperclipmanaged": "Gerenciado pelo Paperclip",
+      "linkedExternal": "Externo vinculado",
+      "updateReference": "Atualizar referência",
+      "updateValue": "Atualizar valor",
+      "activate": "Ativar",
+      "unarchive": "Desarquivar",
+      "archive": "Arquivar",
+      "updateMyValue": "Atualizar meu valor",
+      "setMyValue": "Definir meu valor",
+      "searchingEverywhereNotJust": " · buscando em todo lugar, não só em {{folderPath}}",
+      "updatedLastResolvedUserValues": "Atualizado: {{relative}}\nÚltima resolução: valores de usuário são resolvidos por membro",
+      "memberownedValues": "Valores dos membros",
+      "editUserprovidedSecret": "Editar segredo fornecido pelo usuário",
+      "createSecret": "Criar segredo",
+      "stableEnvBindingKeyCannot": "Chave estável de vínculo de env. Não pode ser alterada.",
+      "generatedFromTheName": "Gerada a partir do nome.",
+      "envstyleKeyUsedByUsersecret": "Chave no estilo env usada pelos vínculos de segredo de usuário.",
+      "sharedSecretKeysKeepLowercase": "Chaves de segredos compartilhados mantêm a normalização em minúsculas com hífen.",
+      "deploymentDefaultMissing": " (padrão do deploy ausente)",
+      "externalOnly": " (só externo)",
+      "saveChanges": "Salvar alterações",
+      "createUserprovidedSecret": "Criar segredo fornecido pelo usuário",
+      "linkReference": "Vincular referência",
+      "editProviderVault": "Editar cofre do provedor",
+      "createProviderVault": "Criar cofre do provedor",
+      "saveVault": "Salvar cofre",
+      "createVault": "Criar cofre",
+      "updateExternalReference": "Atualizar referência externa",
+      "updateSecretValue": "Atualizar valor do segredo",
+      "createsANewProviderbackedVersion": "Cria uma nova versão no provedor. Consumidores fixados na mais recente recebem o novo valor na próxima execução.",
+      "createsANewPaperclipMetadata": "Cria uma nova versão de metadados do Paperclip que aponta para um segredo existente no provedor. O Paperclip não grava um novo valor no provedor.",
+      "writesANewVersionOf": "Grava uma nova versão do segredo referenciado no provedor. O novo valor passa a valer para todos os consumidores desse segredo, dentro e fora do Paperclip.",
+      "thisDoesNotDeleteThe": "Isso não exclui o cofre remoto do AWS Secrets Manager, os segredos nem nenhum dado da AWS.",
+      "thisDoesNotDeleteAny": "Isso não exclui nenhum dado remoto do provedor.",
+      "defaultVault": "Cofre padrão",
+      "vault": "Cofre",
+      "notYetSupported": "Ainda não suportado.",
+      "noOrganizationspecificVaultsYetSecrets": "Ainda não há cofres específicos da empresa. Os segredos ainda podem usar as configurações padrão de provedor do deploy.",
+      "copied": "Copiado",
+      "aWSDiscoveryNeedsListsecretsPermission": "A descoberta na AWS precisa da permissão ListSecrets",
+      "aWSDiscoveryFailed": "Falha na descoberta na AWS",
+      "discoveryNeedsSecretsmanagerlistsecretsInThe": "A descoberta precisa de secretsmanager:ListSecrets na região selecionada para o caminho de credenciais de runtime/provedor do servidor Paperclip.",
+      "ifYouAlreadyKnowThe": "Se você já sabe o ARN exato do AWS Secrets Manager, cole/vincule esse ARN em vez de usar a descoberta. As permissões DescribeSecret no recurso exato e de leitura em runtime continuam obrigatórias.",
+      "aWSSecretCreationNeedsCreatesecret": "A criação de segredo na AWS precisa da permissão CreateSecret",
+      "aWSSecretCreationFailed": "Falha ao criar segredo na AWS",
+      "noStableNamespaceOrPrefix": "Nenhum namespace ou prefixo estável detectado",
+      "addHereToInjectThis": "Adicione aqui para injetar este segredo como variável de ambiente no início da execução. Concessões de acesso por API (buscadas sob demanda, sem variável de ambiente) são gerenciadas nas configurações de acesso a segredos de cada agente e aparecem abaixo.",
+      "theseAgentsResolveTheResponsible": "Estes agentes resolvem o valor do usuário responsável como variável de ambiente no início da execução.",
+      "n1Binding": "1 vínculo",
+      "required": "· obrigatório",
+      "optional": "· opcional"
     },
     "statusCardSettingsForm": {
       "newIssueMatchesTheQuery": "Nova tarefa corresponde à consulta · tarefa sai da consulta",
@@ -1037,7 +1257,9 @@
       "saveBrowserSettings": "Salvar configurações do navegador",
       "browserSettings": "Configurações do navegador",
       "credential": "Credencial",
-      "theCredentialOwnerOrA": "O dono da credencial ou um gestor de conexões compartilhadas pode configurar perfis salvos e limites de custo."
+      "theCredentialOwnerOrA": "O dono da credencial ou um gestor de conexões compartilhadas pode configurar perfis salvos e limites de custo.",
+      "personal": "Pessoal",
+      "shared": "Compartilhado"
     },
     "railwayAccessPanel": {
       "railwayOperations": "Operações da Railway",
@@ -1054,7 +1276,16 @@
       "sshrailwaycomSshed25519": "ssh.railway.com ssh-ed25519 …",
       "pasteTheSshrailwaycomLineFrom": "Cole a linha de ssh.railway.com de uma entrada de known_hosts que você verificou de forma independente. O Paperclip recusa chaves de host não confiáveis ou alteradas.",
       "removeContainerKey": "Remover chave do container",
-      "removingTheKeyStopsNew": "Remover a chave impede novas conexões do Paperclip. Remova também a chave pública dela na Railway."
+      "removingTheKeyStopsNew": "Remover a chave impede novas conexões do Paperclip. Remova também a chave pública dela na Railway.",
+      "refreshActionsAfterConnectingTo": "Atualize as ações depois de conectar para verificar o acesso a serviços, logs e deploys.",
+      "sharedAccount": "Conta compartilhada",
+      "myAccount": "Minha conta",
+      "agentAccount": "Conta do agente",
+      "updateTrustedHostKey": "Atualizar chave de host confiável",
+      "enableContainerAccess": "Ativar acesso ao contêiner",
+      "containerAccessIsEnabledFor": "O acesso ao contêiner está ativado para esta autorização.",
+      "registerThePublicKeyAnd": "Registre a chave pública e verifique a chave do host antes de ativar o acesso.",
+      "containerAccessCouldNotBe": "Não foi possível atualizar o acesso ao contêiner."
     },
     "slackToolSettings": {
       "readSearchAndActIn": "Leia, pesquise e aja no Slack. Algumas ações exigem aprovação.",
@@ -1075,7 +1306,8 @@
       "clientId": "Client ID",
       "clientSecret": "Client Secret",
       "saveOauthConfiguration": "Salvar configuração OAuth",
-      "loadingSearchAccess": "Carregando acesso à busca…"
+      "loadingSearchAccess": "Carregando acesso à busca…",
+      "configureAPublicHttpsUrl": "Configure uma URL HTTPS pública primeiro."
     },
     "missingUserSecretsBanner": {
       "userSecret": "{{length}} segredo de usuário",
@@ -1094,7 +1326,11 @@
       "failedToLoadYourSecrets": "Falha ao carregar seus segredos:",
       "retry": "Tentar novamente",
       "noUserSecretsAreDefined": "Nenhum segredo de usuário definido nesta empresa ainda. Um administrador define quais credenciais cada membro fornece.",
-      "clearMyValue": "Apagar meu valor"
+      "clearMyValue": "Apagar meu valor",
+      "stillNeeds": " ainda precisa",
+      "sStillNeed": "s ainda precisam",
+      "update": "Atualizar",
+      "setValue": "Definir valor"
     },
     "setMyUserSecretDialog": {
       "valueUpdated": "Valor atualizado",
@@ -1106,7 +1342,12 @@
       "yourValue": "Seu valor",
       "pasteYourTokenOrCredential": "Cole seu token ou credencial",
       "storedEncryptedNeverShownBack": "Armazenado com criptografia. Nunca é exibido a ninguém, nem a administradores.",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "updateYourValue": "Atualizar seu valor",
+      "setYourValue": "Definir seu valor",
+      "saving": "Salvando…",
+      "updateValue": "Atualizar valor",
+      "saveValue": "Salvar valor"
     },
     "userSecretDefinitionsTab": {
       "definitionUpdated": "Definição atualizada",
@@ -1138,7 +1379,14 @@
       "thisRemovesTheDefinition": "Isto remove a definição",
       "forTheWholeCompanyExisting": "para toda a empresa. Os valores já informados pelos membros deixam de ser referenciados. Não é possível desfazer.",
       "coverage": "Cobertura: {{coverageSummaryLabel}}",
-      "notSet": "não definido"
+      "notSet": "não definido",
+      "editUserSecret": "Editar segredo de usuário",
+      "cannotBeChanged": "Não pode ser alterado.",
+      "saving": "Salvando…",
+      "saveChanges": "Salvar alterações",
+      "create": "Criar",
+      "removing": "Removendo…",
+      "remove": "Remover"
     },
     "advancedToolsRoute": {
       "loading": "Carregando…",
@@ -1189,7 +1437,9 @@
       "noActivityMatchesTheseFilters": "Nenhuma atividade corresponde a estes filtros",
       "tryAWiderTimeWindow": "Tente um período maior ou outros filtros.",
       "nothingHereYet": "Nada aqui ainda",
-      "asSoonAsYourAgents": "Assim que seus agentes começarem a usar apps conectados, o que eles fizerem aparece aqui."
+      "asSoonAsYourAgents": "Assim que seus agentes começarem a usar apps conectados, o que eles fizerem aparece aqui.",
+      "loading": "Carregando…",
+      "loadMore": "Carregar mais"
     },
     "gatewaysTab": {
       "gatewayCreated": "Gateway criado",
@@ -1241,7 +1491,13 @@
       "confirm": "Confirmar",
       "clientSnippets": "Snippets de cliente",
       "noSnippetsAvailable": "Nenhum snippet disponível.",
-      "copy": "Copiar"
+      "copy": "Copiar",
+      "loadingProfiles": "Carregando perfis...",
+      "chooseAProfile": "Escolha um perfil",
+      "creating": "Criando...",
+      "neverUsed": "Nunca usado",
+      "issuing": "Emitindo...",
+      "noExpiry": "sem expiração"
     },
     "mcpConfigHelpDialog": {
       "getHelpCreatingAnMcp": "Obter ajuda para criar uma config MCP",
@@ -1275,7 +1531,10 @@
       "canMakeChanges": "Pode fazer alterações",
       "isActiveForAllAgents": "{{activatedName}} está ativo para todos os agentes.",
       "turnAllOn": "Ativar todas",
-      "turnAllOff": "Desativar todas"
+      "turnAllOff": "Desativar todas",
+      "checking": "Verificando…",
+      "checkConfig": "Verificar config",
+      "askFirstWhenEnabled": "Perguntar antes quando ativado"
     },
     "profilesTab": {
       "toolName": "Nome da ferramenta",
@@ -1361,7 +1620,16 @@
       "toolsAllowed": "ferramentas permitidas",
       "include2": "incluir /",
       "selectors": "Seletores",
-      "noSelectors": "Nenhum seletor."
+      "noSelectors": "Nenhum seletor.",
+      "explicit": " · {{explicitCount}} explícitas",
+      "viaPattern": " · {{patternCount}} por padrão de nome",
+      "viaDefault": " · {{defaultCount}} pelo padrão",
+      "resolvingAllowedTools": "Resolvendo ferramentas permitidas…",
+      "noToolsResolvedForThis": "Nenhuma ferramenta resolvida para este perfil. Adicione um seletor de inclusão ou atualize o catálogo de ferramentas.",
+      "editProfile": "Editar perfil",
+      "save": "Salvar",
+      "creating": "Criando...",
+      "create": "Criar"
     },
     "toolsAccess": {
       "company": "Empresa",
@@ -1421,7 +1689,13 @@
       "probeLatencyIsASingle": "A latência do teste é uma única amostra de ida e volta. A latência p95 agregada do tráfego é acompanhada na aba Runtime quando a conexão estiver ativa.",
       "cancel": "Cancelar",
       "continue": "Continuar",
-      "back": "Voltar"
+      "back": "Voltar",
+      "creatingDraft": "Criando rascunho…",
+      "createProbe": "Criar e sondar",
+      "probing": "Sondando…",
+      "reprobe": "Sondar de novo",
+      "activating": "Ativando…",
+      "activate": "Ativar"
     },
     "profileActionDialog": {
       "archiveProfile": "Arquivar perfil",
@@ -1504,7 +1778,25 @@
       "duplicateProfile": "Duplicar perfil",
       "theCopyStartsUnassignedUnless": "A cópia começa sem atribuições, a menos que se opte por copiar as atribuições também.",
       "alsoCopyAssignments": "Copiar as atribuições também?",
-      "removeAssignment": "Remover atribuição"
+      "removeAssignment": "Remover atribuição",
+      "assignItToAgentsBefore": "Atribua-o a agentes antes que ele altere o acesso deles.",
+      "assignmentsAreActiveNow": "As atribuições já estão ativas.",
+      "newToolsNeedReview": "Novas ferramentas precisam de revisão",
+      "or": "Ou",
+      "removingTheOrganizationDefaultChanges": "Remover o padrão da empresa altera o acesso de todos os agentes que dependem dele.",
+      "removeThisProfileFrom": "Remover este perfil de {{label}}.",
+      "addedDirectly": "adicionada diretamente",
+      "addedByRuleTools": "adicionada por regra: ferramentas {{riskLevel}}",
+      "destructive": "Destrutiva",
+      "write": "Escrita",
+      "read": "Leitura",
+      "anApp": "Um app",
+      "organizationDefault": "Padrão da empresa",
+      "organization": "Empresa",
+      "agent": "Agente",
+      "project": "Projeto",
+      "routine": "Rotina",
+      "scopedAssignment": "Atribuição com escopo"
     },
     "profileDetailRoute": {
       "company": "Empresa",
@@ -1546,7 +1838,8 @@
       "moreTargets": "Mais destinos",
       "assignThisProfileToA": "Atribua este perfil a um projeto inteiro ou a uma rotina agendada em vez de (ou além de) agentes individuais.",
       "projects": "Projetos",
-      "routines": "Rotinas"
+      "routines": "Rotinas",
+      "replaces": " Substitui “{{defaultProfileName}}”."
     },
     "profileWizardRoute": {
       "organization": "Empresa",
@@ -1555,7 +1848,9 @@
       "resumeDraft": "Retomar rascunho",
       "newProfile": "Novo perfil",
       "selectAnOrganizationToCreate": "Selecione uma empresa para criar um perfil.",
-      "chooseWhichToolsThisProfile": "Escolha quais ferramentas este perfil permite e depois atribua-o aos agentes que precisam delas."
+      "chooseWhichToolsThisProfile": "Escolha quais ferramentas este perfil permite e depois atribua-o aos agentes que precisam delas.",
+      "finishYourProfile": "Conclua seu perfil",
+      "newAccessProfile": "Novo perfil de acesso"
     },
     "profilesIndex": {
       "profileDuplicated": "Perfil duplicado",
@@ -1589,7 +1884,9 @@
       "archive": "Arquivar",
       "delete": "Excluir",
       "createYourFirstAccessProfile": "Crie seu primeiro perfil de acesso",
-      "pickAStartingPointYou": "Escolha um ponto de partida. Na próxima etapa dá para ajustar exatamente quais ferramentas ele permite."
+      "pickAStartingPointYou": "Escolha um ponto de partida. Na próxima etapa dá para ajustar exatamente quais ferramentas ele permite.",
+      "active": "Ativo",
+      "archived": "Arquivado"
     },
     "toolsAdminGate": {
       "loading": "Carregando…",
@@ -1633,6 +1930,64 @@
       "couldNotLoadThisView": "Não foi possível carregar esta visualização",
       "retry": "Tentar novamente",
       "trackedIn": "Acompanhado em {{identifier}} →"
+    },
+    "membershipAction": {
+      "leaving": "Saindo...",
+      "joining": "Entrando...",
+      "join": "Entrar",
+      "leave": "Sair"
+    },
+    "useResourceMemberships": {
+      "tryAgain": "Tente novamente."
+    },
+    "profileModel": {
+      "readonly": "Somente leitura",
+      "makesChanges": "Faz alterações",
+      "destructive": "Destrutiva",
+      "noneSelected": "Nenhuma selecionada",
+      "allTools": "Todas as ferramentas de {{name}} ({{total}})",
+      "allExcept": "Todas de {{name}} exceto {{n}}",
+      "ofTools": "{{n}} de {{total}} ferramentas de {{name}}",
+      "seeAndFetchButNever": "Vê e busca, mas nunca altera nada.",
+      "everydayWork": "Trabalho do dia a dia",
+      "readAndMakeRoutineChanges": "Lê e faz alterações de rotina, sem ferramentas destrutivas.",
+      "fullAccess": "Acesso total",
+      "everythingEveryConnectedAppOffers": "Tudo o que cada app conectado oferece.",
+      "startFromScratch": "Começar do zero",
+      "anEmptyProfileYouBuild": "Um perfil vazio que você monta ferramenta por ferramenta.",
+      "copyAnExistingProfile": "Copiar um perfil existente",
+      "startFromAProfileYou": "Partir de um perfil que você já tem."
+    },
+    "profileSummary": {
+      "allTools": "Todas as ferramentas",
+      "draft": "Rascunho",
+      "active": "Ativo",
+      "off": "Desligado",
+      "archived": "Arquivado"
+    },
+    "smokeLabMatrix": {
+      "remoteHttpOauth": "HTTP remoto · OAuth",
+      "hTTPMcpFixtureBehindThe": "Fixture MCP HTTP atrás do provedor OAuth falso",
+      "remoteHttpApiKey": "HTTP remoto · chave de API",
+      "hTTPMcpFixtureWithA": "Fixture MCP HTTP com chave bearer estática",
+      "localStdioTemplate": "stdio local (template)",
+      "stdioFixtureViaTheRuntime": "fixture stdio via supervisor de runtime",
+      "pluginIntegration": "Integração de plugin",
+      "pluginprovidedCatalogEntryInstallFlow": "item de catálogo fornecido por plugin + fluxo de instalação",
+      "pasteaconfigImport": "Importação por colar config",
+      "prosumerImportViaAdvancedSetup": "importação para usuários avançados via Configuração avançada",
+      "tokenBrokerGateway": "Broker de token / gateway",
+      "runscopedConnectionTokenTtlScope": "token de conexão por execução, verificação de TTL e escopo",
+      "governanceSurfaces": "Superfícies de governança",
+      "profilesAskfirstRulesQuarantine": "perfis, regras de perguntar antes, quarentena",
+      "connect": "Conectar",
+      "discoverCatalog": "Descobrir catálogo",
+      "allowedRead": "Leitura permitida",
+      "askfirstWrite": "Escrita com pergunta prévia",
+      "deniedCall": "Chamada negada",
+      "schemachangeQuarantine": "Quarentena por mudança de schema",
+      "revoke": "Revogar",
+      "auditEvidence": "Evidência de auditoria"
     }
   }
 }

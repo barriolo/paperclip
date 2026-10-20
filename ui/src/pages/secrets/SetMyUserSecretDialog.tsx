@@ -102,7 +102,7 @@ export function SetMyUserSecretDialog({
       <DialogContent>
         <DialogHeader>
           <DialogTitle className="flex items-center gap-2">
-            {existingSecret ? "Update your value" : "Set your value"}
+            {existingSecret ? t("settings.setMyUserSecretDialog.updateYourValue") : t("settings.setMyUserSecretDialog.setYourValue")}
             <UserSecretChip />
           </DialogTitle>
           <DialogDescription>
@@ -165,7 +165,7 @@ export function SetMyUserSecretDialog({
             {t("settings.setMyUserSecretDialog.cancel")}
           </Button>
           <Button onClick={() => save.mutate()} disabled={!canSave || save.isPending}>
-            {save.isPending ? "Saving…" : existingSecret ? "Update value" : "Save value"}
+            {save.isPending ? t("settings.setMyUserSecretDialog.saving") : existingSecret ? t("settings.setMyUserSecretDialog.updateValue") : t("settings.setMyUserSecretDialog.saveValue")}
           </Button>
         </DialogFooter>
       </DialogContent>

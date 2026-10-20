@@ -32,7 +32,7 @@ export function RailwayAccessPanel({ connection, grants }: { connection: ToolCon
     <div className="space-y-2">
       <h2 id={`${id}-title`} className="text-lg font-semibold">{t("settings.railwayAccessPanel.railwayOperations")}</h2>
       <p className="text-sm text-muted-foreground">
-        {typeof connection.config?.railwayApiMessage === "string" ? connection.config?.railwayApiMessage : "Refresh actions after connecting to check service, log, and deployment access."}
+        {typeof connection.config?.railwayApiMessage === "string" ? connection.config?.railwayApiMessage : t("settings.railwayAccessPanel.refreshActionsAfterConnectingTo")}
       </p>
     </div>
     <div className="space-y-2">
@@ -44,7 +44,7 @@ export function RailwayAccessPanel({ connection, grants }: { connection: ToolCon
       {!setup && eligible.length > 1 && <div className="space-y-2">
         <Label htmlFor={`${id}-grant`}>{t("settings.railwayAccessPanel.authorization")}</Label>
         <select id={`${id}-grant`} className="w-full rounded-md border border-input bg-background px-3 py-2 text-sm" value={grantId} onChange={(event) => setSelectedGrant(event.target.value)}>
-          {eligible.map((grant) => <option key={grant.id} value={grant.id}>{grant.kind === "organization" ? "Shared account" : grant.kind === "user" ? "My account" : "Agent account"}</option>)}
+          {eligible.map((grant) => <option key={grant.id} value={grant.id}>{grant.kind === "organization" ? t("settings.railwayAccessPanel.sharedAccount") : grant.kind === "user" ? t("settings.railwayAccessPanel.myAccount") : t("settings.railwayAccessPanel.agentAccount")}</option>)}
         </select>
       </div>}
       {!setup && <Button variant="outline" disabled={mutation.isPending} onClick={() => mutation.mutate({ action: "prepare", grantId })}>{t("settings.railwayAccessPanel.generateSshKeyPair")}</Button>}
@@ -60,12 +60,12 @@ export function RailwayAccessPanel({ connection, grants }: { connection: ToolCon
           <p className="text-sm text-muted-foreground">{t("settings.railwayAccessPanel.pasteTheSshrailwaycomLineFrom")}</p>
         </div>
         <div className="flex flex-wrap gap-2">
-          <Button disabled={!canConfigure || mutation.isPending || !knownHosts.trim()} onClick={() => mutation.mutate({ action: "enable", grantId, knownHosts })}>{setup.enabled ? "Update trusted host key" : "Enable container access"}</Button>
+          <Button disabled={!canConfigure || mutation.isPending || !knownHosts.trim()} onClick={() => mutation.mutate({ action: "enable", grantId, knownHosts })}>{setup.enabled ? t("settings.railwayAccessPanel.updateTrustedHostKey") : t("settings.railwayAccessPanel.enableContainerAccess")}</Button>
           <Button variant="outline" disabled={mutation.isPending} onClick={() => mutation.mutate({ action: "remove", grantId })}>{t("settings.railwayAccessPanel.removeContainerKey")}</Button>
         </div>
-        <p className="text-sm text-muted-foreground">{setup.enabled ? "Container access is enabled for this authorization." : "Register the public key and verify the host key before enabling access."}{" "}{t("settings.railwayAccessPanel.removingTheKeyStopsNew")}</p>
+        <p className="text-sm text-muted-foreground">{setup.enabled ? t("settings.railwayAccessPanel.containerAccessIsEnabledFor") : t("settings.railwayAccessPanel.registerThePublicKeyAnd")}{" "}{t("settings.railwayAccessPanel.removingTheKeyStopsNew")}</p>
       </>}
     </>}
-    {mutation.isError && <p role="alert" className="text-sm text-destructive">{mutation.error instanceof Error ? mutation.error.message : "Container access could not be updated."}</p>}
+    {mutation.isError && <p role="alert" className="text-sm text-destructive">{mutation.error instanceof Error ? mutation.error.message : t("settings.railwayAccessPanel.containerAccessCouldNotBe")}</p>}
   </section>;
 }

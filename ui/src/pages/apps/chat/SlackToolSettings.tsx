@@ -153,7 +153,7 @@ export function SlackSearchView({
               <code>search:read.files</code>{t("settings.slackToolSettings.findClientIdAndClient")}
             </p>
             <p className="text-xs font-mono break-all">
-              {status.redirectUri ?? "Configure a public HTTPS URL first."}
+              {status.redirectUri ?? t("settings.slackToolSettings.configureAPublicHttpsUrl")}
             </p>
             <div className="space-y-2">
               <label htmlFor={`${id}-client`}>{t("settings.slackToolSettings.clientId")}</label>

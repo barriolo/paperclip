@@ -293,7 +293,7 @@ export function CompanySettings() {
                         onClick={handleClearLogo}
                         disabled={clearLogoMutation.isPending}
                       >
-                        {clearLogoMutation.isPending ? "Removing..." : "Remove logo"}
+                        {clearLogoMutation.isPending ? t("settings.companySettings.removing") : t("settings.companySettings.removeLogo")}
                       </Button>
                     </div>
                   )}
@@ -302,7 +302,7 @@ export function CompanySettings() {
                       {logoUploadError ??
                         (logoUploadMutation.error instanceof Error
                           ? logoUploadMutation.error.message
-                          : "Logo upload failed")}
+                          : t("settings.companySettings.logoUploadFailed"))}
                     </span>
                   )}
                   {clearLogoMutation.isError && (
@@ -328,7 +328,7 @@ export function CompanySettings() {
             onClick={handleSaveGeneral}
             disabled={generalMutation.isPending || !companyName.trim()}
           >
-            {generalMutation.isPending ? "Saving..." : "Save changes"}
+            {generalMutation.isPending ? t("settings.companySettings.saving") : t("settings.companySettings.saveChanges")}
           </Button>
           {generalMutation.isSuccess && (
             <span className="text-xs text-muted-foreground">{t("settings.companySettings.saved")}</span>
@@ -337,7 +337,7 @@ export function CompanySettings() {
             <span className="text-xs text-destructive">
               {generalMutation.error instanceof Error
                   ? generalMutation.error.message
-                  : "Failed to save"}
+                  : t("settings.companySettings.failedToSave")}
             </span>
           )}
         </div>
@@ -408,16 +408,16 @@ export function CompanySettings() {
               }}
             >
               {archiveMutation.isPending
-                ? "Archiving..."
+                ? t("settings.companySettings.archiving")
                 : selectedCompany.status === "archived"
-                ? "Already archived"
-                : "Archive organization"}
+                ? t("settings.companySettings.alreadyArchived")
+                : t("settings.companySettings.archiveOrganization")}
             </Button>
             {archiveMutation.isError && (
               <span className="text-xs text-destructive">
                 {archiveMutation.error instanceof Error
                   ? archiveMutation.error.message
-                  : "Failed to archive organization"}
+                  : t("settings.companySettings.failedToArchiveOrganization")}
               </span>
             )}
           </div>

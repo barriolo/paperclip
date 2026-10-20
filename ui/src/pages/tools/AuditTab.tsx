@@ -547,7 +547,7 @@ export function AuditTab({ companyId }: { companyId: string }) {
             onClick={() => activity.fetchNextPage()}
             disabled={activity.isFetchingNextPage}
           >
-            {activity.isFetchingNextPage ? "Loading…" : "Load more"}
+            {activity.isFetchingNextPage ? t("settings.auditTab.loading") : t("settings.auditTab.loadMore")}
           </Button>
         </div>
       ) : null}

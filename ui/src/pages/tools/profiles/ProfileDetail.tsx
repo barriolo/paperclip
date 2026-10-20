@@ -32,7 +32,7 @@ import { ErrorState, LoadingState, RelativeTime, ToolsPageHeader } from "../shar
 import { ProfileActionDialog, type ProfileActionDialogKind } from "./ProfileActionDialog";
 import { allowsLabel, STATUS_LABEL } from "./profile-summary";
 import { useProfilesData } from "./useProfilesData";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 type DialogKind = "edit" | "duplicate" | "archive" | "delete" | "restore" | null;
 
@@ -219,7 +219,7 @@ export function ProfileDetail({
           <div>
             <p className="text-sm font-medium text-foreground">{t("settings.profileDetail.profileSaved")}</p>
             <p className="text-sm text-muted-foreground">
-              {unassigned ? "Assign it to agents before it changes their access." : "Assignments are active now."}
+              {unassigned ? t("settings.profileDetail.assignItToAgentsBefore") : t("settings.profileDetail.assignmentsAreActiveNow")}
             </p>
           </div>
           <div className="flex gap-2">
@@ -344,7 +344,7 @@ function NewToolsReviewBanner({
     <div className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-amber-300 bg-amber-50 px-4 py-3 text-sm text-amber-950">
       <div>
         <p className="font-medium">
-          {loading ? "New tools need review" : `${appLabel} added ${count} new ${count === 1 ? "tool" : "tools"} since your last review`}
+          {loading ? t("settings.profileDetail.newToolsNeedReview") : `${appLabel} added ${count} new ${count === 1 ? "tool" : "tools"} since your last review`}
         </p>
         <p className="text-amber-900/80">{t("settings.profileDetail.chooseWhichOnesThisProfile")}</p>
       </div>
@@ -543,7 +543,7 @@ function Assignments({
         <div key={binding.id} className="flex items-center justify-between gap-3 px-3 py-2.5">
           <div className="flex min-w-0 items-center gap-3">
             <span className="flex h-8 w-8 items-center justify-center rounded-full bg-muted text-xs font-semibold text-muted-foreground">
-              {binding.targetType === "company" ? "Or" : binding.targetType.slice(0, 2).toUpperCase()}
+              {binding.targetType === "company" ? t("settings.profileDetail.or") : binding.targetType.slice(0, 2).toUpperCase()}
             </span>
             <div className="min-w-0">
               <p className="truncate text-sm font-medium text-foreground">{assignmentLabel(binding, companyId, maps)}</p>
@@ -742,8 +742,8 @@ function RemoveAssignmentDialog({
           <DialogTitle>{t("settings.profileDetail.removeAssignment")}</DialogTitle>
           <DialogDescription>
             {binding?.targetType === "company"
-              ? "Removing the organization default changes access for every agent that relies on it."
-              : `Remove this profile from ${label}.`}
+              ? t("settings.profileDetail.removingTheOrganizationDefaultChanges")
+              : t("settings.profileDetail.removeThisProfileFrom", { label: label })}
           </DialogDescription>
         </DialogHeader>
         <DialogFooter>
@@ -803,16 +803,16 @@ function entryMatchesTool(entry: ToolProfileEntry, tool: ToolCatalogEntry): bool
 }
 
 function sourceLabel(entry: ToolProfileEntry | null, app: string): string {
-  if (!entry) return "added directly";
+  if (!entry) return i18n.t("settings.profileDetail.addedDirectly");
   if (entry.selectorType === "application" || entry.selectorType === "connection") return `added by rule: all ${app}`;
-  if (entry.selectorType === "risk_level" && entry.riskLevel) return `added by rule: ${entry.riskLevel} tools`;
-  return "added directly";
+  if (entry.selectorType === "risk_level" && entry.riskLevel) return i18n.t("settings.profileDetail.addedByRuleTools", { riskLevel: entry.riskLevel });
+  return i18n.t("settings.profileDetail.addedDirectly");
 }
 
 function capabilityLabel(tool: ToolCatalogEntry): string {
-  if (tool.isDestructive) return "Destructive";
-  if (tool.isWrite) return "Write";
-  return "Read";
+  if (tool.isDestructive) return i18n.t("settings.profileDetail.destructive");
+  if (tool.isWrite) return i18n.t("settings.profileDetail.write");
+  return i18n.t("settings.profileDetail.read");
 }
 
 function capabilityText(tool: ToolProfileNewToolReviewItem): string {
@@ -824,7 +824,7 @@ function capabilityText(tool: ToolProfileNewToolReviewItem): string {
 
 function newToolsAppLabel(tools: ToolProfileNewToolReviewItem[]): string {
   const names = [...new Set(tools.map((tool) => tool.applicationName ?? tool.connectionName).filter(Boolean))] as string[];
-  if (names.length === 0) return "An app";
+  if (names.length === 0) return i18n.t("settings.profileDetail.anApp");
   if (names.length === 1) return names[0] ?? "An app";
   if (names.length === 2) return `${names[0]} and ${names[1]}`;
   return `${names[0]} and ${names.length - 1} more apps`;
@@ -843,18 +843,18 @@ function assignmentLabel(
   companyId: string,
   maps: ReturnType<typeof useProfilesData>["maps"],
 ): string {
-  if (binding.targetType === "company") return "Organization default";
+  if (binding.targetType === "company") return i18n.t("settings.profileDetail.organizationDefault");
   if (binding.targetType === "agent") return maps.agentsById.get(binding.targetId) ?? "Unknown agent";
   if (binding.targetType === "project") return maps.projectsById.get(binding.targetId) ?? "Unknown project";
   if (binding.targetType === "routine") return maps.routinesById.get(binding.targetId) ?? "Unknown routine";
-  if (binding.targetId === companyId) return "Organization";
+  if (binding.targetId === companyId) return i18n.t("settings.profileDetail.organization");
   return binding.targetId;
 }
 
 function assignmentTypeLabel(type: ToolProfileBinding["targetType"]): string {
-  if (type === "company") return "Organization default";
-  if (type === "agent") return "Agent";
-  if (type === "project") return "Project";
-  if (type === "routine") return "Routine";
-  return "Scoped assignment";
+  if (type === "company") return i18n.t("settings.profileDetail.organizationDefault");
+  if (type === "agent") return i18n.t("settings.profileDetail.agent");
+  if (type === "project") return i18n.t("settings.profileDetail.project");
+  if (type === "routine") return i18n.t("settings.profileDetail.routine");
+  return i18n.t("settings.profileDetail.scopedAssignment");
 }

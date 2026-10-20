@@ -92,7 +92,7 @@ export function ProjectAccessMembers({ project, canManage }: { project: Project;
   return (
     <>
       <Button variant="outline" size="sm" onClick={() => setOpen(true)}>
-        <Lock className="h-3.5 w-3.5" aria-hidden="true" /> {canManage ? "Manage access" : "View access"}
+        <Lock className="h-3.5 w-3.5" aria-hidden="true" /> {canManage ? t("settings.projectAccessMembers.manageAccess") : t("settings.projectAccessMembers.viewAccess")}
       </Button>
       <Dialog open={open} onOpenChange={setOpen}>
         <DialogContent className="sm:max-w-md">
@@ -134,9 +134,9 @@ export function ProjectAccessMembers({ project, canManage }: { project: Project;
                 return (
                   <div key={member.id} className="flex items-center gap-3 py-2">
                     <div className="min-w-0 flex-1">
-                      <div className="truncate text-sm font-medium">{member.subjectDisplayName ?? "Unknown member"}</div>
+                      <div className="truncate text-sm font-medium">{member.subjectDisplayName ?? t("settings.projectAccessMembers.unknownMember")}</div>
                       <div className="text-xs text-muted-foreground">
-                        {isPersonalOwner ? "Owner" : member.subjectType === "agent" ? "Agent" : "Person"}
+                        {isPersonalOwner ? t("settings.projectAccessMembers.owner") : member.subjectType === "agent" ? t("settings.projectAccessMembers.agent") : t("settings.projectAccessMembers.person")}
                       </div>
                     </div>
                     {!isPersonalOwner ? (

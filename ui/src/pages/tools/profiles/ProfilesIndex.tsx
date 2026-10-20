@@ -191,7 +191,7 @@ export function ProfilesIndex({
               statusFilter === key ? "bg-primary text-primary-foreground" : "text-muted-foreground hover:text-foreground",
             )}
           >
-            {key === "active" ? "Active" : "Archived"}
+            {key === "active" ? t("settings.profilesIndex.active") : t("settings.profilesIndex.archived")}
           </button>
         ))}
       </div>

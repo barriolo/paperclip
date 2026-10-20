@@ -129,7 +129,7 @@ import {
   UserSecretChip,
 } from "./secrets/user-secret-presentation";
 import type { MyUserSecretEntry } from "../api/secrets";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 type CreateMode = "managed" | "external";
 // "value" writes a new secret value (for external references: through to the
@@ -346,7 +346,7 @@ function normalizeUserSecretKeyForPreview(input: string) {
 
 
 function modeLabel(managedMode: SecretManagedMode) {
-  return managedMode === "paperclip_managed" ? "Paperclip-managed" : "Linked external";
+  return managedMode === "paperclip_managed" ? i18n.t("settings.secrets.paperclipmanaged") : i18n.t("settings.secrets.linkedExternal");
 }
 
 function modeDescription(managedMode: SecretManagedMode, canWriteExternalValue = false) {
@@ -589,7 +589,7 @@ export function findCreateProviderReplacement({
 }
 
 function providerVaultLabel(configs: CompanySecretProviderConfig[], id: string | null | undefined) {
-  if (!id) return "Deployment default";
+  if (!id) return i18n.t("settings.secrets.deploymentDefault");
   return configs.find((config) => config.id === id)?.displayName ?? "Unknown vault";
 }
 
@@ -1472,8 +1472,8 @@ export function Secrets() {
 
   function rotateActionLabel(secret: CompanySecret) {
     return secret.managedMode === "external_reference" && !secretSupportsExternalValueWrite(secret)
-      ? "Update reference"
-      : "Update value";
+      ? t("settings.secrets.updateReference")
+      : t("settings.secrets.updateValue");
   }
 
   function openRotateSecret(secret: CompanySecret) {
@@ -1559,7 +1559,7 @@ export function Secrets() {
                 }
               >
                 {row.secret.status === "active" ? <Ban className="h-4 w-4" /> : <CheckCircle2 className="h-4 w-4" />}
-                {row.secret.status === "active" ? "Disable" : "Activate"}
+                {row.secret.status === "active" ? t("settings.secrets.disable") : t("settings.secrets.activate")}
               </DropdownMenuItem>
               <DropdownMenuItem
                 disabled={statusMutation.isPending}
@@ -1575,7 +1575,7 @@ export function Secrets() {
                 ) : (
                   <Archive className="h-4 w-4" />
                 )}
-                {row.secret.status === "archived" ? "Unarchive" : "Archive"}
+                {row.secret.status === "archived" ? t("settings.secrets.unarchive") : t("settings.secrets.archive")}
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem variant="destructive" onSelect={() => setDeleteConfirm(row.secret)}>
@@ -1597,8 +1597,8 @@ export function Secrets() {
               >
                 <KeyRound className="h-4 w-4" />
                 {myUserSecrets.find((entry) => entry.definition.id === row.definition.id)?.secret
-                  ? "Update my value"
-                  : "Set my value"}
+                  ? t("settings.secrets.updateMyValue")
+                  : t("settings.secrets.setMyValue")}
               </DropdownMenuItem>
               <DropdownMenuItem onSelect={() => openEditDefinition(row.definition)}>
                 <Pencil className="h-4 w-4" />{" "}{t("settings.secrets.editDefinition")}
@@ -1618,7 +1618,7 @@ export function Secrets() {
                 ) : (
                   <CheckCircle2 className="h-4 w-4" />
                 )}
-                {row.definition.status === "active" ? "Disable" : "Activate"}
+                {row.definition.status === "active" ? t("settings.secrets.disable") : t("settings.secrets.activate")}
               </DropdownMenuItem>
               <DropdownMenuItem
                 disabled={definitionStatusMutation.isPending}
@@ -1634,7 +1634,7 @@ export function Secrets() {
                 ) : (
                   <Archive className="h-4 w-4" />
                 )}
-                {row.definition.status === "archived" ? "Unarchive" : "Archive"}
+                {row.definition.status === "archived" ? t("settings.secrets.unarchive") : t("settings.secrets.archive")}
               </DropdownMenuItem>
               <DropdownMenuSeparator />
               <DropdownMenuItem variant="destructive" onSelect={() => setDefinitionDeleteConfirm(row.definition)}>
@@ -1712,7 +1712,7 @@ export function Secrets() {
   }
 
   function renderUpRow(variant: "table" | "card") {
-    const parentLabel = parentFolderPath ? parentFolderPath.split("/").pop()! : "All secrets";
+    const parentLabel = parentFolderPath ? parentFolderPath.split("/").pop()! : t("settings.secrets.allSecrets");
     return (
       <Link
         to={folderLinkTo(parentFolderPath)}
@@ -1732,7 +1732,7 @@ export function Secrets() {
 
   function renderSecretsBreadcrumb() {
     const currentName = breadcrumbs.length > 0 ? breadcrumbs[breadcrumbs.length - 1].name : "All secrets";
-    const parentLabel = parentFolderPath ? parentFolderPath.split("/").pop()! : "All secrets";
+    const parentLabel = parentFolderPath ? parentFolderPath.split("/").pop()! : t("settings.secrets.allSecrets");
     const fullTrail: { name: string; path: string }[] = [
       { name: "All secrets", path: "" },
       ...breadcrumbs,
@@ -1993,7 +1993,7 @@ export function Secrets() {
                   <div className="mb-3">
                     <div className="text-sm font-medium text-foreground">{t("settings.secrets.searchResults")}</div>
                     <div className="text-xs text-muted-foreground">
-                      {filteredRows.length} {filteredRows.length === 1 ? "match" : "matches"}{" "}{t("settings.secrets.acrossAllFolders")}{folderPath ? ` · searching everywhere, not just ${folderPath}` : ""}
+                      {filteredRows.length} {filteredRows.length === 1 ? "match" : "matches"}{" "}{t("settings.secrets.acrossAllFolders")}{folderPath ? t("settings.secrets.searchingEverywhereNotJust", { folderPath: folderPath }) : ""}
                     </div>
                   </div>
                 ) : null}
@@ -2049,7 +2049,7 @@ export function Secrets() {
                               `Last rotated: ${formatRelative(row.secret.lastRotatedAt)}`,
                               `Last resolved: ${formatRelative(row.secret.lastResolvedAt)}`,
                             ].join("\n")
-                          : `Updated: ${formatRelative(row.definition.updatedAt)}\nLast resolved: user values resolve per member`;
+                          : t("settings.secrets.updatedLastResolvedUserValues", { relative: formatRelative(row.definition.updatedAt) });
                       return (
                         <div
                           key={row.id}
@@ -2183,7 +2183,7 @@ export function Secrets() {
                                 {row.secret.managedMode === "external_reference" ? "linked" : "managed"}
                               </>
                             ) : (
-                              "Member-owned values"
+                              t("settings.secrets.memberownedValues")
                             )}
                           </span>
                           <span>{t("settings.secrets.updated")}{" "}{formatRelative(row.kind === "company" ? row.secret.updatedAt : row.definition.updatedAt)}</span>
@@ -2313,7 +2313,7 @@ export function Secrets() {
                       ) : (
                         <CheckCircle2 className="h-4 w-4" />
                       )}
-                      {selectedSecret.status === "active" ? "Disable" : "Activate"}
+                      {selectedSecret.status === "active" ? t("settings.secrets.disable") : t("settings.secrets.activate")}
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       disabled={statusMutation.isPending}
@@ -2329,7 +2329,7 @@ export function Secrets() {
                       ) : (
                         <Archive className="h-4 w-4" />
                       )}
-                      {selectedSecret.status === "archived" ? "Unarchive" : "Archive"}
+                      {selectedSecret.status === "archived" ? t("settings.secrets.unarchive") : t("settings.secrets.archive")}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem variant="destructive" onSelect={() => setDeleteConfirm(selectedSecret)}>
@@ -2424,7 +2424,7 @@ export function Secrets() {
                   disabled={selectedDefinition.status !== "active"}
                 >
                   <KeyRound className="h-3.5 w-3.5 mr-1" />
-                  {selectedDefinitionMyEntry?.secret ? "Update my value" : "Set my value"}
+                  {selectedDefinitionMyEntry?.secret ? t("settings.secrets.updateMyValue") : t("settings.secrets.setMyValue")}
                 </Button>
                 <DropdownMenu>
                   <DropdownMenuTrigger asChild>
@@ -2451,7 +2451,7 @@ export function Secrets() {
                       ) : (
                         <CheckCircle2 className="h-4 w-4" />
                       )}
-                      {selectedDefinition.status === "active" ? "Disable" : "Activate"}
+                      {selectedDefinition.status === "active" ? t("settings.secrets.disable") : t("settings.secrets.activate")}
                     </DropdownMenuItem>
                     <DropdownMenuItem
                       disabled={definitionStatusMutation.isPending}
@@ -2467,7 +2467,7 @@ export function Secrets() {
                       ) : (
                         <Archive className="h-4 w-4" />
                       )}
-                      {selectedDefinition.status === "archived" ? "Unarchive" : "Archive"}
+                      {selectedDefinition.status === "archived" ? t("settings.secrets.unarchive") : t("settings.secrets.archive")}
                     </DropdownMenuItem>
                     <DropdownMenuSeparator />
                     <DropdownMenuItem variant="destructive" onSelect={() => setDefinitionDeleteConfirm(selectedDefinition)}>
@@ -2580,7 +2580,7 @@ export function Secrets() {
       >
         <DialogContent className="max-h-(--sz-calc-18) overflow-y-auto p-4 sm:max-w-lg sm:p-6">
           <DialogHeader>
-            <DialogTitle>{editingDefinition ? "Edit user-provided secret" : "Create secret"}</DialogTitle>
+            <DialogTitle>{editingDefinition ? t("settings.secrets.editUserprovidedSecret") : t("settings.secrets.createSecret")}</DialogTitle>
             <DialogDescription>
               {t("settings.secrets.chooseWhoProvidesTheValue")}
             </DialogDescription>
@@ -2778,12 +2778,12 @@ export function Secrets() {
               />
               <p className="mt-1 text-(length:--text-micro) text-muted-foreground">
                 {editingDefinition
-                  ? "Stable env binding key. Cannot be changed."
+                  ? t("settings.secrets.stableEnvBindingKeyCannot")
                   : !createKeyEditable
-                    ? "Generated from the name."
+                    ? t("settings.secrets.generatedFromTheName")
                     : secretValueProvider === "user"
-                      ? "Env-style key used by user-secret bindings."
-                      : "Shared secret keys keep lowercase dash normalization."}
+                      ? t("settings.secrets.envstyleKeyUsedByUsersecret")
+                      : t("settings.secrets.sharedSecretKeysKeepLowercase")}
               </p>
             </div>
 
@@ -2837,9 +2837,9 @@ export function Secrets() {
                         {provider.label}
                         {provider.configured === false &&
                         !getSelectableProviderConfig(providerConfigs, provider.id)
-                          ? " (deployment default missing)"
+                          ? t("settings.secrets.deploymentDefaultMissing")
                           : provider.requiresExternalRef
-                            ? " (external only)"
+                            ? t("settings.secrets.externalOnly")
                             : ""}
                       </option>
                     ))}
@@ -2923,12 +2923,12 @@ export function Secrets() {
             >
               {createMutation.isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin mr-1" /> : null}
               {editingDefinition
-                ? "Save changes"
+                ? t("settings.secrets.saveChanges")
                 : secretValueProvider === "user"
-                  ? "Create user-provided secret"
+                  ? t("settings.secrets.createUserprovidedSecret")
                   : createMode === "managed"
-                    ? "Create secret"
-                    : "Link reference"}
+                    ? t("settings.secrets.createSecret")
+                    : t("settings.secrets.linkReference")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -2937,7 +2937,7 @@ export function Secrets() {
       <Dialog open={vaultDialogOpen} onOpenChange={setVaultDialogOpen}>
         <DialogContent className="max-h-(--sz-85vh) overflow-y-auto sm:max-w-2xl">
           <DialogHeader>
-            <DialogTitle>{editingVault ? "Edit provider vault" : "Create provider vault"}</DialogTitle>
+            <DialogTitle>{editingVault ? t("settings.secrets.editProviderVault") : t("settings.secrets.createProviderVault")}</DialogTitle>
             <DialogDescription>
               {t("settings.secrets.saveOnlyNonsensitiveRoutingMetadata")}
             </DialogDescription>
@@ -3056,7 +3056,7 @@ export function Secrets() {
               }
             >
               {saveVaultMutation.isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin mr-1" /> : null}
-              {editingVault ? "Save vault" : "Create vault"}
+              {editingVault ? t("settings.secrets.saveVault") : t("settings.secrets.createVault")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -3067,15 +3067,15 @@ export function Secrets() {
           <DialogHeader>
             <DialogTitle>
               {selectedSecret?.managedMode === "external_reference" && rotateMode === "reference"
-                ? "Update external reference"
-                : "Update secret value"}
+                ? t("settings.secrets.updateExternalReference")
+                : t("settings.secrets.updateSecretValue")}
             </DialogTitle>
             <DialogDescription>
               {selectedSecret?.managedMode !== "external_reference"
-                ? "Creates a new provider-backed version. Consumers pinned to latest pick up the new value on the next run."
+                ? t("settings.secrets.createsANewProviderbackedVersion")
                 : rotateMode === "reference"
-                  ? "Creates a new Paperclip metadata version that points at an existing provider secret. Paperclip does not write a new provider value."
-                  : "Writes a new version of the referenced provider secret. The new value becomes current for every consumer of that secret, in and outside Paperclip."}
+                  ? t("settings.secrets.createsANewPaperclipMetadata")
+                  : t("settings.secrets.writesANewVersionOf")}
             </DialogDescription>
           </DialogHeader>
           {selectedSecret && secretSupportsExternalValueWrite(selectedSecret) ? (
@@ -3166,8 +3166,8 @@ export function Secrets() {
             >
               {rotateMutation.isPending ? <Loader2 className="h-3.5 w-3.5 animate-spin mr-1" /> : null}
               {selectedSecret?.managedMode === "external_reference" && rotateMode === "reference"
-                ? "Update reference"
-                : "Update value"}
+                ? t("settings.secrets.updateReference")
+                : t("settings.secrets.updateValue")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -3239,8 +3239,8 @@ export function Secrets() {
             <DialogDescription>
               {t("settings.secrets.removes")}{" "}<strong>{removeVaultConfirm?.displayName}</strong>{" "}{t("settings.secrets.fromPaperclipOnly")}{" "}
               {removeVaultConfirm?.provider === "aws_secrets_manager"
-                ? "This does not delete the remote AWS Secrets Manager vault, secrets, or any AWS data."
-                : "This does not delete any remote provider data."}{" "}{t("settings.secrets.secretsUsingThisVaultWill")}
+                ? t("settings.secrets.thisDoesNotDeleteThe")
+                : t("settings.secrets.thisDoesNotDeleteAny")}{" "}{t("settings.secrets.secretsUsingThisVaultWill")}
             </DialogDescription>
           </DialogHeader>
           <DialogFooter>
@@ -3443,12 +3443,13 @@ function providerFamilyIcon(provider: SecretProvider) {
 }
 
 function ProviderVaultInlineWarning({ config }: { config: CompanySecretProviderConfig }) {
+  const { t } = useTranslation();
   const blockReason = getProviderConfigBlockReason(config);
   const message = blockReason ?? config.healthMessage;
   if (!message) {
     return (
       <p className="mt-1 text-(length:--text-micro) text-muted-foreground">
-        {config.isDefault ? "Default vault" : "Vault"} · {config.status.replace("_", " ")}
+        {config.isDefault ? t("settings.secrets.defaultVault") : t("settings.secrets.vault")} · {config.status.replace("_", " ")}
       </p>
     );
   }
@@ -3607,8 +3608,8 @@ export function ProviderVaultsTab({
             {configs.length === 0 ? (
               <div className="rounded-md border border-dashed border-border bg-muted/20 p-4 text-sm text-muted-foreground">
                 {isComingSoonFamily
-                  ? "Not yet supported."
-                  : "No organization-specific vaults yet. Secrets can still use the deployment default provider settings."}
+                  ? t("settings.secrets.notYetSupported")
+                  : t("settings.secrets.noOrganizationspecificVaultsYetSecrets")}
               </div>
             ) : (
               <div className="space-y-3">
@@ -3921,10 +3922,11 @@ function AwsProviderVaultDiscoveryPanel({
  * into a bug report, so the button has to confirm the clipboard took it.
  */
 function CopyDetailsButton({ text }: { text: string }) {
+  const { t } = useTranslation();
   const { copied, failed, copy } = useCopyAction();
   return (
     <Button type="button" variant="ghost" size="sm" onClick={() => void copy(text)}>
-      {copied ? "Copied" : failed ? "Copy failed" : "Copy"}
+      {copied ? t("settings.secrets.copied") : failed ? t("settings.secrets.copyFailed") : t("settings.secrets.copy")}
     </Button>
   );
 }
@@ -3966,19 +3968,19 @@ function AwsProviderVaultDiscoveryError({
         <div className="min-w-0 flex-1 space-y-2">
           <div>
             <p className="font-medium">
-              {isAccessDenied ? "AWS discovery needs ListSecrets permission" : "AWS discovery failed"}
+              {isAccessDenied ? t("settings.secrets.aWSDiscoveryNeedsListsecretsPermission") : t("settings.secrets.aWSDiscoveryFailed")}
             </p>
             <p className="mt-1 leading-relaxed text-destructive/85">
               {isAccessDenied
                 ? details?.actionableMessage ??
-                  "Discovery needs secretsmanager:ListSecrets in the selected region for the Paperclip server runtime/provider credential path."
+                  t("settings.secrets.discoveryNeedsSecretsmanagerlistsecretsInThe")
                 : message}
             </p>
           </div>
           {isAccessDenied ? (
             <p className="leading-relaxed text-destructive/85">
               {details?.safeAlternative ??
-                "If you already know the exact AWS Secrets Manager ARN, paste/link that ARN instead of using discovery. Exact-resource DescribeSecret and runtime read permissions are still required."}
+                t("settings.secrets.ifYouAlreadyKnowThe")}
             </p>
           ) : null}
           <dl className="grid gap-1 text-destructive/80 sm:grid-cols-2">
@@ -4062,7 +4064,7 @@ function SecretCreateError({
         <div className="min-w-0 flex-1 space-y-2">
           <div>
             <p className="font-medium">
-              {isAccessDenied ? "AWS secret creation needs CreateSecret permission" : "AWS secret creation failed"}
+              {isAccessDenied ? t("settings.secrets.aWSSecretCreationNeedsCreatesecret") : t("settings.secrets.aWSSecretCreationFailed")}
             </p>
             <p className="mt-1 leading-relaxed text-destructive/85">
               {details?.actionableMessage ?? message}
@@ -4086,7 +4088,7 @@ function SecretCreateError({
             ) : null}
             <div>
               <dt className="font-medium">{t("settings.secrets.providerVault")}</dt>
-              <dd className="break-all">{details?.providerConfigId ?? providerConfigId ?? "Deployment default"}</dd>
+              <dd className="break-all">{details?.providerConfigId ?? providerConfigId ?? t("settings.secrets.deploymentDefault")}</dd>
             </div>
             <div>
               <dt className="font-medium">{t("settings.secrets.operation")}</dt>
@@ -4133,7 +4135,7 @@ function AwsProviderVaultDiscoveryCandidateRow({
             </span>
           </div>
           <p className="mt-1 truncate text-xs text-muted-foreground">
-            {fieldSummary.length > 0 ? fieldSummary.join(" / ") : "No stable namespace or prefix detected"}
+            {fieldSummary.length > 0 ? fieldSummary.join(" / ") : t("settings.secrets.noStableNamespaceOrPrefix")}
           </p>
           {candidate.samples[0] ? (
             <p className="mt-1 truncate font-mono text-(length:--text-micro) text-muted-foreground">
@@ -4515,8 +4517,8 @@ function AgentAccessSection({
       </div>
       <p className="mt-0.5 text-(length:--text-micro) text-muted-foreground">
         {reference.kind === "company"
-          ? "Add here to inject this secret as an environment variable at run start. API-access grants (fetched on demand, no env var) are managed from each agent's Secret access settings and shown below."
-          : "These agents resolve the responsible user's value as an environment variable at run start."}
+          ? t("settings.secrets.addHereToInjectThis")
+          : t("settings.secrets.theseAgentsResolveTheResponsible")}
       </p>
       {agentsQuery.isPending ? (
         <p className="mt-2 text-(length:--text-micro) text-muted-foreground">{t("settings.secrets.loadingAgents")}</p>
@@ -4646,7 +4648,7 @@ function SecretDetailsTab({
 }) {
   const { t } = useTranslation();
   const bindingLabel = (secret.referenceCount ?? 0) === 1
-    ? "1 binding"
+    ? t("settings.secrets.n1Binding")
     : `${secret.referenceCount ?? 0} bindings`;
 
   return (
@@ -4765,7 +4767,7 @@ export function SecretUsageTab({ loading, bindings }: { loading: boolean; bindin
               ) : (
                 <span className="font-mono">{binding.configPath}</span>
               )}{" "}
-              {binding.required ? "· required" : "· optional"}
+              {binding.required ? t("settings.secrets.required") : t("settings.secrets.optional")}
             </div>
           </div>
         );

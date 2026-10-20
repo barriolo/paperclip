@@ -226,7 +226,7 @@ export function InvitesSection() {
 
         <div className="flex flex-wrap items-center gap-3">
           <Button onClick={() => createInviteMutation.mutate()} disabled={createInviteMutation.isPending}>
-            {createInviteMutation.isPending ? "Creating…" : "Create invite"}
+            {createInviteMutation.isPending ? t("settings.invitesSection.creating") : t("settings.invitesSection.createInvite")}
           </Button>
           <span className="text-sm text-muted-foreground">{t("settings.invitesSection.inviteHistoryBelowKeepsThe")}</span>
         </div>
@@ -318,7 +318,7 @@ export function InvitesSection() {
                       </td>
                       <td className="px-5 py-3 align-top">{formatInviteAudience(invite)}</td>
                       <td className="px-5 py-3 align-top">
-                        <div>{invite.invitedByUser?.name || invite.invitedByUser?.email || "Unknown inviter"}</div>
+                        <div>{invite.invitedByUser?.name || invite.invitedByUser?.email || t("settings.invitesSection.unknownInviter")}</div>
                         {invite.invitedByUser?.email && invite.invitedByUser.name ? (
                           <div className="text-xs text-muted-foreground">{invite.invitedByUser.email}</div>
                         ) : null}
@@ -362,7 +362,7 @@ export function InvitesSection() {
                   onClick={() => invitesQuery.fetchNextPage()}
                   disabled={invitesQuery.isFetchingNextPage}
                 >
-                  {invitesQuery.isFetchingNextPage ? "Loading more…" : "View more"}
+                  {invitesQuery.isFetchingNextPage ? t("settings.invitesSection.loadingMore") : t("settings.invitesSection.viewMore")}
                 </Button>
               </div>
             ) : null}

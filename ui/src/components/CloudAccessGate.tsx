@@ -27,22 +27,23 @@ export function CloudAccessError({
   retrying: boolean;
   onRetry: () => void;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="mx-auto flex max-w-xl flex-col gap-4 px-4 py-16">
       <RefreshCw className="size-6 text-muted-foreground" aria-hidden="true" />
       <div className="flex flex-col gap-2" role="status">
         <h1 className="text-xl font-semibold">
-          {temporary ? "Reconnecting to Paperclip" : "Unable to load Paperclip"}
+          {temporary ? t("settings.cloudAccessGate.reconnectingToPaperclip") : t("settings.cloudAccessGate.unableToLoadPaperclip")}
         </h1>
         <p className="text-sm text-muted-foreground">
           {temporary
-            ? "The server may be restarting or your connection was interrupted. We’ll try again every few seconds and reconnect automatically."
-            : "We couldn’t check your access to this instance. Try again, or contact your instance administrator if this continues."}
+            ? t("settings.cloudAccessGate.theServerMayBeRestarting")
+            : t("settings.cloudAccessGate.weCouldntCheckYourAccess")}
         </p>
       </div>
       <div>
         <Button variant="outline" onClick={onRetry} disabled={retrying}>
-          {retrying ? "Connecting…" : "Try again"}
+          {retrying ? t("settings.cloudAccessGate.connecting") : t("settings.cloudAccessGate.tryAgain")}
         </Button>
       </div>
     </div>

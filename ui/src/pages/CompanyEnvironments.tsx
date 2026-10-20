@@ -753,7 +753,7 @@ function EnvironmentCustomImageBrowserTerminal({
               disabled={connectionState === "connecting"}
             >
               <Terminal className="mr-1.5 h-3.5 w-3.5" />
-              {connectionState === "closed" || connectionState === "error" ? "Reconnect" : "Open terminal"}
+              {connectionState === "closed" || connectionState === "error" ? t("settings.companyEnvironments.reconnect") : t("settings.companyEnvironments.openTerminal")}
             </Button>
           )}
         </div>
@@ -1092,7 +1092,7 @@ function EnvironmentImageTemplatePanel({
   if (overviewQuery.isError) {
     return (
       <div className="mt-3 border-t border-border/60 pt-3 text-xs text-destructive">
-        {overviewQuery.error instanceof Error ? overviewQuery.error.message : "Template setup could not be loaded."}
+        {overviewQuery.error instanceof Error ? overviewQuery.error.message : t("settings.companyEnvironments.templateSetupCouldNotBe")}
       </div>
     );
   }
@@ -1218,7 +1218,7 @@ function EnvironmentImageTemplatePanel({
               >
                 {bootSourceDriftSummary
                   ? `Not in use — ${bootSourceDriftSummary}. Runs fall back to the base configuration until you relink this image or capture a new one.`
-                  : "Not in use — the environment configuration changed since this image was captured. Runs fall back to the base configuration until you relink this image or capture a new one."}
+                  : t("settings.companyEnvironments.notInUseTheEnvironment")}
               </div>
             ) : null}
           </div>
@@ -1274,7 +1274,7 @@ function EnvironmentImageTemplatePanel({
           <div className="text-xs text-muted-foreground">
             {latestSession
               ? sessionStatusCopy(latestSession.status)
-              : `Capture a custom ${providerDisplayName} image with your tools already logged in.`}
+              : t("settings.companyEnvironments.captureACustomImageWith", { providerDisplayName: providerDisplayName })}
           </div>
           {latestSession?.failureReason ? (
             <div className="text-xs text-destructive">{latestSession.failureReason}</div>
@@ -2035,7 +2035,7 @@ export function CompanyEnvironments({ mode = "list" }: CompanyEnvironmentsProps)
                     ) : null}
                     {environment.driver === "ssh" ? (
                       <div className="text-xs text-muted-foreground">
-                        {typeof environment.config.host === "string" ? environment.config.host : "SSH host"} ·{" "}
+                        {typeof environment.config.host === "string" ? environment.config.host : t("settings.companyEnvironments.sSHHost")} ·{" "}
                         {typeof environment.config.username === "string" ? environment.config.username : "user"}
                       </div>
                     ) : environment.driver === "sandbox" ? (
@@ -2065,10 +2065,10 @@ export function CompanyEnvironments({ mode = "list" }: CompanyEnvironmentsProps)
                         disabled={testingEnvironmentId === environment.id}
                       >
                         {testingEnvironmentId === environment.id
-                          ? "Testing..."
+                          ? t("settings.companyEnvironments.testing")
                           : environment.driver === "ssh"
-                            ? "Test connection"
-                            : "Test provider"}
+                            ? t("settings.companyEnvironments.testConnection")
+                            : t("settings.companyEnvironments.testProvider")}
                       </Button>
                     ) : null}
                     <Button size="sm" variant="ghost" asChild>
@@ -2133,7 +2133,7 @@ export function CompanyEnvironments({ mode = "list" }: CompanyEnvironmentsProps)
               </span>
             </div>
             <p className="mt-1 max-w-3xl text-sm text-muted-foreground">
-              {editingEnvironment.description ?? "Your agent runs on a computer managed by Paperclip."}
+              {editingEnvironment.description ?? t("settings.companyEnvironments.yourAgentRunsOnA")}
             </p>
             <p className="mt-1 max-w-3xl text-xs text-muted-foreground">
               {t("settings.companyEnvironments.thisEnvironmentIsProvisionedAnd")}
@@ -2158,7 +2158,7 @@ export function CompanyEnvironments({ mode = "list" }: CompanyEnvironmentsProps)
               <div className="mt-3 text-xs text-destructive">
                 {managedEnvironmentEnvVarsMutation.error instanceof Error
                   ? managedEnvironmentEnvVarsMutation.error.message
-                  : "Failed to save environment variables"}
+                  : t("settings.companyEnvironments.failedToSaveEnvironmentVariables")}
               </div>
             ) : null}
           </div>
@@ -2174,7 +2174,7 @@ export function CompanyEnvironments({ mode = "list" }: CompanyEnvironmentsProps)
               onClick={() => managedEnvironmentEnvVarsMutation.mutate(flushEnvironmentForm().envVars)}
               disabled={managedEnvironmentEnvVarsMutation.isPending}
             >
-              {managedEnvironmentEnvVarsMutation.isPending ? "Saving..." : "Save environment variables"}
+              {managedEnvironmentEnvVarsMutation.isPending ? t("settings.companyEnvironments.saving") : t("settings.companyEnvironments.saveEnvironmentVariables")}
             </Button>
           </div>
         </div>
@@ -2210,7 +2210,7 @@ export function CompanyEnvironments({ mode = "list" }: CompanyEnvironmentsProps)
                 </Button>
               ) : null}
             </div>
-            <h1 className="text-lg font-semibold">{editingEnvironmentId ? "Edit environment" : "Add environment"}</h1>
+            <h1 className="text-lg font-semibold">{editingEnvironmentId ? t("settings.companyEnvironments.editEnvironment") : t("settings.companyEnvironments.addEnvironment")}</h1>
             <p className="mt-1 max-w-3xl text-sm text-muted-foreground">
               {t("settings.companyEnvironments.configureAReusableExecutionTarget")}
             </p>
@@ -2453,7 +2453,7 @@ export function CompanyEnvironments({ mode = "list" }: CompanyEnvironmentsProps)
                 <div className="text-xs text-destructive">
                   {environmentMutation.error instanceof Error
                     ? environmentMutation.error.message
-                    : "Failed to save environment"}
+                    : t("settings.companyEnvironments.failedToSaveEnvironment")}
                 </div>
               ) : null}
               {draftEnvironmentProbeMutation.data ? (
@@ -2478,7 +2478,7 @@ export function CompanyEnvironments({ mode = "list" }: CompanyEnvironmentsProps)
                 onClick={() => draftEnvironmentProbeMutation.mutate(flushEnvironmentForm())}
                 disabled={draftEnvironmentProbeMutation.isPending || !environmentFormValid}
               >
-                {draftEnvironmentProbeMutation.isPending ? "Testing..." : "Test"}
+                {draftEnvironmentProbeMutation.isPending ? t("settings.companyEnvironments.testing") : t("settings.companyEnvironments.test")}
               </Button>
             ) : null}
             <Button
@@ -2487,11 +2487,11 @@ export function CompanyEnvironments({ mode = "list" }: CompanyEnvironmentsProps)
             >
               {environmentMutation.isPending
                 ? editingEnvironmentId
-                  ? "Saving..."
-                  : "Creating..."
+                  ? t("settings.companyEnvironments.saving")
+                  : t("settings.companyEnvironments.creating")
                 : editingEnvironmentId
-                  ? "Save environment"
-                  : "Create environment"}
+                  ? t("settings.companyEnvironments.saveEnvironment")
+                  : t("settings.companyEnvironments.createEnvironment")}
             </Button>
           </div>
 
@@ -2508,9 +2508,9 @@ export function CompanyEnvironments({ mode = "list" }: CompanyEnvironmentsProps)
                   <AlertDialogTitle>{t("settings.companyEnvironments.delete2", { name: editingEnvironment.name })}</AlertDialogTitle>
                   <AlertDialogDescription>
                     {deleteUsageLoading
-                      ? "Checking what uses this environment..."
+                      ? t("settings.companyEnvironments.checkingWhatUsesThisEnvironment")
                       : deleteUsageError
-                        ? "Could not check what uses this environment. Close this dialog and retry."
+                        ? t("settings.companyEnvironments.couldNotCheckWhatUses")
                         : deleteBlockMessage
                           ?? ([
                             reusableLeaseOnlyBlock && deleteBlastRadius
@@ -2522,7 +2522,7 @@ export function CompanyEnvironments({ mode = "list" }: CompanyEnvironmentsProps)
                           ]
                             .filter(Boolean)
                             .join(" ")
-                            || "This environment will be permanently deleted and future runs stop resolving to it.")}
+                            || t("settings.companyEnvironments.thisEnvironmentWillBePermanently"))}
                   </AlertDialogDescription>
                 </AlertDialogHeader>
                 {reusableLeaseHolderGroups.length > 0 ? (
@@ -2543,7 +2543,7 @@ export function CompanyEnvironments({ mode = "list" }: CompanyEnvironmentsProps)
                           )}
                           <span className="text-xs text-muted-foreground">
                             {" "}
-                            · {group.leaseCount === 1 ? "1 sandbox lease" : `${group.leaseCount} sandbox leases`}
+                            · {group.leaseCount === 1 ? t("settings.companyEnvironments.n1SandboxLease") : t("settings.companyEnvironments.sandboxLeases", { leaseCount: group.leaseCount })}
                             {group.issueLabels.length > 0 ? ` · ${group.issueLabels.join(", ")}` : ""}
                           </span>
                         </li>
@@ -2551,8 +2551,8 @@ export function CompanyEnvironments({ mode = "list" }: CompanyEnvironmentsProps)
                     </ul>
                     <div className="text-xs text-muted-foreground">
                       {reusableLeaseOnlyBlock
-                        ? "Deleting destroys these sandboxes; the workspaces stay open."
-                        : "Close these workspaces to let Paperclip destroy their sandboxes, then retry the delete."}
+                        ? t("settings.companyEnvironments.deletingDestroysTheseSandboxesThe")
+                        : t("settings.companyEnvironments.closeTheseWorkspacesToLet")}
                     </div>
                   </div>
                 ) : null}
@@ -2573,7 +2573,7 @@ export function CompanyEnvironments({ mode = "list" }: CompanyEnvironmentsProps)
                           <option value="">
                             {t("settings.companyEnvironments.default2")}{" "}{instanceDefaultEnvironment
                               ? `${instanceDefaultEnvironment.name} · ${instanceDefaultEnvironment.driver}`
-                              : "Local"}
+                              : t("settings.companyEnvironments.local")}
                           </option>
                           {reassignTargetEnvironments.map((environment) => (
                             <option key={environment.id} value={environment.id}>
@@ -2617,10 +2617,10 @@ export function CompanyEnvironments({ mode = "list" }: CompanyEnvironmentsProps)
                     }}
                   >
                     {deleteEnvironmentMutation.isPending
-                      ? "Deleting..."
+                      ? t("settings.companyEnvironments.deleting")
                       : reusableLeaseOnlyBlock && deleteBlastRadius
                         ? `Destroy ${deleteBlastRadius.reusableSandboxLeaseCount === 1 ? "1 sandbox" : `${deleteBlastRadius.reusableSandboxLeaseCount} sandboxes`} and delete`
-                        : "Delete environment"}
+                        : t("settings.companyEnvironments.deleteEnvironment")}
                   </AlertDialogAction>
                 </AlertDialogFooter>
               </AlertDialogContent>

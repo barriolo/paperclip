@@ -47,12 +47,12 @@ export function EmailConnectionAccess({
   const everyone = active.some((g) => g.kind === "organization");
   const personal = active.find((g) => g.kind === "user");
   const humanLabel = everyone
-    ? "Any human in the organization"
+    ? t("settings.emailConnectionAccess.anyHumanInTheOrganization")
     : personal
       ? personal.subjectUserId === grants.data?.currentUserId
-        ? "Just me"
-        : "Only the credential owner"
-      : "Access revoked";
+        ? t("settings.emailConnectionAccess.justMe")
+        : t("settings.emailConnectionAccess.onlyTheCredentialOwner")
+      : t("settings.emailConnectionAccess.accessRevoked");
   const allAgents =
     installs.data?.installs.some((i) => i.targetType === "company") ?? false;
   const selected = new Set(

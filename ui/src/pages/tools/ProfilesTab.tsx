@@ -177,7 +177,7 @@ function bindingLabel(
     routinesById: Map<string, string>;
   },
 ) {
-  if (targetType === "company") return targetId === labels.companyId ? "Company" : targetId;
+  if (targetType === "company") return targetId === labels.companyId ? i18n.t("settings.profilesTab.company") : targetId;
   if (targetType === "agent") return labels.agentsById.get(targetId) ?? targetId;
   if (targetType === "project") return labels.projectsById.get(targetId) ?? targetId;
   if (targetType === "routine") return labels.routinesById.get(targetId) ?? targetId;
@@ -593,16 +593,16 @@ function AllowList({ rows, catalogLoading }: { rows: AllowListRow[]; catalogLoad
         <h4 className="text-sm font-semibold text-foreground">{t("settings.profilesTab.allowList")}</h4>
         <p className="text-xs text-muted-foreground">
           {t("settings.profilesTab.tool", { length: rows.length })}{rows.length === 1 ? "" : "s"}
-          {explicitCount > 0 ? ` · ${explicitCount} explicit` : ""}
-          {patternCount > 0 ? ` · ${patternCount} via pattern` : ""}
-          {defaultCount > 0 ? ` · ${defaultCount} via default` : ""}
+          {explicitCount > 0 ? t("settings.profilesTab.explicit", { explicitCount: explicitCount }) : ""}
+          {patternCount > 0 ? t("settings.profilesTab.viaPattern", { patternCount: patternCount }) : ""}
+          {defaultCount > 0 ? t("settings.profilesTab.viaDefault", { defaultCount: defaultCount }) : ""}
         </p>
       </div>
       {rows.length === 0 ? (
         <div className="rounded-md border border-dashed border-border px-3 py-6 text-center text-sm text-muted-foreground">
           {catalogLoading
-            ? "Resolving allowed tools…"
-            : "No tools resolved for this profile. Add an include selector or refresh the tool catalog."}
+            ? t("settings.profilesTab.resolvingAllowedTools")
+            : t("settings.profilesTab.noToolsResolvedForThis")}
         </div>
       ) : (
         <Card>
@@ -1035,7 +1035,7 @@ export function ProfilesTab({ companyId }: { companyId: string }) {
       }}>
         <DialogContent className="max-w-2xl">
           <DialogHeader>
-            <DialogTitle>{editProfile ? "Edit profile" : "New profile"}</DialogTitle>
+            <DialogTitle>{editProfile ? t("settings.profilesTab.editProfile") : t("settings.profilesTab.newProfile")}</DialogTitle>
             <DialogDescription>
               {t("settings.profilesTab.profileRulesAreEnforcedBy")}
             </DialogDescription>
@@ -1126,7 +1126,7 @@ export function ProfilesTab({ companyId }: { companyId: string }) {
               {t("settings.profilesTab.cancel")}
             </Button>
             <Button disabled={!name.trim() || createProfile.isPending || updateProfile.isPending} onClick={saveProfile}>
-              {editProfile ? "Save" : createProfile.isPending ? "Creating..." : "Create"}
+              {editProfile ? t("settings.profilesTab.save") : createProfile.isPending ? t("settings.profilesTab.creating") : t("settings.profilesTab.create")}
             </Button>
           </DialogFooter>
         </DialogContent>

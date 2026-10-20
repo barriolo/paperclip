@@ -189,7 +189,7 @@ export function InstanceExperimentalSettings() {
       <div className="text-sm text-destructive">
         {experimentalQuery.error instanceof Error
           ? experimentalQuery.error.message
-          : "Failed to load experimental settings."}
+          : t("settings.instanceExperimentalSettings.failedToLoadExperimentalSettings")}
       </div>
     );
   }
@@ -715,8 +715,8 @@ export function InstanceExperimentalSettings() {
                       <p className="font-medium text-foreground">{t("settings.instanceExperimentalSettings.executionIsSuppressedEffectivelyOff")}</p>
                       <p className="text-muted-foreground">
                         {worktreeRunExecutionState.reason === "instance_mismatch"
-                          ? "This setting was armed in a different instance and copied here, so no tasks run automatically."
-                          : "This setting is missing its activation cutoff, so no tasks run automatically."}{" "}{t("settings.instanceExperimentalSettings.toggleItOffAndBack")}
+                          ? t("settings.instanceExperimentalSettings.thisSettingWasArmedIn")
+                          : t("settings.instanceExperimentalSettings.thisSettingIsMissingIts")}{" "}{t("settings.instanceExperimentalSettings.toggleItOffAndBack")}
                       </p>
                     </div>
                   </div>

@@ -93,7 +93,7 @@ export function StageSecretsPanel({
       <div className="flex items-center gap-3">
         <Button type="button" onClick={onSave} disabled={!dirty || saving}>
           <Save className="h-4 w-4 mr-1.5" />
-          {saving ? "Saving…" : "Save secrets"}
+          {saving ? t("settings.stageSecretsPanel.saving") : t("settings.stageSecretsPanel.saveSecrets")}
         </Button>
         {dirty && !saving ? <span className="text-xs text-muted-foreground">{t("settings.stageSecretsPanel.unsavedChanges")}</span> : null}
       </div>

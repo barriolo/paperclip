@@ -79,7 +79,7 @@ export function DecisionModelSettingsView({ settings, choices, saving, testing, 
     {draft.connectionId && !selected && <p role="status" className="text-sm text-muted-foreground">{t("settings.decisionModelSettings.theSavedConnectionIsUnavailable")}</p>}
     <div className="flex flex-wrap items-center gap-3">
       <Button variant="outline" size="sm" onClick={onAdd} disabled={saving || testing}>{t("settings.decisionModelSettings.addConnection")}</Button>
-      {selected && <Link to={`/apps/${selected.id}/permissions`} className="text-sm underline underline-offset-4">{selected.status === "connected" ? "Manage connection" : "Reconnect connection"}</Link>}
+      {selected && <Link to={`/apps/${selected.id}/permissions`} className="text-sm underline underline-offset-4">{selected.status === "connected" ? t("settings.decisionModelSettings.manageConnection") : t("settings.decisionModelSettings.reconnectConnection")}</Link>}
     </div>
     {draft.connectionId && <fieldset disabled={saving || testing} className="space-y-4">
       <ToggleField label={t("settings.decisionModelSettings.enableDecisions")} checked={draft.enabled} onChange={enabled => setDraft(value => ({ ...value, enabled }))} />
@@ -93,17 +93,17 @@ export function DecisionModelSettingsView({ settings, choices, saving, testing, 
     {!dirty && result?.status === "succeeded" && <div role="status" className="space-y-2 text-sm">
       <p className="font-medium">{t("settings.decisionModelSettings.decisionModelIsWorking")}</p>
       <dl className="grid grid-cols-2 gap-2">{Object.entries(result.answers).map(([name, answer]) => <div key={name}>
-        <dt className="text-muted-foreground">{name === "billing" ? "Billing problem" : name === "team" ? "Assigned team" : "Disruption score"}</dt>
+        <dt className="text-muted-foreground">{name === "billing" ? t("settings.decisionModelSettings.billingProblem") : name === "team" ? t("settings.decisionModelSettings.assignedTeam") : t("settings.decisionModelSettings.disruptionScore")}</dt>
         <dd className="font-mono">{answer.type === "boolean" ? `${Math.round(answer.probability * 100)}%` : answer.type === "choice" ? answer.choice : `${answer.score.toFixed(2)} / 2`}</dd>
       </div>)}</dl>
       <p className="text-xs text-muted-foreground">{t("settings.decisionModelSettings.usageWasRecordedTestAnswers")}</p>
     </div>}
     <div className="flex flex-wrap items-center justify-between gap-3">
       <div className="space-y-1">
-        <Button variant="outline" size="sm" disabled={!settings.enabled || dirty || saving || testing || selected?.status !== "connected"} onClick={onTest}>{testing ? "Running test…" : "Run test"}</Button>
-        <p className="text-xs text-muted-foreground">{dirty ? "Save changes before testing." : "Runs a small sample with an API charge."}</p>
+        <Button variant="outline" size="sm" disabled={!settings.enabled || dirty || saving || testing || selected?.status !== "connected"} onClick={onTest}>{testing ? t("settings.decisionModelSettings.runningTest") : t("settings.decisionModelSettings.runTest")}</Button>
+        <p className="text-xs text-muted-foreground">{dirty ? t("settings.decisionModelSettings.saveChangesBeforeTesting") : t("settings.decisionModelSettings.runsASmallSampleWith")}</p>
       </div>
-      {dirty && <Button onClick={() => onSave(draft)} disabled={saving || testing || (draft.enabled && selected?.status !== "connected")}>{saving ? "Saving…" : "Save decision model"}</Button>}
+      {dirty && <Button onClick={() => onSave(draft)} disabled={saving || testing || (draft.enabled && selected?.status !== "connected")}>{saving ? t("settings.decisionModelSettings.saving") : t("settings.decisionModelSettings.saveDecisionModel")}</Button>}
     </div>
   </section>;
 }

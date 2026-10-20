@@ -34,7 +34,7 @@ import { PageTabBar } from "@/components/PageTabBar";
 import { useHiddenSettings } from "@/hooks/useHiddenSettings";
 import { useCloudInstance } from "@/hooks/useCloudInstance";
 import { InvitesSection } from "@/components/access/InvitesSection";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 const reassignmentIssueStatuses = "backlog,todo,in_progress,in_review,blocked,failed,timed_out";
 type EditableMemberStatus = "pending" | "active" | "suspended";
@@ -398,7 +398,7 @@ export function CompanyAccess() {
                     <td className="px-3 py-3">
                       {member.membershipRole
                         ? HUMAN_COMPANY_MEMBERSHIP_ROLE_LABELS[member.membershipRole]
-                        : "Unset"}
+                        : t("settings.companyAccess.unset")}
                     </td>
                     <td className="px-3 py-3">
                       <Badge variant={member.status === "active" ? "secondary" : member.status === "suspended" ? "destructive" : "outline"}>
@@ -495,7 +495,7 @@ export function CompanyAccess() {
               }}
               disabled={updateMemberMutation.isPending}
             >
-              {updateMemberMutation.isPending ? "Saving…" : "Save member"}
+              {updateMemberMutation.isPending ? t("settings.companyAccess.saving") : t("settings.companyAccess.saveMember")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -516,8 +516,8 @@ export function CompanyAccess() {
                 <div className="text-sm text-muted-foreground">{removingMember.user?.email || removingMember.principalId}</div>
                 <div className="mt-2 text-sm text-muted-foreground">
                   {assignedIssuesQuery.isLoading
-                    ? "Checking assigned tasks..."
-                    : `${assignedIssues.length} open assigned task${assignedIssues.length === 1 ? "" : "s"}`}
+                    ? t("settings.companyAccess.checkingAssignedTasks")
+                    : t("settings.companyAccess.openAssignedTasks", { count: assignedIssues.length, length: assignedIssues.length })}
                 </div>
               </div>
 
@@ -581,7 +581,7 @@ export function CompanyAccess() {
               }}
               disabled={archiveMemberMutation.isPending || assignedIssuesQuery.isLoading}
             >
-              {archiveMemberMutation.isPending ? "Removing..." : "Remove member"}
+              {archiveMemberMutation.isPending ? t("settings.companyAccess.removing") : t("settings.companyAccess.removeMember")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -659,7 +659,7 @@ export function CompanyAccessLegacyRoute() {
 }
 
 function memberDisplayName(member: CompanyMember | null) {
-  if (!member) return "this member";
+  if (!member) return i18n.t("settings.companyAccess.thisMember");
   return member.user?.name?.trim() || member.user?.email || member.principalId;
 }
 

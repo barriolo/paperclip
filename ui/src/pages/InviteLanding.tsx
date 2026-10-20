@@ -74,7 +74,7 @@ function mapInviteAuthFeedback(
 ): AuthFeedback {
   const code = getAuthErrorCode(error);
   const message = getAuthErrorMessage(error);
-  const emailLabel = email.trim().length > 0 ? email.trim() : "that email";
+  const emailLabel = email.trim().length > 0 ? email.trim() : i18n.t("settings.inviteLanding.thatEmail");
 
   if (code === "USER_ALREADY_EXISTS_USE_ANOTHER_EMAIL") {
     return {
@@ -163,7 +163,7 @@ function AwaitingJoinApprovalPanel({
   onboardingTextUrl = null,
 }: AwaitingJoinApprovalPanelProps) {
   const { t } = useTranslation();
-  const approverLabel = invitedByUserName ?? "An organization admin";
+  const approverLabel = invitedByUserName ?? t("settings.inviteLanding.anOrganizationAdmin");
 
   return (
     <div className="min-h-screen bg-zinc-950 px-6 py-12 text-zinc-100">
@@ -324,7 +324,7 @@ export function InviteLandingPage() {
   const sessionLabel =
     sessionQuery.data?.user.name?.trim() ||
     sessionQuery.data?.user.email?.trim() ||
-    "this account";
+    t("settings.inviteLanding.thisAccount");
 
   const authCanSubmit =
     email.trim().length > 0 &&
@@ -488,8 +488,8 @@ export function InviteLandingPage() {
           <h1 className="text-lg font-semibold">{t("settings.inviteLanding.inviteNotAvailable")}</h1>
           <p className="mt-2 text-sm text-muted-foreground">
             {inviteJoinRequestStatus === "rejected"
-              ? "This join request was not approved."
-              : "This invite has already been used."}
+              ? t("settings.inviteLanding.thisJoinRequestWasNot")
+              : t("settings.inviteLanding.thisInviteHasAlreadyBeen")}
           </p>
         </div>
       </div>
@@ -570,14 +570,14 @@ export function InviteLandingPage() {
                   {t("settings.inviteLanding.youveBeenInvitedToJoin")}
                 </p>
                 <h1 className="mt-2 text-2xl font-semibold">
-                  {invite.inviteType === "bootstrap_ceo" ? "Set up Paperclip" : `Join ${companyDisplayName}`}
+                  {invite.inviteType === "bootstrap_ceo" ? t("settings.inviteLanding.setUpPaperclip") : t("settings.inviteLanding.join", { companyDisplayName: companyDisplayName })}
                 </h1>
                 <p className="mt-2 max-w-2xl text-sm leading-6 text-zinc-300">
                   {showsAgentForm
-                    ? "Review the invite details, then submit the agent information below to start the join request."
+                    ? t("settings.inviteLanding.reviewTheInviteDetailsThen")
                     : requiresHumanAccount
-                      ? "Create your Paperclip account first. If you already have one, switch to sign in and continue the invite with the same email."
-                      : "Your account is ready. Review the invite details, then accept it to continue."}
+                      ? t("settings.inviteLanding.createYourPaperclipAccountFirst")
+                      : t("settings.inviteLanding.yourAccountIsReadyReview")}
                 </p>
               </div>
             </div>
@@ -589,12 +589,12 @@ export function InviteLandingPage() {
               </div>
               <div className="border border-zinc-800 p-3">
                 <div className="text-xs uppercase tracking-(--tracking-caps) text-zinc-500">{t("settings.inviteLanding.invitedBy")}</div>
-                <div className="mt-1 text-sm text-zinc-100">{invitedByUserName ?? "Paperclip board"}</div>
+                <div className="mt-1 text-sm text-zinc-100">{invitedByUserName ?? t("settings.inviteLanding.paperclipBoard")}</div>
               </div>
               <div className="border border-zinc-800 p-3">
                 <div className="text-xs uppercase tracking-(--tracking-caps) text-zinc-500">{t("settings.inviteLanding.requestedAccess")}</div>
                 <div className="mt-1 text-sm text-zinc-100">
-                  {showsAgentForm ? "Agent join request" : requestedHumanRole ?? "Organization access"}
+                  {showsAgentForm ? t("settings.inviteLanding.agentJoinRequest") : requestedHumanRole ?? t("settings.inviteLanding.organizationAccess")}
                 </div>
               </div>
               <div className="border border-zinc-800 p-3">
@@ -643,7 +643,7 @@ export function InviteLandingPage() {
                   >
                     {joinAdapterOptions.map((type) => (
                       <option key={type} value={type} disabled={!ENABLED_INVITE_ADAPTERS.has(type)}>
-                        {getAdapterLabel(type)}{!ENABLED_INVITE_ADAPTERS.has(type) ? " (Coming soon)" : ""}
+                        {getAdapterLabel(type)}{!ENABLED_INVITE_ADAPTERS.has(type) ? t("settings.inviteLanding.comingSoon") : ""}
                       </option>
                     ))}
                   </select>
@@ -663,19 +663,19 @@ export function InviteLandingPage() {
                   disabled={acceptMutation.isPending || agentName.trim().length === 0}
                   onClick={() => acceptMutation.mutate()}
                 >
-                  {acceptMutation.isPending ? "Working..." : joinButtonLabel}
+                  {acceptMutation.isPending ? t("settings.inviteLanding.working") : joinButtonLabel}
                 </Button>
               </div>
             ) : requiresHumanAccount ? (
               <div className="space-y-5">
                 <div>
                   <h2 className="text-lg font-semibold">
-                    {authMode === "sign_up" ? "Create your account" : "Sign in to continue"}
+                    {authMode === "sign_up" ? t("settings.inviteLanding.createYourAccount") : t("settings.inviteLanding.signInToContinue")}
                   </h2>
                   <p className="mt-1 text-sm text-zinc-400">
                     {authMode === "sign_up"
-                      ? `Start with a Paperclip account. After that, you'll come right back here to accept the invite for ${companyDisplayName}.`
-                      : "Use the Paperclip account that already matches this invite. If you do not have one yet, switch back to create account."}
+                      ? t("settings.inviteLanding.startWithAPaperclipAccount", { companyDisplayName: companyDisplayName })
+                      : t("settings.inviteLanding.useThePaperclipAccountThat")}
                   </p>
                 </div>
 
@@ -803,17 +803,17 @@ export function InviteLandingPage() {
                     aria-disabled={!authCanSubmit || authMutation.isPending}
                   >
                     {authMutation.isPending
-                      ? "Working..."
+                      ? t("settings.inviteLanding.working")
                       : authMode === "sign_in"
-                        ? "Sign in and continue"
-                        : "Create account and continue"}
+                        ? t("settings.inviteLanding.signInAndContinue")
+                        : t("settings.inviteLanding.createAccountAndContinue")}
                   </Button>
                 </form>
 
                 <p className="text-xs leading-5 text-zinc-500">
                   {authMode === "sign_up"
-                    ? "Already signed up before? Use the existing-account option instead so the invite lands on the right Paperclip user."
-                    : "No account yet? Switch back to create account so you can accept the invite with a new login."}
+                    ? t("settings.inviteLanding.alreadySignedUpBeforeUse")
+                    : t("settings.inviteLanding.noAccountYetSwitchBack")}
                 </p>
               </div>
             ) : (
@@ -821,18 +821,18 @@ export function InviteLandingPage() {
                 <div>
                   <h2 className="text-lg font-semibold">
                     {isCurrentMember
-                      ? "Already in this organization"
+                      ? t("settings.inviteLanding.alreadyInThisOrganization")
                       : shouldAutoAcceptHumanInvite
-                      ? "Completing organization access"
+                      ? t("settings.inviteLanding.completingOrganizationAccess")
                       : invite.inviteType === "bootstrap_ceo"
-                        ? "Accept bootstrap invite"
-                        : "Accept organization invite"}
+                        ? t("settings.inviteLanding.acceptBootstrapInvite")
+                        : t("settings.inviteLanding.acceptOrganizationInvite")}
                   </h2>
                   <p className="mt-1 text-sm text-zinc-400">
                     {shouldAutoAcceptHumanInvite
-                      ? `Granting your access to ${companyDisplayName}.`
+                      ? t("settings.inviteLanding.grantingYourAccessTo", { companyDisplayName: companyDisplayName })
                       : isCurrentMember
-                      ? `This account already belongs to ${companyDisplayName}.`
+                      ? t("settings.inviteLanding.thisAccountAlreadyBelongsTo", { companyDisplayName: companyDisplayName })
                       : `This will ${
                           invite.inviteType === "bootstrap_ceo" ? "finish setting up Paperclip" : `grant or complete your access to ${companyDisplayName}`
                         }.`}
@@ -841,7 +841,7 @@ export function InviteLandingPage() {
                 {error ? <p className="text-xs text-red-400">{error}</p> : null}
                 {shouldAutoAcceptHumanInvite ? (
                   <div className="text-sm text-zinc-400">
-                    {acceptMutation.isPending ? "Submitting request..." : "Finishing sign-in..."}
+                    {acceptMutation.isPending ? t("settings.inviteLanding.submittingRequest") : t("settings.inviteLanding.finishingSignin")}
                   </div>
                 ) : (
                   <Button
@@ -857,7 +857,7 @@ export function InviteLandingPage() {
                       acceptMutation.mutate();
                     }}
                   >
-                    {acceptMutation.isPending ? "Working..." : joinButtonLabel}
+                    {acceptMutation.isPending ? t("settings.inviteLanding.working") : joinButtonLabel}
                   </Button>
                 )}
               </div>

@@ -11,7 +11,13 @@
       "noOrganizationAccess": "No organization access",
       "thisAccountIsSignedIn": "This account is signed in, but it does not have an active organization membership or instance-admin access on this Paperclip instance.",
       "useAnOrganizationInviteOr": "Use an organization invite or sign in with an account that already belongs to this org.",
-      "connectionInterruptedReconnectingAutomatically": "Connection interrupted. Reconnecting automatically…"
+      "connectionInterruptedReconnectingAutomatically": "Connection interrupted. Reconnecting automatically…",
+      "reconnectingToPaperclip": "Reconnecting to Paperclip",
+      "unableToLoadPaperclip": "Unable to load Paperclip",
+      "theServerMayBeRestarting": "The server may be restarting or your connection was interrupted. We’ll try again every few seconds and reconnect automatically.",
+      "weCouldntCheckYourAccess": "We couldn’t check your access to this instance. Try again, or contact your instance administrator if this continues.",
+      "connecting": "Connecting…",
+      "tryAgain": "Try again"
     },
     "emailConnectionAccess": {
       "loadingAccess": "Loading access…",
@@ -21,12 +27,23 @@
       "whichAgentsCanUseThis2": "Which agents can use this connection",
       "justAgentsIPick": "Just agents I pick",
       "anyAgent": "Any agent",
-      "removingAnAssignedAgentStops": "Removing an assigned agent stops receiving and sending from its inbox."
+      "removingAnAssignedAgentStops": "Removing an assigned agent stops receiving and sending from its inbox.",
+      "anyHumanInTheOrganization": "Any human in the organization",
+      "justMe": "Just me",
+      "onlyTheCredentialOwner": "Only the credential owner",
+      "accessRevoked": "Access revoked"
     },
     "memberMultiSelect": {
       "allow": "Allow {{label}}",
       "noMatches": "No matches.",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "selectPeople": "Select people",
+      "peopleSelected_one": "{{selectedCount}} person selected",
+      "peopleSelected_other": "{{selectedCount}} people selected",
+      "noPeopleSelected": "No people selected",
+      "saving": "Saving…",
+      "save": "Save",
+      "done": "Done"
     },
     "projectAccessMembers": {
       "unknownUser": "Unknown user",
@@ -46,7 +63,13 @@
       "thisAgentCanRetainPrivate": "This agent can retain private project context in its memory and workspace for later runs. Removing access cannot erase what it has already learned.",
       "remove": "Remove {{subjectDisplayName}}",
       "loadingAccess": "Loading access…",
-      "couldntLoadProjectAccessMembers": "Couldn't load project access members."
+      "couldntLoadProjectAccessMembers": "Couldn't load project access members.",
+      "manageAccess": "Manage access",
+      "viewAccess": "View access",
+      "unknownMember": "Unknown member",
+      "owner": "Owner",
+      "agent": "Agent",
+      "person": "Person"
     },
     "secretBindingPicker": {
       "clear": "Clear",
@@ -64,7 +87,17 @@
       "description": "Description",
       "optionalNotesNoValues": "Optional notes (no values)",
       "cancel": "Cancel",
-      "createBind": "Create & bind"
+      "createBind": "Create & bind",
+      "loading": "Loading…",
+      "secret": "Secret ({{slice}}…)",
+      "missingSecret": "Missing secret ({{slice}}…)",
+      "status": "Status: {{status}}. ",
+      "theOrganization": "the {{companyName}} organization",
+      "anotherOrganization": "another organization",
+      "thePreviouslySelectedSecretWas": "The previously selected secret was deleted. Pick another or remove the binding.",
+      "thisSecretIsRunsCannot": "This secret is {{status}}; runs cannot resolve it until it is active again.",
+      "couldNotLoadThisSecret": "Could not load this secret reference's details.",
+      "checkingThisSecretReference": "Checking this secret reference…"
     },
     "stageSecretsPanel": {
       "secretsAreAvailableOnlyTo": "Secrets are available only to step automation. Pick an agent to run this step, then add the secrets it needs.",
@@ -74,7 +107,9 @@
       "namesAreReserved": "names are reserved.",
       "pAPERCLIP": "PAPERCLIP_*",
       "loadingSecrets": "Loading secrets…",
-      "unsavedChanges": "Unsaved changes"
+      "unsavedChanges": "Unsaved changes",
+      "saving": "Saving…",
+      "saveSecrets": "Save secrets"
     },
     "workspaceAccessCard": {
       "provisioning": "Provisioning",
@@ -121,7 +156,12 @@
       "action": "Action",
       "reviewRequest": "Review request",
       "revoke": "Revoke",
-      "inactive": "Inactive"
+      "inactive": "Inactive",
+      "creating": "Creating…",
+      "createInvite": "Create invite",
+      "unknownInviter": "Unknown inviter",
+      "loadingMore": "Loading more…",
+      "viewMore": "View more"
     },
     "decisionModelSettings": {
       "chooseAndSaveAConnection": "Choose and save a connection first.",
@@ -149,7 +189,18 @@
       "couldNotLoadDecisionSettings": "Could not load decision settings.",
       "tryAgain": "Try again",
       "addADecisionConnection": "Add a decision connection",
-      "useASharedApiConnection": "Use a shared API connection for company decisions."
+      "useASharedApiConnection": "Use a shared API connection for company decisions.",
+      "manageConnection": "Manage connection",
+      "reconnectConnection": "Reconnect connection",
+      "billingProblem": "Billing problem",
+      "assignedTeam": "Assigned team",
+      "disruptionScore": "Disruption score",
+      "runningTest": "Running test…",
+      "runTest": "Run test",
+      "saveChangesBeforeTesting": "Save changes before testing.",
+      "runsASmallSampleWith": "Runs a small sample with an API charge.",
+      "saving": "Saving…",
+      "saveDecisionModel": "Save decision model"
     },
     "createSecretPopover": {
       "movesTheTypedValueInto": "Moves the typed value into an encrypted organization secret and binds",
@@ -160,7 +211,12 @@
       "secretValue": "Secret value",
       "hideValue": "Hide value",
       "showValue": "Show value",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "createBind": "Create & bind",
+      "storeBind": "Store & bind",
+      "createSecret": "Create secret",
+      "storeValueAsSecret": "Store value as secret",
+      "thisVariable": "this variable"
     },
     "secretPicker": {
       "upOneFolder": "Up one folder",
@@ -197,13 +253,23 @@
       "tryAgain": "Try again",
       "addAFastResponseConnection": "Add a fast response connection",
       "useASharedApiConnection": "Use a shared API connection for short acknowledgements.",
-      "sharedApiConnection": "Shared API connection"
+      "sharedApiConnection": "Shared API connection",
+      "theModelDidNotRespond": "The model did not respond within three seconds. Try a faster model.",
+      "couldNotGenerateAResponse": "Could not generate a response. Check the connection and model, then try again.",
+      "testing": "Testing…",
+      "testResponse": "Test response",
+      "saveChangesBeforeTesting": "Save changes before testing.",
+      "runsASmallSampleWith": "Runs a small sample with an API charge.",
+      "saving": "Saving…",
+      "saveFastResponse": "Save fast response"
     },
     "honchoWorkspaceSettings": {
       "honchoWorkspace": "Honcho workspace",
       "workspaceId": "Workspace ID",
       "enterAWorkspaceToInclude": "Enter a workspace to include Honcho instructions. Existing tools remain available.",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "saving": "Saving…",
+      "saveWorkspace": "Save workspace"
     },
     "companyAccess": {
       "organization": "Organization",
@@ -264,7 +330,14 @@
       "corePaperclipKeepsEnforcingOrganization": "Core Paperclip keeps enforcing organization boundaries and any existing restrictive policy data, but editing advanced permissions requires an installed extension.",
       "pluginExtensionsUnavailable": "Plugin extensions unavailable: {{errorMessage}}",
       "openMembers": "Open Members",
-      "openInvites": "Open Invites"
+      "openInvites": "Open Invites",
+      "saving": "Saving…",
+      "saveMember": "Save member",
+      "checkingAssignedTasks": "Checking assigned tasks...",
+      "openAssignedTasks_one": "{{length}} open assigned task",
+      "openAssignedTasks_other": "{{length}} open assigned tasks",
+      "removing": "Removing...",
+      "thisMember": "this member"
     },
     "companyEnvironments": {
       "browserTerminal": "Browser terminal",
@@ -392,7 +465,31 @@
       "reassign": "Reassign",
       "reassignAgentsToEnvironment": "Reassign agents to environment",
       "default2": "Default:",
-      "affected": "Affected: {{join}}"
+      "affected": "Affected: {{join}}",
+      "reconnect": "Reconnect",
+      "openTerminal": "Open terminal",
+      "templateSetupCouldNotBe": "Template setup could not be loaded.",
+      "notInUseTheEnvironment": "Not in use — the environment configuration changed since this image was captured. Runs fall back to the base configuration until you relink this image or capture a new one.",
+      "captureACustomImageWith": "Capture a custom {{providerDisplayName}} image with your tools already logged in.",
+      "sSHHost": "SSH host",
+      "testing": "Testing...",
+      "testConnection": "Test connection",
+      "testProvider": "Test provider",
+      "yourAgentRunsOnA": "Your agent runs on a computer managed by Paperclip.",
+      "saving": "Saving...",
+      "saveEnvironmentVariables": "Save environment variables",
+      "test": "Test",
+      "creating": "Creating...",
+      "saveEnvironment": "Save environment",
+      "createEnvironment": "Create environment",
+      "checkingWhatUsesThisEnvironment": "Checking what uses this environment...",
+      "couldNotCheckWhatUses": "Could not check what uses this environment. Close this dialog and retry.",
+      "thisEnvironmentWillBePermanently": "This environment will be permanently deleted and future runs stop resolving to it.",
+      "n1SandboxLease": "1 sandbox lease",
+      "sandboxLeases": "{{leaseCount}} sandbox leases",
+      "deletingDestroysTheseSandboxesThe": "Deleting destroys these sandboxes; the workspaces stay open.",
+      "closeTheseWorkspacesToLet": "Close these workspaces to let Paperclip destroy their sandboxes, then retry the delete.",
+      "deleting": "Deleting..."
     },
     "companySettings": {
       "isArchived": "{{archivedName}} is archived",
@@ -417,7 +514,17 @@
       "requireBoardApprovalForNew": "Require board approval for new hires",
       "newAgentHiresStayPending": "New agent hires stay pending until approved by board.",
       "dangerZone": "Danger Zone",
-      "archiveThisOrganizationToHide": "Archive this organization to hide it from the sidebar. This persists in the database."
+      "archiveThisOrganizationToHide": "Archive this organization to hide it from the sidebar. This persists in the database.",
+      "removing": "Removing...",
+      "removeLogo": "Remove logo",
+      "logoUploadFailed": "Logo upload failed",
+      "saving": "Saving...",
+      "saveChanges": "Save changes",
+      "failedToSave": "Failed to save",
+      "archiving": "Archiving...",
+      "alreadyArchived": "Already archived",
+      "archiveOrganization": "Archive organization",
+      "failedToArchiveOrganization": "Failed to archive organization"
     },
     "companySettingsPluginPage": {
       "settings": "Settings",
@@ -445,7 +552,12 @@
       "loadingUserAccess": "Loading user access…",
       "organizationAccess": "Organization access",
       "toggleOrganizationMembershipForThis": "Toggle organization membership for this user. New access defaults to an active operator membership.",
-      "currentMemberships": "Current memberships"
+      "currentMemberships": "Current memberships",
+      "failedToLoadUserAccess": "Failed to load user access.",
+      "removeInstanceAdmin": "Remove instance admin",
+      "promoteToInstanceAdmin": "Promote to instance admin",
+      "saving": "Saving…",
+      "saveOrganizationAccess": "Save organization access"
     },
     "instanceExperimentalSettings": {
       "managedByPaperclipCloud": "Managed by Paperclip Cloud",
@@ -568,7 +680,10 @@
       "toggleClassicTaskInterfaceExperimental": "Toggle classic task interface experimental setting",
       "goalsSidebarLink": "Goals Sidebar Link",
       "restoreTheGoalsItemIn": "Restore the Goals item in the main sidebar while the goals surface is being evaluated.",
-      "toggleGoalsSidebarLinkExperimental": "Toggle goals sidebar link experimental setting"
+      "toggleGoalsSidebarLinkExperimental": "Toggle goals sidebar link experimental setting",
+      "failedToLoadExperimentalSettings": "Failed to load experimental settings.",
+      "thisSettingWasArmedIn": "This setting was armed in a different instance and copied here, so no tasks run automatically.",
+      "thisSettingIsMissingIts": "This setting is missing its activation cutoff, so no tasks run automatically."
     },
     "instanceGeneralSettings": {
       "settings": "Settings",
@@ -602,7 +717,14 @@
       "unsetAnd": ". Unset and",
       "bothMeanNoDefaultHas": "both mean no default has been chosen yet.",
       "signOut": "Sign out",
-      "signOutOfThisPaperclip": "Sign out of this Paperclip instance. You will be redirected to the login page."
+      "signOutOfThisPaperclip": "Sign out of this Paperclip instance. You will be redirected to the login page.",
+      "failedToLoadGeneralSettings": "Failed to load general settings.",
+      "localTrustedModeIsOptimized": "Local trusted mode is optimized for a local operator. Browser requests run as local board context and no sign-in is required.",
+      "authenticatedPublicModeRequiresSignin": "Authenticated public mode requires sign-in for board access and is intended for public URLs.",
+      "authenticatedPrivateModeRequiresSignin": "Authenticated private mode requires sign-in and is intended for LAN, VPN, or other private-network deployments.",
+      "n1Week": "1 week",
+      "n1Month": "1 month",
+      "signingOut": "Signing out..."
     },
     "inviteLanding": {
       "anAccountAlreadyExistsFor": "An account already exists for {{emailLabel}}. Sign in below to continue with this invite.",
@@ -645,7 +767,38 @@
       "pleaseFillInAllRequired": "Please fill in all required fields.",
       "name": "Name",
       "email": "Email",
-      "password": "Password"
+      "password": "Password",
+      "thatEmail": "that email",
+      "anOrganizationAdmin": "An organization admin",
+      "thisAccount": "this account",
+      "thisJoinRequestWasNot": "This join request was not approved.",
+      "thisInviteHasAlreadyBeen": "This invite has already been used.",
+      "setUpPaperclip": "Set up Paperclip",
+      "join": "Join {{companyDisplayName}}",
+      "reviewTheInviteDetailsThen": "Review the invite details, then submit the agent information below to start the join request.",
+      "createYourPaperclipAccountFirst": "Create your Paperclip account first. If you already have one, switch to sign in and continue the invite with the same email.",
+      "yourAccountIsReadyReview": "Your account is ready. Review the invite details, then accept it to continue.",
+      "paperclipBoard": "Paperclip board",
+      "agentJoinRequest": "Agent join request",
+      "organizationAccess": "Organization access",
+      "comingSoon": " (Coming soon)",
+      "working": "Working...",
+      "createYourAccount": "Create your account",
+      "signInToContinue": "Sign in to continue",
+      "startWithAPaperclipAccount": "Start with a Paperclip account. After that, you'll come right back here to accept the invite for {{companyDisplayName}}.",
+      "useThePaperclipAccountThat": "Use the Paperclip account that already matches this invite. If you do not have one yet, switch back to create account.",
+      "signInAndContinue": "Sign in and continue",
+      "createAccountAndContinue": "Create account and continue",
+      "alreadySignedUpBeforeUse": "Already signed up before? Use the existing-account option instead so the invite lands on the right Paperclip user.",
+      "noAccountYetSwitchBack": "No account yet? Switch back to create account so you can accept the invite with a new login.",
+      "alreadyInThisOrganization": "Already in this organization",
+      "completingOrganizationAccess": "Completing organization access",
+      "acceptBootstrapInvite": "Accept bootstrap invite",
+      "acceptOrganizationInvite": "Accept organization invite",
+      "grantingYourAccessTo": "Granting your access to {{companyDisplayName}}.",
+      "thisAccountAlreadyBelongsTo": "This account already belongs to {{companyDisplayName}}.",
+      "submittingRequest": "Submitting request...",
+      "finishingSignin": "Finishing sign-in..."
     },
     "pluginSettings": {
       "organization": "Organization",
@@ -712,7 +865,15 @@
       "configuredRootWasNotInspected": "Configured root was not inspected.",
       "loadingConfiguration": "Loading configuration...",
       "saving": "Saving...",
-      "testing": "Testing..."
+      "testing": "Testing...",
+      "thisPlugin": "This plugin",
+      "failedToLoadLocalFolder": "Failed to load local folder settings.",
+      "healthy": "Healthy",
+      "needsAttention": "Needs attention",
+      "readwrite": "Read/write",
+      "readOnly": "Read only",
+      "saveConfiguration": "Save Configuration",
+      "testConfiguration": "Test Configuration"
     },
     "profileSettings": {
       "settings": "Settings",
@@ -725,7 +886,15 @@
       "board": "Board",
       "shownInTheSidebarAccount": "Shown in the sidebar account footer and comment author surfaces.",
       "email": "Email",
-      "emailIsManagedByYour": "Email is managed by your auth session and is read-only here."
+      "emailIsManagedByYour": "Email is managed by your auth session and is read-only here.",
+      "failedToLoadProfile": "Failed to load profile.",
+      "storedInPaperclipFileStorage": "Stored in Paperclip file storage for {{name}}.",
+      "selectAnOrganizationToUpload": "Select an organization to upload an avatar into Paperclip storage.",
+      "changePhoto": "Change photo",
+      "uploadPhoto": "Upload photo",
+      "noEmail": "No email",
+      "saving": "Saving...",
+      "saveProfile": "Save profile"
     },
     "secrets": {
       "secrets": "Secrets",
@@ -961,7 +1130,58 @@
       "aPIAlias": "API alias",
       "noAccessEventsRecordedYet": "No access events recorded yet. Each runtime resolution writes a redacted entry here.",
       "responsibleUser": "Responsible user:",
-      "credentialOwner": "Credential owner:"
+      "credentialOwner": "Credential owner:",
+      "paperclipmanaged": "Paperclip-managed",
+      "linkedExternal": "Linked external",
+      "updateReference": "Update reference",
+      "updateValue": "Update value",
+      "activate": "Activate",
+      "unarchive": "Unarchive",
+      "archive": "Archive",
+      "updateMyValue": "Update my value",
+      "setMyValue": "Set my value",
+      "searchingEverywhereNotJust": " · searching everywhere, not just {{folderPath}}",
+      "updatedLastResolvedUserValues": "Updated: {{relative}}\nLast resolved: user values resolve per member",
+      "memberownedValues": "Member-owned values",
+      "editUserprovidedSecret": "Edit user-provided secret",
+      "createSecret": "Create secret",
+      "stableEnvBindingKeyCannot": "Stable env binding key. Cannot be changed.",
+      "generatedFromTheName": "Generated from the name.",
+      "envstyleKeyUsedByUsersecret": "Env-style key used by user-secret bindings.",
+      "sharedSecretKeysKeepLowercase": "Shared secret keys keep lowercase dash normalization.",
+      "deploymentDefaultMissing": " (deployment default missing)",
+      "externalOnly": " (external only)",
+      "saveChanges": "Save changes",
+      "createUserprovidedSecret": "Create user-provided secret",
+      "linkReference": "Link reference",
+      "editProviderVault": "Edit provider vault",
+      "createProviderVault": "Create provider vault",
+      "saveVault": "Save vault",
+      "createVault": "Create vault",
+      "updateExternalReference": "Update external reference",
+      "updateSecretValue": "Update secret value",
+      "createsANewProviderbackedVersion": "Creates a new provider-backed version. Consumers pinned to latest pick up the new value on the next run.",
+      "createsANewPaperclipMetadata": "Creates a new Paperclip metadata version that points at an existing provider secret. Paperclip does not write a new provider value.",
+      "writesANewVersionOf": "Writes a new version of the referenced provider secret. The new value becomes current for every consumer of that secret, in and outside Paperclip.",
+      "thisDoesNotDeleteThe": "This does not delete the remote AWS Secrets Manager vault, secrets, or any AWS data.",
+      "thisDoesNotDeleteAny": "This does not delete any remote provider data.",
+      "defaultVault": "Default vault",
+      "vault": "Vault",
+      "notYetSupported": "Not yet supported.",
+      "noOrganizationspecificVaultsYetSecrets": "No organization-specific vaults yet. Secrets can still use the deployment default provider settings.",
+      "copied": "Copied",
+      "aWSDiscoveryNeedsListsecretsPermission": "AWS discovery needs ListSecrets permission",
+      "aWSDiscoveryFailed": "AWS discovery failed",
+      "discoveryNeedsSecretsmanagerlistsecretsInThe": "Discovery needs secretsmanager:ListSecrets in the selected region for the Paperclip server runtime/provider credential path.",
+      "ifYouAlreadyKnowThe": "If you already know the exact AWS Secrets Manager ARN, paste/link that ARN instead of using discovery. Exact-resource DescribeSecret and runtime read permissions are still required.",
+      "aWSSecretCreationNeedsCreatesecret": "AWS secret creation needs CreateSecret permission",
+      "aWSSecretCreationFailed": "AWS secret creation failed",
+      "noStableNamespaceOrPrefix": "No stable namespace or prefix detected",
+      "addHereToInjectThis": "Add here to inject this secret as an environment variable at run start. API-access grants (fetched on demand, no env var) are managed from each agent's Secret access settings and shown below.",
+      "theseAgentsResolveTheResponsible": "These agents resolve the responsible user's value as an environment variable at run start.",
+      "n1Binding": "1 binding",
+      "required": "· required",
+      "optional": "· optional"
     },
     "statusCardSettingsForm": {
       "newIssueMatchesTheQuery": "New issue matches the query · issue leaves the query",
@@ -1037,7 +1257,9 @@
       "saveBrowserSettings": "Save browser settings",
       "browserSettings": "Browser settings",
       "credential": "Credential",
-      "theCredentialOwnerOrA": "The credential owner or a shared connection manager can configure saved profiles and cost limits."
+      "theCredentialOwnerOrA": "The credential owner or a shared connection manager can configure saved profiles and cost limits.",
+      "personal": "Personal",
+      "shared": "Shared"
     },
     "railwayAccessPanel": {
       "railwayOperations": "Railway operations",
@@ -1054,7 +1276,16 @@
       "sshrailwaycomSshed25519": "ssh.railway.com ssh-ed25519 …",
       "pasteTheSshrailwaycomLineFrom": "Paste the ssh.railway.com line from a known_hosts entry you have independently verified. Paperclip refuses untrusted or changed host keys.",
       "removeContainerKey": "Remove container key",
-      "removingTheKeyStopsNew": "Removing the key stops new Paperclip connections. Also remove its public key from Railway."
+      "removingTheKeyStopsNew": "Removing the key stops new Paperclip connections. Also remove its public key from Railway.",
+      "refreshActionsAfterConnectingTo": "Refresh actions after connecting to check service, log, and deployment access.",
+      "sharedAccount": "Shared account",
+      "myAccount": "My account",
+      "agentAccount": "Agent account",
+      "updateTrustedHostKey": "Update trusted host key",
+      "enableContainerAccess": "Enable container access",
+      "containerAccessIsEnabledFor": "Container access is enabled for this authorization.",
+      "registerThePublicKeyAnd": "Register the public key and verify the host key before enabling access.",
+      "containerAccessCouldNotBe": "Container access could not be updated."
     },
     "slackToolSettings": {
       "readSearchAndActIn": "Read, search, and act in Slack. Some actions require approval.",
@@ -1075,7 +1306,8 @@
       "clientId": "Client ID",
       "clientSecret": "Client Secret",
       "saveOauthConfiguration": "Save OAuth configuration",
-      "loadingSearchAccess": "Loading search access…"
+      "loadingSearchAccess": "Loading search access…",
+      "configureAPublicHttpsUrl": "Configure a public HTTPS URL first."
     },
     "missingUserSecretsBanner": {
       "userSecret": "{{length}} user secret",
@@ -1094,7 +1326,11 @@
       "failedToLoadYourSecrets": "Failed to load your secrets:",
       "retry": "Retry",
       "noUserSecretsAreDefined": "No user secrets are defined for this organization yet. An admin defines which credentials each member supplies.",
-      "clearMyValue": "Clear my value"
+      "clearMyValue": "Clear my value",
+      "stillNeeds": " still needs",
+      "sStillNeed": "s still need",
+      "update": "Update",
+      "setValue": "Set value"
     },
     "setMyUserSecretDialog": {
       "valueUpdated": "Value updated",
@@ -1106,7 +1342,12 @@
       "yourValue": "Your value",
       "pasteYourTokenOrCredential": "Paste your token or credential",
       "storedEncryptedNeverShownBack": "Stored encrypted. Never shown back to anyone, including admins.",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "updateYourValue": "Update your value",
+      "setYourValue": "Set your value",
+      "saving": "Saving…",
+      "updateValue": "Update value",
+      "saveValue": "Save value"
     },
     "userSecretDefinitionsTab": {
       "definitionUpdated": "Definition updated",
@@ -1138,7 +1379,14 @@
       "thisRemovesTheDefinition": "This removes the definition",
       "forTheWholeCompanyExisting": "for the whole company. Existing member values become unreferenced. This cannot be undone.",
       "coverage": "Coverage: {{coverageSummaryLabel}}",
-      "notSet": "not set"
+      "notSet": "not set",
+      "editUserSecret": "Edit user secret",
+      "cannotBeChanged": "Cannot be changed.",
+      "saving": "Saving…",
+      "saveChanges": "Save changes",
+      "create": "Create",
+      "removing": "Removing…",
+      "remove": "Remove"
     },
     "advancedToolsRoute": {
       "loading": "Loading…",
@@ -1189,7 +1437,9 @@
       "noActivityMatchesTheseFilters": "No activity matches these filters",
       "tryAWiderTimeWindow": "Try a wider time window or different filters.",
       "nothingHereYet": "Nothing here yet",
-      "asSoonAsYourAgents": "As soon as your agents start using connected apps, what they do shows up here."
+      "asSoonAsYourAgents": "As soon as your agents start using connected apps, what they do shows up here.",
+      "loading": "Loading…",
+      "loadMore": "Load more"
     },
     "gatewaysTab": {
       "gatewayCreated": "Gateway created",
@@ -1241,7 +1491,13 @@
       "confirm": "Confirm",
       "clientSnippets": "Client snippets",
       "noSnippetsAvailable": "No snippets available.",
-      "copy": "Copy"
+      "copy": "Copy",
+      "loadingProfiles": "Loading profiles...",
+      "chooseAProfile": "Choose a profile",
+      "creating": "Creating...",
+      "neverUsed": "Never used",
+      "issuing": "Issuing...",
+      "noExpiry": "no expiry"
     },
     "mcpConfigHelpDialog": {
       "getHelpCreatingAnMcp": "Get help creating an MCP config",
@@ -1275,7 +1531,10 @@
       "canMakeChanges": "Can make changes",
       "isActiveForAllAgents": "{{activatedName}} is active for all agents.",
       "turnAllOn": "Turn all on",
-      "turnAllOff": "Turn all off"
+      "turnAllOff": "Turn all off",
+      "checking": "Checking…",
+      "checkConfig": "Check config",
+      "askFirstWhenEnabled": "Ask first when enabled"
     },
     "profilesTab": {
       "toolName": "Tool name",
@@ -1361,7 +1620,16 @@
       "toolsAllowed": "tools allowed",
       "include2": "include /",
       "selectors": "Selectors",
-      "noSelectors": "No selectors."
+      "noSelectors": "No selectors.",
+      "explicit": " · {{explicitCount}} explicit",
+      "viaPattern": " · {{patternCount}} via pattern",
+      "viaDefault": " · {{defaultCount}} via default",
+      "resolvingAllowedTools": "Resolving allowed tools…",
+      "noToolsResolvedForThis": "No tools resolved for this profile. Add an include selector or refresh the tool catalog.",
+      "editProfile": "Edit profile",
+      "save": "Save",
+      "creating": "Creating...",
+      "create": "Create"
     },
     "toolsAccess": {
       "company": "Company",
@@ -1421,7 +1689,13 @@
       "probeLatencyIsASingle": "Probe latency is a single round-trip sample. Aggregate p95 latency across traffic is tracked on the Runtime tab once the connection is live.",
       "cancel": "Cancel",
       "continue": "Continue",
-      "back": "Back"
+      "back": "Back",
+      "creatingDraft": "Creating draft…",
+      "createProbe": "Create & probe",
+      "probing": "Probing…",
+      "reprobe": "Re-probe",
+      "activating": "Activating…",
+      "activate": "Activate"
     },
     "profileActionDialog": {
       "archiveProfile": "Archive profile",
@@ -1504,7 +1778,25 @@
       "duplicateProfile": "Duplicate profile",
       "theCopyStartsUnassignedUnless": "The copy starts unassigned unless you choose to copy assignments too.",
       "alsoCopyAssignments": "Also copy assignments?",
-      "removeAssignment": "Remove assignment"
+      "removeAssignment": "Remove assignment",
+      "assignItToAgentsBefore": "Assign it to agents before it changes their access.",
+      "assignmentsAreActiveNow": "Assignments are active now.",
+      "newToolsNeedReview": "New tools need review",
+      "or": "Or",
+      "removingTheOrganizationDefaultChanges": "Removing the organization default changes access for every agent that relies on it.",
+      "removeThisProfileFrom": "Remove this profile from {{label}}.",
+      "addedDirectly": "added directly",
+      "addedByRuleTools": "added by rule: {{riskLevel}} tools",
+      "destructive": "Destructive",
+      "write": "Write",
+      "read": "Read",
+      "anApp": "An app",
+      "organizationDefault": "Organization default",
+      "organization": "Organization",
+      "agent": "Agent",
+      "project": "Project",
+      "routine": "Routine",
+      "scopedAssignment": "Scoped assignment"
     },
     "profileDetailRoute": {
       "company": "Company",
@@ -1546,7 +1838,8 @@
       "moreTargets": "More targets",
       "assignThisProfileToA": "Assign this profile to a whole project or a scheduled routine instead of (or as well as) individual agents.",
       "projects": "Projects",
-      "routines": "Routines"
+      "routines": "Routines",
+      "replaces": " Replaces “{{defaultProfileName}}”."
     },
     "profileWizardRoute": {
       "organization": "Organization",
@@ -1555,7 +1848,9 @@
       "resumeDraft": "Resume draft",
       "newProfile": "New profile",
       "selectAnOrganizationToCreate": "Select an organization to create a profile.",
-      "chooseWhichToolsThisProfile": "Choose which tools this profile allows, then assign it to the agents that need them."
+      "chooseWhichToolsThisProfile": "Choose which tools this profile allows, then assign it to the agents that need them.",
+      "finishYourProfile": "Finish your profile",
+      "newAccessProfile": "New access profile"
     },
     "profilesIndex": {
       "profileDuplicated": "Profile duplicated",
@@ -1589,7 +1884,9 @@
       "archive": "Archive",
       "delete": "Delete",
       "createYourFirstAccessProfile": "Create your first access profile",
-      "pickAStartingPointYou": "Pick a starting point. You can fine-tune exactly which tools it allows in the next step."
+      "pickAStartingPointYou": "Pick a starting point. You can fine-tune exactly which tools it allows in the next step.",
+      "active": "Active",
+      "archived": "Archived"
     },
     "toolsAdminGate": {
       "loading": "Loading…",
@@ -1633,6 +1930,64 @@
       "couldNotLoadThisView": "Could not load this view",
       "retry": "Retry",
       "trackedIn": "Tracked in {{identifier}} →"
+    },
+    "membershipAction": {
+      "leaving": "Leaving...",
+      "joining": "Joining...",
+      "join": "Join",
+      "leave": "Leave"
+    },
+    "useResourceMemberships": {
+      "tryAgain": "Try again."
+    },
+    "profileModel": {
+      "readonly": "Read-only",
+      "makesChanges": "Makes changes",
+      "destructive": "Destructive",
+      "noneSelected": "None selected",
+      "allTools": "All {{name}} tools ({{total}})",
+      "allExcept": "All {{name}} except {{n}}",
+      "ofTools": "{{n}} of {{total}} {{name}} tools",
+      "seeAndFetchButNever": "See and fetch, but never change anything.",
+      "everydayWork": "Everyday work",
+      "readAndMakeRoutineChanges": "Read and make routine changes — no destructive tools.",
+      "fullAccess": "Full access",
+      "everythingEveryConnectedAppOffers": "Everything every connected app offers.",
+      "startFromScratch": "Start from scratch",
+      "anEmptyProfileYouBuild": "An empty profile you build up tool by tool.",
+      "copyAnExistingProfile": "Copy an existing profile",
+      "startFromAProfileYou": "Start from a profile you already have."
+    },
+    "profileSummary": {
+      "allTools": "All tools",
+      "draft": "Draft",
+      "active": "Active",
+      "off": "Off",
+      "archived": "Archived"
+    },
+    "smokeLabMatrix": {
+      "remoteHttpOauth": "Remote HTTP · OAuth",
+      "hTTPMcpFixtureBehindThe": "HTTP MCP fixture behind the fake OAuth provider",
+      "remoteHttpApiKey": "Remote HTTP · API key",
+      "hTTPMcpFixtureWithA": "HTTP MCP fixture with a static bearer key",
+      "localStdioTemplate": "Local stdio (template)",
+      "stdioFixtureViaTheRuntime": "stdio fixture via the runtime supervisor",
+      "pluginIntegration": "Plugin integration",
+      "pluginprovidedCatalogEntryInstallFlow": "plugin-provided catalog entry + install flow",
+      "pasteaconfigImport": "Paste-a-config import",
+      "prosumerImportViaAdvancedSetup": "prosumer import via Advanced setup",
+      "tokenBrokerGateway": "Token broker / gateway",
+      "runscopedConnectionTokenTtlScope": "run-scoped connection token, TTL + scope checks",
+      "governanceSurfaces": "Governance surfaces",
+      "profilesAskfirstRulesQuarantine": "profiles, ask-first rules, quarantine",
+      "connect": "Connect",
+      "discoverCatalog": "Discover catalog",
+      "allowedRead": "Allowed read",
+      "askfirstWrite": "Ask-first write",
+      "deniedCall": "Denied call",
+      "schemachangeQuarantine": "Schema-change quarantine",
+      "revoke": "Revoke",
+      "auditEvidence": "Audit evidence"
     }
   }
 }

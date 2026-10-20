@@ -69,8 +69,8 @@ export function SecretPopoverForm({
     }
   }
 
-  const ctaLabel = mode === "create" ? "Create & bind" : "Store & bind";
-  const heading = mode === "create" ? "Create secret" : "Store value as secret";
+  const ctaLabel = mode === "create" ? t("settings.createSecretPopover.createBind") : t("settings.createSecretPopover.storeBind");
+  const heading = mode === "create" ? t("settings.createSecretPopover.createSecret") : t("settings.createSecretPopover.storeValueAsSecret");
 
   return (
     <div className="w-72 space-y-3">
@@ -79,7 +79,7 @@ export function SecretPopoverForm({
         {mode === "store" ? (
           <PopoverDescription className="text-(length:--text-micro) text-muted-foreground">
             {t("settings.createSecretPopover.movesTheTypedValueInto")}{" "}
-            <span className="font-mono">{initialName || "this variable"}</span>{" "}{t("settings.createSecretPopover.toIt")}
+            <span className="font-mono">{initialName || t("settings.createSecretPopover.thisVariable")}</span>{" "}{t("settings.createSecretPopover.toIt")}
           </PopoverDescription>
         ) : null}
       </div>

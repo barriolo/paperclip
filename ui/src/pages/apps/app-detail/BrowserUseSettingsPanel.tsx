@@ -173,7 +173,7 @@ export function BrowserUseSettingsPanel({
           >
             {eligible.map((g, i) => (
               <option key={g.id} value={g.id}>
-                {g.kind === "user" ? "Personal" : "Shared"} credential {i + 1}
+                {g.kind === "user" ? t("settings.browserUseSettingsPanel.personal") : t("settings.browserUseSettingsPanel.shared")} credential {i + 1}
               </option>
             ))}
           </select>

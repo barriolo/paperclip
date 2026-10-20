@@ -128,7 +128,7 @@ export function ProfileSettings() {
   if (sessionQuery.error || !sessionQuery.data) {
     return (
       <div className="text-sm text-destructive">
-        {sessionQuery.error instanceof Error ? sessionQuery.error.message : "Failed to load profile."}
+        {sessionQuery.error instanceof Error ? sessionQuery.error.message : t("settings.profileSettings.failedToLoadProfile")}
       </div>
     );
   }
@@ -138,8 +138,8 @@ export function ProfileSettings() {
   const initials = deriveInitials(currentName);
   const isSavingProfile = updateMutation.isPending || uploadAvatarMutation.isPending || removeAvatarMutation.isPending;
   const uploadHint = selectedCompany
-    ? `Stored in Paperclip file storage for ${selectedCompany.name}.`
-    : "Select an organization to upload an avatar into Paperclip storage.";
+    ? t("settings.profileSettings.storedInPaperclipFileStorage", { name: selectedCompany.name })
+    : t("settings.profileSettings.selectAnOrganizationToUpload");
 
   return (
     <div className="max-w-6xl space-y-6">
@@ -201,7 +201,7 @@ export function ProfileSettings() {
                     disabled={!selectedCompanyId || isSavingProfile}
                   >
                     {uploadAvatarMutation.isPending ? <LoaderCircle className="size-4 animate-spin" /> : <Camera className="size-4" />}
-                    {currentImage ? "Change photo" : "Upload photo"}
+                    {currentImage ? t("settings.profileSettings.changePhoto") : t("settings.profileSettings.uploadPhoto")}
                   </Button>
                   {currentImage ? (
                     <Button
@@ -220,7 +220,7 @@ export function ProfileSettings() {
               <div className="min-w-0 flex-1 space-y-2 pb-1">
                 <div>
                   <h2 className="truncate text-2xl font-semibold text-foreground">{currentName}</h2>
-                  <p className="truncate text-sm text-muted-foreground">{sessionQuery.data.user.email ?? "No email"}</p>
+                  <p className="truncate text-sm text-muted-foreground">{sessionQuery.data.user.email ?? t("settings.profileSettings.noEmail")}</p>
                 </div>
                 <p className="max-w-2xl text-sm leading-6 text-muted-foreground">
                   {t("settings.profileSettings.clickTheAvatarToUpload")}{" "}{uploadHint}
@@ -267,7 +267,7 @@ export function ProfileSettings() {
           <div className="md:col-span-2 flex justify-end">
             <Button type="submit" disabled={isSavingProfile || !name.trim()}>
               {updateMutation.isPending ? <LoaderCircle className="size-4 animate-spin" /> : <Save className="size-4" />}
-              {updateMutation.isPending ? "Saving..." : "Save profile"}
+              {updateMutation.isPending ? t("settings.profileSettings.saving") : t("settings.profileSettings.saveProfile")}
             </Button>
           </div>
         </form>
