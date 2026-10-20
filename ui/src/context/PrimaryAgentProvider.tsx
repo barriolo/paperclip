@@ -8,8 +8,10 @@ import { usePrimaryAgent } from "@/hooks/usePrimaryAgent";
 import { queryKeys } from "@/lib/queryKeys";
 import { useCompany } from "./CompanyContext";
 import { useToastActions } from "./ToastContext";
+import { useTranslation } from "@/i18n";
 
 export function PrimaryAgentProvider({ children }: { children: ReactNode }) {
+  const { t } = useTranslation();
   const { selectedCompanyId: companyId } = useCompany();
   const preference = usePrimaryAgent(companyId);
   const client = useQueryClient();
@@ -32,8 +34,8 @@ export function PrimaryAgentProvider({ children }: { children: ReactNode }) {
     onError: (error, choice, context) => {
       client.setQueryData(keyFor(choice), context?.previous);
       if (!isCurrentScope(choice)) return;
-      pushToast({ title: "Couldn't change your primary agent.", body: error.message, tone: "error",
-        action: { label: "Retry", onClick: () => { if (isCurrentScope(choice)) mutation.mutate(choice); } } });
+      pushToast({ title: t("agents.primaryAgentProvider.couldntChangeYourPrimaryAgent"), body: error.message, tone: "error",
+        action: { label: t("agents.primaryAgentProvider.retry"), onClick: () => { if (isCurrentScope(choice)) mutation.mutate(choice); } } });
     },
     onSuccess: (data, choice) => client.setQueryData(keyFor(choice), data),
     onSettled: (_data, _error, choice) => {

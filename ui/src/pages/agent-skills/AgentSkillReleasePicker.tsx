@@ -7,6 +7,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { useTranslation, i18n } from "@/i18n";
 
 /** Sentinel value for the "no pin / live default" option (Radix forbids ""). */
 export const RELEASE_DEFAULT_VALUE = "default";
@@ -39,7 +40,7 @@ export function releaseName(release: CompanySkillVersion): string {
 export function releaseOptionLabel(release: CompanySkillVersion): string {
   const name = releaseName(release);
   const date = formatReleaseDate(release.releasedAt);
-  return date ? `${name} · released ${date}` : name;
+  return date ? i18n.t("agents.agentSkillReleasePicker.released", { name: name, date: date }) : name;
 }
 
 /** Compact badge label for a pinned release, e.g. `V7`. */
@@ -68,6 +69,7 @@ export function AgentSkillReleasePicker({
   disabled = false,
   onChange,
 }: AgentSkillReleasePickerProps) {
+  const { t } = useTranslation();
   const selected = value ? releases.find((release) => release.id === value) ?? null : null;
   // Closed trigger shows the release name only; the `· released <date>` suffix
   // lives in the open menu, where dates are meaningful for comparing options.
@@ -82,7 +84,7 @@ export function AgentSkillReleasePicker({
       <SelectTrigger
         size="sm"
         className="w-full max-w-(--sz-16rem) sm:w-(--sz-16rem)"
-        aria-label="Skill release"
+        aria-label={t("agents.agentSkillReleasePicker.skillRelease")}
       >
         <SelectValue placeholder={DEFAULT_LABEL}>{triggerLabel}</SelectValue>
       </SelectTrigger>
@@ -93,7 +95,7 @@ export function AgentSkillReleasePicker({
             <span className="flex items-center gap-2">
               <span className="truncate">{releaseOptionLabel(release)}</span>
               <Badge variant="secondary" className="shrink-0 text-(length:--text-nano)">
-                Beta
+                {t("agents.agentSkillReleasePicker.beta")}
               </Badge>
             </span>
           </SelectItem>

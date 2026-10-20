@@ -1,4 +1,5 @@
 import { formatDateTime } from "./utils";
+import { i18n } from "@/i18n";
 
 type RetryAwareRun = {
   status: string;
@@ -19,14 +20,30 @@ export type RunRetryStateSummary = {
 };
 
 const RETRY_REASON_LABELS: Record<string, string> = {
-  native_provider_overloaded: "Model at capacity",
-  ai_connection_pool_wait: "Waiting for pool usage to recover",
-  transient_failure: "Transient failure",
-  missing_issue_comment: "Missing task comment",
-  process_lost: "Process lost",
-  assignment_recovery: "Assignment recovery",
-  issue_continuation_needed: "Continuation needed",
-  max_turns_continuation: "Max-turn continuation",
+  get native_provider_overloaded() {
+    return i18n.t("agents.runRetryState.modelAtCapacity");
+  },
+  get ai_connection_pool_wait() {
+    return i18n.t("agents.runRetryState.waitingForPoolUsageTo");
+  },
+  get transient_failure() {
+    return i18n.t("agents.runRetryState.transientFailure");
+  },
+  get missing_issue_comment() {
+    return i18n.t("agents.runRetryState.missingTaskComment");
+  },
+  get process_lost() {
+    return i18n.t("agents.runRetryState.processLost");
+  },
+  get assignment_recovery() {
+    return i18n.t("agents.runRetryState.assignmentRecovery");
+  },
+  get issue_continuation_needed() {
+    return i18n.t("agents.runRetryState.continuationNeeded");
+  },
+  get max_turns_continuation() {
+    return i18n.t("agents.runRetryState.maxturnContinuation");
+  },
 };
 
 function readNonEmptyString(value: unknown) {
@@ -67,7 +84,7 @@ export function describeRunRetryState(run: RetryAwareRun): RunRetryStateSummary 
   if (run.status === "scheduled_retry") {
     return {
       kind: "scheduled",
-      badgeLabel: run.scheduledRetryReason === "ai_connection_pool_wait" ? "Pool exhausted" : isMaxTurnContinuation ? "Continuation scheduled" : "Retry scheduled",
+      badgeLabel: run.scheduledRetryReason === "ai_connection_pool_wait" ? i18n.t("agents.runRetryState.poolExhausted") : isMaxTurnContinuation ? i18n.t("agents.runRetryState.continuationScheduled") : i18n.t("agents.runRetryState.retryScheduled"),
       tone: "border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300",
       detail: joinFragments([attemptLabel, reasonLabel]),
       secondary: dueAt
@@ -80,7 +97,7 @@ export function describeRunRetryState(run: RetryAwareRun): RunRetryStateSummary 
   if (exhaustedReason) {
     return {
       kind: "exhausted",
-      badgeLabel: isMaxTurnContinuation ? "Continuation exhausted" : "Retry exhausted",
+      badgeLabel: isMaxTurnContinuation ? i18n.t("agents.runRetryState.continuationExhausted") : i18n.t("agents.runRetryState.retryExhausted"),
       tone: "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300",
       detail: joinFragments([attemptLabel, reasonLabel, "Automatic retries exhausted"]),
       secondary: exhaustedReason.includes("Manual intervention required")
@@ -92,7 +109,7 @@ export function describeRunRetryState(run: RetryAwareRun): RunRetryStateSummary 
 
   return {
     kind: "attempted",
-    badgeLabel: isMaxTurnContinuation ? "Continued run" : "Retried run",
+    badgeLabel: isMaxTurnContinuation ? i18n.t("agents.runRetryState.continuedRun") : i18n.t("agents.runRetryState.retriedRun"),
     tone: "border-slate-500/20 bg-slate-500/10 text-slate-700 dark:text-slate-300",
     detail: joinFragments([attemptLabel, reasonLabel]),
     secondary: null,

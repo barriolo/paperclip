@@ -1,6 +1,7 @@
 import type { HeartbeatRunEvent } from "@paperclipai/shared";
 import type { TranscriptEntry } from "@/adapters";
 import { isRunLogOnlyProviderEvent } from "./run-log-only-events";
+import { i18n } from "@/i18n";
 
 function record(value: unknown): Record<string, unknown> | null {
   return value && typeof value === "object" && !Array.isArray(value)
@@ -248,7 +249,7 @@ function runResultEntry(
     kind: "run_result",
     ts,
     disposition,
-    summary: text(payload.summary) ?? "Run completed",
+    summary: text(payload.summary) ?? i18n.t("agents.nativeRunEvents.runCompleted"),
     objectiveSatisfied: typeof completion.objectiveSatisfied === "boolean"
       ? completion.objectiveSatisfied
       : null,
@@ -836,8 +837,8 @@ export function nativeRunEventsToTranscript(events: readonly HeartbeatRunEvent[]
         family: "provider_notice",
         eventType: event.eventType,
         status: payload.severity === "error" ? "failed" : "informational",
-        title: "Provider notice",
-        summary: text(payload.summary)?.trim() || text(payload.message)?.trim() || "Provider notice",
+        title: i18n.t("agents.nativeRunEvents.providerNotice"),
+        summary: text(payload.summary)?.trim() || text(payload.message)?.trim() || i18n.t("agents.nativeRunEvents.providerNotice"),
         payload,
       });
       continue;

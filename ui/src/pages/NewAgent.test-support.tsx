@@ -6,6 +6,7 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { queryKeys } from "@/lib/queryKeys";
 import { NewAgent } from "./NewAgent";
 import { ApiError } from "@/api/client";
+import { i18n } from "@/i18n";
 
 const api = vi.hoisted(() => ({
   get: vi.fn(),
@@ -72,14 +73,14 @@ vi.mock("@/components/AgentConfigForm", () => ({
     onChange: (value: string) => void;
   }) => (
     <input
-      aria-label="Model"
+      aria-label={i18n.t("agents.newAgentTestSupport.model")}
       value={value}
       onChange={(e) => onChange(e.target.value)}
     />
   ),
   AdapterLoginPanel: ({ onConnected }: { onConnected: (id: string) => void }) => (
     <button onClick={() => onConnected("login-session")}>
-      Complete subscription login
+      {i18n.t("agents.newAgentTestSupport.completeSubscriptionLogin")}
     </button>
   ),
 }));
