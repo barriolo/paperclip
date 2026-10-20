@@ -13,10 +13,12 @@ import { ShieldCheck } from "lucide-react";
 import { ApprovalCard } from "../components/ApprovalCard";
 import { PageSkeleton } from "../components/PageSkeleton";
 import { Badge } from "@/components/ui/badge";
+import { useTranslation } from "@/i18n";
 
 type StatusFilter = "pending" | "all";
 
 export function Approvals() {
+  const { t } = useTranslation();
   const { selectedCompanyId } = useCompany();
   const { setBreadcrumbs } = useBreadcrumbs();
   const queryClient = useQueryClient();
@@ -27,8 +29,8 @@ export function Approvals() {
   const [actionError, setActionError] = useState<string | null>(null);
 
   useEffect(() => {
-    setBreadcrumbs([{ label: "Approvals" }]);
-  }, [setBreadcrumbs]);
+    setBreadcrumbs([{ label: t("approvals.approvals.approvals") }]);
+  }, [setBreadcrumbs, t]);
 
   const { data, isLoading, error } = useQuery({
     queryKey: queryKeys.approvals.list(selectedCompanyId!),
@@ -76,7 +78,7 @@ export function Approvals() {
   ).length;
 
   if (!selectedCompanyId) {
-    return <p className="text-sm text-muted-foreground">Select an organization first.</p>;
+    return <p className="text-sm text-muted-foreground">{t("approvals.approvals.selectAnOrganizationFirst")}</p>;
   }
 
   if (isLoading) {
@@ -88,7 +90,7 @@ export function Approvals() {
       <div className="flex items-center justify-between">
         <Tabs value={statusFilter} onValueChange={(v) => navigate(`/approvals/${v}`)}>
           <PageTabBar items={[
-            { value: "pending", label: <>Pending{pendingCount > 0 && (
+            { value: "pending", label: <>{t("approvals.approvals.pending")}{pendingCount > 0 && (
               <Badge variant="ghost" className={cn(
                 "ml-1.5 px-1.5 text-(length:--text-nano)",
                 "bg-yellow-500/20 text-yellow-500"
@@ -96,7 +98,7 @@ export function Approvals() {
                 {pendingCount}
               </Badge>
             )}</> },
-            { value: "all", label: "All" },
+            { value: "all", label: t("approvals.approvals.all") },
           ]} />
         </Tabs>
       </div>
