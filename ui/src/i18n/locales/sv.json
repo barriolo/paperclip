@@ -5,5 +5,66 @@
       "description": "Kom igång genom att skapa ett företag.",
       "newCompany": "Nytt företag"
     }
+  },
+  "approvals": {
+    "approvalCard": {
+      "requestedBy": "Requested by",
+      "approvalRequestCreated": "Approval request created {{timeAgo}}",
+      "decisionNote": "Decision note.",
+      "viewDetails": "View details"
+    },
+    "approvalPayload": {
+      "hireAgent": "Hire Agent",
+      "cEOStrategy": "CEO Strategy",
+      "budgetOverride": "Budget Override",
+      "boardApproval": "Board Approval",
+      "skills": "Skills",
+      "name": "Name",
+      "role": "Role",
+      "title": "Title",
+      "icon": "Icon",
+      "capabilities": "Capabilities",
+      "adapter": "Adapter",
+      "scope": "Scope",
+      "window": "Window",
+      "metric": "Metric",
+      "limit": "Limit",
+      "observed": "· Observed",
+      "summary": "Summary",
+      "recommendedAction": "Recommended action",
+      "onApproval": "On approval",
+      "risks": "Risks",
+      "proposedComment": "Proposed comment"
+    },
+    "approvalDetail": {
+      "approvals": "Approvals",
+      "approval": "Approval",
+      "approvalNotFound": "Approval not found.",
+      "reviewLinkedTasks": "Review linked tasks",
+      "reviewLinkedTask": "Review linked task",
+      "openHiredAgent": "Open hired agent",
+      "backToApprovals": "Back to approvals",
+      "approvalConfirmed": "Approval confirmed",
+      "requestingAgentWasNotifiedTo": "Requesting agent was notified to review this approval and linked tasks.",
+      "requestedBy": "Requested by",
+      "seeFullRequest": "See full request",
+      "decisionNote": "Decision note:",
+      "linkedTasks": "Linked Tasks",
+      "linkedTasksRemainOpenUntil": "Linked tasks remain open until the requesting agent follows up and closes them.",
+      "approve": "Approve",
+      "reject": "Reject",
+      "resolveThisBudgetStopFrom": "Resolve this budget stop from the budget controls on",
+      "requestRevision": "Request revision",
+      "markResubmitted": "Mark resubmitted",
+      "deleteDisapprovedAgent": "Delete disapproved agent",
+      "comments": "Comments ({{length}})",
+      "addAComment": "Add a comment..."
+    },
+    "approvals": {
+      "approvals": "Approvals",
+      "selectAnOrganizationFirst": "Select an organization first.",
+      "pending": "Pending",
+      "all": "All"
+    }
   }
 }

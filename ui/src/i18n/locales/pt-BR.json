@@ -5,5 +5,66 @@
       "description": "Comece criando uma empresa.",
       "newCompany": "Nova empresa"
     }
+  },
+  "approvals": {
+    "approvalCard": {
+      "requestedBy": "Solicitado por",
+      "approvalRequestCreated": "Solicitação de aprovação criada {{timeAgo}}",
+      "decisionNote": "Nota da decisão.",
+      "viewDetails": "Ver detalhes"
+    },
+    "approvalPayload": {
+      "hireAgent": "Contratar agente",
+      "cEOStrategy": "Estratégia do CEO",
+      "budgetOverride": "Exceção de orçamento",
+      "boardApproval": "Aprovação do conselho",
+      "skills": "Skills",
+      "name": "Nome",
+      "role": "Função",
+      "title": "Cargo",
+      "icon": "Ícone",
+      "capabilities": "Recursos",
+      "adapter": "Adaptador",
+      "scope": "Escopo",
+      "window": "Janela",
+      "metric": "Métrica",
+      "limit": "Limite",
+      "observed": "· Observado",
+      "summary": "Resumo",
+      "recommendedAction": "Ação recomendada",
+      "onApproval": "Ao aprovar",
+      "risks": "Riscos",
+      "proposedComment": "Comentário proposto"
+    },
+    "approvalDetail": {
+      "approvals": "Aprovações",
+      "approval": "Aprovação",
+      "approvalNotFound": "Aprovação não encontrada.",
+      "reviewLinkedTasks": "Revisar tarefas vinculadas",
+      "reviewLinkedTask": "Revisar tarefa vinculada",
+      "openHiredAgent": "Abrir agente contratado",
+      "backToApprovals": "Voltar às aprovações",
+      "approvalConfirmed": "Aprovação confirmada",
+      "requestingAgentWasNotifiedTo": "O agente solicitante foi notificado para revisar esta aprovação e as tarefas vinculadas.",
+      "requestedBy": "Solicitado por",
+      "seeFullRequest": "Ver solicitação completa",
+      "decisionNote": "Nota da decisão:",
+      "linkedTasks": "Tarefas vinculadas",
+      "linkedTasksRemainOpenUntil": "As tarefas vinculadas ficam abertas até o agente solicitante dar seguimento e fechá-las.",
+      "approve": "Aprovar",
+      "reject": "Rejeitar",
+      "resolveThisBudgetStopFrom": "Resolva esta parada por orçamento pelos controles de orçamento em",
+      "requestRevision": "Pedir revisão",
+      "markResubmitted": "Marcar como reenviada",
+      "deleteDisapprovedAgent": "Excluir agente reprovado",
+      "comments": "Comentários ({{length}})",
+      "addAComment": "Adicionar um comentário..."
+    },
+    "approvals": {
+      "approvals": "Aprovações",
+      "selectAnOrganizationFirst": "Selecione uma empresa primeiro.",
+      "pending": "Pendentes",
+      "all": "Todas"
+    }
   }
 }
