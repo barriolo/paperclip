@@ -1,3 +1,4 @@
+import { i18n } from "@/i18n";
 export type AuditSection = "activity" | "runs" | "costs" | "budgets" | "timeline" | "commentary";
 
 export const AUDIT_SECTIONS: ReadonlyArray<{
@@ -5,12 +6,24 @@ export const AUDIT_SECTIONS: ReadonlyArray<{
   label: string;
   href: string;
 }> = [
-  { value: "activity", label: "Activity", href: "/activity" },
-  { value: "runs", label: "Runs", href: "/activity/runs" },
-  { value: "commentary", label: "Commentary", href: "/activity/commentary" },
-  { value: "costs", label: "Costs", href: "/activity/costs" },
-  { value: "budgets", label: "Budgets", href: "/activity/budgets" },
-  { value: "timeline", label: "Timeline", href: "/activity/timeline" },
+  { value: "activity", get label() {
+    return i18n.t("rest.auditNavigation.activity");
+  }, href: "/activity" },
+  { value: "runs", get label() {
+    return i18n.t("rest.auditNavigation.runs");
+  }, href: "/activity/runs" },
+  { value: "commentary", get label() {
+    return i18n.t("rest.auditNavigation.commentary");
+  }, href: "/activity/commentary" },
+  { value: "costs", get label() {
+    return i18n.t("rest.auditNavigation.costs");
+  }, href: "/activity/costs" },
+  { value: "budgets", get label() {
+    return i18n.t("rest.auditNavigation.budgets");
+  }, href: "/activity/budgets" },
+  { value: "timeline", get label() {
+    return i18n.t("rest.auditNavigation.timeline");
+  }, href: "/activity/timeline" },
 ];
 
 export interface AuditLinkScope {

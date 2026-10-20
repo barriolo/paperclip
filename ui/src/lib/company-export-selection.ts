@@ -2,6 +2,7 @@ import type {
   CompanyPortabilityEmbeddedAssetManifestEntry,
   CompanyPortabilityIssueManifestEntry,
 } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 /**
  * Export selection is category-driven: instead of per-file checkboxes the
@@ -39,12 +40,24 @@ export const EXPORT_CATEGORY_ORDER: ExportCategoryKey[] = [
 ];
 
 export const EXPORT_CATEGORY_LABELS: Record<ExportCategoryKey, string> = {
-  agents: "Agents",
-  projects: "Projects",
-  skills: "Skills",
-  routines: "Routines",
-  tasks: "Tasks",
-  attachments: "Attachments",
+  get agents() {
+    return i18n.t("rest.companyExportSelection.agents");
+  },
+  get projects() {
+    return i18n.t("rest.companyExportSelection.projects");
+  },
+  get skills() {
+    return i18n.t("rest.companyExportSelection.skills");
+  },
+  get routines() {
+    return i18n.t("rest.companyExportSelection.routines");
+  },
+  get tasks() {
+    return i18n.t("rest.companyExportSelection.tasks");
+  },
+  get attachments() {
+    return i18n.t("rest.companyExportSelection.attachments");
+  },
 };
 
 /** Everything exports by default. */

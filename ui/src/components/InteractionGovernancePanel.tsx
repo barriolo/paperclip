@@ -15,14 +15,27 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { resolverPolicyLabel } from "../lib/interaction-audience";
+import { i18n, useTranslation } from "@/i18n";
 
 const INTERACTION_KIND_LABELS: Record<IssueThreadInteractionKind, string> = {
-  suggest_tasks: "Suggested tasks",
-  ask_user_questions: "Ask user questions",
-  request_confirmation: "Confirmations",
-  request_checkbox_confirmation: "Checkbox confirmations",
-  request_item_verdicts: "Item verdicts",
-  connection_intent: "Connection requests",
+  get suggest_tasks() {
+    return i18n.t("rest.interactionGovernancePanel.suggestedTasks");
+  },
+  get ask_user_questions() {
+    return i18n.t("rest.interactionGovernancePanel.askUserQuestions");
+  },
+  get request_confirmation() {
+    return i18n.t("rest.interactionGovernancePanel.confirmations");
+  },
+  get request_checkbox_confirmation() {
+    return i18n.t("rest.interactionGovernancePanel.checkboxConfirmations");
+  },
+  get request_item_verdicts() {
+    return i18n.t("rest.interactionGovernancePanel.itemVerdicts");
+  },
+  get connection_intent() {
+    return i18n.t("rest.interactionGovernancePanel.connectionRequests");
+  },
 };
 
 /**
@@ -48,8 +61,12 @@ const NARROWING_POLICIES: readonly IssueThreadInteractionCanonicalResolverPolicy
 ];
 
 const UNSET_LABELS: Record<GovernanceField, string> = {
-  defaultPolicy: "Anyone (default)",
-  cap: "No cap",
+  get defaultPolicy() {
+    return i18n.t("rest.interactionGovernancePanel.anyoneDefault");
+  },
+  get cap() {
+    return i18n.t("rest.interactionGovernancePanel.noCap");
+  },
 };
 
 const UNSET_EFFECTS: Record<GovernanceField, string> = {
@@ -236,22 +253,19 @@ export function InteractionGovernancePanel({
   isPending?: boolean;
   errorMessage?: string | null;
 }) {
+  const { t } = useTranslation();
   return (
     <div className="space-y-4" data-testid="company-settings-interaction-governance-section">
       <div className="text-xs font-medium text-muted-foreground uppercase tracking-wide">
-        Interaction governance
+        {t("rest.interactionGovernancePanel.interactionGovernance")}
       </div>
       <div className="space-y-4">
         <p className="text-sm text-muted-foreground">
-          Thread interactions are open by default:{" "}
-          <span className="font-medium text-foreground">Anyone</span> in the organization — the
-          board or any agent, including the one that asked — can respond. Narrow a kind
-          only when you need to.{" "}
-          <span className="font-medium text-foreground">Default policy</span> is the
-          audience new cards get when the requester does not ask for one;{" "}
-          <span className="font-medium text-foreground">Cap</span> narrows every request of
-          that kind and can never widen one. Tool-approval confirmations always stay{" "}
-          <span className="font-medium text-foreground">Human only</span>.
+          {t("rest.interactionGovernancePanel.threadInteractionsAreOpenBy")}{" "}
+          <span className="font-medium text-foreground">{t("rest.interactionGovernancePanel.anyone")}</span>{" "}{t("rest.interactionGovernancePanel.inTheOrganizationTheBoard")}{" "}
+          <span className="font-medium text-foreground">{t("rest.interactionGovernancePanel.defaultPolicy")}</span>{" "}{t("rest.interactionGovernancePanel.isTheAudienceNewCards")}{" "}
+          <span className="font-medium text-foreground">{t("rest.interactionGovernancePanel.cap")}</span>{" "}{t("rest.interactionGovernancePanel.narrowsEveryRequestOfThat")}{" "}
+          <span className="font-medium text-foreground">{t("rest.interactionGovernancePanel.humanOnly")}</span>.
         </p>
         {/*
          * Responsive: below `sm` the row collapses to a single column so the
@@ -262,13 +276,13 @@ export function InteractionGovernancePanel({
          */}
         <div className="grid grid-cols-1 gap-y-4 sm:grid-cols-[1fr_auto_auto] sm:items-center sm:gap-x-4 sm:gap-y-2.5">
           <div className="hidden text-xs font-medium text-muted-foreground uppercase tracking-wide sm:block">
-            Kind
+            {t("rest.interactionGovernancePanel.kind")}
           </div>
           <div className="hidden text-xs font-medium text-muted-foreground uppercase tracking-wide sm:block">
-            Default policy
+            {t("rest.interactionGovernancePanel.defaultPolicy")}
           </div>
           <div className="hidden text-xs font-medium text-muted-foreground uppercase tracking-wide sm:block">
-            Cap
+            {t("rest.interactionGovernancePanel.cap")}
           </div>
           {ISSUE_THREAD_INTERACTION_KINDS.map((kind) => {
             const entry = governance[kind] ?? {};
@@ -279,7 +293,7 @@ export function InteractionGovernancePanel({
                 <GovernanceSelect
                   field="defaultPolicy"
                   testId={`governance-${kind}-default`}
-                  ariaLabel={`Default resolver audience for ${kindLabel}`}
+                  ariaLabel={t("rest.interactionGovernancePanel.defaultResolverAudienceFor", { kindLabel: kindLabel })}
                   mobileLabel="Default policy"
                   value={toGovernanceSelectValue(entry.defaultPolicy)}
                   disabled={isPending}
@@ -288,7 +302,7 @@ export function InteractionGovernancePanel({
                 <GovernanceSelect
                   field="cap"
                   testId={`governance-${kind}-cap`}
-                  ariaLabel={`Resolver cap for ${kindLabel}`}
+                  ariaLabel={t("rest.interactionGovernancePanel.resolverCapFor", { kindLabel: kindLabel })}
                   mobileLabel="Cap"
                   value={toGovernanceSelectValue(entry.cap)}
                   disabled={isPending}

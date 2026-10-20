@@ -17,6 +17,7 @@
  */
 
 import { ApiError } from "../api/client";
+import { i18n } from "@/i18n";
 
 /** Machine-readable error codes the server attaches to skill mutation failures. */
 export const SKILL_POLICY_DENIAL_CODE = "skill_policy_denied";
@@ -65,13 +66,27 @@ const DEFAULT_ADMIN_REMEDIATION =
 
 /** Human-readable titles for the platform-invariant codes (State C). */
 const PLATFORM_TITLES: Record<string, string> = {
-  skill_authentication_required: "Sign in to manage skills.",
-  skill_company_boundary_denied: "This skill belongs to another organization.",
-  skill_workspace_boundary_denied: "This skill source is outside an allowed workspace.",
-  skill_source_validation_failed: "This skill source failed validation.",
-  skill_unsafe_content_blocked: "This skill contains unsafe content.",
-  skill_secret_handling_blocked: "This skill exposes a secret value.",
-  skill_actor_restricted: "This action isn't available for the current actor.",
+  get skill_authentication_required() {
+    return i18n.t("rest.skillPolicyDenial.signInToManageSkills");
+  },
+  get skill_company_boundary_denied() {
+    return i18n.t("rest.skillPolicyDenial.thisSkillBelongsToAnother");
+  },
+  get skill_workspace_boundary_denied() {
+    return i18n.t("rest.skillPolicyDenial.thisSkillSourceIsOutside");
+  },
+  get skill_source_validation_failed() {
+    return i18n.t("rest.skillPolicyDenial.thisSkillSourceFailedValidation");
+  },
+  get skill_unsafe_content_blocked() {
+    return i18n.t("rest.skillPolicyDenial.thisSkillContainsUnsafeContent");
+  },
+  get skill_secret_handling_blocked() {
+    return i18n.t("rest.skillPolicyDenial.thisSkillExposesASecret");
+  },
+  get skill_actor_restricted() {
+    return i18n.t("rest.skillPolicyDenial.thisActionIsntAvailableFor");
+  },
 };
 
 /** Default remediation copy per platform-invariant code — framed as a fix, never a grant. */

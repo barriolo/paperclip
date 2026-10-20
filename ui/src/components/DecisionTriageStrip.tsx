@@ -21,21 +21,30 @@ import {
   DropdownMenuItem,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { i18n, useTranslation } from "@/i18n";
 
 const HOUR_MS = 60 * 60 * 1000;
 const DAY_MS = 24 * HOUR_MS;
 
 /** Snooze presets shared with the row menu, resolved at click time. */
 const SNOOZE_PRESETS: ReadonlyArray<{ label: string; resolve: () => string }> = [
-  { label: "1 hour", resolve: () => new Date(Date.now() + HOUR_MS).toISOString() },
-  { label: "4 hours", resolve: () => new Date(Date.now() + 4 * HOUR_MS).toISOString() },
-  { label: "Tomorrow", resolve: () => {
+  { get label() {
+    return i18n.t("rest.decisionTriageStrip.n1Hour");
+  }, resolve: () => new Date(Date.now() + HOUR_MS).toISOString() },
+  { get label() {
+    return i18n.t("rest.decisionTriageStrip.n4Hours");
+  }, resolve: () => new Date(Date.now() + 4 * HOUR_MS).toISOString() },
+  { get label() {
+    return i18n.t("rest.decisionTriageStrip.tomorrow");
+  }, resolve: () => {
     const d = new Date();
     d.setDate(d.getDate() + 1);
     d.setHours(9, 0, 0, 0);
     return d.toISOString();
   } },
-  { label: "Next week", resolve: () => new Date(Date.now() + 7 * DAY_MS).toISOString() },
+  { get label() {
+    return i18n.t("rest.decisionTriageStrip.nextWeek");
+  }, resolve: () => new Date(Date.now() + 7 * DAY_MS).toISOString() },
 ];
 
 /** Slugify a queue title into a URL-safe kebab key the API will accept. */
@@ -77,6 +86,7 @@ interface DecisionTriageStripProps {
  * expiry chip surfaces the underlying decision's TTL read-only.
  */
 export function DecisionTriageStrip({ item, companyId, agents }: DecisionTriageStripProps) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { pushToast } = useToastActions();
   const sourceKind = item.sourceKind;
@@ -95,7 +105,7 @@ export function DecisionTriageStrip({ item, companyId, agents }: DecisionTriageS
   const onError = (verb: string) => (error: unknown) =>
     pushToast({
       title: `Could not ${verb}`,
-      body: error instanceof Error ? error.message : "Please try again.",
+      body: error instanceof Error ? error.message : t("rest.decisionTriageStrip.pleaseTryAgain"),
       tone: "error",
     });
 
@@ -132,7 +142,7 @@ export function DecisionTriageStrip({ item, companyId, agents }: DecisionTriageS
     },
     onSuccess: (_result, agent) => {
       invalidate();
-      pushToast({ title: `Asked ${agent.name} for a recommendation`, tone: "success" });
+      pushToast({ title: t("rest.decisionTriageStrip.askedForARecommendation", { name: agent.name }), tone: "success" });
     },
     onError: onError("ask that agent for a recommendation"),
   });
@@ -163,8 +173,8 @@ export function DecisionTriageStrip({ item, companyId, agents }: DecisionTriageS
 
       {/* When to decide — the importance signal that drives desk ordering. */}
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs font-medium text-muted-foreground">When to decide</span>
-        <div className="flex flex-wrap items-center gap-1" role="group" aria-label="When to decide">
+        <span className="text-xs font-medium text-muted-foreground">{t("rest.decisionTriageStrip.whenToDecide")}</span>
+        <div className="flex flex-wrap items-center gap-1" role="group" aria-label={t("rest.decisionTriageStrip.whenToDecide")}>
           {DECIDE_BY_OPTIONS.map(([value, label]) => (
             <SegmentButton
               key={value}
@@ -179,7 +189,7 @@ export function DecisionTriageStrip({ item, companyId, agents }: DecisionTriageS
             <PopoverTrigger asChild>
               <SegmentButton active={isDatePreset} disabled={pending}>
                 <CalendarClock className="h-3.5 w-3.5" />
-                {isDatePreset ? decideByLabel(decideBy) : "Pick date"}
+                {isDatePreset ? decideByLabel(decideBy) : t("rest.decisionTriageStrip.pickDate")}
               </SegmentButton>
             </PopoverTrigger>
             <PopoverContent align="start" className="w-auto p-2">
@@ -201,7 +211,7 @@ export function DecisionTriageStrip({ item, companyId, agents }: DecisionTriageS
 
       {/* Queues — current membership as removable chips + add/create. */}
       <div className="flex flex-wrap items-center gap-2">
-        <span className="text-xs font-medium text-muted-foreground">Queues</span>
+        <span className="text-xs font-medium text-muted-foreground">{t("rest.decisionTriageStrip.queues")}</span>
         {item.queues.map((queue) => (
           <span
             key={queue.key}
@@ -211,7 +221,7 @@ export function DecisionTriageStrip({ item, companyId, agents }: DecisionTriageS
             <button
               type="button"
               className="text-muted-foreground hover:text-destructive disabled:opacity-50"
-              aria-label={`Remove from ${queue.title}`}
+              aria-label={t("rest.decisionTriageStrip.removeFrom", { title: queue.title })}
               disabled={pending}
               onClick={() => removeFromQueue.mutate(queue.key)}
             >
@@ -232,14 +242,14 @@ export function DecisionTriageStrip({ item, companyId, agents }: DecisionTriageS
         {item.snoozedUntil ? (
           <span className="inline-flex items-center gap-1.5 text-xs text-muted-foreground">
             <AlarmClock className="h-3.5 w-3.5" />
-            Snoozed until {new Date(item.snoozedUntil).toLocaleString()}
+            {t("rest.decisionTriageStrip.snoozedUntil", { localeString: new Date(item.snoozedUntil).toLocaleString() })}
             <button
               type="button"
               className="text-muted-foreground hover:text-foreground"
               disabled={pending}
               onClick={() => setSnooze.mutate(null)}
             >
-              Clear
+              {t("rest.decisionTriageStrip.clear")}
             </button>
           </span>
         ) : (
@@ -247,7 +257,7 @@ export function DecisionTriageStrip({ item, companyId, agents }: DecisionTriageS
             <DropdownMenuTrigger asChild>
               <Button type="button" variant="outline" size="xs" className="h-7 gap-1" disabled={pending}>
                 <AlarmClock className="h-3.5 w-3.5" />
-                Snooze
+                {t("rest.decisionTriageStrip.snooze")}
                 <ChevronDown className="h-3 w-3" />
               </Button>
             </DropdownMenuTrigger>
@@ -313,6 +323,7 @@ function QueuePicker({
   disabled?: boolean;
   onAdd: (key: string) => void;
 }) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { pushToast } = useToastActions();
   const [open, setOpen] = useState(false);
@@ -335,8 +346,8 @@ function QueuePicker({
     },
     onError: (error) =>
       pushToast({
-        title: "Could not create queue",
-        body: error instanceof Error ? error.message : "Please try again.",
+        title: t("rest.decisionTriageStrip.couldNotCreateQueue"),
+        body: error instanceof Error ? error.message : t("rest.decisionTriageStrip.pleaseTryAgain"),
         tone: "error",
       }),
   });
@@ -348,7 +359,7 @@ function QueuePicker({
       <PopoverTrigger asChild>
         <Button type="button" variant="outline" size="xs" className="h-7 gap-1" disabled={disabled}>
           <Plus className="h-3.5 w-3.5" />
-          Queue
+          {t("rest.decisionTriageStrip.queue")}
         </Button>
       </PopoverTrigger>
       <PopoverContent align="start" className="w-56 p-1">
@@ -362,23 +373,23 @@ function QueuePicker({
                 if (event.key === "Enter" && title.trim()) create.mutate(title);
                 if (event.key === "Escape") setCreating(false);
               }}
-              placeholder="New queue name…"
+              placeholder={t("rest.decisionTriageStrip.newQueueName")}
               className="w-full rounded-sm border border-border bg-background px-2 py-1 text-xs"
             />
             <div className="flex justify-end gap-1">
               <Button type="button" variant="ghost" size="xs" onClick={() => setCreating(false)}>
-                Cancel
+                {t("rest.decisionTriageStrip.cancel")}
               </Button>
               <Button type="button" size="xs" disabled={!title.trim() || create.isPending} onClick={() => create.mutate(title)}>
                 {create.isPending && <Loader2 className="h-3 w-3 animate-spin" />}
-                Create
+                {t("rest.decisionTriageStrip.create")}
               </Button>
             </div>
           </div>
         ) : (
           <div className="max-h-64 space-y-0.5 overflow-y-auto">
             {available.length === 0 && (
-              <p className="px-2 py-1.5 text-xs text-muted-foreground">No other queues yet.</p>
+              <p className="px-2 py-1.5 text-xs text-muted-foreground">{t("rest.decisionTriageStrip.noOtherQueuesYet")}</p>
             )}
             {available.map((queue) => (
               <button
@@ -405,7 +416,7 @@ function QueuePicker({
               onClick={() => setCreating(true)}
             >
               <Plus className="h-3.5 w-3.5" />
-              New queue…
+              {t("rest.decisionTriageStrip.newQueue")}
             </button>
           </div>
         )}
@@ -435,6 +446,7 @@ function AskAgentPicker({
   disabledReason?: string;
   onRoute: (agent: Agent) => void;
 }) {
+  const { t } = useTranslation();
   const active = agents.filter((agent) => agent.status !== "terminated");
   return (
     <DropdownMenu>
@@ -448,7 +460,7 @@ function AskAgentPicker({
           title={disabledReason}
         >
           <UserPlus className="h-3.5 w-3.5" />
-          Ask agent for recommendation
+          {t("rest.decisionTriageStrip.askAgentForRecommendation")}
           <ChevronDown className="h-3 w-3" />
         </Button>
       </DropdownMenuTrigger>

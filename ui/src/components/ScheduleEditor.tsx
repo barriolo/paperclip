@@ -3,17 +3,32 @@ import { Button } from "@/components/ui/button";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Input } from "@/components/ui/input";
 import { nextCronFires, parseCronExpression } from "../lib/cron-fires";
+import { i18n, useTranslation } from "@/i18n";
 
 export type SchedulePreset = "every_minute" | "every_hour" | "every_day" | "weekdays" | "weekly" | "monthly" | "custom";
 
 const PRESETS: { value: SchedulePreset; label: string }[] = [
-  { value: "every_minute", label: "Every minute" },
-  { value: "every_hour", label: "Every hour" },
-  { value: "every_day", label: "Every day" },
-  { value: "weekdays", label: "Weekdays" },
-  { value: "weekly", label: "Weekly" },
-  { value: "monthly", label: "Monthly" },
-  { value: "custom", label: "Custom (cron)" },
+  { value: "every_minute", get label() {
+    return i18n.t("rest.scheduleEditor.everyMinute");
+  } },
+  { value: "every_hour", get label() {
+    return i18n.t("rest.scheduleEditor.everyHour");
+  } },
+  { value: "every_day", get label() {
+    return i18n.t("rest.scheduleEditor.everyDay");
+  } },
+  { value: "weekdays", get label() {
+    return i18n.t("rest.scheduleEditor.weekdays");
+  } },
+  { value: "weekly", get label() {
+    return i18n.t("rest.scheduleEditor.weekly");
+  } },
+  { value: "monthly", get label() {
+    return i18n.t("rest.scheduleEditor.monthly");
+  } },
+  { value: "custom", get label() {
+    return i18n.t("rest.scheduleEditor.customCron");
+  } },
 ];
 
 const HOURS = Array.from({ length: 24 }, (_, i) => ({
@@ -27,13 +42,27 @@ const MINUTES = Array.from({ length: 12 }, (_, i) => ({
 }));
 
 const DAYS_OF_WEEK = [
-  { value: "1", label: "Mon" },
-  { value: "2", label: "Tue" },
-  { value: "3", label: "Wed" },
-  { value: "4", label: "Thu" },
-  { value: "5", label: "Fri" },
-  { value: "6", label: "Sat" },
-  { value: "0", label: "Sun" },
+  { value: "1", get label() {
+    return i18n.t("rest.scheduleEditor.mon");
+  } },
+  { value: "2", get label() {
+    return i18n.t("rest.scheduleEditor.tue");
+  } },
+  { value: "3", get label() {
+    return i18n.t("rest.scheduleEditor.wed");
+  } },
+  { value: "4", get label() {
+    return i18n.t("rest.scheduleEditor.thu");
+  } },
+  { value: "5", get label() {
+    return i18n.t("rest.scheduleEditor.fri");
+  } },
+  { value: "6", get label() {
+    return i18n.t("rest.scheduleEditor.sat");
+  } },
+  { value: "0", get label() {
+    return i18n.t("rest.scheduleEditor.sun");
+  } },
 ];
 
 const DAYS_OF_MONTH = Array.from({ length: 31 }, (_, i) => ({
@@ -200,6 +229,7 @@ export function ScheduleEditor({
   onChange: (cron: string) => void;
   onValidityChange?: (valid: boolean) => void;
 }) {
+  const { t } = useTranslation();
   const parsed = useMemo(() => parseCronToPreset(value), [value]);
   const [preset, setPreset] = useState<SchedulePreset>(parsed.preset);
   const [hour, setHour] = useState(parsed.hour);
@@ -247,8 +277,8 @@ export function ScheduleEditor({
   return (
     <div className="space-y-3">
       <Select value={preset} onValueChange={(v) => handlePresetChange(v as SchedulePreset)}>
-        <SelectTrigger className="w-full" aria-label="Schedule frequency">
-          <SelectValue placeholder="Choose frequency..." />
+        <SelectTrigger className="w-full" aria-label={t("rest.scheduleEditor.scheduleFrequency")}>
+          <SelectValue placeholder={t("rest.scheduleEditor.chooseFrequency")} />
         </SelectTrigger>
         <SelectContent>
           {PRESETS.map((p) => (
@@ -277,12 +307,12 @@ export function ScheduleEditor({
               }
             }}
             placeholder="0 10 * * *"
-            aria-label="Cron expression"
+            aria-label={t("rest.scheduleEditor.cronExpression")}
             aria-invalid={!customValidation.valid}
             className="font-mono text-sm"
           />
           <p className="text-xs text-muted-foreground">
-            Five fields: minute hour day-of-month month day-of-week
+            {t("rest.scheduleEditor.fiveFieldsMinuteHourDayofmonth")}
           </p>
           <p
             className={customValidation.valid ? "text-xs text-muted-foreground" : "text-xs text-destructive"}
@@ -290,7 +320,7 @@ export function ScheduleEditor({
           >
             {customValidation.message}
             {customValidation.valid && customValidation.nextFires.length > 0
-              ? ` Next: ${customValidation.nextFires.map((fire) => fire.toLocaleString()).join(", ")}.`
+              ? t("rest.scheduleEditor.next", { join: customValidation.nextFires.map((fire) => fire.toLocaleString()).join(", ") })
               : null}
           </p>
         </div>
@@ -341,7 +371,7 @@ export function ScheduleEditor({
 
           {preset === "every_hour" && (
             <>
-              <span className="text-sm text-muted-foreground">at minute</span>
+              <span className="text-sm text-muted-foreground">{t("rest.scheduleEditor.atMinute")}</span>
               <Select
                 value={minute}
                 onValueChange={(m) => {
@@ -389,7 +419,7 @@ export function ScheduleEditor({
 
           {preset === "monthly" && (
             <>
-              <span className="text-sm text-muted-foreground">on day</span>
+              <span className="text-sm text-muted-foreground">{t("rest.scheduleEditor.onDay")}</span>
               <Select
                 value={dayOfMonth}
                 onValueChange={(dom) => {

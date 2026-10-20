@@ -2,6 +2,7 @@ import { useState } from "react";
 import { ChevronRight } from "lucide-react";
 import type { ActivityEvent } from "@paperclipai/shared";
 import { cn } from "@/lib/utils";
+import { i18n } from "@/i18n";
 
 export type RoutineActivityEvent = Pick<ActivityEvent, "id" | "action" | "details" | "createdAt">;
 
@@ -40,14 +41,44 @@ function formatDetailValue(value: unknown): string {
 }
 
 const actionLabels: Record<string, string> = {
-  "routine.webhook_test_received": "Connection test passed",
-  "routine.webhook_test_rejected": "Connection test rejected",
-  "routine.webhook_received": "Webhook event received",
-  "routine.webhook_rejected": "Webhook authentication failed",
-  "routine.created": "Routine created", "routine.updated": "Routine updated",
-  "routine.trigger_created": "Trigger added", "routine.trigger_updated": "Trigger updated",
-  "routine.trigger_deleted": "Trigger removed", "routine.trigger_removed": "Trigger removed", "routine.trigger_restored": "Trigger restored", "routine.trigger_setup_finished": "Webhook setup finished", "routine.trigger_secret_rotated": "Webhook key replaced",
-  "routine.run_triggered": "Routine started", "routine.run_created": "Run created",
+  get "routine.webhook_test_received"() {
+    return i18n.t("rest.routineActivityRow.connectionTestPassed");
+  },
+  get "routine.webhook_test_rejected"() {
+    return i18n.t("rest.routineActivityRow.connectionTestRejected");
+  },
+  get "routine.webhook_received"() {
+    return i18n.t("rest.routineActivityRow.webhookEventReceived");
+  },
+  get "routine.webhook_rejected"() {
+    return i18n.t("rest.routineActivityRow.webhookAuthenticationFailed");
+  },
+  get "routine.created"() {
+    return i18n.t("rest.routineActivityRow.routineCreated");
+  }, get "routine.updated"() {
+    return i18n.t("rest.routineActivityRow.routineUpdated");
+  },
+  get "routine.trigger_created"() {
+    return i18n.t("rest.routineActivityRow.triggerAdded");
+  }, get "routine.trigger_updated"() {
+    return i18n.t("rest.routineActivityRow.triggerUpdated");
+  },
+  get "routine.trigger_deleted"() {
+    return i18n.t("rest.routineActivityRow.triggerRemoved");
+  }, get "routine.trigger_removed"() {
+    return i18n.t("rest.routineActivityRow.triggerRemoved");
+  }, get "routine.trigger_restored"() {
+    return i18n.t("rest.routineActivityRow.triggerRestored");
+  }, get "routine.trigger_setup_finished"() {
+    return i18n.t("rest.routineActivityRow.webhookSetupFinished");
+  }, get "routine.trigger_secret_rotated"() {
+    return i18n.t("rest.routineActivityRow.webhookKeyReplaced");
+  },
+  get "routine.run_triggered"() {
+    return i18n.t("rest.routineActivityRow.routineStarted");
+  }, get "routine.run_created"() {
+    return i18n.t("rest.routineActivityRow.runCreated");
+  },
 };
 function actionLabel(action: string) {
   return actionLabels[action] ?? action.replace(/^routine[._]/, "").replaceAll("_", " ").replaceAll(".", " ").replace(/^./, (char) => char.toUpperCase());

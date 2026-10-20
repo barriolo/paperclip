@@ -1,3 +1,4 @@
+import { i18n } from "@/i18n";
 /**
  * Client-side "next N schedule fires" helper for the routine Delivery preview (§3.5).
  *
@@ -225,8 +226,12 @@ export interface FirePreviewEntry {
 
 const DISPOSITION_LABEL: Record<FireDisposition, string> = {
   queued: "queued",
-  coalesced: "would be coalesced",
-  skipped: "would be skipped",
+  get coalesced() {
+    return i18n.t("rest.cronFires.wouldBeCoalesced");
+  },
+  get skipped() {
+    return i18n.t("rest.cronFires.wouldBeSkipped");
+  },
 };
 
 /**

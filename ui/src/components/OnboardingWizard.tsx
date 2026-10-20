@@ -146,6 +146,7 @@ import {
   Loader2,
   ChevronDown,
 } from "lucide-react";
+import { useTranslation } from "@/i18n";
 
 type Step = 0 | 1 | 2 | 3 | 4 | 5;
 // Plugin/external adapters use arbitrary type ids, so this mirrors the master
@@ -477,6 +478,7 @@ function OnboardingWizardInner({
 }: {
   saved: Record<string, unknown> | null;
 }) {
+  const { t } = useTranslation();
   const {
     onboardingOpen,
     onboardingOptions,
@@ -1428,27 +1430,27 @@ function OnboardingWizardInner({
   const connectSourceLabel = CONNECT_SOURCE_NAMES[adapterType] ?? adapterType;
   const connectCta: { label: string; icon: FooterPrimaryIcon; disabled: boolean } =
     connectProgress
-      ? { label: adapterEnvLoading ? "Testing…" : connectProgress, icon: "spinner", disabled: true }
+      ? { label: adapterEnvLoading ? t("rest.onboardingWizard.testing") : connectProgress, icon: "spinner", disabled: true }
       : connectPhase === "waiting"
-      ? { label: "Waiting for code", icon: "spinner", disabled: true }
+      ? { label: t("rest.onboardingWizard.waitingForCode"), icon: "spinner", disabled: true }
       : connectPhase === "connecting"
-        ? { label: "Connecting", icon: "spinner", disabled: true }
+        ? { label: t("rest.onboardingWizard.connecting"), icon: "spinner", disabled: true }
         : connectPhase === "ready"
           ? connectStepNeedsLogin
             ? {
-                label: `Sign in to ${connectSourceLabel}`,
+                label: t("rest.onboardingWizard.signInTo", { connectSourceLabel: connectSourceLabel }),
                 icon: "none",
                 disabled: !connectAuthUrl,
               }
             : {
-                label: "Connect",
+                label: t("rest.onboardingWizard.connect"),
                 icon: "arrow",
                 disabled:
                   !connectStepReady || (credentialMode === "api" && !apiKey.trim() && !selectedApiKey),
               }
           : // Nothing is chosen on arrival, and the row is what chooses. Until
             // it has been answered the button has nothing to do.
-            { label: "Next", icon: "arrow", disabled: true };
+            { label: t("rest.onboardingWizard.next"), icon: "arrow", disabled: true };
 
   /**
    * Back, on the connect step, unwinds the sign-in before it leaves the step.
@@ -2685,12 +2687,12 @@ function OnboardingWizardInner({
                       title={
                         <motion.span key={step} {...titleSwapMotion} className="inline-block">
                           {step === 1
-                            ? "What is the name of your organization?"
+                            ? t("rest.onboardingWizard.whatIsTheNameOf")
                             : step === 3
-                              ? "Create your first agent"
+                              ? t("rest.onboardingWizard.createYourFirstAgent")
                               : step === 4
-                                ? "Connect a model"
-                                : "Let's get started..."}
+                                ? t("rest.onboardingWizard.connectAModel")
+                                : t("rest.onboardingWizard.letsGetStarted")}
                         </motion.span>
                       }
                     />
@@ -2712,7 +2714,7 @@ function OnboardingWizardInner({
                       <p className="pt-2 text-base leading-relaxed text-muted-foreground">
                         <motion.span key={step} {...titleSwapMotion} className="inline-block">
                           {step === 4
-                            ? "Paperclip works with your subscription or API keys."
+                            ? t("rest.onboardingWizard.paperclipWorksWithYourSubscription")
                             : `${agentName.trim() || "Your first agent"} is ready to work!`}
                         </motion.span>
                       </p>
@@ -2739,11 +2741,11 @@ function OnboardingWizardInner({
               {step === 1 && (
                 <motion.div key="step-1" {...stepContentMotion} exit={stepHandoff ? stepContentMotion.exit : undefined} className="mx-auto flex w-full flex-col gap-9">
                   <div className="flex flex-col gap-2">
-                    <Label htmlFor="onboarding-company-name">Name</Label>
+                    <Label htmlFor="onboarding-company-name">{t("rest.onboardingWizard.name")}</Label>
                     <Input
                       id="onboarding-company-name"
                       className="h-(--sz-44px) rounded-lg border-transparent bg-muted shadow-none dark:bg-muted"
-                      placeholder="e.g. Northwind Labs"
+                      placeholder={t("rest.onboardingWizard.egNorthwindLabs")}
                       value={companyName}
                       onChange={(e) => setCompanyName(e.target.value)}
                       onKeyDown={(e) => {
@@ -2767,7 +2769,7 @@ function OnboardingWizardInner({
               {step === 3 && (
                 <motion.div key="step-3" {...stepContentMotion} exit={stepHandoff ? stepContentMotion.exit : undefined} className="mx-auto flex w-full flex-col gap-9">
                   <div className="flex flex-col gap-2">
-                    <Label htmlFor="onboarding-agent-name">Agent name</Label>
+                    <Label htmlFor="onboarding-agent-name">{t("rest.onboardingWizard.agentName")}</Label>
                     {/*
                       Filled, not outlined, and the column's full width — the
                       same field the naming step before the hand-off draws.
@@ -2780,7 +2782,7 @@ function OnboardingWizardInner({
                     <Input
                       id="onboarding-agent-name"
                       className="h-(--sz-44px) rounded-lg border-transparent bg-muted shadow-none dark:bg-muted"
-                      placeholder="e.g. Chief of staff"
+                      placeholder={t("rest.onboardingWizard.egChiefOfStaff")}
                       value={agentName}
                       onChange={(e) => setAgentName(e.target.value)}
                       onKeyDown={(e) => {
@@ -2808,7 +2810,7 @@ function OnboardingWizardInner({
                         Picking one starts the sign-in now. The row is the
                         question, and answering it is what opens the card. */}
                     <ModelSourceTiles
-                      label="Model source"
+                      label={t("rest.onboardingWizard.modelSource")}
                       sources={recommendedAdapters.map((opt) => ({
                         id: opt.type,
                         label: CONNECT_SOURCE_NAMES[opt.type] ?? opt.label,
@@ -2859,8 +2861,8 @@ function OnboardingWizardInner({
                     >
                       <div className="-ml-3 mt-1">
                         <CredentialModeLink mode={credentialMode} onChange={setCredentialMode} />
-                        {savedKeys.options.length > 0 && <p className="px-3 text-sm text-muted-foreground">{savedKeys.options.length} saved API {savedKeys.options.length === 1 ? "key available" : "keys available"}.</p>}
-                        {credentialMode === "subscription" && authSignalStatus === "present" && <p className="px-3 text-sm text-muted-foreground">An existing provider connection is available.</p>}
+                        {savedKeys.options.length > 0 && <p className="px-3 text-sm text-muted-foreground">{t("rest.onboardingWizard.savedApi", { length: savedKeys.options.length })}{" "}{savedKeys.options.length === 1 ? t("rest.onboardingWizard.keyAvailable") : t("rest.onboardingWizard.keysAvailable")}.</p>}
+                        {credentialMode === "subscription" && authSignalStatus === "present" && <p className="px-3 text-sm text-muted-foreground">{t("rest.onboardingWizard.anExistingProviderConnectionIs")}</p>}
                       </div>
                     </motion.div>
                   </div>
@@ -2917,8 +2919,8 @@ function OnboardingWizardInner({
                           setApiKey("");
                         }} />
                         {!selectedApiKey && <OnboardingCardField
-                          label="API key"
-                          placeholder="Enter API key here"
+                          label={t("rest.onboardingWizard.aPIKey")}
+                          placeholder={t("rest.onboardingWizard.enterApiKeyHere")}
                           masked
                           // The card is the answer to the tile just pressed, so
                           // the field is unambiguously the next thing. Carried
@@ -3029,12 +3031,12 @@ function OnboardingWizardInner({
                     ) : hasSavedSubscription || localLogin.status === "ready" ? null : connectStepHasNoSandbox ? (
                       canUseLocalLogin && managedProvider ? (
                         <LocalProviderLoginInstructions adapterType={adapterType} login={{ ...localLogin, retry: () => { autoConnectStartedRef.current = false; setError(null); localLogin.retry(); } }} />
-                      ) : <p className="text-xs text-muted-foreground">This environment does not support browser sign-in. Choose another sign-in environment or connect with an API key.</p>
+                      ) : <p className="text-xs text-muted-foreground">{t("rest.onboardingWizard.thisEnvironmentDoesNotSupport")}</p>
                     ) : null}
                   </motion.div>
 
                   {sourceSelected && ["codex_local", "claude_local"].includes(adapterType) && <details className="space-y-3">
-                    <summary className="cursor-pointer text-sm text-muted-foreground">Advanced</summary>
+                    <summary className="cursor-pointer text-sm text-muted-foreground">{t("rest.onboardingWizard.advanced")}</summary>
                     <AgentRunnerSelect value={runner} disabled={loading || adapterEnvLoading}
                       pending={runnerDiscovery.isFetching} error={runnerDiscovery.error?.message} onRetry={() => { void runnerDiscovery.refetch(); }}
                       defaultRunner={runnerDiscovery.data?.find(item => item.type === adapterType)?.defaultRunner}
@@ -3073,7 +3075,7 @@ function OnboardingWizardInner({
 
                       {runnerDiscoveryError && (
                         <Button type="button" variant="outline" disabled={runnerDiscovery.isFetching || loginEnvironmentsFetching || loginSettingsFetching || loginPolicyFetching} onClick={() => void retryRunnerAvailability()}>
-                          Retry setup
+                          {t("rest.onboardingWizard.retrySetup")}
                         </Button>
                       )}
 
@@ -3089,7 +3091,7 @@ function OnboardingWizardInner({
                             style={{ "--sc": "var(--status-task-done)" } as CSSProperties}
                           >
                             <Check className="size-3.5 shrink-0" />
-                            <span className="font-medium">Passed</span>
+                            <span className="font-medium">{t("rest.onboardingWizard.passed")}</span>
                           </div>
                           {/* Show the checks on a pass too, so the target and the
                               auth signals stay visible before the hire. */}
@@ -3102,10 +3104,8 @@ function OnboardingWizardInner({
                       {shouldSuggestUnsetAnthropicApiKey && (
                         <div className="rounded-md border border-amber-300/60 bg-amber-50/40 px-2.5 py-2 space-y-2">
                           <p className="text-(length:--text-micro) text-amber-900/90 leading-relaxed">
-                            Claude failed while{" "}
-                            <span className="font-mono">ANTHROPIC_API_KEY</span>{" "}
-                            is set. You can clear it in this adapter config
-                            and retry the probe.
+                            {t("rest.onboardingWizard.claudeFailedWhile")}{" "}
+                            <span className="font-mono">ANTHROPIC_API_KEY</span>{" "}{t("rest.onboardingWizard.isSetYouCanClear")}
                           </p>
                           <Button
                             size="sm"
@@ -3117,15 +3117,15 @@ function OnboardingWizardInner({
                             onClick={() => void handleUnsetAnthropicApiKey()}
                           >
                             {unsetAnthropicLoading
-                              ? "Retrying..."
-                              : "Unset ANTHROPIC_API_KEY"}
+                              ? t("rest.onboardingWizard.retrying")
+                              : t("rest.onboardingWizard.unsetAnthropicapikey")}
                           </Button>
                         </div>
                       )}
 
                       {adapterEnvResult && adapterEnvResult.status === "fail" && (
                         <div className="rounded-md border border-border/70 bg-muted/20 px-2.5 py-2 text-(length:--text-micro) space-y-1.5">
-                          <p className="font-medium">Manual debug</p>
+                          <p className="font-medium">{t("rest.onboardingWizard.manualDebug")}</p>
                           <p className="text-muted-foreground font-mono break-all">
                             {adapterType === "cursor"
                               ? `${effectiveAdapterCommand} -p --mode ask --output-format json \"Respond with hello.\"`
@@ -3140,42 +3140,41 @@ function OnboardingWizardInner({
                               : `${effectiveAdapterCommand} --print - --output-format stream-json --verbose`}
                           </p>
                           <p className="text-muted-foreground">
-                            Prompt:{" "}
-                            <span className="font-mono">Respond with hello.</span>
+                            {t("rest.onboardingWizard.prompt")}{" "}
+                            <span className="font-mono">{t("rest.onboardingWizard.respondWithHello")}</span>
                           </p>
                           {adapterType === "claude_local" || adapterType === "codex_local" ? (
                             <p className="text-muted-foreground">
-                              If authentication fails, connect your subscription in the browser above or use an API key.
+                              {t("rest.onboardingWizard.ifAuthenticationFailsConnectYour")}
                             </p>
                           ) : adapterType === "cursor" ||
                           adapterType === "gemini_local" ||
                           adapterType === "kimi_local" ||
                           adapterType === "opencode_local" ? (
                             <p className="text-muted-foreground">
-                              If auth fails, set{" "}
+                              {t("rest.onboardingWizard.ifAuthFailsSet")}{" "}
                               <span className="font-mono">
                                 {adapterType === "cursor"
                                   ? "CURSOR_API_KEY"
                                   : adapterType === "gemini_local"
                                     ? "GEMINI_API_KEY"
                                     : adapterType === "kimi_local"
-                                      ? "KIMI_MODEL_NAME + KIMI_MODEL_API_KEY"
+                                      ? t("rest.onboardingWizard.kIMIMODELNAMEKimimodelapikey")
                                     : "OPENAI_API_KEY"}
-                              </span>{" "}
-                              in env or run{" "}
+                              </span>{" "}{t("rest.onboardingWizard.inEnvOrRun")}{" "}
                               <span className="font-mono">
                                 {adapterType === "cursor"
-                                  ? "agent login"
+                                  ? t("rest.onboardingWizard.agentLogin")
                                   : adapterType === "gemini_local"
-                                      ? "gemini auth"
+                                      ? t("rest.onboardingWizard.geminiAuth")
                                       : adapterType === "kimi_local"
-                                        ? "kimi login"
-                                      : "opencode auth login"}
+                                        ? t("rest.onboardingWizard.kimiLogin")
+                                      : t("rest.onboardingWizard.opencodeAuthLogin")}
                               </span>
                               .
                             </p>
                           ) : (
-                            <p className="text-muted-foreground">If login is required, connect the provider above and retry.</p>
+                            <p className="text-muted-foreground">{t("rest.onboardingWizard.ifLoginIsRequiredConnect")}</p>
                           )}
                         </div>
                       )}
@@ -3187,8 +3186,8 @@ function OnboardingWizardInner({
                     <div>
                       <label className="text-xs text-muted-foreground mb-1 block">
                         {adapterType === "openclaw_gateway"
-                          ? "Gateway URL"
-                          : "Webhook URL"}
+                          ? t("rest.onboardingWizard.gatewayUrl")
+                          : t("rest.onboardingWizard.webhookUrl")}
                       </label>
                       <input
                         className="w-full rounded-md border border-border bg-transparent px-3 py-2 text-sm font-mono outline-none focus:ring-1 focus:ring-ring placeholder:text-muted-foreground/50"
@@ -3250,10 +3249,10 @@ function OnboardingWizardInner({
                   primaryIcon={step === 4 ? connectCta.icon : undefined}
                   loadingLabel={
                     step === 1
-                      ? "Creating..."
+                      ? t("rest.onboardingWizard.creating")
                       : step === 4
-                        ? "Connecting"
-                        : "Launching..."
+                        ? t("rest.onboardingWizard.connecting")
+                        : t("rest.onboardingWizard.launching")
                   }
                   // The browser-code login is finished on this screen, so the
                   // button is genuinely busy for its duration and shows it. The
@@ -3296,12 +3295,13 @@ function AdapterEnvironmentResult({
 }: {
   result: AdapterEnvironmentTestResult;
 }) {
+  const { t } = useTranslation();
   const statusLabel =
     result.status === "pass"
-      ? "Passed"
+      ? t("rest.onboardingWizard.passed")
       : result.status === "warn"
-      ? "Warnings"
-      : "Failed";
+      ? t("rest.onboardingWizard.warnings")
+      : t("rest.onboardingWizard.failed");
   const statusClass =
     result.status === "pass"
       ? "text-green-700 dark:text-green-300 border-green-300 dark:border-green-500/40 bg-green-50 dark:bg-green-500/10"
@@ -3335,7 +3335,7 @@ function AdapterEnvironmentResult({
             )}
             {check.hint && (
               <span className="block opacity-90 break-words">
-                Hint: {check.hint}
+                {t("rest.onboardingWizard.hint")}{" "}{check.hint}
               </span>
             )}
           </div>

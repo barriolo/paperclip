@@ -59,6 +59,7 @@ import { unescapeBlockquoteMarkers } from "../lib/blockquote-markdown";
 import { pasteNormalizationPlugin } from "../lib/paste-normalization";
 import { cn } from "../lib/utils";
 import { useEditorAutocomplete, type SlashCommandOption } from "../context/EditorAutocompleteContext";
+import { useTranslation } from "@/i18n";
 
 /* ---- Mention types ---- */
 
@@ -744,6 +745,7 @@ export const MarkdownEditor = forwardRef<MarkdownEditorRef, MarkdownEditorProps>
   onSubmit,
   readOnly = false,
 }: MarkdownEditorProps, forwardedRef) {
+  const { t } = useTranslation();
   const editorValue = useMemo(() => prepareMarkdownForEditor(value), [value]);
   const { slashCommands: sharedSlashCommands } = useEditorAutocomplete();
   const slashCommands = useMemo(
@@ -1341,7 +1343,7 @@ export const MarkdownEditor = forwardRef<MarkdownEditorRef, MarkdownEditorProps>
       >
         <div className="flex items-start justify-between gap-3 px-3 pt-2 text-xs text-muted-foreground">
           <p>
-            Rich editor unavailable for this markdown. Showing raw source instead.{" "}
+            {t("rest.markdownEditor.richEditorUnavailableForThis")}{" "}
             <span data-testid="markdown-editor-fallback-code" className="font-mono">
               {richEditorError.code}
             </span>
@@ -1357,7 +1359,7 @@ export const MarkdownEditor = forwardRef<MarkdownEditorRef, MarkdownEditorProps>
               setRichEditorError(null);
             }}
           >
-            Retry rich editor
+            {t("rest.markdownEditor.retryRichEditor")}
           </button>
         </div>
         <textarea
@@ -1680,27 +1682,27 @@ export const MarkdownEditor = forwardRef<MarkdownEditorRef, MarkdownEditorProps>
                 )}
                 {option.kind === "issue" && (
                   <span className="ml-auto text-(length:--text-nano) uppercase tracking-wide text-muted-foreground">
-                    Task
+                    {t("rest.markdownEditor.task")}
                   </span>
                 )}
                 {option.kind === "project" && option.projectId && (
                   <span className="ml-auto text-(length:--text-nano) uppercase tracking-wide text-muted-foreground">
-                    Project
+                    {t("rest.markdownEditor.project")}
                   </span>
                 )}
                 {option.kind === "user" && (
                   <span className="ml-auto text-(length:--text-nano) uppercase tracking-wide text-muted-foreground">
-                    User
+                    {t("rest.markdownEditor.user")}
                   </span>
                 )}
                 {option.kind === "skill" && (
                   <span className="ml-auto text-(length:--text-nano) uppercase tracking-wide text-muted-foreground">
-                    Skill
+                    {t("rest.markdownEditor.skill")}
                   </span>
                 )}
                 {option.kind === "routine" && (
                   <span className="ml-auto text-(length:--text-nano) uppercase tracking-wide text-muted-foreground">
-                    Routine
+                    {t("rest.markdownEditor.routine")}
                   </span>
                 )}
                 {option.kind === "action" && (
@@ -1721,7 +1723,7 @@ export const MarkdownEditor = forwardRef<MarkdownEditorRef, MarkdownEditorProps>
             !bordered && "inset-0 rounded-sm",
           )}
         >
-          Drop {onDropFile ? "file" : "image"} to upload
+          {t("rest.markdownEditor.drop")}{" "}{onDropFile ? "file" : "image"}{" "}{t("rest.markdownEditor.toUpload")}
         </div>
       )}
       {uploadError && (

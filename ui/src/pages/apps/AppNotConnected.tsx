@@ -21,8 +21,10 @@ import {
 import { connectionAddress } from "./AppDetail";
 import { ReviewPanel } from "./app-detail/ReviewPanel";
 import { appApplicationTabHref, appTabHref, appTabLabel, isAppTabKey, type AppTabKey } from "./app-tabs";
+import { useTranslation } from "@/i18n";
 
 export function AppNotConnected() {
+  const { t } = useTranslation();
   const { applicationId = "", tab } = useParams<{ applicationId: string; tab?: string }>();
   const navigate = useNavigate();
   const { selectedCompanyId } = useCompany();
@@ -79,12 +81,12 @@ export function AppNotConnected() {
   useEffect(() => {
     if (!activeTab) return;
     setBreadcrumbs([
-      { label: "Connectors", href: "/apps" },
+      { label: t("rest.appNotConnected.connectors"), href: "/apps" },
       { label: appName, href: appApplicationTabHref(applicationId, "permissions") },
       { label: appTabLabel(activeTab) },
     ]);
     return () => setBreadcrumbs([]);
-  }, [setBreadcrumbs, appName, applicationId, activeTab]);
+  }, [setBreadcrumbs, appName, applicationId, activeTab, t]);
 
   if (tab === "activity") {
     return <Navigate to="/activity?action=tool_" replace />;
@@ -93,7 +95,7 @@ export function AppNotConnected() {
     return <Navigate to={appApplicationTabHref(applicationId, "permissions")} replace />;
   }
   if (!selectedCompanyId) {
-    return <div className="p-6 text-sm text-muted-foreground">Select an organization to manage apps.</div>;
+    return <div className="p-6 text-sm text-muted-foreground">{t("rest.appNotConnected.selectAnOrganizationToManage")}</div>;
   }
   if (!applicationId || !activeTab) {
     return <Navigate to={applicationId ? appApplicationTabHref(applicationId, "permissions") : "/apps"} replace />;
@@ -109,8 +111,8 @@ export function AppNotConnected() {
   if (!application) {
     return (
       <div className="max-w-3xl space-y-3 p-6 text-sm text-muted-foreground">
-        <p>This app doesn’t exist anymore.</p>
-        <Button variant="outline" size="sm" onClick={() => navigate("/apps")}>Back to connectors</Button>
+        <p>{t("rest.appNotConnected.thisAppDoesntExistAnymore")}</p>
+        <Button variant="outline" size="sm" onClick={() => navigate("/apps")}>{t("rest.appNotConnected.backToConnectors")}</Button>
       </div>
     );
   }
@@ -185,7 +187,7 @@ export function AppNotConnected() {
           <ReviewPanel connectionId={previousConnection.id} />
         ) : (
           <EmptyTab
-            title="Nothing is waiting for your OK right now."
+            title={t("rest.appNotConnected.nothingIsWaitingForYour")}
             body="Review requests will appear here after this app is connected."
           />
         )
@@ -210,6 +212,7 @@ function ApplicationHeader({
   darkLogoUrl: string | undefined;
   connectedCount: number;
 }) {
+  const { t } = useTranslation();
   return (
     <header className="flex flex-wrap items-center gap-4">
       <AppLogo name={applicationName} logoUrl={logoUrl} darkLogoUrl={darkLogoUrl} size={48} />
@@ -217,7 +220,7 @@ function ApplicationHeader({
         <div className="flex items-center gap-2">
           <h1 className="truncate text-2xl font-bold tracking-tight">{applicationName}</h1>
           <span className="inline-flex items-center rounded-full border border-border bg-background px-2 py-0.5 text-xs font-medium text-muted-foreground">
-            {connectedCount > 0 ? `${connectedCount} connected` : "Not connected"}
+            {connectedCount > 0 ? `${connectedCount} connected` : t("rest.appNotConnected.notConnected")}
           </span>
         </div>
         {description && (
@@ -241,40 +244,42 @@ function ConnectionCallout({
   reconnectUnavailableMessage: string;
   onConnect: () => void;
 }) {
+  const { t } = useTranslation();
   return (
     <section className="flex flex-wrap items-center justify-between gap-3 rounded-lg border border-border px-4 py-3">
       <div>
         <h2 className="text-sm font-semibold text-foreground">
-          {previousConnection ? "Needs attention" : "Not connected"}
+          {previousConnection ? t("rest.appNotConnected.needsAttention") : t("rest.appNotConnected.notConnected")}
         </h2>
         <p className="mt-0.5 text-sm text-muted-foreground">
           {previousConnection
             ? previousConnection.authKind === "oauth"
-              ? `Sign in to ${applicationName} again to restore access.`
-              : `Add a working ${applicationName} key to restore access.`
-            : `Connect ${applicationName} so agents can use it.`}
+              ? t("rest.appNotConnected.signInToAgainTo", { applicationName: applicationName })
+              : t("rest.appNotConnected.addAWorkingKeyTo", { applicationName: applicationName })
+            : t("rest.appNotConnected.connectSoAgentsCanUse", { applicationName: applicationName })}
         </p>
         {previousConnection && !canReconnect ? (
           <p className="mt-1 text-sm text-muted-foreground">{reconnectUnavailableMessage}</p>
         ) : null}
       </div>
       {!previousConnection || canReconnect ? (
-        <Button onClick={onConnect}>{previousConnection ? "Reconnect" : "Connect"}</Button>
+        <Button onClick={onConnect}>{previousConnection ? t("rest.appNotConnected.reconnect") : t("rest.appNotConnected.connect")}</Button>
       ) : null}
     </section>
   );
 }
 
 function PermissionsTab({ previousConnection }: { previousConnection: ToolConnection | null }) {
+  const { t } = useTranslation();
   return (
     <section>
-      <h2 className="text-sm font-bold text-foreground">Permissions paused</h2>
+      <h2 className="text-sm font-bold text-foreground">{t("rest.appNotConnected.permissionsPaused")}</h2>
       <p className="mt-1 text-sm text-muted-foreground">
-        Reconnect this app to edit who can use it and which actions need a human first.
+        {t("rest.appNotConnected.reconnectThisAppToEdit")}
       </p>
       {previousConnection && (
         <p className="mt-3 text-xs text-muted-foreground">
-          Previous setup is retained for reconnect, but access controls stay read-only until the app is online.
+          {t("rest.appNotConnected.previousSetupIsRetainedFor")}
         </p>
       )}
     </section>

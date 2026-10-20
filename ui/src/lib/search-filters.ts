@@ -3,6 +3,7 @@ import {
   type CompanySearchSort,
 } from "@paperclipai/shared";
 import type { ParsedSearchQuery } from "./search-query-parser";
+import { i18n } from "@/i18n";
 
 /**
  * The issue-scoped filter model for /search. This is the SAME shape the query
@@ -14,17 +15,33 @@ import type { ParsedSearchQuery } from "./search-query-parser";
 export type SearchFilters = ParsedSearchQuery["filters"];
 
 export const SORT_LABELS: Record<CompanySearchSort, string> = {
-  relevance: "Relevance",
-  updated: "Recently updated",
-  created: "Newest created",
-  priority: "Priority",
+  get relevance() {
+    return i18n.t("rest.searchFilters.relevance");
+  },
+  get updated() {
+    return i18n.t("rest.searchFilters.recentlyUpdated");
+  },
+  get created() {
+    return i18n.t("rest.searchFilters.newestCreated");
+  },
+  get priority() {
+    return i18n.t("rest.searchFilters.priority");
+  },
 };
 
 export const UPDATED_WITHIN_LABELS: Record<string, string> = {
-  "24h": "Last 24 hours",
-  "7d": "Last 7 days",
-  "30d": "Last 30 days",
-  "90d": "Last 90 days",
+  get "24h"() {
+    return i18n.t("rest.searchFilters.last24Hours");
+  },
+  get "7d"() {
+    return i18n.t("rest.searchFilters.last7Days");
+  },
+  get "30d"() {
+    return i18n.t("rest.searchFilters.last30Days");
+  },
+  get "90d"() {
+    return i18n.t("rest.searchFilters.last90Days");
+  },
 };
 
 export function updatedWithinLabel(value: string): string {
@@ -109,15 +126,15 @@ function humanize(value: string): string {
 }
 
 function assigneeChipLabel(filters: SearchFilters, lookups: FilterChipLookups): string {
-  if (filters.assigneeAgentId === null) return "Unassigned";
+  if (filters.assigneeAgentId === null) return i18n.t("rest.searchFilters.unassigned");
   if (typeof filters.assigneeAgentId === "string") {
     return lookups.agentName(filters.assigneeAgentId) ?? "Agent";
   }
   if (filters.assigneeUserId) {
-    if (filters.assigneeUserId === lookups.currentUserId) return "Me";
+    if (filters.assigneeUserId === lookups.currentUserId) return i18n.t("rest.searchFilters.me");
     return lookups.userName(filters.assigneeUserId) ?? "User";
   }
-  return "Assignee";
+  return i18n.t("rest.searchFilters.assignee");
 }
 
 /** Removable chip descriptors for the active-filter row. */
@@ -126,7 +143,7 @@ export function buildFilterChips(filters: SearchFilters, lookups: FilterChipLook
   for (const status of filters.status ?? []) {
     chips.push({
       id: `status:${status}`,
-      label: `Status: ${humanize(status)}`,
+      label: i18n.t("rest.searchFilters.status", { humanize: humanize(status) }),
       remove: (current) => {
         const next = { ...current };
         const remaining = (current.status ?? []).filter((value) => value !== status);
@@ -144,7 +161,7 @@ export function buildFilterChips(filters: SearchFilters, lookups: FilterChipLook
   for (const priority of filters.priority ?? []) {
     chips.push({
       id: `priority:${priority}`,
-      label: `Priority: ${humanize(priority)}`,
+      label: i18n.t("rest.searchFilters.priority2", { humanize: humanize(priority) }),
       remove: (current) => {
         const next = { ...current };
         const remaining = (current.priority ?? []).filter((value) => value !== priority);
@@ -157,7 +174,7 @@ export function buildFilterChips(filters: SearchFilters, lookups: FilterChipLook
   if (filters.assigneeAgentId !== undefined || filters.assigneeUserId) {
     chips.push({
       id: "assignee",
-      label: `Assignee: ${assigneeChipLabel(filters, lookups)}`,
+      label: i18n.t("rest.searchFilters.assignee2", { assigneeChipLabel: assigneeChipLabel(filters, lookups) }),
       remove: (current) => {
         const next = { ...current };
         delete next.assigneeAgentId;
@@ -169,7 +186,7 @@ export function buildFilterChips(filters: SearchFilters, lookups: FilterChipLook
   if (filters.projectId) {
     chips.push({
       id: "project",
-      label: `Project: ${lookups.projectName(filters.projectId) ?? "Project"}`,
+      label: i18n.t("rest.searchFilters.project", { projectName: lookups.projectName(filters.projectId) ?? "Project" }),
       remove: (current) => {
         const next = { ...current };
         delete next.projectId;
@@ -180,7 +197,7 @@ export function buildFilterChips(filters: SearchFilters, lookups: FilterChipLook
   if (filters.labelId) {
     chips.push({
       id: "label",
-      label: `Label: ${lookups.labelName(filters.labelId) ?? "Label"}`,
+      label: i18n.t("rest.searchFilters.label", { labelName: lookups.labelName(filters.labelId) ?? "Label" }),
       remove: (current) => {
         const next = { ...current };
         delete next.labelId;
@@ -191,7 +208,7 @@ export function buildFilterChips(filters: SearchFilters, lookups: FilterChipLook
   if (filters.updatedWithin) {
     chips.push({
       id: "updated",
-      label: `Updated: ${updatedWithinLabel(filters.updatedWithin)}`,
+      label: i18n.t("rest.searchFilters.updated", { updatedWithinLabel: updatedWithinLabel(filters.updatedWithin) }),
       remove: (current) => {
         const next = { ...current };
         delete next.updatedWithin;

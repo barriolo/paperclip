@@ -20,6 +20,7 @@ import { useBreadcrumbs } from "@/context/BreadcrumbContext";
 import { cn } from "@/lib/utils";
 import { AgentInstructions, CopyField } from "./WebhookFields";
 import { WebhookUrlWarning } from "./WebhookUrlWarning";
+import { useTranslation } from "@/i18n";
 
 export type TriggerDraft = {
   kind: "choose" | "schedule" | "webhook";
@@ -126,6 +127,7 @@ export function RoutineTriggerWizard({
   onFinish: (draft: TriggerDraft) => void | Promise<void>;
   checkResult?: "waiting" | "received" | "rejected" | "no_event";
 }) {
+  const { t } = useTranslation();
   const [draft, setDraft] = useState(initialDraft);
   const [busy, setBusy] = useState(false);
   const [saveError, setSaveError] = useState("");
@@ -170,9 +172,9 @@ export function RoutineTriggerWizard({
           saveAndExit();
         },
       },
-      { label: "Add trigger" },
+      { label: t("rest.triggerWizard.addTrigger") },
     ]);
-  }, [saveAndExit, setBreadcrumbs, routineTitle, routineId]);
+  }, [saveAndExit, setBreadcrumbs, routineTitle, routineId, t]);
   const schedule = draft.kind === "schedule";
   const github = draft.sender === "github";
   const labels = schedule
@@ -218,7 +220,7 @@ export function RoutineTriggerWizard({
     "w-full rounded-md border border-input bg-background px-3 py-2 text-sm";
   const goBack = (
     <Button variant="outline" onClick={() => patch({ step: draft.step - 1 })}>
-      Back
+      {t("rest.triggerWizard.back")}
     </Button>
   );
   return (
@@ -226,7 +228,7 @@ export function RoutineTriggerWizard({
       <SetupWizardNavigation
         takeover
         disabled={busy}
-        ariaLabel="Trigger setup progress"
+        ariaLabel={t("rest.triggerWizard.triggerSetupProgress")}
         labels={labels}
         step={draft.step}
         availableStep={draft.availableStep}
@@ -240,20 +242,20 @@ export function RoutineTriggerWizard({
         {!schedule && draft.step > 0 && <WebhookUrlWarning url={webhookUrl} />}
         {draft.step === 0 && (
           <fieldset className="space-y-3">
-            <legend className="sr-only">Trigger type</legend>
+            <legend className="sr-only">{t("rest.triggerWizard.triggerType")}</legend>
             {(
               [
                 {
                   kind: "schedule",
-                  label: "On a schedule",
-                  detail: "Every day, on weekdays, or once a week.",
+                  label: t("rest.triggerWizard.onASchedule"),
+                  detail: t("rest.triggerWizard.everyDayOnWeekdaysOr"),
                   Icon: CalendarClock,
                 },
                 {
                   kind: "webhook",
-                  label: "When another app sends a webhook",
+                  label: t("rest.triggerWizard.whenAnotherAppSendsA"),
                   detail:
-                    "When something happens in GitHub, another app, or a script.",
+                    t("rest.triggerWizard.whenSomethingHappensInGithub"),
                   Icon: Webhook,
                 },
               ] as const
@@ -297,20 +299,20 @@ export function RoutineTriggerWizard({
           <div className="space-y-5">
             <div className="grid gap-4 sm:grid-cols-2">
               <div className="space-y-2">
-                <Label htmlFor="repeat">Repeat</Label>
+                <Label htmlFor="repeat">{t("rest.triggerWizard.repeat")}</Label>
                 <select
                   id="repeat"
                   className={selectClass}
                   value={draft.frequency}
                   onChange={(event) => patch({ frequency: event.target.value })}
                 >
-                  <option value="daily">Every day</option>
-                  <option value="weekdays">Weekdays (Monday–Friday)</option>
-                  <option value="weekly">Every week</option>
+                  <option value="daily">{t("rest.triggerWizard.everyDay")}</option>
+                  <option value="weekdays">{t("rest.triggerWizard.weekdaysMondayfriday")}</option>
+                  <option value="weekly">{t("rest.triggerWizard.everyWeek")}</option>
                 </select>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="run-time">Time</Label>
+                <Label htmlFor="run-time">{t("rest.triggerWizard.time")}</Label>
                 <Input
                   id="run-time"
                   type="time"
@@ -321,7 +323,7 @@ export function RoutineTriggerWizard({
             </div>
             {draft.frequency === "weekly" && (
               <div className="space-y-2">
-                <Label htmlFor="run-day">Day</Label>
+                <Label htmlFor="run-day">{t("rest.triggerWizard.day")}</Label>
                 <select
                   id="run-day"
                   className={selectClass}
@@ -343,7 +345,7 @@ export function RoutineTriggerWizard({
               </div>
             )}
             <div className="space-y-2">
-              <Label htmlFor="timezone">Time zone</Label>
+              <Label htmlFor="timezone">{t("rest.triggerWizard.timeZone")}</Label>
               <select
                 id="timezone"
                 className={selectClass}
@@ -364,7 +366,7 @@ export function RoutineTriggerWizard({
                 ))}
               </select>
               <p className="text-xs text-muted-foreground">
-                The time follows this zone, including daylight saving changes.
+                {t("rest.triggerWizard.theTimeFollowsThisZone")}
               </p>
             </div>
           </div>
@@ -381,25 +383,24 @@ export function RoutineTriggerWizard({
               </div>
             </div>
             <p className="text-sm text-muted-foreground">
-              Each scheduled run creates a task for the routine’s assigned
-              agent. Any existing webhook triggers will continue to work.
+              {t("rest.triggerWizard.eachScheduledRunCreatesA")}
             </p>
           </div>
         )}
         {draft.step === 0 && draft.kind === "webhook" && (
           <fieldset className="space-y-2">
             <legend className="mb-2 text-sm font-medium">
-              What’s sending the webhook?
+              {t("rest.triggerWizard.whatsSendingTheWebhook")}
             </legend>
             <div className="grid gap-2 sm:grid-cols-2">
               {(
                 [
                   {
                     sender: "custom",
-                    label: "Another app or script",
+                    label: t("rest.triggerWizard.anotherAppOrScript"),
                     Icon: Globe,
                   },
-                  { sender: "github", label: "GitHub", Icon: GitBranch },
+                  { sender: "github", label: t("rest.triggerWizard.gitHub"), Icon: GitBranch },
                 ] as const
               ).map(({ sender, label, Icon }) => (
                 <label
@@ -430,7 +431,7 @@ export function RoutineTriggerWizard({
         )}
         {draft.kind === "webhook" && draft.step === 0 && (
           <p className="text-sm text-muted-foreground">
-            Public services need a publicly reachable HTTPS webhook URL.
+            {t("rest.triggerWizard.publicServicesNeedAPublicly")}
           </p>
         )}
         {!schedule && draft.step === 1 && (
@@ -448,34 +449,32 @@ export function RoutineTriggerWizard({
               />
             )}
             <CopyField
-              label={github ? "Payload URL" : "Webhook URL"}
+              label={github ? t("rest.triggerWizard.payloadUrl") : t("rest.triggerWizard.webhookUrl")}
               value={webhookUrl}
             />
             {!github && draft.signingMode !== "bearer" && (
               <p className="text-sm text-muted-foreground">
-                Paste this key into your app’s signing secret field.
+                {t("rest.triggerWizard.pasteThisKeyIntoYour")}
                 {draft.signingMode !== "fireflies_hmac" && <>
-                  {" "}If your app uses custom headers instead, set Authorization to Bearer followed
-                  by a space and this key.
+                  {" "}{t("rest.triggerWizard.ifYourAppUsesCustom")}
                 </>}
               </p>
             )}
             {webhookSecret ? (
               <CopyField
-                label={github ? "Secret" : draft.signingMode === "bearer" ? "Authorization header value" : "Secret key"}
+                label={github ? t("rest.triggerWizard.secret") : draft.signingMode === "bearer" ? t("rest.triggerWizard.authorizationHeaderValue") : t("rest.triggerWizard.secretKey")}
                 value={!github && draft.signingMode === "bearer" ? `Bearer ${webhookSecret}` : webhookSecret}
               />
             ) : (
               <div className="space-y-2">
                 <p className="text-sm text-muted-foreground">
-                  The key is hidden after leaving setup. If you haven’t saved it
-                  in your app, generate a replacement.
+                  {t("rest.triggerWizard.theKeyIsHiddenAfter")}
                 </p>
                 <Button
                   variant="outline"
                   onClick={() => void perform(() => onRotateKey?.())}
                 >
-                  Generate new key
+                  {t("rest.triggerWizard.generateNewKey")}
                 </Button>
               </div>
             )}
@@ -484,23 +483,22 @@ export function RoutineTriggerWizard({
         {!schedule && draft.step === 2 && (
           <div className="space-y-5">
             <div className="space-y-1 rounded-md border border-border p-4">
-              <p className="text-sm font-medium">Connection test only</p>
+              <p className="text-sm font-medium">{t("rest.triggerWizard.connectionTestOnly")}</p>
               <p className="text-sm text-muted-foreground">
-                Events received during setup won’t start the routine or create
-                tasks.
+                {t("rest.triggerWizard.eventsReceivedDuringSetupWont")}
               </p>
             </div>
             <div className="space-y-2">
               <p className="text-sm font-medium">
-                Send an event from {github ? "GitHub" : "your app"}
+                {t("rest.triggerWizard.sendAnEventFrom")}{" "}{github ? t("rest.triggerWizard.gitHub") : t("rest.triggerWizard.yourApp")}
               </p>
               <p className="text-sm text-muted-foreground">
                 {github
-                  ? "Open this webhook in your repository settings. Under Recent Deliveries, choose Redeliver on an event."
-                  : "Look for “Send test” in your app’s webhook settings. If it doesn’t have one, do the action that should trigger the webhook—for example, complete a deployment."}
+                  ? t("rest.triggerWizard.openThisWebhookInYour")
+                  : t("rest.triggerWizard.lookForSendTestIn")}
               </p>
               <p className="text-xs text-muted-foreground">
-                Keep this page open to see the test result.
+                {t("rest.triggerWizard.keepThisPageOpenTo")}
               </p>
             </div>
             <div
@@ -517,32 +515,31 @@ export function RoutineTriggerWizard({
               <div className="space-y-1">
                 <p className="text-sm font-medium">
                   {checkResult === "received"
-                    ? "Test event received · Connection working"
+                    ? t("rest.triggerWizard.testEventReceivedConnectionWorking")
                     : checkResult === "rejected"
-                      ? "Event arrived, but the key was rejected"
+                      ? t("rest.triggerWizard.eventArrivedButTheKey")
                       : checkResult === "no_event"
-                        ? "No event received yet"
-                        : "Waiting for an event from your app…"}
+                        ? t("rest.triggerWizard.noEventReceivedYet")
+                        : t("rest.triggerWizard.waitingForAnEventFrom")}
                 </p>
                 <p className="text-xs text-muted-foreground">
                   {checkResult === "received"
-                    ? "Authentication passed. No routine run or task was created."
+                    ? t("rest.triggerWizard.authenticationPassedNoRoutineRun")
                     : checkResult === "rejected"
-                      ? "Go back to Connect your app, update the key in your sending app, and resend. No task was created."
-                      : "Waiting to verify delivery and authentication. The routine is not running."}
+                      ? t("rest.triggerWizard.goBackToConnectYour")
+                      : t("rest.triggerWizard.waitingToVerifyDeliveryAnd")}
                 </p>
               </div>
             </div>
             <details>
               <summary className="cursor-pointer text-xs text-muted-foreground">
-                Troubleshoot delivery
+                {t("rest.triggerWizard.troubleshootDelivery")}
               </summary>
               <div className="space-y-3 pt-3">
                 <p className="text-xs text-muted-foreground">
-                  Check that the webhook is enabled in your sending app and that
-                  its URL matches. Scripts must send POST with a JSON body.
+                  {t("rest.triggerWizard.checkThatTheWebhookIs")}
                 </p>
-                <CopyField label="Webhook URL" value={webhookUrl} />
+                <CopyField label={t("rest.triggerWizard.webhookUrl")} value={webhookUrl} />
               </div>
             </details>
           </div>
@@ -550,14 +547,13 @@ export function RoutineTriggerWizard({
         {!schedule && draft.step === 2 && (
           <p className="text-xs text-muted-foreground">
             {routineActive
-              ? "Finish setup to enable this webhook. Future events will start the routine; this test event won’t be replayed."
-              : "Finish setup to save this webhook. The routine is paused; enable its automatic triggers when you’re ready. This test event won’t be replayed."}
+              ? t("rest.triggerWizard.finishSetupToEnableThis")
+              : t("rest.triggerWizard.finishSetupToSaveThis")}
           </p>
         )}
         {schedule && draft.step === 2 && !routineActive && (
           <p className="text-sm text-muted-foreground">
-            The routine is paused. Enable its automatic triggers when you’re
-            ready to use this schedule.
+            {t("rest.triggerWizard.theRoutineIsPausedEnable")}
           </p>
         )}
         {saveError && (
@@ -569,25 +565,25 @@ export function RoutineTriggerWizard({
           {draft.step > 0 && goBack}
           {draft.step === 0 ? (
             <Button disabled={draft.kind === "choose"} onClick={advance}>
-              Continue
+              {t("rest.triggerWizard.continue")}
             </Button>
           ) : schedule ? (
             draft.step === 1 ? (
               <Button disabled={!draft.time} onClick={advance}>
-                Review schedule
+                {t("rest.triggerWizard.reviewSchedule")}
               </Button>
             ) : (
               <Button onClick={() => void perform(() => onFinish(draft))}>
-                Add schedule
+                {t("rest.triggerWizard.addSchedule")}
               </Button>
             )
           ) : draft.step === 1 ? (
-            <Button onClick={advance}>Check connection</Button>
+            <Button onClick={advance}>{t("rest.triggerWizard.checkConnection")}</Button>
           ) : (
             <Button onClick={() => void perform(() => onFinish(draft))}>
               {checkResult === "received"
-                ? "Finish setup"
-                : "Finish without checking"}
+                ? t("rest.triggerWizard.finishSetup")
+                : t("rest.triggerWizard.finishWithoutChecking")}
             </Button>
           )}
         </SetupWizardFooter>

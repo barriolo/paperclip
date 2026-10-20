@@ -12,6 +12,7 @@ import { IssueThreadInteractionCard } from "@/components/IssueThreadInteractionC
 import { toolsApi } from "@/api/tools";
 import { Button } from "@/components/ui/button";
 import { MarkdownBody } from "@/components/MarkdownBody";
+import { i18n, useTranslation } from "@/i18n";
 
 /**
  * "Ask first" review queue (M1b float / M9 card, PAP-10859).
@@ -35,6 +36,7 @@ export function ReviewQueueCard({
   heading?: string;
   plain?: boolean;
 }) {
+  const { t } = useTranslation();
   const { selectedCompanyId } = useCompany();
 
   const query = useQuery({
@@ -51,13 +53,13 @@ export function ReviewQueueCard({
 
   if (!selectedCompanyId) return null;
   if (query.isLoading) return null;
-  if (query.isError) return <p role="alert" className="text-sm text-destructive">Could not load connection reviews. Please refresh to try again.</p>;
+  if (query.isError) return <p role="alert" className="text-sm text-destructive">{t("rest.reviewQueueCard.couldNotLoadConnectionReviews")}</p>;
 
   if (items.length === 0) {
     if (emptyState === "hidden") return null;
     return (
       <div className={plain ? "py-5 text-sm text-muted-foreground" : "rounded-xl border border-border bg-card p-5 text-sm text-muted-foreground"}>
-        Nothing is waiting for your OK right now.
+        {t("rest.reviewQueueCard.nothingIsWaitingForYour")}
       </div>
     );
   }
@@ -89,6 +91,7 @@ function ReviewRow({
   item: ToolActionRequestListItem;
   plain: boolean;
 }) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { pushToast } = useToast();
   const [resolving, setResolving] = useState<null | "allow" | "always" | "decline">(null);
@@ -111,7 +114,7 @@ function ReviewRow({
     mutationFn: () => toolsApi.approveActionRequest(companyId, item.request.id),
     onMutate: () => setResolving("allow"),
     onSuccess: () => {
-      pushToast({ title: "Allowed once", body: `${actionLabel(item)} can run this time.`, tone: "success" });
+      pushToast({ title: t("rest.reviewQueueCard.allowedOnce"), body: t("rest.reviewQueueCard.canRunThisTime", { actionLabel: actionLabel(item) }), tone: "success" });
       invalidate();
     },
     onError: (error) => {
@@ -128,8 +131,8 @@ function ReviewRow({
     onMutate: () => setResolving("always"),
     onSuccess: () => {
       pushToast({
-        title: "Always allowed",
-        body: `${actionLabel(item)} won’t ask again.`,
+        title: t("rest.reviewQueueCard.alwaysAllowed"),
+        body: t("rest.reviewQueueCard.wontAskAgain", { actionLabel: actionLabel(item) }),
         tone: "success",
       });
       invalidate();
@@ -146,7 +149,7 @@ function ReviewRow({
     mutationFn: () => toolsApi.declineActionRequest(companyId, item.request.id),
     onMutate: () => setResolving("decline"),
     onSuccess: () => {
-      pushToast({ title: "Declined", body: `${actionLabel(item)} won’t run.`, tone: "info" });
+      pushToast({ title: t("rest.reviewQueueCard.declined"), body: t("rest.reviewQueueCard.wontRun", { actionLabel: actionLabel(item) }), tone: "info" });
       invalidate();
     },
     onError: (error) => {
@@ -177,10 +180,10 @@ function ReviewRow({
         <span className="font-bold text-foreground">{actionLabel(item)}</span>
         {item.applicationName && (
           <span className="text-muted-foreground">
-            in {humanizeConnectionDisplayName(item.applicationName)}
+            {t("rest.reviewQueueCard.in", { humanizeConnectionDisplayName: humanizeConnectionDisplayName(item.applicationName) })}
           </span>
         )}
-        <span className="text-xs text-muted-foreground">· asked {timeAgo(item.request.createdAt)}</span>
+        <span className="text-xs text-muted-foreground">{t("rest.reviewQueueCard.asked", { timeAgo: timeAgo(item.request.createdAt) })}</span>
       </div>
 
       {preview ? (
@@ -189,23 +192,23 @@ function ReviewRow({
         </div>
       ) : (
         <p className="mt-1 text-sm text-muted-foreground">
-          An agent wants to run this action. Your connection policy requires approval first.
+          {t("rest.reviewQueueCard.anAgentWantsToRun")}
         </p>
       )}
 
-      {item.requestedByAgentId && item.connectionId && !item.request.approvalId ? <p className="mt-2 text-xs text-muted-foreground">Always allow lets this agent use this action with different arguments on this connection, within the current project when present.</p> : null}
+      {item.requestedByAgentId && item.connectionId && !item.request.approvalId ? <p className="mt-2 text-xs text-muted-foreground">{t("rest.reviewQueueCard.alwaysAllowLetsThisAgent")}</p> : null}
       <div className="mt-3 flex flex-wrap items-center gap-2">
         <Button size="sm" onClick={() => allowOnce.mutate()} disabled={busy}>
           {resolving === "allow" ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <Check className="mr-1.5 h-3.5 w-3.5" />}
-          Allow once
+          {t("rest.reviewQueueCard.allowOnce")}
         </Button>
         {item.requestedByAgentId && item.connectionId && !item.request.approvalId ? <Button size="sm" variant="outline" onClick={() => alwaysAllow.mutate()} disabled={busy}>
           {resolving === "always" ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : null}
-          Always allow
+          {t("rest.reviewQueueCard.alwaysAllow")}
         </Button> : null}
         <Button size="sm" variant="ghost" onClick={() => decline.mutate()} disabled={busy}>
           {resolving === "decline" ? <Loader2 className="mr-1.5 h-3.5 w-3.5 animate-spin" /> : <X className="mr-1.5 h-3.5 w-3.5" />}
-          Decline
+          {t("rest.reviewQueueCard.decline")}
         </Button>
       </div>
     </div>
@@ -213,7 +216,7 @@ function ReviewRow({
 }
 
 function actionLabel(item: ToolActionRequestListItem): string {
-  if (!item.toolTitle && !item.toolName) return "This action";
+  if (!item.toolTitle && !item.toolName) return i18n.t("rest.reviewQueueCard.thisAction");
   return humanizeConnectionDisplayName(item.toolName ?? "", { title: item.toolTitle });
 }
 
@@ -222,8 +225,8 @@ function failToast(
   error: unknown,
 ) {
   pushToast({
-    title: "Couldn’t save that",
-    body: error instanceof Error ? error.message : "Please try again.",
+    title: i18n.t("rest.reviewQueueCard.couldntSaveThat"),
+    body: error instanceof Error ? error.message : i18n.t("rest.reviewQueueCard.pleaseTryAgain"),
     tone: "error",
   });
 }

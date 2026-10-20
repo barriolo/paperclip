@@ -1,4 +1,5 @@
 import { parseAgentMentionHref } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 /**
  * Shared logic for the "interrupt handoff" UX clarity surfaces (PAP-10669).
@@ -77,7 +78,7 @@ export function resolveRunStatusPresentation(
     };
   }
   return {
-    label: status === "timed_out" ? "timed out" : status.replace(/_/g, " "),
+    label: status === "timed_out" ? i18n.t("rest.interruptHandoff.timedOut") : status.replace(/_/g, " "),
     className: runStatusClassName(status),
     srHint: null,
   };
@@ -376,11 +377,21 @@ export interface PauseAffectsSummary {
 }
 
 const PAUSE_BUCKET_LABEL: Record<PauseAffectsBucketKey, string> = {
-  live_runs: "Live agent runs",
-  queued_wakes: "Queued wakes",
-  agent_owned: "Agent-owned",
-  human_owned: "Human-owned",
-  static: "Static",
+  get live_runs() {
+    return i18n.t("rest.interruptHandoff.liveAgentRuns");
+  },
+  get queued_wakes() {
+    return i18n.t("rest.interruptHandoff.queuedWakes");
+  },
+  get agent_owned() {
+    return i18n.t("rest.interruptHandoff.agentowned");
+  },
+  get human_owned() {
+    return i18n.t("rest.interruptHandoff.humanowned");
+  },
+  get static() {
+    return i18n.t("rest.interruptHandoff.static");
+  },
 };
 
 const PAUSE_BUCKET_DETAIL: Record<PauseAffectsBucketKey, string> = {

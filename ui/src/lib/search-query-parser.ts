@@ -8,6 +8,7 @@ import {
   type IssueStatus,
 } from "@paperclipai/shared";
 import type { CompanySearchParams } from "@/api/search";
+import { i18n } from "@/i18n";
 
 const SEARCH_FILTER_PARAM_KEYS = [
   "status",
@@ -40,13 +41,39 @@ export interface SearchOperatorSuggestion {
 export const SEARCH_OPERATOR_QUICK_FILTERS = ["assignee:me", "is:open", "updated:>7d"] as const;
 
 export const SEARCH_OPERATOR_SUGGESTIONS: SearchOperatorSuggestion[] = [
-  { token: "status:todo", label: "Open todo tasks", description: "Filter by task status" },
-  { token: "status:blocked", label: "Blocked tasks", description: "Find blocked work" },
-  { token: "assignee:me", label: "Assigned to me", description: "Use your current board user" },
-  { token: "project:\"Paperclip App\"", label: "Project name", description: "Quote multi-word project names" },
-  { token: "label:bug", label: "Label", description: "Filter by issue label" },
-  { token: "priority:high", label: "High priority", description: "Filter by priority" },
-  { token: "updated:>7d", label: "Recently updated", description: "Updated in the last 7 days" },
+  { token: "status:todo", get label() {
+    return i18n.t("rest.searchQueryParser.openTodoTasks");
+  }, get description() {
+    return i18n.t("rest.searchQueryParser.filterByTaskStatus");
+  } },
+  { token: "status:blocked", get label() {
+    return i18n.t("rest.searchQueryParser.blockedTasks");
+  }, description: "Find blocked work" },
+  { token: "assignee:me", get label() {
+    return i18n.t("rest.searchQueryParser.assignedToMe");
+  }, get description() {
+    return i18n.t("rest.searchQueryParser.useYourCurrentBoardUser");
+  } },
+  { token: "project:\"Paperclip App\"", get label() {
+    return i18n.t("rest.searchQueryParser.projectName");
+  }, get description() {
+    return i18n.t("rest.searchQueryParser.quoteMultiwordProjectNames");
+  } },
+  { token: "label:bug", get label() {
+    return i18n.t("rest.searchQueryParser.label");
+  }, get description() {
+    return i18n.t("rest.searchQueryParser.filterByIssueLabel");
+  } },
+  { token: "priority:high", get label() {
+    return i18n.t("rest.searchQueryParser.highPriority");
+  }, get description() {
+    return i18n.t("rest.searchQueryParser.filterByPriority");
+  } },
+  { token: "updated:>7d", get label() {
+    return i18n.t("rest.searchQueryParser.recentlyUpdated");
+  }, get description() {
+    return i18n.t("rest.searchQueryParser.updatedInTheLast7");
+  } },
 ];
 
 export interface SearchQueryParserContext {

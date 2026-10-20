@@ -42,6 +42,7 @@ import {
   resolveRegisteredPluginComponent,
   type RegisteredPluginComponent,
 } from "./slots";
+import { i18n, useTranslation } from "@/i18n";
 
 export type PluginLauncherContext = {
   companyId?: string | null;
@@ -417,7 +418,7 @@ class LauncherErrorBoundary extends Component<LauncherErrorBoundaryProps, Launch
     if (this.state.hasError) {
       return (
         <div className="rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
-          {this.props.launcher.pluginDisplayName}: failed to render
+          {this.props.launcher.pluginDisplayName}{i18n.t("rest.launchers.failedToRender")}
         </div>
       );
     }
@@ -432,6 +433,7 @@ function LauncherRenderContent({
   instance: LauncherInstance;
   renderEnvironment: PluginRenderEnvironmentContext;
 }) {
+  const { t } = useTranslation();
   const component = instance.component;
   const { data: session } = useQuery({
     queryKey: queryKeys.auth.session,
@@ -456,7 +458,7 @@ function LauncherRenderContent({
 
     return (
       <div className="rounded-md border border-destructive/30 bg-destructive/5 p-3 text-sm text-destructive">
-        {instance.launcher.pluginDisplayName}: could not resolve launcher target "{instance.launcher.action.target}".
+        {t("rest.launchers.couldNotResolveLauncherTarget", { pluginDisplayName: instance.launcher.pluginDisplayName })}{instance.launcher.action.target}".
       </div>
     );
   }
@@ -496,6 +498,7 @@ function LauncherModalShell({
   requestBounds: (key: string, request: PluginModalBoundsRequest) => Promise<void>;
   closeLauncher: (key: string, event: PluginRenderCloseEvent) => Promise<void>;
 }) {
+  const { t } = useTranslation();
   const contentRef = useRef<HTMLDivElement | null>(null);
   const titleId = useId();
 
@@ -596,7 +599,7 @@ function LauncherModalShell({
             className="ml-auto"
             onClick={() => void closeLauncher(instance.key, { reason: "programmatic" })}
           >
-            Close
+            {t("rest.launchers.close")}
           </Button>
         </div>
         <div
@@ -798,6 +801,7 @@ export function PluginLauncherOutlet({
   errorClassName,
   errorBehavior = "inline",
 }: PluginLauncherOutletProps) {
+  const { t } = useTranslation();
   const { activateLauncher } = usePluginLauncherRuntime();
   const { launchers, contributionsByPluginId, errorMessage } = usePluginLaunchers({
     placementZones,
@@ -809,7 +813,7 @@ export function PluginLauncherOutlet({
   if (errorMessage && errorBehavior === "inline") {
     return (
       <div className={cn("rounded-md border border-destructive/30 bg-destructive/5 px-2 py-1 text-xs text-destructive", errorClassName)}>
-        Plugin launchers unavailable: {errorMessage}
+        {t("rest.launchers.pluginLaunchersUnavailable", { errorMessage: errorMessage })}
       </div>
     );
   }

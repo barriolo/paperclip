@@ -9,6 +9,7 @@ import {
   type TrustAuthorizationPolicy,
   type TrustPreset,
 } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 export type LowTrustBoundaryTarget =
   | { type: "project"; id: string }
@@ -16,14 +17,21 @@ export type LowTrustBoundaryTarget =
   | { type: "issue"; id: string };
 
 export const TRUST_PRESET_LABELS: Record<TrustPreset, string> = {
-  standard: "Standard",
-  low_trust_review: "Low-trust review",
+  get standard() {
+    return i18n.t("rest.trustPolicyUi.standard");
+  },
+  get low_trust_review() {
+    return i18n.t("rest.trustPolicyUi.lowtrustReview");
+  },
 };
 
 export const TRUST_PRESET_DESCRIPTIONS: Record<TrustPreset, string> = {
-  standard: "Organization-visible collaboration. This is the default for normal work.",
-  low_trust_review:
-    "Contained for hostile or untrusted input. Narrow Paperclip API, quarantined output. Use for PR review and external-content triage.",
+  get standard() {
+    return i18n.t("rest.trustPolicyUi.organizationvisibleCollaborationThisIsThe");
+  },
+  get low_trust_review() {
+    return i18n.t("rest.trustPolicyUi.containedForHostileOrUntrusted");
+  },
 };
 
 export function getTrustPreset(permissions: Partial<AgentPermissions> | null | undefined): TrustPreset {
@@ -176,6 +184,6 @@ export function lowTrustBoundaryHasScope(boundary: LowTrustBoundary | null | und
 
 export function sourceTrustLabel(sourceTrust: SourceTrustMetadata | null | undefined) {
   if (!sourceTrust || sourceTrust.preset !== LOW_TRUST_REVIEW_PRESET) return null;
-  if (sourceTrust.disposition === "promoted") return "Promoted from low-trust";
-  return "Low-trust source";
+  if (sourceTrust.disposition === "promoted") return i18n.t("rest.trustPolicyUi.promotedFromLowtrust");
+  return i18n.t("rest.trustPolicyUi.lowtrustSource");
 }

@@ -1,4 +1,5 @@
 import type { HeartbeatRun } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 export type SourceResolvedFoldCleanupOutcome =
   | "terminated"
@@ -106,11 +107,19 @@ export function readSourceResolvedWatchdogFold(
 
 const CLEANUP_OUTCOME_LABELS: Record<string, string> = {
   terminated: "terminated",
-  termination_sent_still_running: "termination sent (still running)",
+  get termination_sent_still_running() {
+    return i18n.t("rest.sourceResolvedWatchdogFold.terminationSentStillRunning");
+  },
   failed: "failed",
-  not_running: "not running",
-  no_process_metadata: "no process metadata",
-  skipped_non_local_adapter: "skipped (non-local adapter)",
+  get not_running() {
+    return i18n.t("rest.sourceResolvedWatchdogFold.notRunning");
+  },
+  get no_process_metadata() {
+    return i18n.t("rest.sourceResolvedWatchdogFold.noProcessMetadata");
+  },
+  get skipped_non_local_adapter() {
+    return i18n.t("rest.sourceResolvedWatchdogFold.skippedNonlocalAdapter");
+  },
 };
 
 export function formatCleanupOutcome(outcome: string): string {

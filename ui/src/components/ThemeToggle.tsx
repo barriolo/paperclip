@@ -3,6 +3,7 @@ import { Moon, Sun } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { useTheme } from "../context/ThemeContext";
+import { useTranslation } from "@/i18n";
 
 type ThemeToggleVariant = "icon" | "menu-action" | "compact-menu-action";
 
@@ -35,9 +36,10 @@ const MENU_ACTION_DESCRIPTION = "Toggle the app appearance.";
  * icon, and toggle behaviour stay in sync as the theme model evolves.
  */
 export function ThemeToggle({ className, variant = "icon", onAfterToggle }: ThemeToggleProps) {
+  const { t } = useTranslation();
   const { theme, toggleTheme } = useTheme();
   const isDark = theme === "dark";
-  const label = isDark ? "Switch to light mode" : "Switch to dark mode";
+  const label = isDark ? t("rest.themeToggle.switchToLightMode") : t("rest.themeToggle.switchToDarkMode");
   const Icon = isDark ? Sun : Moon;
 
   function handleClick() {

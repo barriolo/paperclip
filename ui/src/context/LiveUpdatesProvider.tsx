@@ -51,6 +51,7 @@ import { useLocation } from "../lib/router";
 import { agentRouteRef } from "../lib/utils";
 import { buildSameOriginWebSocketUrl } from "../lib/websocket-url";
 import { tryCreateWebSocket } from "../lib/websocket";
+import { i18n } from "@/i18n";
 
 const TOAST_COOLDOWN_WINDOW_MS = 10_000;
 const TOAST_COOLDOWN_MAX = 3;
@@ -185,12 +186,12 @@ function resolveActorLabel(
       `Agent ${shortId(actorId)}`
     );
   }
-  if (actorType === "system") return "System";
+  if (actorType === "system") return i18n.t("rest.liveUpdatesProvider.system");
   if (actorType === "user" && actorId) {
     return resolveUserName(queryClient, companyId, actorId) ??
       (actorId === "board" || actorId === "local-board" ? "Board" : `User ${shortId(actorId)}`);
   }
-  return actorType === "plugin" ? "Plugin" : "Unknown actor";
+  return actorType === "plugin" ? i18n.t("rest.liveUpdatesProvider.plugin") : i18n.t("rest.liveUpdatesProvider.unknownActor");
 }
 
 interface IssueToastContext {
@@ -1049,13 +1050,13 @@ function buildJoinRequestToast(
     return null;
 
   const requestType = readString(details?.requestType);
-  const label = requestType === "agent" ? "Agent" : "Someone";
+  const label = requestType === "agent" ? i18n.t("rest.liveUpdatesProvider.agent") : i18n.t("rest.liveUpdatesProvider.someone");
 
   return {
-    title: `${label} wants to join`,
-    body: "A new join request is waiting for approval.",
+    title: i18n.t("rest.liveUpdatesProvider.wantsToJoin", { label: label }),
+    body: i18n.t("rest.liveUpdatesProvider.aNewJoinRequestIs"),
     tone: "info",
-    action: { label: "View inbox", href: "/inbox/mine" },
+    action: { label: i18n.t("rest.liveUpdatesProvider.viewInbox"), href: "/inbox/mine" },
     dedupeKey: `join-request:${entityId}`,
   };
 }
@@ -1084,7 +1085,7 @@ function buildAgentStatusToast(
     title,
     body,
     tone,
-    action: { label: "View agent", href: `/agents/${agentId}` },
+    action: { label: i18n.t("rest.liveUpdatesProvider.viewAgent"), href: `/agents/${agentId}` },
     dedupeKey: `agent-status:${agentId}:${status}`,
   };
 }
@@ -1115,11 +1116,11 @@ function buildRunStatusToast(
     contextSource?.startsWith("chat:")
   ) {
     return {
-      title: `${name} couldn't start this chat`,
-      body: "This external chat identity isn't linked, and isolated guest workspaces are disabled. Link the identity in Connectors or enable isolated workspaces, then start a new task.",
+      title: i18n.t("rest.liveUpdatesProvider.couldntStartThisChat", { name: name }),
+      body: i18n.t("rest.liveUpdatesProvider.thisExternalChatIdentityIsnt"),
       tone: "warn",
       ttlMs: 10_000,
-      action: { label: "Open chat connections", href: "/apps" },
+      action: { label: i18n.t("rest.liveUpdatesProvider.openChatConnections"), href: "/apps" },
       dedupeKey: `run-status:${runId}:${status}`,
     };
   }
@@ -1135,7 +1136,7 @@ function buildRunStatusToast(
       : status === "failed"
         ? "failed"
         : status === "timed_out"
-          ? "timed out"
+          ? i18n.t("rest.liveUpdatesProvider.timedOut")
           : "cancelled";
   const title = `${name} run ${statusLabel}`;
 
@@ -1151,7 +1152,7 @@ function buildRunStatusToast(
     body,
     tone,
     ttlMs: status === "succeeded" ? 5000 : 7000,
-    action: { label: "View run", href: `/agents/${agentId}/runs/${runId}` },
+    action: { label: i18n.t("rest.liveUpdatesProvider.viewRun"), href: `/agents/${agentId}/runs/${runId}` },
     dedupeKey: `run-status:${runId}:${status}`,
   };
 }

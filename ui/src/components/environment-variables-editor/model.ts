@@ -1,4 +1,5 @@
 import type { CompanySecret, EnvBinding, SecretVersionSelector, UserSecretDefinition } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 export type RowSource = "text" | "secret" | "user_secret";
 
@@ -248,14 +249,14 @@ export function computeRowHealth(row: EnvRow, secrets: readonly CompanySecret[])
     return {
       level: "error",
       kind: "missing",
-      message: "This secret no longer exists — runs will fail until you rebind.",
+      message: i18n.t("rest.model.thisSecretNoLongerExists"),
     };
   }
   if (secret.status !== "active") {
     return {
       level: "warn",
       kind: "disabled",
-      message: "Runs will fail until re-enabled or rebound.",
+      message: i18n.t("rest.model.runsWillFailUntilReenabled"),
     };
   }
   return null;
@@ -272,14 +273,14 @@ export function computeUserSecretRowHealth(
     return {
       level: "error",
       kind: "missing",
-      message: "This user secret definition no longer exists — runs will fail until you rebind.",
+      message: i18n.t("rest.model.thisUserSecretDefinitionNo"),
     };
   }
   if (definition.status !== "active") {
     return {
       level: "warn",
       kind: "disabled",
-      message: "Runs will fail until this user secret definition is re-enabled or rebound.",
+      message: i18n.t("rest.model.runsWillFailUntilThis"),
     };
   }
   return null;

@@ -2,6 +2,7 @@ import { type ClassValue, clsx } from "clsx";
 import { twMerge } from "tailwind-merge";
 import { deriveAgentUrlKey, deriveProjectUrlKey, normalizeProjectUrlKey, hasNonAsciiContent } from "@paperclipai/shared";
 import type { BillingType, FinanceDirection, FinanceEventKind } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs));
@@ -254,7 +255,7 @@ export function financeEventKindDisplayName(eventKind: FinanceEventKind): string
 }
 
 export function financeDirectionDisplayName(direction: FinanceDirection): string {
-  return direction === "credit" ? "Credit" : "Debit";
+  return direction === "credit" ? i18n.t("rest.utils.credit") : i18n.t("rest.utils.debit");
 }
 
 /** Build an issue URL using the human-readable identifier when available. */

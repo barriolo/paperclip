@@ -1,8 +1,9 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import { expandCatalogCopy } from "@/i18n/expand-catalog-copy";
 
 function source(relativePath: string) {
-  return readFileSync(new URL(relativePath, import.meta.url), "utf8");
+  return expandCatalogCopy(readFileSync(new URL(relativePath, import.meta.url), "utf8"));
 }
 
 describe("Apps agent selector contract", () => {

@@ -18,6 +18,7 @@ import {
   externalObjectTypeLabel,
 } from "../lib/external-objects";
 import { cn } from "../lib/utils";
+import { i18n } from "@/i18n";
 
 export interface ExternalObjectPillData {
   providerKey: string | null;
@@ -40,7 +41,7 @@ function githubObjectLabel(url: string | null | undefined): string | null {
     const [, owner, repo, kind, number] = parsed.pathname.split("/");
     if (!owner || !repo || !number) return null;
     if (kind === "pull") return `PR ${number}`;
-    if (kind === "issues") return `Issue ${number}`;
+    if (kind === "issues") return i18n.t("rest.externalObjectPill.issue", { number: number });
     return null;
   } catch {
     return null;

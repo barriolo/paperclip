@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Label } from "@/components/ui/label";
 import { copyTextToClipboard } from "@/lib/clipboard";
 import { AgentSetupPrompt } from "@/components/AgentSetupPrompt";
+import { useTranslation } from "@/i18n";
 
 export function CopyField({
   label,
@@ -14,6 +15,7 @@ export function CopyField({
   value: string;
   help?: string;
 }) {
+  const { t } = useTranslation();
   const [copied, setCopied] = useState(false);
   const [error, setError] = useState(false);
   return (
@@ -26,7 +28,7 @@ export function CopyField({
         <Button
           variant="ghost"
           size="sm"
-          aria-label={`Copy ${label}`}
+          aria-label={t("rest.webhookFields.copy2", { label: label })}
           onClick={async () => {
             try {
               await copyTextToClipboard(value);
@@ -42,14 +44,14 @@ export function CopyField({
           ) : (
             <Copy className="h-3.5 w-3.5" />
           )}
-          {copied ? "Copied" : "Copy"}
+          {copied ? t("rest.webhookFields.copied") : t("rest.webhookFields.copy")}
         </Button>
       </div>
       {help && <p className="text-xs text-muted-foreground">{help}</p>}
       {error && (
         <div className="space-y-2">
           <p role="alert" className="text-xs text-destructive">
-            Copy failed. Select and copy the text below.
+            {t("rest.webhookFields.copyFailedSelectAndCopy")}
           </p>
           <textarea
             readOnly
@@ -65,23 +67,23 @@ export function CopyField({
 }
 
 export function AgentInstructions({ value }: { value: string }) {
+  const { t } = useTranslation();
   return (
     <section
-      aria-label="Agent instructions"
+      aria-label={t("rest.webhookFields.agentInstructions")}
       className="space-y-3 rounded-md bg-muted/40 p-4"
     >
       <div className="space-y-1">
-        <h2 className="text-sm font-medium">Agent instructions</h2>
+        <h2 className="text-sm font-medium">{t("rest.webhookFields.agentInstructions")}</h2>
         <p className="text-sm text-muted-foreground">
-          Give your agent everything it needs to connect this webhook: the URL,
-          authentication key, and step-by-step instructions.
+          {t("rest.webhookFields.giveYourAgentEverythingIt")}
         </p>
       </div>
       <AgentSetupPrompt
         prompt={value}
-        label="Copy for your agent"
-        title="Webhook setup"
-        description="Paste this into your agent to connect this webhook to your routine."
+        label={t("rest.webhookFields.copyForYourAgent")}
+        title={t("rest.webhookFields.webhookSetup")}
+        description={t("rest.webhookFields.pasteThisIntoYourAgent")}
       />
     </section>
   );

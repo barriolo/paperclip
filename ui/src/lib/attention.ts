@@ -9,6 +9,7 @@ import type {
   AttentionSourceKind,
   AttentionWorkspaceRef,
 } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 export type AttentionListOptions = AttentionFeedQuery;
 
@@ -48,18 +49,40 @@ interface SourceMeta {
 }
 
 const SOURCE_META: Record<AttentionSourceKind, SourceMeta> = {
-  approval: { label: "Approval" },
-  decision: { label: "Decision" },
-  issue_thread_interaction: { label: "Decision requested" },
-  join_request: { label: "Join request" },
-  recovery_action: { label: "Recovery" },
+  approval: { get label() {
+    return i18n.t("rest.attention.approval");
+  } },
+  decision: { get label() {
+    return i18n.t("rest.attention.decision");
+  } },
+  issue_thread_interaction: { get label() {
+    return i18n.t("rest.attention.decisionRequested");
+  } },
+  join_request: { get label() {
+    return i18n.t("rest.attention.joinRequest");
+  } },
+  recovery_action: { get label() {
+    return i18n.t("rest.attention.recovery");
+  } },
   // Read compatibility for persisted decisions from the retired feature.
-  productivity_review: { label: "Task" },
-  blocker_attention: { label: "Blocked dependency" },
-  review: { label: "Review" },
-  failed_run: { label: "Failed run" },
-  budget_alert: { label: "Budget" },
-  agent_error_alert: { label: "Agent error" },
+  productivity_review: { get label() {
+    return i18n.t("rest.attention.task");
+  } },
+  blocker_attention: { get label() {
+    return i18n.t("rest.attention.blockedDependency");
+  } },
+  review: { get label() {
+    return i18n.t("rest.attention.review");
+  } },
+  failed_run: { get label() {
+    return i18n.t("rest.attention.failedRun");
+  } },
+  budget_alert: { get label() {
+    return i18n.t("rest.attention.budget");
+  } },
+  agent_error_alert: { get label() {
+    return i18n.t("rest.attention.agentError");
+  } },
 };
 
 export function sourceMeta(kind: AttentionSourceKind): SourceMeta {
@@ -74,10 +97,18 @@ interface SeverityStyle {
 }
 
 const SEVERITY_STYLE: Record<AttentionSeverity, SeverityStyle> = {
-  critical: { accent: "bg-red-500", dot: "bg-red-500", label: "Critical" },
-  high: { accent: "bg-orange-500", dot: "bg-orange-500", label: "High" },
-  medium: { accent: "bg-yellow-500", dot: "bg-yellow-500", label: "Medium" },
-  low: { accent: "bg-blue-500", dot: "bg-blue-500", label: "Low" },
+  critical: { accent: "bg-red-500", dot: "bg-red-500", get label() {
+    return i18n.t("rest.attention.critical");
+  } },
+  high: { accent: "bg-orange-500", dot: "bg-orange-500", get label() {
+    return i18n.t("rest.attention.high");
+  } },
+  medium: { accent: "bg-yellow-500", dot: "bg-yellow-500", get label() {
+    return i18n.t("rest.attention.medium");
+  } },
+  low: { accent: "bg-blue-500", dot: "bg-blue-500", get label() {
+    return i18n.t("rest.attention.low");
+  } },
 };
 
 export function severityStyle(severity: AttentionSeverity): SeverityStyle {
@@ -371,9 +402,9 @@ export function buildDeskShelves(items: AttentionItem[], now: number): DeskShelf
   const earlier = rest.filter((item) => !attentionIsNewToday(item, now));
 
   const shelves: DeskShelf[] = [];
-  if (decideNow.length > 0) shelves.push({ key: "desk:decide-now", label: "Decide now", items: decideNow });
-  if (newToday.length > 0) shelves.push({ key: "desk:new-today", label: "New today", items: newToday });
-  if (earlier.length > 0) shelves.push({ key: "desk:earlier", label: "Earlier", items: earlier });
+  if (decideNow.length > 0) shelves.push({ key: "desk:decide-now", label: i18n.t("rest.attention.decideNow"), items: decideNow });
+  if (newToday.length > 0) shelves.push({ key: "desk:new-today", label: i18n.t("rest.attention.newToday"), items: newToday });
+  if (earlier.length > 0) shelves.push({ key: "desk:earlier", label: i18n.t("rest.attention.earlier"), items: earlier });
   return shelves;
 }
 
@@ -420,10 +451,10 @@ export const DECIDE_BY_OPTIONS: ReadonlyArray<[DecideByPreset, string]> = [
 
 /** Human label for any stored `decideBy` value (preset or `YYYY-MM-DD`). */
 export function decideByLabel(decideBy: string | null): string {
-  if (!decideBy) return "Not set";
-  if (decideBy === "today") return "Today";
-  if (decideBy === "this_week") return "This week";
-  if (decideBy === "whenever") return "Whenever";
+  if (!decideBy) return i18n.t("rest.attention.notSet");
+  if (decideBy === "today") return i18n.t("rest.attention.today");
+  if (decideBy === "this_week") return i18n.t("rest.attention.thisWeek");
+  if (decideBy === "whenever") return i18n.t("rest.attention.whenever");
   if (/^\d{4}-\d{2}-\d{2}$/.test(decideBy)) {
     const parsed = new Date(`${decideBy}T00:00:00.000Z`);
     return Number.isFinite(parsed.getTime())
@@ -811,10 +842,18 @@ const DATE_BUCKET_ORDER = ["today", "yesterday", "this_week", "earlier"] as cons
 type DateBucket = (typeof DATE_BUCKET_ORDER)[number];
 
 const DATE_BUCKET_LABELS: Record<DateBucket, string> = {
-  today: "Today",
-  yesterday: "Yesterday",
-  this_week: "This week",
-  earlier: "Earlier",
+  get today() {
+    return i18n.t("rest.attention.today");
+  },
+  get yesterday() {
+    return i18n.t("rest.attention.yesterday");
+  },
+  get this_week() {
+    return i18n.t("rest.attention.thisWeek");
+  },
+  get earlier() {
+    return i18n.t("rest.attention.earlier");
+  },
 };
 
 const MS_PER_DAY = 24 * 60 * 60 * 1000;
@@ -834,10 +873,18 @@ export function attentionDateBucket(activityAt: string, now: number): DateBucket
 }
 
 const SEVERITY_LABEL: Record<AttentionSeverity, string> = {
-  critical: "Critical",
-  high: "High",
-  medium: "Medium",
-  low: "Low",
+  get critical() {
+    return i18n.t("rest.attention.critical");
+  },
+  get high() {
+    return i18n.t("rest.attention.high");
+  },
+  get medium() {
+    return i18n.t("rest.attention.medium");
+  },
+  get low() {
+    return i18n.t("rest.attention.low");
+  },
 };
 
 /**
@@ -896,7 +943,7 @@ export function groupAttentionItems(
         ? { key: `type:${item.sourceKind}`, label: sourceMeta(item.sourceKind).label }
         : item.project
           ? { key: `project:${item.project.id}`, label: item.project.name }
-          : { key: `project:${NO_GROUP_SENTINEL}`, label: "No project" };
+          : { key: `project:${NO_GROUP_SENTINEL}`, label: i18n.t("rest.attention.noProject") };
     const existing = groups.get(resolved.key);
     const ts = attentionActivityTimestamp(item);
     if (existing) {

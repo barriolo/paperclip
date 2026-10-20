@@ -8,13 +8,18 @@ import {
   DialogDescription,
 } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
+import { i18n, useTranslation } from "@/i18n";
 
 type Platform = "mac" | "windows" | "linux";
 
 const platforms: { id: Platform; label: string; icon: typeof Apple }[] = [
   { id: "mac", label: "macOS", icon: Apple },
-  { id: "windows", label: "Windows", icon: Monitor },
-  { id: "linux", label: "Linux", icon: Terminal },
+  { id: "windows", get label() {
+    return i18n.t("rest.pathInstructionsModal.windows");
+  }, icon: Monitor },
+  { id: "linux", get label() {
+    return i18n.t("rest.pathInstructionsModal.linux");
+  }, icon: Terminal },
 ];
 
 const instructions: Record<Platform, { steps: string[]; tip?: string }> = {
@@ -61,6 +66,7 @@ export function PathInstructionsModal({
   open,
   onOpenChange,
 }: PathInstructionsModalProps) {
+  const { t } = useTranslation();
   const [platform, setPlatform] = useState<Platform>(detectPlatform);
 
   const current = instructions[platform];
@@ -69,11 +75,11 @@ export function PathInstructionsModal({
     <Dialog open={open} onOpenChange={onOpenChange}>
       <DialogContent className="sm:max-w-md">
         <DialogHeader>
-          <DialogTitle className="text-base">How to get a full path</DialogTitle>
+          <DialogTitle className="text-base">{t("rest.pathInstructionsModal.howToGetAFull")}</DialogTitle>
           <DialogDescription>
             Paste the absolute path (e.g.{" "}
             <code className="text-xs bg-muted px-1 py-0.5 rounded">/Users/you/project</code>
-            ) into the input field.
+            {t("rest.pathInstructionsModal.intoTheInputField")}
           </DialogDescription>
         </DialogHeader>
 
@@ -124,6 +130,7 @@ export function PathInstructionsModal({
  * Drop-in replacement for the old showDirectoryPicker buttons.
  */
 export function ChoosePathButton({ className }: { className?: string }) {
+  const { t } = useTranslation();
   const [open, setOpen] = useState(false);
   return (
     <>
@@ -135,7 +142,7 @@ export function ChoosePathButton({ className }: { className?: string }) {
         )}
         onClick={() => setOpen(true)}
       >
-        Choose
+        {t("rest.pathInstructionsModal.choose")}
       </button>
       <PathInstructionsModal open={open} onOpenChange={setOpen} />
     </>

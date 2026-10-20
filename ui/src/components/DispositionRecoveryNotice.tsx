@@ -4,6 +4,7 @@ import type { Agent, Issue, IssueCommentMetadata, IssueRecoveryAction } from "@p
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import { timeAgo } from "@/lib/timeAgo";
+import { useTranslation } from "@/i18n";
 
 export type DispositionRecoverySnapshot = NonNullable<IssueCommentMetadata["recovery"]>;
 export type DispositionRecoveryContextValue = {
@@ -73,6 +74,7 @@ export function DispositionRecoveryNotice({ snapshot, createdAt, defaultExpanded
   createdAt?: string;
   defaultExpanded?: boolean;
 }) {
+  const { t } = useTranslation();
   const context = useContext(RecoveryContext);
   const [expanded, setExpanded] = useState(defaultExpanded);
   const [pending, setPending] = useState(false);
@@ -109,27 +111,27 @@ export function DispositionRecoveryNotice({ snapshot, createdAt, defaultExpanded
       <div className="flex min-w-0 flex-1 flex-col gap-2">
         <div className="flex flex-col gap-1" role="status" aria-live="polite">
           <h2 id={titleId} className="break-words text-sm font-medium text-foreground">
-            {requested ? "Retry requested" : historical ? "Agent needed attention" : "Agent needs attention"}
+            {requested ? t("rest.dispositionRecoveryNotice.retryRequested") : historical ? t("rest.dispositionRecoveryNotice.agentNeededAttention") : t("rest.dispositionRecoveryNotice.agentNeedsAttention")}
           </h2>
           <p className="text-sm leading-relaxed text-muted-foreground">
-            {requested ? `The task was returned to To do for ${agentName}.` : descriptionFor(snapshot)}
+            {requested ? t("rest.dispositionRecoveryNotice.theTaskWasReturnedTo", { agentName: agentName }) : descriptionFor(snapshot)}
           </p>
         </div>
         {unavailableReason && !requested ? (
           <p id={unavailableId} className="text-xs leading-relaxed text-muted-foreground">
-            {!historical && <span className="font-medium text-foreground">Retry unavailable. </span>}{unavailableReason}
+            {!historical && <span className="font-medium text-foreground">{t("rest.dispositionRecoveryNotice.retryUnavailable")}{" "}</span>}{unavailableReason}
           </p>
         ) : null}
-        {error ? <p role="alert" className="text-sm text-destructive">Couldn’t confirm the retry. {error}</p> : null}
+        {error ? <p role="alert" className="text-sm text-destructive">{t("rest.dispositionRecoveryNotice.couldntConfirmTheRetry")}{" "}{error}</p> : null}
         <div className="flex flex-wrap items-center gap-2">
           {!requested && !historical ? (
             <Button size="xs" variant="outline" disabled={pending || Boolean(unavailableReason)} aria-describedby={unavailableReason ? unavailableId : undefined} onClick={() => void retry()}>
               {pending ? <Loader2 aria-hidden="true" className="size-3 animate-spin motion-reduce:animate-none" /> : <RotateCcw aria-hidden="true" className="size-3" />}
-              {pending ? "Requesting retry…" : "Retry agent"}
+              {pending ? t("rest.dispositionRecoveryNotice.requestingRetry") : t("rest.dispositionRecoveryNotice.retryAgent")}
             </Button>
           ) : null}
           <Button size="xs" variant="ghost" className="text-muted-foreground" aria-expanded={expanded} aria-controls={detailsId} onClick={() => setExpanded(current => !current)}>
-            {expanded ? "Hide details" : "View details"}
+            {expanded ? t("rest.dispositionRecoveryNotice.hideDetails") : t("rest.dispositionRecoveryNotice.viewDetails")}
             <ChevronDown aria-hidden="true" className={cn("size-3", expanded && "rotate-180")} />
           </Button>
           {createdAt ? <time dateTime={createdAt} className="font-mono text-xs text-muted-foreground sm:ml-auto">{timeAgo(createdAt)}</time> : null}
@@ -137,12 +139,12 @@ export function DispositionRecoveryNotice({ snapshot, createdAt, defaultExpanded
         {expanded ? (
           <div id={detailsId} className="flex flex-col gap-3 rounded-lg border border-border bg-muted/20 p-3">
             <dl className="flex flex-col gap-2 text-xs">
-              <div className="flex flex-wrap justify-between gap-1"><dt className="text-muted-foreground">Assigned when recovery stopped</dt><dd>{agentName}</dd></div>
-              <div className="flex flex-wrap justify-between gap-1"><dt className="text-muted-foreground">Automatic attempts</dt><dd className="font-mono">{snapshot.attemptCount} of {snapshot.maxAttempts}</dd></div>
-              <div className="flex flex-wrap justify-between gap-1"><dt className="text-muted-foreground">Automatic retries for this recovery</dt><dd>Stopped</dd></div>
+              <div className="flex flex-wrap justify-between gap-1"><dt className="text-muted-foreground">{t("rest.dispositionRecoveryNotice.assignedWhenRecoveryStopped")}</dt><dd>{agentName}</dd></div>
+              <div className="flex flex-wrap justify-between gap-1"><dt className="text-muted-foreground">{t("rest.dispositionRecoveryNotice.automaticAttempts")}</dt><dd className="font-mono">{t("rest.dispositionRecoveryNotice.of", { attemptCount: snapshot.attemptCount })}{" "}{snapshot.maxAttempts}</dd></div>
+              <div className="flex flex-wrap justify-between gap-1"><dt className="text-muted-foreground">{t("rest.dispositionRecoveryNotice.automaticRetriesForThisRecovery")}</dt><dd>{t("rest.dispositionRecoveryNotice.stopped")}</dd></div>
             </dl>
-            <p className="text-xs leading-relaxed text-muted-foreground">Recovery asked the assigned agent to record an outcome or a next step. Retrying keeps the same task and agent, and checks the task’s current controls before continuing.</p>
-            <div className="flex flex-col gap-1"><span className="text-xs text-muted-foreground">Technical reason</span><code className="break-all font-mono text-xs">{snapshot.reason}</code></div>
+            <p className="text-xs leading-relaxed text-muted-foreground">{t("rest.dispositionRecoveryNotice.recoveryAskedTheAssignedAgent")}</p>
+            <div className="flex flex-col gap-1"><span className="text-xs text-muted-foreground">{t("rest.dispositionRecoveryNotice.technicalReason")}</span><code className="break-all font-mono text-xs">{snapshot.reason}</code></div>
           </div>
         ) : null}
       </div>

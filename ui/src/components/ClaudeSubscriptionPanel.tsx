@@ -1,6 +1,7 @@
 import { quotaUnavailableMessage } from "@/lib/quota-refresh";
 import type { QuotaWindow } from "@paperclipai/shared";
 import { cn, quotaSourceDisplayName } from "@/lib/utils";
+import { useTranslation } from "@/i18n";
 
 interface ClaudeSubscriptionPanelProps {
   windows: QuotaWindow[];
@@ -57,6 +58,7 @@ export function ClaudeSubscriptionPanel({
   source = null,
   error = null,
 }: ClaudeSubscriptionPanelProps) {
+  const { t } = useTranslation();
   const ordered = orderedWindows(windows);
 
   return (
@@ -64,10 +66,10 @@ export function ClaudeSubscriptionPanel({
       <div className="flex items-start justify-between gap-3 border-b border-border pb-3">
         <div className="min-w-0">
           <div className="text-(length:--text-micro) font-semibold uppercase tracking-(--tracking-caps) text-muted-foreground">
-            Anthropic subscription
+            {t("rest.claudeSubscriptionPanel.anthropicSubscription")}
           </div>
           <div className="mt-1 text-sm text-muted-foreground">
-            Quota from the Claude subscription connected to this server.
+            {t("rest.claudeSubscriptionPanel.quotaFromTheClaudeSubscription")}
           </div>
         </div>
         {source ? (
@@ -121,7 +123,7 @@ export function ClaudeSubscriptionPanel({
                 </div>
                 {window.usedPercent != null ? (
                   <div className="shrink-0 text-sm font-semibold tabular-nums text-foreground">
-                    {window.usedPercent}% used
+                    {t("rest.claudeSubscriptionPanel.used", { usedPercent: window.usedPercent })}
                   </div>
                 ) : null}
               </div>
