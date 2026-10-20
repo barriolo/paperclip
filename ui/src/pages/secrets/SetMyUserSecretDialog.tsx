@@ -17,6 +17,7 @@ import { ApiError } from "../../api/client";
 import { queryKeys } from "../../lib/queryKeys";
 import { useToastActions } from "../../context/ToastContext";
 import { UserSecretChip } from "./user-secret-presentation";
+import { useTranslation } from "@/i18n";
 
 /**
  * Shared "set my value" dialog for a user-secret definition. Used both from the
@@ -39,6 +40,7 @@ export function SetMyUserSecretDialog({
   onOpenChange: (open: boolean) => void;
   onSaved?: (secret: CompanySecret) => void;
 }) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { pushToast } = useToastActions();
   const [value, setValue] = useState("");
@@ -75,7 +77,7 @@ export function SetMyUserSecretDialog({
       queryClient.invalidateQueries({ queryKey: queryKeys.secrets.myUserSecrets(companyId) });
       queryClient.invalidateQueries({ queryKey: queryKeys.secrets.userDefinitions(companyId) });
       pushToast({
-        title: existingSecret ? "Value updated" : "Value saved",
+        title: existingSecret ? t("settings.setMyUserSecretDialog.valueUpdated") : t("settings.setMyUserSecretDialog.valueSaved"),
         body: definition?.name,
         tone: "success",
       });
@@ -106,8 +108,7 @@ export function SetMyUserSecretDialog({
           <DialogDescription>
             {definition ? (
               <>
-                This value is yours only. It is used when you are the user responsible for a run that
-                needs <span className="font-mono">{definition.key}</span>.
+                {t("settings.setMyUserSecretDialog.thisValueIsYoursOnly")}{" "}<span className="font-mono">{definition.key}</span>.
               </>
             ) : null}
           </DialogDescription>
@@ -127,31 +128,30 @@ export function SetMyUserSecretDialog({
 
             {isExternal ? (
               <div className="space-y-1">
-                <label className="text-xs font-medium text-foreground">External reference</label>
+                <label className="text-xs font-medium text-foreground">{t("settings.setMyUserSecretDialog.externalReference")}</label>
                 <Input
                   value={externalRef}
                   onChange={(event) => setExternalRef(event.target.value)}
-                  placeholder="provider reference or ARN"
+                  placeholder={t("settings.setMyUserSecretDialog.providerReferenceOrArn")}
                   className="font-mono text-sm"
                   autoFocus
                 />
                 <p className="text-(length:--text-micro) text-muted-foreground">
-                  Points at your own credential in the configured provider. Paperclip stores the
-                  reference, not the value.
+                  {t("settings.setMyUserSecretDialog.pointsAtYourOwnCredential")}
                 </p>
               </div>
             ) : (
               <div className="space-y-1">
-                <label className="text-xs font-medium text-foreground">Your value</label>
+                <label className="text-xs font-medium text-foreground">{t("settings.setMyUserSecretDialog.yourValue")}</label>
                 <Textarea
                   value={value}
                   onChange={(event) => setValue(event.target.value)}
-                  placeholder="Paste your token or credential"
+                  placeholder={t("settings.setMyUserSecretDialog.pasteYourTokenOrCredential")}
                   className="font-mono text-sm min-h-(--sz-80px)"
                   autoFocus
                 />
                 <p className="text-(length:--text-micro) text-muted-foreground">
-                  Stored encrypted. Never shown back to anyone, including admins.
+                  {t("settings.setMyUserSecretDialog.storedEncryptedNeverShownBack")}
                 </p>
               </div>
             )}
@@ -162,7 +162,7 @@ export function SetMyUserSecretDialog({
 
         <DialogFooter>
           <Button variant="ghost" onClick={() => onOpenChange(false)} disabled={save.isPending}>
-            Cancel
+            {t("settings.setMyUserSecretDialog.cancel")}
           </Button>
           <Button onClick={() => save.mutate()} disabled={!canSave || save.isPending}>
             {save.isPending ? "Saving…" : existingSecret ? "Update value" : "Save value"}
