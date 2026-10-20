@@ -1140,7 +1140,7 @@ export function NewIssueDialog() {
           }
         }}
       >
-        <DialogTitle className="sr-only">{isSubIssueMode ? "New sub-task" : "New task"}</DialogTitle>
+        <DialogTitle className="sr-only">{isSubIssueMode ? t("issues.newIssueDialog.newSubtask") : t("issues.newIssueDialog.newTask")}</DialogTitle>
         <div
           ref={dialogBodyRef}
           className={cn("min-h-0 overflow-y-auto overscroll-contain", isFileDragOver && "bg-accent/20")}
@@ -1240,14 +1240,14 @@ export function NewIssueDialog() {
                   <>
                     {parentPrivacyUnresolved ? (
                       <div role={parentPrivacyError ? "alert" : "status"} className="mb-2 flex items-center gap-2 text-xs text-muted-foreground">
-                        <span>{parentPrivacyError ? "Couldn't check parent access." : "Checking parent access…"}</span>
+                        <span>{parentPrivacyError ? t("issues.newIssueDialog.couldntCheckParentAccess") : t("issues.newIssueDialog.checkingParentAccess")}</span>
                         {parentPrivacyError ? <Button variant="ghost" size="sm" onClick={() => void refetchParentPrivacy()}>{t("issues.newIssueDialog.retry")}</Button> : null}
                       </div>
                     ) : null}
                     {worktreeSelectionIncomplete && !worktreesLoading ? (
                       <p role="alert" className="mb-2 text-xs text-destructive">
-                        {worktreesError ? "Couldn't check the selected worktree. Retry in Worktrees or choose New worktree."
-                          : "The selected worktree is no longer available. Choose another worktree or start a new one."}
+                        {worktreesError ? t("issues.newIssueDialog.couldntCheckTheSelectedWorktree")
+                          : t("issues.newIssueDialog.theSelectedWorktreeIsNo")}
                       </p>
                     ) : null}
                     {stagedFiles.length > 0 ? (
@@ -1348,7 +1348,7 @@ export function NewIssueDialog() {
                         <InlineBanner tone="warning" icon={PauseCircle} compact>
                           <span className="font-medium">{selectedAssigneeAgent.name}</span>{" "}{t("issues.newIssueDialog.isPausedAndWillNot")}
                           {selectedAssigneeAgent.pauseReason === "import"
-                            ? " — it arrived paused from an organization import"
+                            ? t("issues.newIssueDialog.itArrivedPausedFromAn")
                             : ""}
                           {t("issues.newIssueDialog.youCanResumeItFrom")}
                         </InlineBanner>

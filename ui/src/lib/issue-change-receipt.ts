@@ -1,5 +1,6 @@
 import type { IssueChangeReceiptEntry } from "@paperclipai/shared";
 import { formatReviewPolicyValue } from "./review-policy";
+import { i18n } from "@/i18n";
 
 /**
  * Read + format the field-level change receipts carried on an `issue.updated`
@@ -17,28 +18,72 @@ import { formatReviewPolicyValue } from "./review-policy";
 
 /** Field names whose raw ids carry no meaning in a scannable summary. */
 const FIELD_LABELS: Record<string, string> = {
-  assigneeAgentId: "Assignee",
-  assigneeUserId: "Assignee (user)",
-  responsibleUserId: "Responsible user",
-  blockedByIssueIds: "Blockers",
-  labelIds: "Labels",
-  parentId: "Parent",
-  projectId: "Project",
-  goalId: "Goal",
-  workMode: "Work mode",
-  reviewPolicy: "Who can approve",
-  billingCode: "Billing code",
-  checkoutRunId: "Checkout run",
-  executionRunId: "Execution run",
-  hiddenAt: "Hidden",
-  startedAt: "Started",
-  completedAt: "Completed",
-  cancelledAt: "Cancelled",
-  requestDepth: "Request depth",
-  sourceTrust: "Source trust",
-  executionPolicy: "Execution policy",
-  executionWorkspaceId: "Execution workspace",
-  projectWorkspaceId: "Project workspace",
+  get assigneeAgentId() {
+    return i18n.t("issues.issueChangeReceipt.assignee");
+  },
+  get assigneeUserId() {
+    return i18n.t("issues.issueChangeReceipt.assigneeUser");
+  },
+  get responsibleUserId() {
+    return i18n.t("issues.issueChangeReceipt.responsibleUser");
+  },
+  get blockedByIssueIds() {
+    return i18n.t("issues.issueChangeReceipt.blockers");
+  },
+  get labelIds() {
+    return i18n.t("issues.issueChangeReceipt.labels");
+  },
+  get parentId() {
+    return i18n.t("issues.issueChangeReceipt.parent");
+  },
+  get projectId() {
+    return i18n.t("issues.issueChangeReceipt.project");
+  },
+  get goalId() {
+    return i18n.t("issues.issueChangeReceipt.goal");
+  },
+  get workMode() {
+    return i18n.t("issues.issueChangeReceipt.workMode");
+  },
+  get reviewPolicy() {
+    return i18n.t("issues.issueChangeReceipt.whoCanApprove");
+  },
+  get billingCode() {
+    return i18n.t("issues.issueChangeReceipt.billingCode");
+  },
+  get checkoutRunId() {
+    return i18n.t("issues.issueChangeReceipt.checkoutRun");
+  },
+  get executionRunId() {
+    return i18n.t("issues.issueChangeReceipt.executionRun");
+  },
+  get hiddenAt() {
+    return i18n.t("issues.issueChangeReceipt.hidden");
+  },
+  get startedAt() {
+    return i18n.t("issues.issueChangeReceipt.started");
+  },
+  get completedAt() {
+    return i18n.t("issues.issueChangeReceipt.completed");
+  },
+  get cancelledAt() {
+    return i18n.t("issues.issueChangeReceipt.cancelled");
+  },
+  get requestDepth() {
+    return i18n.t("issues.issueChangeReceipt.requestDepth");
+  },
+  get sourceTrust() {
+    return i18n.t("issues.issueChangeReceipt.sourceTrust");
+  },
+  get executionPolicy() {
+    return i18n.t("issues.issueChangeReceipt.executionPolicy");
+  },
+  get executionWorkspaceId() {
+    return i18n.t("issues.issueChangeReceipt.executionWorkspace");
+  },
+  get projectWorkspaceId() {
+    return i18n.t("issues.issueChangeReceipt.projectWorkspace");
+  },
 };
 
 /** Human label for a changed field, e.g. `assigneeAgentId` → "Assignee". */
@@ -165,17 +210,39 @@ export function readIssueChangeReceipt(
 
 /** Authorization reasons, as recorded by the server's write-policy decision. */
 const AUTHORIZATION_REASON_LABELS: Record<string, string> = {
-  allow_visible_issue_write: "default-open write on a visible task",
-  allow_scoped_agent_write: "scoped agent write",
-  allow_board_actor: "board actor",
-  allow_self: "own task",
-  allow_issue_mention_grant: "mention grant",
-  allow_direct_parent_report: "direct parent report",
-  allow_low_trust_boundary: "low-trust boundary allowance",
-  allow_explicit_grant: "explicit permission grant",
-  allow_instance_admin: "instance admin",
-  allow_local_board: "local board",
-  internal_agent_write: "internal agent write",
+  get allow_visible_issue_write() {
+    return i18n.t("issues.issueChangeReceipt.defaultopenWriteOnAVisible");
+  },
+  get allow_scoped_agent_write() {
+    return i18n.t("issues.issueChangeReceipt.scopedAgentWrite");
+  },
+  get allow_board_actor() {
+    return i18n.t("issues.issueChangeReceipt.boardActor");
+  },
+  get allow_self() {
+    return i18n.t("issues.issueChangeReceipt.ownTask");
+  },
+  get allow_issue_mention_grant() {
+    return i18n.t("issues.issueChangeReceipt.mentionGrant");
+  },
+  get allow_direct_parent_report() {
+    return i18n.t("issues.issueChangeReceipt.directParentReport");
+  },
+  get allow_low_trust_boundary() {
+    return i18n.t("issues.issueChangeReceipt.lowtrustBoundaryAllowance");
+  },
+  get allow_explicit_grant() {
+    return i18n.t("issues.issueChangeReceipt.explicitPermissionGrant");
+  },
+  get allow_instance_admin() {
+    return i18n.t("issues.issueChangeReceipt.instanceAdmin");
+  },
+  get allow_local_board() {
+    return i18n.t("issues.issueChangeReceipt.localBoard");
+  },
+  get internal_agent_write() {
+    return i18n.t("issues.issueChangeReceipt.internalAgentWrite");
+  },
 };
 
 /**

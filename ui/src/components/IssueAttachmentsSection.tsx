@@ -408,7 +408,7 @@ export function IssueAttachmentsSection({
               {t("issues.issueAttachmentsSection.cancel")}
             </Button>
             <Button variant="destructive" size="sm" onClick={() => confirmDelete(confirmDeleteId)} disabled={deletePending}>
-              {deletePending ? "Deleting..." : "Delete"}
+              {deletePending ? t("issues.issueAttachmentsSection.deleting") : t("issues.issueAttachmentsSection.delete2")}
             </Button>
           </div>
         </div>

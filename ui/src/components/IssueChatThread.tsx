@@ -263,7 +263,7 @@ import {
 import { SourceTrustBadge } from "./SourceTrustBadge";
 import { CommentAttributionChip } from "./CommentAttributionChip";
 import { resolveCommentAttribution } from "../lib/comment-attribution";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 interface IssueChatMessageContext {
   feedbackDataSharingPreference: FeedbackDataSharingPreference;
@@ -441,6 +441,7 @@ function IssueChatLiveRunStatusLine({
   active: boolean;
   className?: string;
 }) {
+  const { t } = useTranslation();
   const currentStatusMessage = readCustomString(custom, "currentStatusMessage");
   const currentToolName = readCustomString(custom, "currentToolName");
   const lastAssistantSnippet = readCustomString(custom, "lastAssistantSnippet");
@@ -458,7 +459,7 @@ function IssueChatLiveRunStatusLine({
       : currentStatusMessage;
   const activityText = lastActivityElapsed
     ? lastActivityAgeMs !== null && lastActivityAgeMs >= 15_000
-      ? `no output for ${lastActivityElapsed} - still running`
+      ? t("issues.issueChatThread.noOutputForStillRunning", { lastActivityElapsed: lastActivityElapsed })
       : `${lastActivityElapsed} ago`
     : "";
   const text = [primary, activityText].filter(Boolean).join(" · ");
@@ -839,7 +840,7 @@ export function IssueAssigneePausedNotice({
               disabled={resuming}
               data-testid="issue-assignee-paused-resume"
             >
-              {resuming ? "Resuming…" : "Resume agent"}
+              {resuming ? t("issues.issueChatThread.resuming") : t("issues.issueChatThread.resumeAgent")}
             </Button>
           ) : undefined
         }
@@ -856,9 +857,9 @@ function fallbackAuthorLabel(message: ThreadMessage) {
   if (typeof custom?.["authorName"] === "string") return custom["authorName"];
   if (typeof custom?.["runAgentName"] === "string")
     return custom["runAgentName"];
-  if (message.role === "assistant") return "Agent";
-  if (message.role === "user") return "You";
-  return "System";
+  if (message.role === "assistant") return i18n.t("issues.issueChatThread.agent");
+  if (message.role === "user") return i18n.t("issues.issueChatThread.you");
+  return i18n.t("issues.issueChatThread.system");
 }
 
 function fallbackTextParts(message: ThreadMessage) {
@@ -1165,7 +1166,7 @@ function formatInteractionActorLabel(args: {
       "Board"
     );
   }
-  return "System";
+  return i18n.t("issues.issueChatThread.system");
 }
 
 export { resolveIssueChatHumanAuthor } from "@/lib/issue-chat-human-author";
@@ -2026,7 +2027,7 @@ function IssueChatUserMessage({
   const queueReason =
     typeof custom.queueReason === "string" ? custom.queueReason : null;
   const queueBadgeLabel =
-    queueReason === "hold" ? "\u23f8 Deferred wake" : "Queued";
+    queueReason === "hold" ? t("issues.issueChatThread.deferredWake") : t("issues.issueChatThread.queued");
   const pending = custom.clientStatus === "pending";
   const deleted = Boolean(custom.deletedAt);
   const queueTargetRunId =
@@ -2126,7 +2127,7 @@ function IssueChatUserMessage({
                 disabled={isInterruptingQueuedRun}
                 onClick={() => void onInterruptQueued(queueTargetRunId)}
               >
-                {isInterruptingQueuedRun ? "Interrupting..." : "Interrupt"}
+                {isInterruptingQueuedRun ? t("issues.issueChatThread.interrupting") : t("issues.issueChatThread.interrupt")}
               </Button>
             ) : null}
             {onCancelQueued ? (
@@ -2894,7 +2895,7 @@ function IssueChatFeedbackButtons({
               disabled={isSaving || !downvoteReason.trim()}
               onClick={handleSubmitReason}
             >
-              {isSaving ? "Saving..." : "Save note"}
+              {isSaving ? t("issues.issueChatThread.saving") : t("issues.issueChatThread.saveNote")}
             </Button>
           </div>
         </PopoverContent>
@@ -2950,7 +2951,7 @@ function IssueChatFeedbackButtons({
                 ).then(() => setPendingSharingDialog(null));
               }}
             >
-              {isSaving ? "Saving..." : "Don't allow"}
+              {isSaving ? t("issues.issueChatThread.saving") : t("issues.issueChatThread.dontAllow")}
             </Button>
             <Button
               type="button"
@@ -2965,7 +2966,7 @@ function IssueChatFeedbackButtons({
                 }).then(() => setPendingSharingDialog(null));
               }}
             >
-              {isSaving ? "Saving..." : "Always allow"}
+              {isSaving ? t("issues.issueChatThread.saving") : t("issues.issueChatThread.alwaysAllow")}
             </Button>
           </DialogFooter>
         </DialogContent>
@@ -3051,7 +3052,7 @@ function ExpiredRequestConfirmationActivity({
               expanded && "rotate-180",
             )}
           />
-          {expanded ? "Hide confirmation" : "Expired confirmation"}
+          {expanded ? t("issues.issueChatThread.hideConfirmation") : t("issues.issueChatThread.expiredConfirmation")}
         </button>
       </div>
       {expanded ? (
@@ -3534,7 +3535,7 @@ function SystemNoticeCommentContent({
       ? (agentMap?.get(runAgentId)?.name ?? null)
       : null;
     if (authorType === "system") {
-      const label = runAgentName ?? "Paperclip";
+      const label = runAgentName ?? t("issues.issueChatThread.paperclip");
       if (runAgentId && runId)
         return { label, href: `/agents/${runAgentId}/runs/${runId}` };
       return { label };
@@ -3826,8 +3827,8 @@ function IssueChatSystemMessage({ message }: { message: ThreadMessage }) {
           <span className="font-medium text-foreground">{actorName}</span>
           <span className="text-muted-foreground">
             {custom.followUpRequested === true
-              ? "requested follow-up"
-              : "updated this task"}
+              ? t("issues.issueChatThread.requestedFollowup")
+              : t("issues.issueChatThread.updatedThisTask")}
           </span>
           <a
             href={anchorId ? `#${anchorId}` : undefined}
@@ -5419,7 +5420,7 @@ const IssueChatComposer = forwardRef<
       {draftRecovery && draftRecovery.sourceKey === sharedDraftKey ? (
         <p role="status" className="mb-3 text-sm text-muted-foreground">
           {t("issues.issueChatThread.anotherTabChangedTheSaved")}
-          {!draftRecovery.persisted ? " Browser storage is unavailable; copy your text before leaving." : " It will be restored if you reload this tab."}
+          {!draftRecovery.persisted ? t("issues.issueChatThread.browserStorageIsUnavailableCopy") : t("issues.issueChatThread.itWillBeRestoredIf")}
         </p>
       ) : null}
       {uncertainSubmission ? (
@@ -5533,12 +5534,12 @@ const IssueChatComposer = forwardRef<
             const sizeLabel = formatAttachmentSize(attachment.size);
             const statusLabel =
               attachment.status === "uploading"
-                ? "Uploading to task"
+                ? t("issues.issueChatThread.uploadingToTask")
                 : attachment.status === "error"
-                  ? (attachment.error ?? "Upload failed")
+                  ? (attachment.error ?? t("issues.issueChatThread.uploadFailed"))
                   : attachment.inline
                     ? "Inserted inline"
-                    : "Attached to task";
+                    : t("issues.issueChatThread.attachedToTask");
             return (
               <div
                 key={attachment.id}
@@ -5700,7 +5701,7 @@ const IssueChatComposer = forwardRef<
             disabled={!canSubmit}
             onClick={() => void handleSubmit()}
           >
-            {submitting ? "Posting..." : "Send"}
+            {submitting ? t("issues.issueChatThread.posting") : t("issues.issueChatThread.send")}
           </Button>
         )}
       </div>

@@ -1,4 +1,5 @@
 import type { InboxTab } from "./inbox";
+import { i18n } from "@/i18n";
 
 /**
  * The single view registry behind the merged Tasks surface (PAP-670).
@@ -49,22 +50,62 @@ export interface TaskViewGroup {
 
 export const TASK_VIEW_GROUPS: TaskViewGroup[] = [
   {
-    label: "My work",
+    get label() {
+    return i18n.t("issues.taskViews.myWork");
+  },
     views: [
-      { key: "mine", label: "Mine", surface: "inbox", inboxTab: "mine", hint: "Assigned to you or waiting on you" },
-      { key: "unread", label: "Unread", surface: "inbox", inboxTab: "unread", hint: "Tasks you touched with new activity" },
-      { key: "blocked", label: "Blocked", surface: "inbox", inboxTab: "blocked", hint: "Blocked tasks, grouped by blocker" },
-      { key: "recent", label: "Recent", surface: "inbox", inboxTab: "recent", hint: "Everything you touched lately" },
-      { key: "everything", label: "Everything", surface: "inbox", inboxTab: "all", hint: "Tasks, approvals, failed runs and join requests" },
+      { key: "mine", get label() {
+    return i18n.t("issues.taskViews.mine");
+  }, surface: "inbox", inboxTab: "mine", get hint() {
+    return i18n.t("issues.taskViews.assignedToYouOrWaiting");
+  } },
+      { key: "unread", get label() {
+    return i18n.t("issues.taskViews.unread");
+  }, surface: "inbox", inboxTab: "unread", get hint() {
+    return i18n.t("issues.taskViews.tasksYouTouchedWithNew");
+  } },
+      { key: "blocked", get label() {
+    return i18n.t("issues.taskViews.blocked");
+  }, surface: "inbox", inboxTab: "blocked", get hint() {
+    return i18n.t("issues.taskViews.blockedTasksGroupedByBlocker");
+  } },
+      { key: "recent", get label() {
+    return i18n.t("issues.taskViews.recent");
+  }, surface: "inbox", inboxTab: "recent", get hint() {
+    return i18n.t("issues.taskViews.everythingYouTouchedLately");
+  } },
+      { key: "everything", get label() {
+    return i18n.t("issues.taskViews.everything");
+  }, surface: "inbox", inboxTab: "all", get hint() {
+    return i18n.t("issues.taskViews.tasksApprovalsFailedRunsAnd");
+  } },
     ],
   },
   {
-    label: "Organization",
+    get label() {
+    return i18n.t("issues.taskViews.organization");
+  },
     views: [
-      { key: "all", label: "All tasks", surface: "issues", statuses: [], hint: "Every task in the organization" },
-      { key: "active", label: "Active", surface: "issues", statuses: ["todo", "in_progress", "in_review", "blocked"], hint: "Open tasks, running or not" },
-      { key: "backlog", label: "Backlog", surface: "issues", statuses: ["backlog"], hint: "Not started yet" },
-      { key: "done", label: "Done", surface: "issues", statuses: ["done", "cancelled"], hint: "Completed and cancelled" },
+      { key: "all", get label() {
+    return i18n.t("issues.taskViews.allTasks");
+  }, surface: "issues", statuses: [], get hint() {
+    return i18n.t("issues.taskViews.everyTaskInTheOrganization");
+  } },
+      { key: "active", get label() {
+    return i18n.t("issues.taskViews.active");
+  }, surface: "issues", statuses: ["todo", "in_progress", "in_review", "blocked"], get hint() {
+    return i18n.t("issues.taskViews.openTasksRunningOrNot");
+  } },
+      { key: "backlog", get label() {
+    return i18n.t("issues.taskViews.backlog");
+  }, surface: "issues", statuses: ["backlog"], get hint() {
+    return i18n.t("issues.taskViews.notStartedYet");
+  } },
+      { key: "done", get label() {
+    return i18n.t("issues.taskViews.done");
+  }, surface: "issues", statuses: ["done", "cancelled"], get hint() {
+    return i18n.t("issues.taskViews.completedAndCancelled");
+  } },
     ],
   },
 ];

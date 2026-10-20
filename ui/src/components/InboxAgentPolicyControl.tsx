@@ -126,7 +126,7 @@ export function InboxAgentPolicyControl({ companyId }: { companyId: string | nul
   if (policyQuery.error) {
     return (
       <div className="text-sm text-destructive">
-        {policyQuery.error instanceof Error ? policyQuery.error.message : "Failed to load inbox agent policy."}
+        {policyQuery.error instanceof Error ? policyQuery.error.message : t("issues.inboxAgentPolicyControl.failedToLoadInboxAgent")}
       </div>
     );
   }
@@ -180,7 +180,7 @@ export function InboxAgentPolicyControl({ companyId }: { companyId: string | nul
 
       {updateMutation.error ? (
         <div className="max-w-2xl rounded-md border border-destructive/40 bg-destructive/5 px-3 py-2 text-sm text-destructive">
-          {updateMutation.error instanceof Error ? updateMutation.error.message : "Failed to save inbox agent policy."}
+          {updateMutation.error instanceof Error ? updateMutation.error.message : t("issues.inboxAgentPolicyControl.failedToSaveInboxAgent")}
         </div>
       ) : null}
 
@@ -194,7 +194,7 @@ export function InboxAgentPolicyControl({ companyId }: { companyId: string | nul
           onClick={() => draft && updateMutation.mutate(draft)}
         >
           {updateMutation.isPending ? <LoaderCircle className="size-4 animate-spin" /> : <Save className="size-4" />}
-          {updateMutation.isPending ? "Saving…" : "Save"}
+          {updateMutation.isPending ? t("issues.inboxAgentPolicyControl.saving") : t("issues.inboxAgentPolicyControl.save")}
         </Button>
       </div>
     </section>

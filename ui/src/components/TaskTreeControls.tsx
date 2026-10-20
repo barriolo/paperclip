@@ -44,13 +44,13 @@ export function TaskTreeControlMenuItems({
       {canPause ? (
         <button disabled={pending} className={itemClass} onClick={onPause}>
           <PauseCircle className="h-3 w-3" />
-          {scope === "leaf" ? "Pause work" : "Pause subtree"}
+          {scope === "leaf" ? t("issues.taskTreeControls.pauseWork") : t("issues.taskTreeControls.pauseSubtree")}
         </button>
       ) : null}
       {canResume ? (
         <button disabled={pending} className={itemClass} onClick={onResume}>
           <PlayCircle className="h-3 w-3" />
-          {scope === "leaf" ? "Resume work" : "Resume subtree"}
+          {scope === "leaf" ? t("issues.taskTreeControls.resumeWork") : t("issues.taskTreeControls.resumeSubtree")}
         </button>
       ) : null}
       {canCancel ? (
@@ -129,7 +129,7 @@ export function TaskTreeControlDialog({
           <DialogTitle>{title}</DialogTitle>
           <DialogDescription>
             {loading
-              ? "Loading…"
+              ? t("issues.taskTreeControls.loading")
               : cancel
                 ? `${tasks} will be cancelled.`
                 : `${tasks} will ${mode === "restore" ? "be restored" : "resume"}.`}
@@ -167,7 +167,7 @@ export function TaskTreeControlDialog({
             disabled={pending}
             onClick={() => onOpenChange(false)}
           >
-            {cancel ? "Keep tasks" : "Close"}
+            {cancel ? t("issues.taskTreeControls.keepTasks") : t("issues.taskTreeControls.close")}
           </Button>
           <Button
             variant={cancel ? "destructive" : "default"}
@@ -175,7 +175,7 @@ export function TaskTreeControlDialog({
             onClick={onApply}
           >
             {pending
-              ? "Applying…"
+              ? t("issues.taskTreeControls.applying")
               : cancel
                 ? `Cancel ${tasks}`
                 : mode === "restore"
@@ -202,6 +202,7 @@ export function TaskPauseNotice({
   className?: string;
   resumeLink?: ReactNode;
 }) {
+  const { t } = useTranslation();
   return (
     <div
       role="status"
@@ -211,7 +212,7 @@ export function TaskPauseNotice({
       )}
     >
       <span>
-        {scope === "subtree" ? "Subtree is paused." : "Task is paused."}
+        {scope === "subtree" ? t("issues.taskTreeControls.subtreeIsPaused") : t("issues.taskTreeControls.taskIsPaused")}
       </span>
       {resumeLink ??
         (onResume ? (
@@ -221,7 +222,7 @@ export function TaskPauseNotice({
             disabled={pending}
             onClick={onResume}
           >
-            {scope === "subtree" ? "Resume subtree" : "Resume work"}
+            {scope === "subtree" ? t("issues.taskTreeControls.resumeSubtree") : t("issues.taskTreeControls.resumeWork")}
           </Button>
         ) : null)}
     </div>

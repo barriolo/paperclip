@@ -1,4 +1,5 @@
 import { isAgentCreatedIssue, type ExternalObjectSummary, type Issue } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 export type IssueFilterWorkspaceLookup = {
   mode?: string | null;
@@ -63,13 +64,27 @@ export const externalObjectFilterOrder = [
 ];
 
 const EXTERNAL_OBJECT_FILTER_LABELS: Record<string, string> = {
-  failed: "Any failed",
-  waiting: "Any waiting",
-  running: "Any running",
-  auth_required: "Auth required",
-  unreachable: "Unreachable",
-  stale: "Stale",
-  none: "No external objects",
+  get failed() {
+    return i18n.t("issues.issueFilters.anyFailed");
+  },
+  get waiting() {
+    return i18n.t("issues.issueFilters.anyWaiting");
+  },
+  get running() {
+    return i18n.t("issues.issueFilters.anyRunning");
+  },
+  get auth_required() {
+    return i18n.t("issues.issueFilters.authRequired");
+  },
+  get unreachable() {
+    return i18n.t("issues.issueFilters.unreachable");
+  },
+  get stale() {
+    return i18n.t("issues.issueFilters.stale");
+  },
+  get none() {
+    return i18n.t("issues.issueFilters.noExternalObjects");
+  },
 };
 
 export function externalObjectFilterLabel(value: string): string {
@@ -80,10 +95,18 @@ export const issueStatusOrder = ["in_progress", "todo", "backlog", "in_review", 
 export const issuePriorityOrder = ["critical", "high", "medium", "low"];
 
 export const issueQuickFilterPresets = [
-  { label: "All", statuses: [] as string[] },
-  { label: "Active", statuses: ["todo", "in_progress", "in_review", "blocked"] },
-  { label: "Backlog", statuses: ["backlog"] },
-  { label: "Done", statuses: ["done", "cancelled"] },
+  { get label() {
+    return i18n.t("issues.issueFilters.all");
+  }, statuses: [] as string[] },
+  { get label() {
+    return i18n.t("issues.issueFilters.active");
+  }, statuses: ["todo", "in_progress", "in_review", "blocked"] },
+  { get label() {
+    return i18n.t("issues.issueFilters.backlog");
+  }, statuses: ["backlog"] },
+  { get label() {
+    return i18n.t("issues.issueFilters.done");
+  }, statuses: ["done", "cancelled"] },
 ];
 
 export function issueFilterLabel(value: string): string {

@@ -56,7 +56,7 @@ export function IssuePropertiesPlansTab({ issue }: IssuePropertiesPlansTabProps)
     return (
       <div className="px-1 py-6 text-sm text-muted-foreground">
         {planDocumentLoading ? (
-          "Loading plan…"
+          t("issues.issuePropertiesPlansTab.loadingPlan")
         ) : issue.workMode === "planning" ? (
           <div className="space-y-2">
             <p>{t("issues.issuePropertiesPlansTab.thisTaskIsInPlan")}</p>
@@ -67,7 +67,7 @@ export function IssuePropertiesPlansTab({ issue }: IssuePropertiesPlansTabProps)
             ) : null}
           </div>
         ) : (
-          "No plan yet. The plan document, accepted plans, and their revisions will appear here."
+          t("issues.issuePropertiesPlansTab.noPlanYetThePlan")
         )}
       </div>
     );

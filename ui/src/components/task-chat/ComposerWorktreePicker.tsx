@@ -99,7 +99,7 @@ export function ComposerWorktreePicker({
           <GitBranch className="size-3.5 shrink-0" aria-hidden />
           <span className="truncate">
             <span className="hidden text-muted-foreground sm:inline">{t("issues.composerWorktreePicker.worktrees2")}{" "}</span>
-            {option?.label ?? selectedWorkspaceLabel ?? "Select worktree"}
+            {option?.label ?? selectedWorkspaceLabel ?? t("issues.composerWorktreePicker.selectWorktree")}
           </span>
         </span>
       )}
@@ -118,12 +118,12 @@ export function ComposerWorktreePicker({
       }}
       listFooter={loading || error || workspaces.length === 0 ? (
         <div className="border-t border-border px-3 py-2 text-xs text-muted-foreground" role="status">
-          {loading ? "Loading existing worktrees…" : error ? (
+          {loading ? t("issues.composerWorktreePicker.loadingExistingWorktrees") : error ? (
             <span className="flex items-center justify-between gap-2">
               {t("issues.composerWorktreePicker.couldntLoadWorktrees")}
               <button type="button" className="rounded px-2 py-1 text-foreground hover:bg-accent" onClick={onRetry}>{t("issues.composerWorktreePicker.retry")}</button>
             </span>
-          ) : "No existing worktrees yet. Choose New worktree to start one."}
+          ) : t("issues.composerWorktreePicker.noExistingWorktreesYetChoose")}
         </div>
       ) : undefined}
     />

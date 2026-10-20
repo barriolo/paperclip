@@ -133,7 +133,7 @@ export function TaskChatSystemNotice({
             disabled={tryAgainNoLiveExecutionPathPending}
             data-testid="task-chat-no-live-path-try-again"
           >
-            {tryAgainNoLiveExecutionPathPending ? "Trying again..." : "Try again"}
+            {tryAgainNoLiveExecutionPathPending ? t("issues.taskChatSystemNotice.tryingAgain") : t("issues.taskChatSystemNotice.tryAgain")}
           </Button>
         ) : null}
       </div>
@@ -169,7 +169,7 @@ export function TaskChatSystemNotice({
                 disabled={tryAgainNoLiveExecutionPathPending}
                 data-testid="task-chat-no-live-path-try-again"
               >
-                {tryAgainNoLiveExecutionPathPending ? "Trying again..." : "Try again"}
+                {tryAgainNoLiveExecutionPathPending ? t("issues.taskChatSystemNotice.tryingAgain") : t("issues.taskChatSystemNotice.tryAgain")}
               </Button>
             </div>
           ) : null}

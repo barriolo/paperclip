@@ -1655,20 +1655,20 @@ export function TaskChatThread(props: TaskChatThreadProps) {
             : "native_runner_process_exited");
         const label =
           code === "native_provider_runtime_missing" && source.status === "failed"
-            ? "Runtime missing"
+            ? t("issues.taskChatThread.runtimeMissing")
             : code === "native_provider_model_rejected" && source.status === "failed"
-            ? "Model unavailable"
+            ? t("issues.taskChatThread.modelUnavailable")
             : code === "native_provider_approval_required" && source.status === "failed"
-            ? "Approval required"
+            ? t("issues.taskChatThread.approvalRequired")
             : code === "native_provider_usage_limit" && source.status === "failed"
-            ? "Usage limit reached"
+            ? t("issues.taskChatThread.usageLimitReached")
             : source.status === "cancelled"
-              ? "Run cancelled"
+              ? t("issues.taskChatThread.runCancelled")
               : source.status === "interrupted"
-                ? "Run interrupted"
+                ? t("issues.taskChatThread.runInterrupted")
                 : source.status === "timed_out"
-                  ? "Run timed out"
-                  : "Run failed";
+                  ? t("issues.taskChatThread.runTimedOut")
+                  : t("issues.taskChatThread.runFailed");
         const responseBoundary = sourceHasNativeResponse
           ? " after returning a final response"
           : "";
@@ -2705,11 +2705,11 @@ export function TaskChatThread(props: TaskChatThreadProps) {
           disabled={isInterrupting}
           onClick={() => void onInterruptQueued(runId)}
         >
-          {isInterrupting ? "Interrupting…" : "Interrupt"}
+          {isInterrupting ? t("issues.taskChatThread.interrupting") : t("issues.taskChatThread.interrupt")}
         </Button>
       );
     },
-    [composerPause, interruptingQueuedRunId, onInterruptQueued],
+    [composerPause, interruptingQueuedRunId, onInterruptQueued, t],
   );
 
   const reopenToolReview = useCallback((interactionId: string) => {
@@ -2994,7 +2994,7 @@ export function TaskChatThread(props: TaskChatThreadProps) {
                   role="status"
                   className="absolute inset-x-0 top-0 z-20 mx-auto flex w-full max-w-(--tc-shell-max-w) items-center gap-2 border border-border bg-background px-4 py-2 text-sm text-muted-foreground"
                 >
-                  {historyError ? "Some task history could not be loaded." : "Some task history is still loading."}
+                  {historyError ? t("issues.taskChatThread.someTaskHistoryCouldNot") : t("issues.taskChatThread.someTaskHistoryIsStill")}
                   {historyError ? (
                     <Button variant="ghost" size="sm" onClick={retryHistory}>
                       {t("issues.taskChatThread.retry")}

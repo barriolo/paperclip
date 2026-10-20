@@ -32,7 +32,7 @@ export function TaskVoiceLauncher({ companyId, issueId, agentId, boundEndpointId
     <Button variant="outline" disabled={connections.isFetching} onClick={() => { restoreFocus.current = true; void connections.refetch().then(result => { if (result.isError) restoreFocus.current = false; }); }}>{t("issues.taskVoiceLauncher.retryVoiceConnections")}</Button>
   </div> : null;
   if (!endpoint && connectionError) return <section aria-label={t("issues.taskVoiceLauncher.taskVoiceConversation")} className="space-y-3 rounded-lg border border-border p-4">{connectionError}</section>;
-  if (!endpoint) return boundEndpointId ? <p className="text-sm text-muted-foreground">{connections.isPending ? "Loading voice connection…" : "Voice is unavailable. Check the Speko connection in Apps."}</p> : null;
+  if (!endpoint) return boundEndpointId ? <p className="text-sm text-muted-foreground">{connections.isPending ? t("issues.taskVoiceLauncher.loadingVoiceConnection") : t("issues.taskVoiceLauncher.voiceIsUnavailableCheckThe")}</p> : null;
   return <section aria-label={t("issues.taskVoiceLauncher.taskVoiceConversation")} className="space-y-3 rounded-lg border border-border p-4">
     {connectionError}
     {!open ? <div className="flex flex-wrap items-center gap-3">

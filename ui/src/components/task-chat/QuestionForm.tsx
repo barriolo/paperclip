@@ -196,6 +196,7 @@ export function QuestionResponseSummary({
   questionSet: PaperclipQuestionSet;
   response: PaperclipQuestionResponse;
 }) {
+  const { t } = useTranslation();
   return (
     <dl className="grid gap-2 text-sm">
       {questionSet.questions.map((question) => {
@@ -223,7 +224,7 @@ export function QuestionResponseSummary({
               </span>
             </dt>
             <dd className="mt-0.5 text-foreground">
-              {values.length > 0 ? values.join(", ") : "No answer"}
+              {values.length > 0 ? values.join(", ") : t("issues.questionForm.noAnswer")}
             </dd>
           </div>
         );
@@ -717,7 +718,7 @@ function QuestionFormForRequest({
           {working === "submit" ? (
             <Loader2 aria-hidden className="h-4 w-4 animate-spin" />
           ) : null}
-          {isLastPage ? (questionSet.submitLabel ?? "Submit answers") : "Next"}
+          {isLastPage ? (questionSet.submitLabel ?? t("issues.questionForm.submitAnswers")) : t("issues.questionForm.next")}
         </Button>
       </div>
     </div>

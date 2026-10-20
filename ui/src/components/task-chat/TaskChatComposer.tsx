@@ -67,7 +67,7 @@ import { TaskChatComposerBar } from "./TaskChatComposerBar";
 import { ComposerAddMenu, ComposerModeChip, ComposerPrivacyChip } from "./ComposerAddMenu";
 import type { ComposerRunSettings } from "./composer-run-settings";
 import type { Agent, IssueAssigneeAdapterOverrides } from "@paperclipai/shared";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 /** Structurally identical to IssueChatThread's module-private CommentReassignment. */
 export interface CommentReassignment {
@@ -302,17 +302,17 @@ function AssigneeIdentityAvatar({
 /** v7 per-mode placeholder copy; `{agent}` is the pending assignee's name. */
 function modePlaceholder(mode: IssueWorkMode, agentName: string, mobile: boolean): string {
   if (mobile) {
-    if (mode === "planning") return `Plan with ${agentName}…`;
-    if (mode === "ask") return `Ask ${agentName}…`;
-    return `Message ${agentName}…`;
+    if (mode === "planning") return i18n.t("issues.taskChatComposer.planWith", { agentName: agentName });
+    if (mode === "ask") return i18n.t("issues.taskChatComposer.ask", { agentName: agentName });
+    return i18n.t("issues.taskChatComposer.message", { agentName: agentName });
   }
   switch (mode) {
     case "planning":
-      return `Plan with ${agentName} — shapes the plan doc, no code changes…`;
+      return i18n.t("issues.taskChatComposer.planWithShapesThePlan", { agentName: agentName });
     case "ask":
-      return `Ask ${agentName} a question — read-only, nothing runs…`;
+      return i18n.t("issues.taskChatComposer.askAQuestionReadonlyNothing", { agentName: agentName });
     default:
-      return `Message ${agentName} — describe what you want done…`;
+      return i18n.t("issues.taskChatComposer.messageDescribeWhatYouWant", { agentName: agentName });
   }
 }
 
@@ -644,11 +644,11 @@ export function TaskChatComposer({
   );
   const assigneeValue = creation ? currentAssigneeValue : pendingAssignee ?? suggestedAssigneeValue ?? currentAssigneeValue;
   const assigneeLabel =
-    reassignOptions?.find((o) => o.id === assigneeValue)?.label ?? "Unassigned";
+    reassignOptions?.find((o) => o.id === assigneeValue)?.label ?? t("issues.taskChatComposer.unassigned");
   const assigneeName =
     assigneeLabel === "Unassigned" ? "the agent" : assigneeLabel;
   const effectivePlaceholder = queuedEdit
-    ? "Edit queued message…"
+    ? t("issues.taskChatComposer.editQueuedMessage")
     : (placeholder ?? modePlaceholder(pendingMode, assigneeName, mobile));
   const goalUnavailable = runnerGoalCapability?.availability !== "available";
   const goalCommandOption: ActionCommandOption = {
@@ -1336,7 +1336,7 @@ export function TaskChatComposer({
         >
           <CircleHelp className="h-4 w-4 shrink-0" aria-hidden />
           <span className="min-w-0 flex-1 truncate">
-            {pendingTakeover?.label ?? takeover?.label ?? "Pending input"}
+            {pendingTakeover?.label ?? takeover?.label ?? t("issues.taskChatComposer.pendingInput")}
           </span>
           <span className="shrink-0 font-medium">
             {t("issues.taskChatComposer.pending2", { count: pendingTakeover?.count ?? takeover?.pendingCount ?? 1 })}
@@ -1425,9 +1425,9 @@ export function TaskChatComposer({
                       </AttachmentTitle>
                       <AttachmentDescription className="max-w-48">
                         {attachment.status === "uploading"
-                          ? "Uploading…"
+                          ? t("issues.taskChatComposer.uploading")
                           : attachment.status === "error"
-                            ? (attachment.error ?? "Upload failed")
+                            ? (attachment.error ?? t("issues.taskChatComposer.uploadFailed"))
                             : [kind.label, sizeLabel]
                                 .filter(Boolean)
                                 .join(" · ")}
@@ -1479,8 +1479,8 @@ export function TaskChatComposer({
             {queuedEdit ? (
               <span className="px-1 text-xs font-medium text-muted-foreground">
                 {queuedEdit.stale
-                  ? "Queued message changed"
-                  : "Editing queued message"}
+                  ? t("issues.taskChatComposer.queuedMessageChanged")
+                  : t("issues.taskChatComposer.editingQueuedMessage")}
               </span>
             ) : (
               <ComposerModeChip mode={pendingMode} onRemove={onWorkModeChange ? () => changeMode("standard") : undefined}

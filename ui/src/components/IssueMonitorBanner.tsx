@@ -25,7 +25,7 @@ import {
   type DerivedMonitorState,
   type MonitorDisplayState,
 } from "@/lib/issue-monitor";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 /** Matches the `Date | string` inputs accepted by the issue-monitor helpers. */
 type MonitorDate = Date | string;
@@ -140,8 +140,8 @@ export function buildMonitorSurfaceCopy(
       break;
   }
 
-  const attemptLabel = derived.attemptCount >= 1 ? `Attempt ${derived.attemptCount}` : null;
-  const serviceLabel = derived.serviceName ? `Watching: ${derived.serviceName}` : null;
+  const attemptLabel = derived.attemptCount >= 1 ? i18n.t("issues.issueMonitorBanner.attempt", { attemptCount: derived.attemptCount }) : null;
+  const serviceLabel = derived.serviceName ? i18n.t("issues.issueMonitorBanner.watching", { serviceName: derived.serviceName }) : null;
 
   const bannerMeta = [statusHint, `${absolute} (your time)`, attemptLabel, serviceLabel].filter(
     (piece): piece is string => Boolean(piece),
@@ -177,6 +177,7 @@ function CheckNowButton({
   checkingNow: boolean;
   reviewRequested?: boolean;
 }) {
+  const { t } = useTranslation();
   return (
     <Button
       type="button"
@@ -186,7 +187,7 @@ function CheckNowButton({
       onClick={onCheckNow}
       disabled={checkingNow}
     >
-      {checkingNow ? "Checking…" : reviewRequested ? "Check status" : "Check now"}
+      {checkingNow ? t("issues.issueMonitorBanner.checking") : reviewRequested ? t("issues.issueMonitorBanner.checkStatus") : t("issues.issueMonitorBanner.checkNow")}
     </Button>
   );
 }
@@ -223,7 +224,7 @@ function CancelMonitorButton({ onCancel }: { onCancel: () => Promise<unknown> })
         {error ? <p role="alert" className="text-sm text-destructive">{error}</p> : null}
         <AlertDialogFooter>
           <AlertDialogCancel disabled={pending}>{t("issues.issueMonitorBanner.keepMonitor")}</AlertDialogCancel>
-          <Button type="button" variant="destructive" disabled={pending} onClick={() => void cancel()}>{pending ? "Cancelling…" : "Cancel monitor"}</Button>
+          <Button type="button" variant="destructive" disabled={pending} onClick={() => void cancel()}>{pending ? t("issues.issueMonitorBanner.cancelling") : t("issues.issueMonitorBanner.cancelMonitor")}</Button>
         </AlertDialogFooter>
       </AlertDialogContent>
     </AlertDialog>
@@ -289,6 +290,7 @@ export function IssueMonitorComposerStrip({
   checkError,
   className,
 }: IssueMonitorSurfaceProps & { className?: string }) {
+  const { t } = useTranslation();
   const reviews = getIssuePullRequests(workProducts).filter(pullRequestNeedsReview);
   const copy = useMonitorSurfaceCopy(issue, reviews.length);
   if (!copy) return null;
@@ -312,10 +314,10 @@ export function IssueMonitorComposerStrip({
       </div>
       <p className="mt-1.5 text-xs text-muted-foreground">
         {copy.pullRequestReview
-          ? "Review on GitHub, then check status to have the agent verify the result."
+          ? t("issues.issueMonitorBanner.reviewOnGithubThenCheck")
           : copy.workspaceWait
-          ? "You can keep sending instructions while the agent waits."
-          : "Sending a reply wakes the agent now — before the scheduled check."}
+          ? t("issues.issueMonitorBanner.youCanKeepSendingInstructions")
+          : t("issues.issueMonitorBanner.sendingAReplyWakesThe")}
       </p>
       {checkError ? <p role="alert" className="text-sm text-destructive">{checkError}</p> : null}
     </div>

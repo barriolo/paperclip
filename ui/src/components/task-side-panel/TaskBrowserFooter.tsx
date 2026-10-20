@@ -73,9 +73,9 @@ export function TaskBrowserFooter({
   const countdown = `${Math.floor(seconds / 60)}:${String(seconds % 60).padStart(2, "0")}`;
   const sizeLabel =
     viewport === "fit"
-      ? "Fit to pane"
+      ? t("issues.taskBrowserFooter.fitToPane")
       : (BROWSER_USE_VIEWPORT_PRESETS.find((p) => p.id === viewport)?.label ??
-        "Default");
+        t("issues.taskBrowserFooter.default"));
   if (!live) return null;
 
   return (
@@ -96,7 +96,7 @@ export function TaskBrowserFooter({
               <span className="font-mono tabular-nums">{countdown}</span>
             </>
           ) : (
-            "Closing…"
+            t("issues.taskBrowserFooter.closing")
           )}
         </span>
       )}

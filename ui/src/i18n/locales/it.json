@@ -12,7 +12,9 @@
       "otherInboxTabsStillWork": "Other Inbox tabs still work. {{message}}",
       "noWorkIsStopped": "No work is stopped.",
       "tasksThatNeedADecision": "Tasks that need a decision, recovery, or external action will appear here.",
-      "noStoppedItemsMatchYour": "No stopped items match your search."
+      "noStoppedItemsMatchYour": "No stopped items match your search.",
+      "trying": "Trying…",
+      "tryAgain": "Try again"
     },
     "commandPalette": {
       "searchTasksAgentsProjects": "Search tasks, agents, projects...",
@@ -35,7 +37,10 @@
       "goals": "Goals",
       "agents": "Agents",
       "costs": "Costs",
-      "activity": "Activity"
+      "activity": "Activity",
+      "noResultsFound": "No results found.",
+      "myWork": "My work",
+      "inbox": "Inbox"
     },
     "commentThread": {
       "copyCommentAsMarkdown": "Copy comment as markdown",
@@ -57,7 +62,20 @@
       "attachImage": "Attach image",
       "responsible": "Responsible",
       "searchResponsible": "Search responsible...",
-      "noResponsibleFound": "No responsible found."
+      "noResponsibleFound": "No responsible found.",
+      "unassigned": "Unassigned",
+      "timedOut": "timed out",
+      "copied": "Copied",
+      "copyFailed": "Copy failed",
+      "copy": "Copy",
+      "queueing": "Queueing...",
+      "sending": "Sending...",
+      "requestedFollowup": "requested follow-up",
+      "updatedThisTask": "updated this task",
+      "interrupting": "Interrupting...",
+      "interrupt": "Interrupt",
+      "posting": "Posting...",
+      "comment": "Comment"
     },
     "emailTaskActivity": {
       "emailSendIntent": "Email send intent",
@@ -67,7 +85,8 @@
       "confirmTheOutcomeInAgentmail": "Confirm the outcome in AgentMail before resolving. This action does not resend.",
       "providerMessageId": "Provider message ID",
       "confirmSent": "Confirm sent",
-      "confirmNotSent": "Confirm not sent"
+      "confirmNotSent": "Confirm not sent",
+      "emailReply": "Email reply"
     },
     "inboxAgentPolicyControl": {
       "anyOfMyAgents": "Any of my agents",
@@ -82,12 +101,19 @@
       "inboxAgentArchivingPolicy": "Inbox agent archiving policy",
       "agentsAllowedToTidyMy": "Agents allowed to tidy my inbox",
       "youDontManageAnyAgents": "You don’t manage any agents yet.",
-      "saved": "Saved"
+      "saved": "Saved",
+      "failedToLoadInboxAgent": "Failed to load inbox agent policy.",
+      "failedToSaveInboxAgent": "Failed to save inbox agent policy.",
+      "saving": "Saving…",
+      "save": "Save"
     },
     "issueAssignedBacklogNotice": {
       "willNotBeAskedTo": "will not be asked to work on this until status changes to To do or In progress.",
       "parked": "Parked",
-      "commentsStillNotifyTheAssignee": "Comments still notify the assignee for questions or triage. Leave this parked only if the work is intentionally on hold."
+      "commentsStillNotifyTheAssignee": "Comments still notify the assignee for questions or triage. Leave this parked only if the work is intentionally on hold.",
+      "theAssignee": "the assignee",
+      "resuming": "Resuming…",
+      "resumeNow": "Resume now"
     },
     "issueAttachmentsSection": {
       "browseGallery": "Browse gallery",
@@ -105,7 +131,9 @@
       "yes": "Yes",
       "no": "No",
       "deleteThisAttachmentThisCannot": "Delete this attachment? This cannot be undone.",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "deleting": "Deleting...",
+      "delete2": "Delete"
     },
     "issueBlockedNotice": {
       "openTheSourceTaskTo": "{{label}} — open the source task to act.",
@@ -138,7 +166,17 @@
       "workOnThisTaskIs3": "Work on this task is blocked by {{blockerLabel}} until",
       "completeCommentsStillNotifyThe": "complete. Comments still notify the assignee for questions or triage.",
       "stalledInReview": "Stalled in review",
-      "ultimatelyWaitingOn": "Ultimately waiting on"
+      "ultimatelyWaitingOn": "Ultimately waiting on",
+      "dueNow": "due now",
+      "alreadyPromoted": "Already promoted",
+      "promoted": "Promoted",
+      "running": " · {{runningCount}} running",
+      "theLinkedTask": "the linked task",
+      "theLinkedTasks": "the linked tasks",
+      "itIs": "it is",
+      "theyAre": "they are",
+      "andOtherTasks_one": " and {{reopenSuppressedOtherCount}} other task",
+      "andOtherTasks_other": " and {{reopenSuppressedOtherCount}} other tasks"
     },
     "issueCasesPanel": {
       "cases": "Cases"
@@ -220,7 +258,29 @@
       "sendAnyway": "Send anyway",
       "jumpToLatest": "Jump to latest",
       "legacyRecoveryTask": "Legacy recovery task",
-      "legacyRecoveryTaskNewerRecovery": "Legacy recovery task. Newer recovery actions live on the source task"
+      "legacyRecoveryTaskNewerRecovery": "Legacy recovery task. Newer recovery actions live on the source task",
+      "noOutputForStillRunning": "no output for {{lastActivityElapsed}} - still running",
+      "resuming": "Resuming…",
+      "resumeAgent": "Resume agent",
+      "agent": "Agent",
+      "you": "You",
+      "system": "System",
+      "deferredWake": "⏸ Deferred wake",
+      "queued": "Queued",
+      "interrupting": "Interrupting...",
+      "interrupt": "Interrupt",
+      "saving": "Saving...",
+      "saveNote": "Save note",
+      "hideConfirmation": "Hide confirmation",
+      "expiredConfirmation": "Expired confirmation",
+      "requestedFollowup": "requested follow-up",
+      "browserStorageIsUnavailableCopy": " Browser storage is unavailable; copy your text before leaving.",
+      "itWillBeRestoredIf": " It will be restored if you reload this tab.",
+      "uploadingToTask": "Uploading to task",
+      "uploadFailed": "Upload failed",
+      "attachedToTask": "Attached to task",
+      "posting": "Posting...",
+      "send": "Send"
     },
     "issueColumns": {
       "status": "Status",
@@ -253,7 +313,9 @@
       "unknown": "Unknown",
       "noProject": "No project",
       "filterByWorkspace": "Filter by workspace",
-      "subtask": "Sub-task"
+      "subtask": "Sub-task",
+      "user": "User",
+      "via": "{{creatorUserLabel}} · via {{viaAgentName}}"
     },
     "issueContinuationHandoff": {
       "collapseContinuationHandoff": "Collapse continuation handoff",
@@ -261,7 +323,8 @@
       "updated": "Updated {{relativeTime}}",
       "continueWithAnAgent": "Continue with an agent",
       "taskHandoff": "Task handoff",
-      "pasteThisIntoYourAgent": "Paste this into your agent to continue from this handoff."
+      "pasteThisIntoYourAgent": "Paste this into your agent to continue from this handoff.",
+      "revision": " - revision {{latestRevisionNumber}}"
     },
     "issueDocumentAnnotations": {
       "openCommentsOn": "Open comments on {{docKey}}",
@@ -296,7 +359,20 @@
       "reloadRemote": "Reload remote",
       "remoteRevision": "Remote revision {{latestRevisionNumber}}",
       "updated": "updated {{relativeTime}}",
-      "deleteThisDocumentThisCannot": "Delete this document? This cannot be undone."
+      "deleteThisDocumentThisCannot": "Delete this document? This cannot be undone.",
+      "saving": "Saving...",
+      "createDocument": "Create document",
+      "restoring": "Restoring...",
+      "restoreThisRevision": "Restore this revision",
+      "hideRemote": "Hide remote",
+      "reviewRemote": "Review remote",
+      "overwriteRemote": "Overwrite remote",
+      "viewingHistoricalRevision": "Viewing historical revision",
+      "autosaving": "Autosaving...",
+      "saved": "Saved",
+      "couldNotSave": "Could not save",
+      "deleting": "Deleting...",
+      "delete": "Delete"
     },
     "issueFieldChangeReceipt": {
       "authorizedBy": "authorized by"
@@ -335,7 +411,16 @@
       "cancelMonitor": "Cancel monitor",
       "cancelMonitor2": "Cancel monitor?",
       "thisRemovesTheScheduledMonitor": "This removes the scheduled monitor check. The agent will no longer resume from this monitor. You can send a message to continue the task.",
-      "keepMonitor": "Keep monitor"
+      "keepMonitor": "Keep monitor",
+      "attempt": "Attempt {{attemptCount}}",
+      "watching": "Watching: {{serviceName}}",
+      "checking": "Checking…",
+      "checkStatus": "Check status",
+      "checkNow": "Check now",
+      "cancelling": "Cancelling…",
+      "reviewOnGithubThenCheck": "Review on GitHub, then check status to have the agent verify the result.",
+      "youCanKeepSendingInstructions": "You can keep sending instructions while the agent waits.",
+      "sendingAReplyWakesThe": "Sending a reply wakes the agent now — before the scheduled check."
     },
     "issuePlanDecompositionsSection": {
       "completed": "Completed",
@@ -348,7 +433,9 @@
       "started": "Started {{relativeTime}}",
       "completed2": "Completed {{relativeTime}}",
       "updated": "Updated {{relativeTime}}",
-      "planDocument": "Plan document"
+      "planDocument": "Plan document",
+      "n1AcceptedPlanRevision": "1 accepted plan revision",
+      "acceptedPlanRevisions": "{{length}} accepted plan revisions"
     },
     "issuePrivacyActions": {
       "taskIsNowPrivate": "Task is now private",
@@ -361,11 +448,14 @@
       "makeThisTaskPublic": "Make this task public?",
       "everyoneInTheCompanyWill": "Everyone in the company will be able to read this task, its comments, documents, and run history. Existing private subtasks keep their privacy.",
       "contentAlreadySeenByOthers": "Content already seen by others cannot be taken back.",
-      "keepPrivate": "Keep private"
+      "keepPrivate": "Keep private",
+      "thisTaskWillAlsoLeave": "This task will also leave its personal project. ",
+      "makingPublic": "Making public…"
     },
     "issuePullRequestLinks": {
       "noPrLinkProvided": "{{label}} · No PR link provided",
-      "reviewRequested": "Review requested"
+      "reviewRequested": "Review requested",
+      "saved": "Saved: "
     },
     "issueRecoveryActionCard": {
       "missingDisposition": "Missing Disposition",
@@ -461,7 +551,22 @@
       "recorded": "Recorded",
       "ancestry": "Ancestry",
       "recoveryIsObservingWithoutInterrupting": "Recovery is observing without interrupting the live run.",
-      "theCardStaysOpenUntil": "The card stays open until an explicit decision is recorded."
+      "theCardStaysOpenUntil": "The card stays open until an explicit decision is recorded.",
+      "activeRun": "(active run)",
+      "claimHeld": "(claim held)",
+      "reconciling": "Reconciling…",
+      "reconcileAnywayBreakglass": "Reconcile anyway (break-glass)",
+      "uncommittedChanges": "Uncommitted changes",
+      "uncommittedChanges2_one": "{{dirtyCount}} uncommitted change",
+      "uncommittedChanges2_other": "{{dirtyCount}} uncommitted changes",
+      "recordedBranch": "recorded branch",
+      "repairing": "Repairing…",
+      "quarantineChangesRestoreBranch": "Quarantine changes & restore branch",
+      "attemptsNotBounded": "Attempts not bounded",
+      "retryMissed": "Retry missed",
+      "nextTryNow": "Next try now",
+      "creating": "Creating…",
+      "createIsolatedReissue": "Create isolated re-issue"
     },
     "issueReferenceActivitySummary": {
       "addedReferences": "Added references",
@@ -549,7 +654,32 @@
       "stop": "Stop",
       "retryOf": "Retry of",
       "nextAction": "Next action:",
-      "olderItemsNotShown": "older items not shown"
+      "olderItemsNotShown": "older items not shown",
+      "timeout": "timeout ({{timeoutText}})",
+      "maxTurnsExhausted": "max turns exhausted",
+      "budgetPaused": "budget paused",
+      "pausedByBoard": "paused by board",
+      "processLost": "process lost",
+      "unmanagedBackgroundTaskStopped": "unmanaged background task stopped",
+      "adapterFailed": "adapter failed",
+      "completed2": "completed ({{timeoutText}})",
+      "waitingToStart": "Waiting to start",
+      "stillRunning": "Still running",
+      "unavailable": "Unavailable",
+      "noStopReason": "No stop reason",
+      "waitingForNextAttempt": "Waiting for next attempt",
+      "noActionRecordedYet": "No action recorded yet",
+      "noConcreteAction": "No concrete action",
+      "noUsefulOutput": "No useful output",
+      "noneRecorded": "None recorded",
+      "waitingForTheFirstRun": "Waiting for the first run record.",
+      "noRunsLinkedYet": "No runs linked yet.",
+      "criticalOutputSilence": "Critical output silence",
+      "outputSilenceWatchdogWarning": "Output silence watchdog warning",
+      "thisSignalIsInformationalPaperclip": "This signal is informational. Paperclip did not create new delegated recovery work.",
+      "thisSignalIsInformationalPaperclip2": "This signal is informational. Paperclip did not create or assign a recovery task.",
+      "runsAndActivityWillAppear": "Runs and activity will appear here once this task has history.",
+      "historicalRunsWithoutLivenessMetadata": "Historical runs without liveness metadata will appear here once linked to this task."
     },
     "issueScheduledRetryCard": {
       "anotherTaskIsUsingThis": "Another task is using this workspace. Work starts automatically when it is available.",
@@ -561,7 +691,14 @@
       "retrying": "Retrying…",
       "retryNow": "Retry now",
       "couldntRetryNow": "Couldn't retry now",
-      "tryAgain": "Try again"
+      "tryAgain": "Try again",
+      "continuationScheduled": "Continuation scheduled",
+      "retryScheduled": "Retry scheduled",
+      "alreadyPromoted": "Already promoted",
+      "promoted": "Promoted",
+      "promotingScheduledRetry": "Promoting scheduled retry",
+      "alreadyPromotedRunStarting": "Already promoted — run starting",
+      "promotedRunStarting": "Promoted — run starting"
     },
     "issueShareSheet": {
       "taskOwner": "task owner",
@@ -592,10 +729,18 @@
       "removeSSavedGrant": "Remove {{subjectDisplayName}}'s saved grant?",
       "thisRemovesThisGrantAnd": "This removes this grant and the access it supplies to this task's descendants. Ownership, current assignment, project membership, inherited access, or another grant can still provide access. Revoking access does",
       "eraseContentAlreadySeenOr": "erase content already seen or retained in an agent's memory.",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "removeSavedGrant": "Remove saved grant",
+      "revoke": "Revoke",
+      "adding": "Adding…",
+      "add": "Add",
+      "removing": "Removing…",
+      "removeGrant": "Remove grant"
     },
     "issueSiblingNavigation": {
-      "subtaskNavigation": "Sub-task navigation"
+      "subtaskNavigation": "Sub-task navigation",
+      "previous": "Previous",
+      "next": "Next"
     },
     "issueThreadInteractionCard": {
       "approvedAgentResumeFailed": "Approved — agent resume failed",
@@ -714,7 +859,79 @@
       "withdrawnBy": "Withdrawn by",
       "resolvedBy": "Resolved by",
       "agent": "Agent",
-      "resolvedByAnAgentUnder": "Resolved by an agent under the organization's interaction governance policy — audit-distinct from a human board resolution."
+      "resolvedByAnAgentUnder": "Resolved by an agent under the organization's interaction governance policy — audit-distinct from a human board resolution.",
+      "unknown": "Unknown",
+      "pending": "Pending",
+      "accepted": "Accepted",
+      "answered": "Answered",
+      "suggestedTasks": "Suggested tasks",
+      "confirmation": "Confirmation",
+      "checkboxConfirmation": "Checkbox confirmation",
+      "itemVerdicts": "Item verdicts",
+      "connectionRequest": "Connection request",
+      "n1DraftIssue": "1 draft issue",
+      "createdDraftIssuesAndSkipped_one": "Created {{createdCount}} draft issue and skipped {{skippedCount}} during review.",
+      "createdDraftIssuesAndSkipped_other": "Created {{createdCount}} draft issues and skipped {{skippedCount}} during review.",
+      "createdAllDraftIssues_one": "Created all {{createdCount}} draft issue.",
+      "createdAllDraftIssues_other": "Created all {{createdCount}} draft issues.",
+      "noReasonProvided": "No reason provided.",
+      "acceptDrafts": "Accept drafts",
+      "acceptSelectedDrafts": "Accept selected drafts",
+      "saveRejection": "Save rejection",
+      "n1Question": "1 question",
+      "cancelQuestion": "Cancel question",
+      "submitAnswers": "Submit answers",
+      "questionWithdrawn": "Question withdrawn",
+      "questionsWithdrawn": "Questions withdrawn",
+      "questionCancelled": "Question cancelled",
+      "questionExpiredWhenTheIssue": "Question expired when the issue closed",
+      "questionsExpiredWhenTheIssue": "Questions expired when the issue closed",
+      "questionExpiredByComment": "Question expired by comment",
+      "questionsExpiredByComment": "Questions expired by comment",
+      "thisQuestionRequestExpiredAutomatically": "This question request expired automatically when the issue reached a terminal state.",
+      "aLaterBoarduserCommentSuperseded": "A later board/user comment superseded this question request. Create a fresh request if answers are still needed.",
+      "paperclipNeedsAttentionBeforeThe": "Paperclip needs attention before the agent can resume this approved work.",
+      "expiredByComment": "Expired by comment",
+      "expiredByTargetChange": "Expired by target change",
+      "aBoardCommentSupersededThis": "A board comment superseded this confirmation before it was resolved.",
+      "thisConfirmationExpiredAutomaticallyWhen": "This confirmation expired automatically when the issue reached a terminal state.",
+      "theRequestedTargetChangedBefore": "The requested target changed before this confirmation was resolved.",
+      "alwaysAllowed": " · Always allowed",
+      "declining": "Declining…",
+      "decline": "Decline",
+      "approveRun": "Approve & run",
+      "sendRevision": "Send revision",
+      "anAgent": "An agent",
+      "notNow": "Not now",
+      "optionalWhatWouldYouLike": "Optional: what would you like revised?",
+      "optionalTellTheAgentWhat": "Optional: tell the agent what you'd change.",
+      "confirmedWithNoOptionsSelected": "Confirmed with no options selected",
+      "showLess": "Show less",
+      "more": "+{{hiddenCount}} more",
+      "reason": "Reason",
+      "apply0Decisions": "Apply 0 decisions",
+      "applyDecisions_one": "Apply {{draftCount}} decision",
+      "applyDecisions_other": "Apply {{draftCount}} decisions",
+      "thisReviewExpiredAfterA": "This review expired after a later comment.",
+      "thisReviewExpiredAfterThe": "This review expired after the target changed.",
+      "thisReviewExpired": "This review expired.",
+      "n1ItemWas": "1 item was",
+      "draftVerdictsReadyToApply_one": "{{draftCount}} draft verdict ready to apply",
+      "draftVerdictsReadyToApply_other": "{{draftCount}} draft verdicts ready to apply",
+      "markVerdictsThenApplyThem": "Mark verdicts, then apply them in one pass.",
+      "expiredIssueClosed": "Expired · issue closed",
+      "plan": "Plan",
+      "suggestedTaskTree": "Suggested task tree",
+      "questionsForTheOperator": "Questions for the operator",
+      "questionsToAnswer": "Questions to answer",
+      "checkboxConfirmationRequested": "Checkbox confirmation requested",
+      "secretBindingRequested": "Secret binding requested",
+      "connectYourToContinue": "Connect your {{providerName}} to continue",
+      "toolApprovalRequested": "Tool approval requested",
+      "reviewTheseItems": "Review these items",
+      "planReview": "Plan review",
+      "confirmationRequested": "Confirmation requested",
+      "anAgent2": "an agent"
     },
     "issueWorkspaceCard": {
       "copied": "Copied!",
@@ -730,7 +947,21 @@
       "viewWorkspaceDetails": "View workspace details →",
       "current": "Current:",
       "browseFiles": "Browse files…",
-      "openFileByPath": "Open file by path…"
+      "openFileByPath": "Open file by path…",
+      "isolatedWorkspace": "Isolated workspace",
+      "operatorBranch": "Operator branch",
+      "cloudEnvironment": "Cloud environment",
+      "adapterManaged": "Adapter managed",
+      "workspace": "Workspace",
+      "newIsolatedWorkspace": "New isolated workspace",
+      "existingIsolatedWorkspace": "Existing isolated workspace",
+      "reuseExistingWorkspace": "Reuse existing workspace",
+      "projectDefault": "Project default",
+      "reusedWorkspace": " · reused workspace",
+      "projectDefault2": " · project default",
+      "aFreshIsolatedWorkspaceWill": "A fresh isolated workspace will be created when this task runs.",
+      "thisTaskWillReuseAn": "This task will reuse an existing workspace when it runs.",
+      "thisTaskWillUseThe": "This task will use the project default workspace configuration when it runs."
     },
     "issueWriteDenialNotice": {
       "whoCanAct": "Who can act:",
@@ -790,7 +1021,17 @@
       "expandSubtasks": "Expand sub-tasks",
       "assignee": "Assignee",
       "searchResponsible": "Search responsible...",
-      "noResponsible": "No responsible"
+      "noResponsible": "No responsible",
+      "olderThanADay": "Older than a day",
+      "olderThanAWeek": "Older than a week",
+      "nextUp": "Next up",
+      "create": "Create {{createIssueLabel}}",
+      "createTask": "Create Task",
+      "new": "New {{createIssueLabel}}",
+      "newTask": "New Task",
+      "andMore": " ... and {{additionalVisibleBlockerCount}} more",
+      "loadingMoreTasks": "Loading more tasks...",
+      "scrollToLoadMoreTasks": "Scroll to load more tasks"
     },
     "legacyIssuesList": {
       "backlog": "Backlog",
@@ -843,7 +1084,17 @@
       "thisTaskNeedsANext": "This task needs a next step",
       "assignee": "Assignee",
       "searchResponsible": "Search responsible...",
-      "noResponsible": "No responsible"
+      "noResponsible": "No responsible",
+      "olderThanADay": "Older than a day",
+      "olderThanAWeek": "Older than a week",
+      "nextUp": "Next up",
+      "create": "Create {{createIssueLabel}}",
+      "createTask": "Create Task",
+      "new": "New {{createIssueLabel}}",
+      "newTask": "New Task",
+      "andMore": " ... and {{additionalVisibleBlockerCount}} more",
+      "loadingMoreTasks": "Loading more tasks...",
+      "scrollToLoadMoreTasks": "Scroll to load more tasks"
     },
     "newIssueDialog": {
       "stagedFilesCouldNotBe_one": "{{length}} staged file could not be added.",
@@ -868,7 +1119,14 @@
       "project": "Project",
       "searchProjects": "Search projects...",
       "noProjectsFound": "No projects found.",
-      "privateProject": "Private project"
+      "privateProject": "Private project",
+      "newSubtask": "New sub-task",
+      "newTask": "New task",
+      "couldntCheckParentAccess": "Couldn't check parent access.",
+      "checkingParentAccess": "Checking parent access…",
+      "couldntCheckTheSelectedWorktree": "Couldn't check the selected worktree. Retry in Worktrees or choose New worktree.",
+      "theSelectedWorktreeIsNo": "The selected worktree is no longer available. Choose another worktree or start a new one.",
+      "itArrivedPausedFromAn": " — it arrived paused from an organization import"
     },
     "searchableSelect": {
       "closeSelector": "Close selector"
@@ -890,7 +1148,9 @@
       "renameTask": "Rename task",
       "chooseAShortClearName": "Choose a short, clear name for this task.",
       "taskName": "Task name",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "saving": "Saving...",
+      "save": "Save"
     },
     "taskChatThread": {
       "documentRev": "Document · rev {{latestRevisionNumber}}",
@@ -916,13 +1176,34 @@
       "thisRunStoppedBeforeA": "This run stopped before a response was available. Review the task’s connection or recovery action below.",
       "waitingForTranscript": "Waiting for transcript...",
       "pendingInputs_one": "{{length}} pending input",
-      "pendingInputs_other": "{{length}} pending inputs"
+      "pendingInputs_other": "{{length}} pending inputs",
+      "runtimeMissing": "Runtime missing",
+      "modelUnavailable": "Model unavailable",
+      "approvalRequired": "Approval required",
+      "usageLimitReached": "Usage limit reached",
+      "runCancelled": "Run cancelled",
+      "runInterrupted": "Run interrupted",
+      "runTimedOut": "Run timed out",
+      "interrupting": "Interrupting…",
+      "interrupt": "Interrupt",
+      "someTaskHistoryCouldNot": "Some task history could not be loaded.",
+      "someTaskHistoryIsStill": "Some task history is still loading."
     },
     "taskTreeControls": {
       "cancelSubtree": "Cancel subtree...",
       "restoreSubtree": "Restore subtree...",
       "retryPreview": "Retry preview",
-      "wakeAffectedAgents": "Wake affected agents ({{affectedAgentCount}})"
+      "wakeAffectedAgents": "Wake affected agents ({{affectedAgentCount}})",
+      "pauseWork": "Pause work",
+      "pauseSubtree": "Pause subtree",
+      "resumeWork": "Resume work",
+      "resumeSubtree": "Resume subtree",
+      "loading": "Loading…",
+      "keepTasks": "Keep tasks",
+      "close": "Close",
+      "applying": "Applying…",
+      "subtreeIsPaused": "Subtree is paused.",
+      "taskIsPaused": "Task is paused."
     },
     "taskViewsMenu": {
       "changeViewCurrently": "Change view — currently {{label}}"
@@ -932,7 +1213,11 @@
       "openInTab2": "Open in tab: {{title}}",
       "downloadFile": "Download file",
       "retryPreview": "Retry preview",
-      "unhealthy": "Unhealthy"
+      "unhealthy": "Unhealthy",
+      "loadingPreview": "Loading preview…",
+      "previewData": "Preview data",
+      "cSVIsTooLargeTo": "CSV is too large to preview. Download the file to view it.",
+      "cSVPreviewIsUnavailableDownload": "CSV preview is unavailable. Download the file to view it."
     },
     "externallyConnectedTaskBanner": {
       "waitingForFileConsent": "Waiting for file consent",
@@ -995,7 +1280,22 @@
       "fileDeliveryOutcomes": "File delivery outcomes",
       "deliveryStatusCouldNotBe": "Delivery status could not be refreshed. Your draft is kept; Paperclip will check again without sending another update.",
       "providerDetail": "Provider detail:",
-      "dismissDeliveryReceipt": "Dismiss delivery receipt"
+      "dismissDeliveryReceipt": "Dismiss delivery receipt",
+      "messagesYouSendHereAnd": "Messages you send here and agent replies are also posted to Slack.",
+      "agentAssignmentIsFixedFor": "Agent assignment is fixed for this external task.",
+      "uploading": "Uploading…",
+      "attachFile": "Attach file",
+      "filesInThisSend": "Files in this send",
+      "includeTaskFiles": "Include task files",
+      "gitHubAppsCannotUploadFile": "GitHub Apps cannot upload file bytes in comments. Checked files stay on the Paperclip task; GitHub receives an authenticated task link when this Board has a public URL, or a private-task notice otherwise.",
+      "inPersonalTeamsChatsRecipients": "In personal Teams chats, recipients accept each file before upload. Channels and group chats receive supported images directly; other files stay on the task, with a task link or private-task notice.",
+      "theseAreTheFilesSelected": "These are the files selected for this send. Selection is locked until delivery is resolved.",
+      "onlyCheckedFilesWillBe": "Only checked files will be published to the external conversation.",
+      "unnamedAttachment": "Unnamed attachment",
+      "yourMessageIsPostedTo": "Your message is posted to Slack with your name and starts the agent.",
+      "ordinaryBoardCommentsRemainPapercliponly": "Ordinary board comments remain Paperclip-only.",
+      "sending": "Sending…",
+      "retrySafely": "Retry safely"
     },
     "issueOutputSection": {
       "browseInGallery": "Browse {{filename}} in gallery",
@@ -1018,7 +1318,8 @@
       "openInNewTab": "Open in new tab",
       "open": "Open {{filename}}",
       "download": "Download",
-      "download2": "Download {{filename}}"
+      "download2": "Download {{filename}}",
+      "fileDetailsUnavailable": "File details unavailable"
     },
     "outputVideoPlayer": {
       "videoOutput": "Video output: {{title}}",
@@ -1147,7 +1448,40 @@
       "propertiesPanelSections": "Properties panel sections",
       "closeTab": "Close {{label}} tab",
       "openClosedSidebarTab": "Open closed sidebar tab",
-      "allSidebarTabsAreOpen": "All sidebar tabs are open"
+      "allSidebarTabsAreOpen": "All sidebar tabs are open",
+      "reuseExistingWorkspace2": "Reuse existing workspace",
+      "primary": "Primary",
+      "override": "Override",
+      "thisAssigneesAdapterDoesNot": "This assignee's adapter does not expose editable task overrides.",
+      "selectACompatibleAssigneeAgent": "Select a compatible assignee agent to edit these overrides.",
+      "runReviewNow": "Run review now",
+      "runApprovalNow": "Run approval now",
+      "review": "Review",
+      "approval": "Approval",
+      "viewTask": "View task",
+      "removing": "Removing…",
+      "remove": "Remove",
+      "saving": "Saving…",
+      "update": "Update",
+      "setWatchdog": "Set watchdog",
+      "notYetTriggered": "— not yet triggered",
+      "checking": "Checking…",
+      "checkNow": "Check now",
+      "scheduledContinuation": "Scheduled continuation",
+      "alreadyPromoted": "Already promoted",
+      "promoted": "Promoted",
+      "promotingScheduledRetry": "Promoting scheduled retry",
+      "alreadyPromotedRunStarting": "Already promoted — run starting",
+      "promotedRunStarting": "Promoted — run starting",
+      "pullsContinuationForwardImmediately": "Pulls continuation forward immediately",
+      "pullsRetryForwardImmediately": "Pulls retry forward immediately",
+      "creating": "Creating…",
+      "createLabel": "Create label",
+      "requester": "Requester",
+      "currentWorkspaceStaysActiveApplies": "Current workspace stays active. Applies on the next run.",
+      "appliesOnTheNextRun": "Applies on the next run.",
+      "unarchiving": "Unarchiving…",
+      "unarchive": "Unarchive"
     },
     "issuePropertiesArtifactsTab": {
       "inProgress": "In progress",
@@ -1167,11 +1501,16 @@
       "download2": "Download",
       "someArtifactsCouldNotBe": "Some artifacts could not be loaded.",
       "loadingArtifacts": "Loading artifacts…",
-      "noArtifactsYetWorkProducts": "No artifacts yet. Work products, documents, and agent-produced files will appear here."
+      "noArtifactsYetWorkProducts": "No artifacts yet. Work products, documents, and agent-produced files will appear here.",
+      "thisFileCantBePreviewed": "This file can't be previewed as Markdown. Use Raw or Download instead.",
+      "previewFailedToLoad": "Preview failed to load.",
+      "run": "Run {{slice}}"
     },
     "issuePropertiesPlansTab": {
       "thisTaskIsInPlan": "This task is in plan mode but no plan document has been written yet.",
-      "aPlanConfirmationIsPending": "A plan confirmation is pending, but the plan document it should confirm is missing."
+      "aPlanConfirmationIsPending": "A plan confirmation is pending, but the plan document it should confirm is missing.",
+      "loadingPlan": "Loading plan…",
+      "noPlanYetThePlan": "No plan yet. The plan document, accepted plans, and their revisions will appear here."
     },
     "externalObjectRows": {
       "externalObjects": "External objects",
@@ -1191,7 +1530,11 @@
       "removeAsABlockerFor": "Remove {{confirmLabel}} as a blocker for this task.",
       "cancel": "Cancel",
       "showFewerItems": "Show fewer items",
-      "showMoreItems": "Show {{hiddenCount}} more items"
+      "showMoreItems": "Show {{hiddenCount}} more items",
+      "thisPrivateTask": "this private task",
+      "removeAsBlocker": "Remove {{issueLabel}} as blocker",
+      "showLess": "Show less",
+      "showMore": "Show {{hiddenCount}} more"
     },
     "searchFilterBar": {
       "me": "Me",
@@ -1228,7 +1571,10 @@
       "label": "Label",
       "updated": "Updated",
       "sortBy": "Sort by",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "showResults": "Show results",
+      "showResults2_one": "Show {{previewTotal}} result",
+      "showResults2_other": "Show {{previewTotal}} results"
     },
     "searchResultRow": {
       "comment": "Comment",
@@ -1294,7 +1640,17 @@
       "useAgentDefault": "Use agent default",
       "loadingModels": "Loading models…",
       "noCatalogMatch": "No catalog match.",
-      "useExactId": "Use exact ID"
+      "useExactId": "Use exact ID",
+      "chooseAnAgent": "Choose an agent",
+      "default": "Default",
+      "unassigned": "Unassigned",
+      "selectModel": "Select model",
+      "agentDefault": "Agent default",
+      "useOpenrouterprovidermodelWithNoSpaces": "Use openrouter/provider/model with no spaces.",
+      "modelIdsCannotContainSpaces": "Model IDs cannot contain spaces.",
+      "customIdsOpenrouterprovidermodelProviderAccess": "Custom IDs: openrouter/provider/model. Provider access is checked when the run starts.",
+      "customModelIdsCanBe": "Custom model IDs can be pasted here. Provider access is checked when the run starts.",
+      "agentRunSettings": "Agent run settings"
     },
     "composerWorktreePicker": {
       "newWorktree": "New worktree",
@@ -1315,7 +1671,10 @@
       "noMatchingWorktrees": "No matching worktrees.",
       "worktrees2": "Worktrees ·",
       "couldntLoadWorktrees": "Couldn't load worktrees.",
-      "retry": "Retry"
+      "retry": "Retry",
+      "selectWorktree": "Select worktree",
+      "loadingExistingWorktrees": "Loading existing worktrees…",
+      "noExistingWorktreesYetChoose": "No existing worktrees yet. Choose New worktree to start one."
     },
     "questionForm": {
       "recommended": "Recommended",
@@ -1333,7 +1692,10 @@
       "other": "Other",
       "typeYourAnswer": "Type your answer",
       "cancel": "Cancel",
-      "skip": "Skip"
+      "skip": "Skip",
+      "noAnswer": "No answer",
+      "submitAnswers": "Submit answers",
+      "next": "Next"
     },
     "richWorkProductCard": {
       "changesRequested": "Changes requested",
@@ -1353,7 +1715,9 @@
       "updated": "· Updated {{dateTime}}",
       "savedDescription": "Saved description",
       "openInTab": "Open in tab: {{title}}",
-      "openInTab2": "Open in tab"
+      "openInTab2": "Open in tab",
+      "hideDetails": "Hide details",
+      "showDetails": "Show details"
     },
     "runnerGoalWidget": {
       "starting": "Starting",
@@ -1372,21 +1736,40 @@
       "resumeGoal": "Resume goal",
       "clearGoal": "Clear goal",
       "goalObjective": "Goal objective",
-      "cancel": "Cancel"
+      "cancel": "Cancel",
+      "typeGoalFollowedByAn": "Type /goal followed by an objective to pursue work across turns.",
+      "replaceSessionGoal": "Replace session goal?",
+      "editSessionGoal": "Edit session goal",
+      "thisClearsTheUnfinishedGoal": "This clears the unfinished goal and starts a new goal with the objective below.",
+      "updateTheObjectiveWithoutClearing": "Update the objective without clearing the goal's progress.",
+      "saving2": "Saving…",
+      "replaceGoal": "Replace goal",
+      "saveGoal": "Save goal"
     },
     "taskChatBlockerLinks": {
       "tasksWaitingOnLiveWork": "Tasks waiting on live work",
-      "nowRunning": "Now running"
+      "nowRunning": "Now running",
+      "done": "Done",
+      "running": "Running",
+      "waiting": "Waiting",
+      "blockedBy": "Blocked by",
+      "stillWaitingOnLiveWork": "Still waiting on live work",
+      "waitingOnLiveWork": "Waiting on live work"
     },
     "taskChatBubble": {
       "images": "Images · {{length}}",
       "files": "Files · {{length}}",
       "open": "Open {{name}}",
-      "verificationCaveat": "Verification caveat"
+      "verificationCaveat": "Verification caveat",
+      "queued": "Queued",
+      "sending": "Sending…",
+      "sentFromImessage": "Sent from iMessage"
     },
     "taskChatBubbleActions": {
       "messageDetails": "Message details",
-      "platformgeneratedAcknowledgementTheAgentsSubstan": "Platform-generated acknowledgement. The agent’s substantive response follows separately."
+      "platformgeneratedAcknowledgementTheAgentsSubstan": "Platform-generated acknowledgement. The agent’s substantive response follows separately.",
+      "couldntCopyMessage": "Couldn’t copy message",
+      "copyMessage": "Copy message"
     },
     "taskChatCompactInteractionCard": {
       "details": "Details",
@@ -1423,7 +1806,19 @@
       "open": "Open",
       "verdictFor": "Verdict for {{label}}",
       "addAShortReason": "Add a short reason",
-      "submitRejectionReason": "Submit rejection reason"
+      "submitRejectionReason": "Submit rejection reason",
+      "noAnswer": "No answer",
+      "noOptionsSelected": "No options selected",
+      "doYouAcceptThisPlan": "Do you accept this plan?",
+      "whatShouldChange": "What should change?",
+      "reject": "Reject",
+      "approve": "Approve",
+      "decline": "Decline",
+      "confirmSelection": "Confirm selection",
+      "reason2": "Reason",
+      "apply": "Apply {{size}}",
+      "applyDecisions": "Apply decisions",
+      "you": "You"
     },
     "taskChatComposer": {
       "supportWillBeVerifiedWhen": "Support will be verified when the session starts.",
@@ -1454,7 +1849,20 @@
       "removeTheFailedAttachmentTo": "Remove the failed attachment to send",
       "sendEnter": "Send (⌘+Enter)",
       "stop": "Stop",
-      "send": "Send"
+      "send": "Send",
+      "planWith": "Plan with {{agentName}}…",
+      "ask": "Ask {{agentName}}…",
+      "message": "Message {{agentName}}…",
+      "planWithShapesThePlan": "Plan with {{agentName}} — shapes the plan doc, no code changes…",
+      "askAQuestionReadonlyNothing": "Ask {{agentName}} a question — read-only, nothing runs…",
+      "messageDescribeWhatYouWant": "Message {{agentName}} — describe what you want done…",
+      "unassigned": "Unassigned",
+      "editQueuedMessage": "Edit queued message…",
+      "pendingInput": "Pending input",
+      "uploading": "Uploading…",
+      "uploadFailed": "Upload failed",
+      "queuedMessageChanged": "Queued message changed",
+      "editingQueuedMessage": "Editing queued message"
     },
     "taskChatDescriptionBubble": {
       "addADescription": "Add a description...",
@@ -1473,11 +1881,22 @@
       "useOrAskAnAdministrator": "use, or ask an administrator to update {{agentName}}’s connection. Then try again.",
       "changeAiConnection": "Change AI connection",
       "viewRun": "View run",
-      "viewSavedPlan": "View saved plan"
+      "viewSavedPlan": "View saved plan",
+      "anAiCredential": "an AI credential",
+      "youDont": "you don’t",
+      "youCan": "you can",
+      "tryingAgain": "Trying again...",
+      "tryAgain": "Try again"
     },
     "taskChatPausedTakeover": {
       "yourDraftIsSaved": "Your draft is saved.",
-      "resumeSubtree": "Resume subtree"
+      "resumeSubtree": "Resume subtree",
+      "subtreeIsPaused": "Subtree is paused.",
+      "taskIsPaused": "Task is paused.",
+      "resumeThisSubtreeToSend": "Resume this subtree to send a message.",
+      "resumeThisTaskToSend": "Resume this task to send a message.",
+      "resuming": "Resuming…",
+      "resumeTask": "Resume task"
     },
     "taskChatPlanView": {
       "plan": "Plan",
@@ -1500,7 +1919,10 @@
       "more": "{{hiddenFileCount}} more",
       "notShown": "not shown",
       "previewUnavailable": "Preview unavailable.",
-      "details": "Details"
+      "details": "Details",
+      "error": "Error",
+      "providerUpdate": "Provider update",
+      "warning": "Warning"
     },
     "taskChatProtocolCard": {
       "planSteps": "Plan steps",
@@ -1520,7 +1942,21 @@
       "runResult": "Run result",
       "blocked": "Blocked:",
       "verificationResults": "Verification results",
-      "runEnded": "Run ended"
+      "runEnded": "Run ended",
+      "binary": "binary · ",
+      "showFewerFiles": "Show fewer files",
+      "workspaceDiff": "Workspace diff",
+      "file": "File",
+      "answerDetailsWereNotRecorded": "Answer details were not recorded by this older runtime.",
+      "noAnswersWereSubmittedThis": "No answers were submitted; this request was {{status}}.",
+      "questionsAnswered": "Questions answered",
+      "questionsCancelled": "Questions cancelled",
+      "questionsExpired": "Questions expired",
+      "questionsResolved": "Questions resolved",
+      "runtimeInput": "Runtime input",
+      "submitting": "Submitting…",
+      "submitResponse": "Submit response",
+      "blocksCompletion": " · blocks completion"
     },
     "taskChatQueuedMessages": {
       "interrupt": "Interrupt",
@@ -1544,7 +1980,12 @@
       "activityHistory": "Activity history"
     },
     "taskChatRunnerTurn": {
-      "liveRunnerActivityIsTemporarily": "Live runner activity is temporarily unavailable. Retrying…"
+      "liveRunnerActivityIsTemporarily": "Live runner activity is temporarily unavailable. Retrying…",
+      "stopped": "Stopped",
+      "worked": "Worked",
+      "working": "Working",
+      "continuedAfterSteering": "Continued after steering · {{semanticLabel}}",
+      "thinking": "Thinking"
     },
     "taskChatSkillCreatedCard": {
       "skillCreated": "Skill created: {{name}}",
@@ -1554,7 +1995,9 @@
       "ctx": "{{localeString}}/{{localeString2}} ctx"
     },
     "taskChatSystemNotice": {
-      "systemUpdate": "System update: {{title}}"
+      "systemUpdate": "System update: {{title}}",
+      "tryingAgain": "Trying again...",
+      "tryAgain": "Try again"
     },
     "taskChatToolCard": {
       "interrupted": "Interrupted",
@@ -1576,7 +2019,10 @@
       "resetAll": "Reset all",
       "expand": "Expand",
       "minimize": "Minimize",
-      "copyAsTheme": "Copy as @theme"
+      "copyAsTheme": "Copy as @theme",
+      "copiedToClipboard": "Copied to clipboard",
+      "copyFailedSelectTheText": "Copy failed — select the text and copy it manually",
+      "clickTheBoxToCopy": "Click the box to copy"
     },
     "issueCreatedFromNote": {
       "createdFrom": "Created from",
@@ -1596,7 +2042,11 @@
       "referencedTasks": "Referenced tasks",
       "mentionedIn": "Mentioned in",
       "noOtherTaskMentionsThis": "No other task mentions this task.",
-      "tasksThatMentionThisTask": "Tasks that mention this task"
+      "tasksThatMentionThisTask": "Tasks that mention this task",
+      "blockedSubtask": "Blocked subtask",
+      "nextAction": "Next action",
+      "allSubtasksAreComplete": "All subtasks are complete.",
+      "noRemainingSubtaskActions": "No remaining subtask actions."
     },
     "taskDetailTasksPanel": {
       "goToProject": "Go to {{name}} project",
@@ -1618,7 +2068,9 @@
       "couldNotLoadAttachmentDetails": "Could not load attachment details.",
       "retry": "Retry",
       "fileNoLongerAvailableClose": "File no longer available. Close this tab or choose another file.",
-      "downloadFile": "Download file"
+      "downloadFile": "Download file",
+      "couldNotPreviewThisFile": "Could not preview this file. Retry or download it.",
+      "thisFileIsTooLarge": "This file is too large or is not supported for text preview. Download it instead."
     },
     "taskBrowserFooter": {
       "browserSession": "Browser session",
@@ -1641,7 +2093,9 @@
       "keepBrowserOpen": "Keep browser open",
       "keepItOpenForUp": "Keep it open for up to 10 more minutes.",
       "closeBrowser": "Close browser",
-      "endThisBrowserAndStop": "End this browser and stop any browsing."
+      "endThisBrowserAndStop": "End this browser and stop any browsing.",
+      "default": "Default",
+      "closing": "Closing…"
     },
     "taskBrowserPanel": {
       "liveBrowserUseBrowser": "Live Browser Use browser",
@@ -1650,7 +2104,19 @@
       "reconnectTheViewOrOpen": "Reconnect the view or open this task in another browser. The remote browser is still running.",
       "reconnectView": "Reconnect view",
       "openActiveBrowser": "Open active browser",
-      "couldNotKeepThisBrowser": "Could not keep this browser open. Check your connection before the timer runs out."
+      "couldNotKeepThisBrowser": "Could not keep this browser open. Check your connection before the timer runs out.",
+      "browserAccessUnavailable": "Browser access unavailable",
+      "startingBrowser": "Starting browser…",
+      "closingBrowser": "Closing browser…",
+      "browserClosed": "Browser closed",
+      "browserCouldNotStart": "Browser could not start",
+      "liveViewDisconnected": "Live view disconnected",
+      "noBrowserOpen": "No browser open",
+      "anotherBrowserIsStillOpen": "Another browser is still open on this task.",
+      "sendATaskMessageTo": "Send a task message to ask the agent to open another browser.",
+      "theLiveViewWillAppear": "The live view will appear here when it is ready.",
+      "waitingForBrowserUseTo": "Waiting for Browser Use to confirm shutdown.",
+      "askTheAgentToBrowse": "Ask the agent to browse a website in a task message."
     },
     "taskDocumentPanel": {
       "loadingDocument": "Loading document…",
@@ -1673,7 +2139,9 @@
       "taskDocuments": "Task documents",
       "recentWorkspaceFiles": "Recent workspace files",
       "openANewTab": "Open a new tab",
-      "closeSidePanel": "Close side panel"
+      "closeSidePanel": "Close side panel",
+      "subtasks": "Subtasks",
+      "plan": "Plan"
     },
     "taskSkillPanel": {
       "loadingSkill": "Loading skill…",
@@ -1681,7 +2149,12 @@
       "youDoNotHaveAccess": "You do not have access to this skill.",
       "theSkillCouldNotBe": "The skill could not be loaded.",
       "openInSkillStudio": "Open in Skill Studio",
-      "skillInstructions": "Skill instructions"
+      "skillInstructions": "Skill instructions",
+      "retrying": "Retrying…",
+      "retry": "Retry",
+      "revision": "Revision {{revisionNumber}}",
+      "currentVersion": "Current version",
+      "skillInstructionsAreEmpty": "Skill instructions are empty."
     },
     "taskWorkspaceFilePanel": {
       "copyFileContents": "Copy file contents",
@@ -1694,7 +2167,9 @@
       "retryVoiceConnections": "Retry voice connections",
       "taskVoiceConversation": "Task voice conversation",
       "voicePersona": "Voice persona",
-      "talkTo": "Talk to {{assignedAgentName}}"
+      "talkTo": "Talk to {{assignedAgentName}}",
+      "loadingVoiceConnection": "Loading voice connection…",
+      "voiceIsUnavailableCheckThe": "Voice is unavailable. Check the Speko connection in Apps."
     },
     "inbox": {
       "markAsRead": "Mark as read",
@@ -1738,7 +2213,24 @@
       "earlier": "Earlier",
       "alerts": "Alerts",
       "budgetAt": "Budget at",
-      "utilizationThisMonth": "utilization this month"
+      "utilizationThisMonth": "utilization this month",
+      "defaultWorkspace": "Default workspace",
+      "noWorkspace": "No workspace",
+      "tasks": "Tasks",
+      "approvals": "Approvals",
+      "failedRuns": "Failed runs",
+      "joinRequests": "Join requests",
+      "user": "User",
+      "unassigned": "Unassigned",
+      "noProject": "No project",
+      "humanJoinRequest": "Human join request",
+      "retrying": "Retrying…",
+      "retry": "Retry",
+      "marking": "Marking…",
+      "archived": "Archived",
+      "otherResults": "Other results",
+      "agentHas": "agent has",
+      "agentsHave": "agents have"
     },
     "issueChatLongThreadPerf": {
       "deterministicLocalFixtureForMeasuring": "Deterministic local fixture for measuring the current direct-render issue chat path with hundreds of merged thread rows, markdown-heavy assistant bodies, linked runs, documents, sub-issues, and sidebar context.",
@@ -1890,7 +2382,15 @@
       "relatedWork": "Related work",
       "taskSidePanel": "Task side panel",
       "attribution": "{{label}}: {{name}}",
-      "attributionVia": "{{label}}: {{name}} · via {{via}}"
+      "attributionVia": "{{label}}: {{name}} · via {{via}}",
+      "loadingEarlierComments": "Loading earlier comments...",
+      "loadEarlierComments": "Load earlier comments",
+      "inOutCached": " (in {{tokens}}, out {{tokens2}}, cached {{tokens3}})",
+      "inOut": " (in {{tokens}}, out {{tokens2}})",
+      "theStalledTask": "the stalled task",
+      "thisIssuesIsolatedWorkspaceWas": "This issue's isolated workspace was archived. Your next comment or resume reopens it and rebuilds the worktree.",
+      "uploading": "Uploading...",
+      "plan": "Plan"
     },
     "issues": {
       "newTask": "New Task",
@@ -1949,7 +2449,15 @@
       "newTaskIn": "New task in {{label}}",
       "earlier": "Earlier",
       "budgetAt": "Budget at",
-      "utilizationThisMonth": "utilization this month"
+      "utilizationThisMonth": "utilization this month",
+      "humanJoinRequest": "Human join request",
+      "retrying": "Retrying…",
+      "retry": "Retry",
+      "marking": "Marking…",
+      "archived": "Archived",
+      "otherResults": "Other results",
+      "agentHas": "agent has",
+      "agentsHave": "agents have"
     },
     "myIssues": {
       "myTasks": "My Tasks",
@@ -1992,7 +2500,12 @@
       "tryFewerTokensOrA": "Try fewer tokens or a single distinctive term.",
       "useAnIdentifierShortcutLike": "Use an identifier shortcut like",
       "wrapMultiwordPhrasesInQuotes": "Wrap multi-word phrases in quotes.",
-      "updating": "Updating…"
+      "updating": "Updating…",
+      "theServerReturned": "The server returned {{status}}.",
+      "theRequestFailed": "The request failed.",
+      "n1Result": "1 result",
+      "filtersActive_one": " · {{activeFilterCount}} filter active",
+      "filtersActive_other": " · {{activeFilterCount}} filters active"
     },
     "agentCommentary": {
       "loadingMessage": "Loading message…",
@@ -2027,7 +2540,252 @@
       "previous": "Previous",
       "previousPage": "Previous page",
       "next": "Next",
-      "nextPage": "Next page"
+      "nextPage": "Next page",
+      "suggestion": "Suggestion",
+      "complaint": "Complaint",
+      "task": "Task",
+      "submitted2": "Submitted {{localeString}}",
+      "messageDetailsAndSourceContext": "Message details and source context.",
+      "sourceTask": "Source task"
+    },
+    "lockedIssueChip": {
+      "unavailable": "Unavailable",
+      "private": "Private"
+    },
+    "taskChatThinking": {
+      "reasoningDetail": "Reasoning detail",
+      "reasoning": "Reasoning",
+      "thinking": "Thinking…",
+      "thought": "Thought"
+    },
+    "taskChatTurn": {
+      "stopped": "Stopped",
+      "worked": "Worked",
+      "continuedAfterSteering": "Continued after steering · ",
+      "activity": "Activity"
+    },
+    "completedActivitySummary": {
+      "ranCommands": "Ran commands",
+      "searchedFiles": "Searched files",
+      "readFiles": "Read files",
+      "editedFiles": "Edited files",
+      "searchedTheWeb": "Searched the web",
+      "workedOnAPlan": "Worked on a plan",
+      "requestedInput": "Requested input",
+      "workedWithAgents": "Worked with agents",
+      "reviewedSafety": "Reviewed safety",
+      "workedWithImages": "Worked with images",
+      "waited": "Waited",
+      "usedConnectedTools": "Used connected tools",
+      "usedTools": "Used tools",
+      "receivedAProviderUpdate": "Received a provider update",
+      "providerErrorReported": "Provider error reported",
+      "providerWarningReported": "Provider warning reported",
+      "receivedProviderUpdates": "Received provider updates",
+      "checkedFiles": "Checked files",
+      "workedOnFiles": "Worked on files"
+    },
+    "composerRunSettings": {
+      "off": "Off",
+      "minimal": "Minimal",
+      "low": "Low",
+      "medium": "Medium",
+      "high": "High",
+      "extraHigh": "Extra High",
+      "max": "Max",
+      "ultra": "Ultra"
+    },
+    "motionTokens": {
+      "easeoutexpoHouse": "ease-out-expo (house)",
+      "standardHouse": "standard (house)"
+    },
+    "taskChatAdapter": {
+      "newSession": "New session",
+      "earlierMessagesAndFilesAre": "Earlier messages and files are still available."
+    },
+    "taskChatAttachments": {
+      "doc": "Doc",
+      "text": "Text",
+      "markdown": "Markdown",
+      "sheet": "Sheet",
+      "archive": "Archive",
+      "audio": "Audio",
+      "video": "Video",
+      "code": "Code",
+      "log": "Log",
+      "patch": "Patch",
+      "file": "File"
+    },
+    "taskChatStates": {
+      "sessionStart": "Session start",
+      "humanMessage": "Human message",
+      "finalResponse": "Final response",
+      "thinking": "Thinking",
+      "progressUpdateStreaming": "Progress update (streaming)",
+      "progressUpdateBurst": "Progress update burst",
+      "toolCall": "Tool call",
+      "diff": "Diff",
+      "working": "Working",
+      "running": "Running",
+      "completedCollapsed": "Completed (collapsed)",
+      "longrunActivityPhases": "Long-run activity phases",
+      "awaitingApproval": "Awaiting approval",
+      "planTodo": "Plan / todo",
+      "interrupted": "Interrupted",
+      "refused": "Refused",
+      "truncated": "Truncated",
+      "liveTokenCost": "Live token / cost"
+    },
+    "transcriptAdapter": {
+      "unnamedTool": "Unnamed tool",
+      "planStep": "Plan step",
+      "subagent": "Subagent",
+      "providerSessionTotal": "Provider session total",
+      "thisCumulativeUsageCanInclude": "This cumulative usage can include earlier runs in the resumed provider session.",
+      "responding": "Responding",
+      "thinking": "Thinking",
+      "running": "Running"
+    },
+    "taskBrowserActivity": {
+      "viewSession": "View session",
+      "openBrowser": "Open browser"
+    },
+    "useIssueExternalObjects": {
+      "title": "Title",
+      "description": "Description",
+      "comment": "Comment",
+      "document": "Document: {{documentKey}}",
+      "document2": "Document",
+      "property": "Property: {{propertyKey}}",
+      "property2": "Property",
+      "plugin": "Plugin",
+      "source": "Source"
+    },
+    "blockedInbox": {
+      "needsDecision": "Needs decision",
+      "blockedChainStalled": "Blocked chain stalled",
+      "needsAttention": "Needs attention",
+      "recoveryRequired": "Recovery required",
+      "externalWait": "External wait",
+      "ownerPaused": "Owner paused",
+      "pendingBoardDecision": "Pending board decision",
+      "pendingUserDecision": "Pending user decision",
+      "pickDisposition": "Pick disposition",
+      "reviewWithoutActionPath": "Review without action path",
+      "invalidReviewParticipant": "Invalid review participant",
+      "recoveryInProgress": "Recovery in progress",
+      "externalOwnerAction": "External owner action"
+    },
+    "issueChangeReceipt": {
+      "assignee": "Assignee",
+      "assigneeUser": "Assignee (user)",
+      "responsibleUser": "Responsible user",
+      "blockers": "Blockers",
+      "labels": "Labels",
+      "parent": "Parent",
+      "project": "Project",
+      "goal": "Goal",
+      "workMode": "Work mode",
+      "whoCanApprove": "Who can approve",
+      "billingCode": "Billing code",
+      "checkoutRun": "Checkout run",
+      "executionRun": "Execution run",
+      "hidden": "Hidden",
+      "started": "Started",
+      "completed": "Completed",
+      "cancelled": "Cancelled",
+      "requestDepth": "Request depth",
+      "sourceTrust": "Source trust",
+      "executionPolicy": "Execution policy",
+      "executionWorkspace": "Execution workspace",
+      "projectWorkspace": "Project workspace",
+      "defaultopenWriteOnAVisible": "default-open write on a visible task",
+      "scopedAgentWrite": "scoped agent write",
+      "boardActor": "board actor",
+      "ownTask": "own task",
+      "mentionGrant": "mention grant",
+      "directParentReport": "direct parent report",
+      "lowtrustBoundaryAllowance": "low-trust boundary allowance",
+      "explicitPermissionGrant": "explicit permission grant",
+      "instanceAdmin": "instance admin",
+      "localBoard": "local board",
+      "internalAgentWrite": "internal agent write"
+    },
+    "issueChatMessages": {
+      "workedFor": "Worked for {{durationText}}",
+      "finishedWork": "Finished work",
+      "failedAfter": "Failed after {{durationText}}",
+      "runFailed": "Run failed",
+      "timedOutAfter": "Timed out after {{durationText}}",
+      "runTimedOut": "Run timed out",
+      "interruptedByBoardAfter": "Interrupted by board after {{durationText}}",
+      "interruptedByBoard": "Interrupted by board",
+      "pausedByBoardAfter": "Paused by board after {{durationText}}",
+      "pausedByBoard": "Paused by board",
+      "cancelledAfter": "Cancelled after {{durationText}}",
+      "runCancelled": "Run cancelled",
+      "queued": "Queued",
+      "working": "Working...",
+      "runFinished": "Run finished",
+      "providerActivity": "Provider activity",
+      "queued2": "Queued..."
+    },
+    "issueFilters": {
+      "anyFailed": "Any failed",
+      "anyWaiting": "Any waiting",
+      "anyRunning": "Any running",
+      "authRequired": "Auth required",
+      "unreachable": "Unreachable",
+      "stale": "Stale",
+      "noExternalObjects": "No external objects",
+      "all": "All",
+      "active": "Active",
+      "backlog": "Backlog",
+      "done": "Done"
+    },
+    "issueDetailBreadcrumb": {
+      "inbox": "Inbox",
+      "tasks": "Tasks"
+    },
+    "systemNoticeComment": {
+      "systemNotice": "System notice",
+      "systemWarning": "System warning",
+      "systemAlert": "System alert"
+    },
+    "taskDateGroups": {
+      "today": "Today",
+      "yesterday": "Yesterday",
+      "earlier": "Earlier"
+    },
+    "taskSidePanelState": {
+      "properties": "Properties",
+      "subtasks": "Subtasks",
+      "tasks": "Tasks",
+      "artifacts": "Artifacts",
+      "files": "Files",
+      "browser": "Browser"
+    },
+    "taskViews": {
+      "myWork": "My work",
+      "mine": "Mine",
+      "assignedToYouOrWaiting": "Assigned to you or waiting on you",
+      "unread": "Unread",
+      "tasksYouTouchedWithNew": "Tasks you touched with new activity",
+      "blocked": "Blocked",
+      "blockedTasksGroupedByBlocker": "Blocked tasks, grouped by blocker",
+      "recent": "Recent",
+      "everythingYouTouchedLately": "Everything you touched lately",
+      "everything": "Everything",
+      "tasksApprovalsFailedRunsAnd": "Tasks, approvals, failed runs and join requests",
+      "organization": "Organization",
+      "allTasks": "All tasks",
+      "everyTaskInTheOrganization": "Every task in the organization",
+      "active": "Active",
+      "openTasksRunningOrNot": "Open tasks, running or not",
+      "backlog": "Backlog",
+      "notStartedYet": "Not started yet",
+      "done": "Done",
+      "completedAndCancelled": "Completed and cancelled"
     }
   }
 }

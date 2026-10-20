@@ -967,7 +967,7 @@ export function IssueDocumentsSection({
               onClick={() => void commitDraft(draft, { clearAfterSave: false, trackAutosave: false })}
               disabled={upsertDocument.isPending}
             >
-              {upsertDocument.isPending ? "Saving..." : "Create document"}
+              {upsertDocument.isPending ? t("issues.issueDocumentsSection.saving") : t("issues.issueDocumentsSection.createDocument")}
             </Button>
           </div>
         </div>
@@ -1192,8 +1192,8 @@ export function IssueDocumentsSection({
                               disabled={restoreDocumentRevision.isPending}
                             >
                               {restoreDocumentRevision.isPending && restoreDocumentRevision.variables?.key === doc.key
-                                ? "Restoring..."
-                                : "Restore this revision"}
+                                ? t("issues.issueDocumentsSection.restoring")
+                                : t("issues.issueDocumentsSection.restoreThisRevision")}
                             </Button>
                           ) : null}
                         </div>
@@ -1221,7 +1221,7 @@ export function IssueDocumentsSection({
                               )
                             }
                           >
-                            {activeConflict.showRemote ? "Hide remote" : "Review remote"}
+                            {activeConflict.showRemote ? t("issues.issueDocumentsSection.hideRemote") : t("issues.issueDocumentsSection.reviewRemote")}
                           </Button>
                           <Button
                             variant="outline"
@@ -1242,7 +1242,7 @@ export function IssueDocumentsSection({
                             onClick={() => void overwriteDocumentFromDraft(doc.key)}
                             disabled={upsertDocument.isPending}
                           >
-                            {upsertDocument.isPending ? "Saving..." : "Overwrite remote"}
+                            {upsertDocument.isPending ? t("issues.issueDocumentsSection.saving") : t("issues.issueDocumentsSection.overwriteRemote")}
                           </Button>
                         </div>
                       </div>
@@ -1340,17 +1340,17 @@ export function IssueDocumentsSection({
                       } ${activeDraft || isHistoricalPreview ? "opacity-100" : "opacity-0"}`}
                     >
                       {isHistoricalPreview
-                        ? "Viewing historical revision"
+                        ? t("issues.issueDocumentsSection.viewingHistoricalRevision")
                         : activeDraft
                           ? activeConflict
-                          ? "Out of date"
+                          ? t("issues.issueDocumentsSection.outOfDate")
                           : autosaveDocumentKey === doc.key
                             ? autosaveState === "saving"
-                              ? "Autosaving..."
+                              ? t("issues.issueDocumentsSection.autosaving")
                               : autosaveState === "saved"
-                                ? "Saved"
+                                ? t("issues.issueDocumentsSection.saved")
                                 : autosaveState === "error"
-                                  ? "Could not save"
+                                  ? t("issues.issueDocumentsSection.couldNotSave")
                                   : ""
                             : ""
                           : ""}
@@ -1389,7 +1389,7 @@ export function IssueDocumentsSection({
                       onClick={() => deleteDocument.mutate(doc.key)}
                       disabled={deleteDocument.isPending}
                     >
-                      {deleteDocument.isPending ? "Deleting..." : "Delete"}
+                      {deleteDocument.isPending ? t("issues.issueDocumentsSection.deleting") : t("issues.issueDocumentsSection.delete")}
                     </Button>
                   </div>
                 </div>

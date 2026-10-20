@@ -177,7 +177,7 @@ export function BlockedInboxView({
             onClick={() => void refetch()}
             disabled={isFetching}
           >
-            {isFetching ? "Trying…" : "Try again"}
+            {isFetching ? t("issues.blockedInboxView.trying") : t("issues.blockedInboxView.tryAgain")}
           </Button>
         </div>
       </div>

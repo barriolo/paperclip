@@ -37,12 +37,12 @@ export function TaskChatPausedTakeover({
         <Pause aria-hidden="true" className="mt-0.5 size-4 shrink-0 text-(--status-task-icon-todo)" />
         <div className="flex min-w-0 flex-col gap-1">
           <h2 id={headingId} className="text-sm font-medium text-foreground">
-            {subtree ? "Subtree is paused." : "Task is paused."}
+            {subtree ? t("issues.taskChatPausedTakeover.subtreeIsPaused") : t("issues.taskChatPausedTakeover.taskIsPaused")}
           </h2>
           <p className="text-sm text-muted-foreground">
             {subtree
-              ? "Resume this subtree to send a message."
-              : "Resume this task to send a message."}
+              ? t("issues.taskChatPausedTakeover.resumeThisSubtreeToSend")
+              : t("issues.taskChatPausedTakeover.resumeThisTaskToSend")}
           </p>
         </div>
       </div>
@@ -67,7 +67,7 @@ export function TaskChatPausedTakeover({
             className="bg-(--status-agent-paused) text-foreground hover:bg-(--status-agent-paused)/80 dark:text-background"
           >
             {pending ? <Loader2 aria-hidden="true" className="animate-spin" /> : <Play aria-hidden="true" />}
-            {pending ? "Resuming…" : subtree ? "Resume subtree" : "Resume task"}
+            {pending ? t("issues.taskChatPausedTakeover.resuming") : subtree ? t("issues.taskChatPausedTakeover.resumeSubtree") : t("issues.taskChatPausedTakeover.resumeTask")}
           </Button>
         )}
       </div>

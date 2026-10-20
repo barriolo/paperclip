@@ -11,6 +11,7 @@ import { normalizeExternalObjectHref } from "../lib/external-object-href";
 import type { MarkdownExternalReferenceMap } from "../components/MarkdownBody";
 import type { ExternalObjectPillData } from "../components/ExternalObjectPill";
 import { instanceSettingsApi } from "../api/instanceSettings";
+import { i18n } from "@/i18n";
 
 export const EXTERNAL_OBJECT_SUMMARY_BATCH_SIZE = 500;
 
@@ -34,19 +35,19 @@ export async function fetchIssueExternalObjectSummariesInBatches(
 function formatMentionSourceLabel(mention: ExternalObjectMention): string {
   switch (mention.sourceKind) {
     case "title":
-      return "Title";
+      return i18n.t("issues.useIssueExternalObjects.title");
     case "description":
-      return "Description";
+      return i18n.t("issues.useIssueExternalObjects.description");
     case "comment":
-      return "Comment";
+      return i18n.t("issues.useIssueExternalObjects.comment");
     case "document":
-      return mention.documentKey ? `Document: ${mention.documentKey}` : "Document";
+      return mention.documentKey ? i18n.t("issues.useIssueExternalObjects.document", { documentKey: mention.documentKey }) : i18n.t("issues.useIssueExternalObjects.document2");
     case "property":
-      return mention.propertyKey ? `Property: ${mention.propertyKey}` : "Property";
+      return mention.propertyKey ? i18n.t("issues.useIssueExternalObjects.property", { propertyKey: mention.propertyKey }) : i18n.t("issues.useIssueExternalObjects.property2");
     case "plugin":
-      return "Plugin";
+      return i18n.t("issues.useIssueExternalObjects.plugin");
     default:
-      return "Source";
+      return i18n.t("issues.useIssueExternalObjects.source");
   }
 }
 

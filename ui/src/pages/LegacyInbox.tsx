@@ -181,7 +181,7 @@ import {
   reconcileInboxOrderPin,
   type InboxOrderPin,
 } from "../lib/inboxOrderPin";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 const INBOX_HEARTBEAT_RUN_LIMIT = 200;
 const INBOX_ISSUE_LIST_LIMIT = 500;
@@ -270,7 +270,7 @@ export function formatJoinRequestInboxLabel(
   if (requesterEmail) return requesterEmail;
   if (requesterName) return requesterName;
   if (requesterId) return requesterId;
-  return "Human join request";
+  return i18n.t("issues.legacyInbox.humanJoinRequest");
 }
 
 
@@ -393,7 +393,7 @@ export function FailedRunInboxRow({
             disabled={isRetrying}
           >
             <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-            {isRetrying ? "Retrying…" : "Retry"}
+            {isRetrying ? t("issues.legacyInbox.retrying") : t("issues.legacyInbox.retry")}
           </Button>
           {!showUnreadSlot && (
             <button
@@ -417,7 +417,7 @@ export function FailedRunInboxRow({
           disabled={isRetrying}
         >
           <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-          {isRetrying ? "Retrying…" : "Retry"}
+          {isRetrying ? t("issues.legacyInbox.retrying") : t("issues.legacyInbox.retry")}
         </Button>
         {!showUnreadSlot && (
           <button
@@ -2514,7 +2514,7 @@ export function Inbox() {
                     onClick={() => setShowMarkAllReadConfirm(true)}
                     disabled={markAllReadMutation.isPending}
                   >
-                    {markAllReadMutation.isPending ? "Marking…" : "Mark all as read"}
+                    {markAllReadMutation.isPending ? t("issues.legacyInbox.marking") : t("issues.legacyInbox.markAllAsRead2")}
                   </Button>
                   <Dialog open={showMarkAllReadConfirm} onOpenChange={setShowMarkAllReadConfirm}>
                     <DialogContent className="sm:max-w-md">
@@ -2811,7 +2811,7 @@ export function Inbox() {
                       >
                         <div className="h-px flex-1 bg-border/80" />
                         <span className="shrink-0 text-(length:--text-micro) font-semibold uppercase tracking-wide text-muted-foreground">
-                          {group.searchSection === "archived" ? "Archived" : "Other results"}
+                          {group.searchSection === "archived" ? t("issues.legacyInbox.archived") : t("issues.legacyInbox.otherResults")}
                         </span>
                         <div className="h-px flex-1 bg-border/80" />
                       </div>,
@@ -3118,7 +3118,7 @@ export function Inbox() {
                     <AlertTriangle className="h-4 w-4 shrink-0 text-red-600 dark:text-red-400" />
                     <span className="text-sm">
                       <span className="font-medium">{dashboard!.agents.error}</span>{" "}
-                      {dashboard!.agents.error === 1 ? "agent has" : "agents have"} errors
+                      {dashboard!.agents.error === 1 ? t("issues.legacyInbox.agentHas") : t("issues.legacyInbox.agentsHave")} errors
                     </span>
                   </Link>
                   <button

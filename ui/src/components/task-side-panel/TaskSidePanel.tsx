@@ -287,7 +287,7 @@ export function TaskSidePanel({
     readTaskSidePanelState(accountScope, issue.companyId, issue.id, fileTabsEnabled),
   );
   const taskCount = tasksTab?.count ?? childIssues.length;
-  const taskLabel = tasksTab ? "Tasks" : "Subtasks";
+  const taskLabel = tasksTab ? t("issues.taskSidePanel.tasks") : t("issues.taskSidePanel.subtasks");
   const initialSubtasksAvailableRef = useRef(showRelatedTasks && (taskCount > 0 || tasksTab?.hasError === true));
   const subtasksDismissedRef = useRef(
     restoredRef.current?.userInteracted === true
@@ -424,11 +424,11 @@ export function TaskSidePanel({
       planDocument === null
     ) return;
     const document = documents.find((candidate) => candidate.key === documentDeepLink.documentKey);
-    const label = document ? documentDisplayTitle(document) : documentDeepLink.documentKey === "plan" ? "Plan" : documentDeepLink.documentKey;
+    const label = document ? documentDisplayTitle(document) : documentDeepLink.documentKey === "plan" ? t("issues.taskSidePanel.plan") : documentDeepLink.documentKey;
     // A refresh must not replay a link after the user selects another tab.
     handledDocumentRequestRef.current = documentDeepLink.requestId;
     controller.openTab(taskPanelDocumentTab(documentDeepLink.documentKey, label));
-  }, [controller.openTab, documentDeepLink, documents, planDocument]);
+  }, [controller.openTab, documentDeepLink, documents, planDocument, t]);
 
   // Existing URL-backed workspace links remain the external integration API.
   useEffect(() => {

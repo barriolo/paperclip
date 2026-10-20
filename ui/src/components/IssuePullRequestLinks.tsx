@@ -43,7 +43,7 @@ export function IssuePullRequestLinks({ products, externalObjects = [] }: {
               <Badge variant="outline">{t("issues.issuePullRequestLinks.reviewRequested")}</Badge>
             ) : ["merged", "closed", "archived", "draft", "changes_requested"].includes(state)
               && providerStatus?.toLowerCase() !== state ? (
-              <span className="text-xs text-muted-foreground">{provider ? "Saved: " : ""}{state.replaceAll("_", " ")}</span>
+              <span className="text-xs text-muted-foreground">{provider ? t("issues.issuePullRequestLinks.saved") : ""}{state.replaceAll("_", " ")}</span>
             ) : null}
           </li>
         );

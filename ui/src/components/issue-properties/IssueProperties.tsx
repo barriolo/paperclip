@@ -583,10 +583,10 @@ export function IssueProperties({
     (workspace) => workspace.id === issue.executionWorkspaceId,
   ) ?? issue.currentExecutionWorkspace ?? null;
   const workspaceTriggerLabel = activeWorkspacePickerMode === "isolated"
-    ? "New isolated workspace"
+    ? t("issues.issueProperties.newIsolatedWorkspace")
     : activeWorkspacePickerMode === "reuse"
-      ? boundWorkspace?.name ?? "Reuse existing workspace"
-      : "Default";
+      ? boundWorkspace?.name ?? t("issues.issueProperties.reuseExistingWorkspace2")
+      : t("issues.issueProperties.default");
   const workspaceTriggerTitle = activeWorkspacePickerMode === "reuse"
     ? boundWorkspace?.branchName ?? undefined
     : undefined;
@@ -869,7 +869,7 @@ export function IssueProperties({
               )}
               onClick={() => setAssigneeOverrideLane(lane)}
             >
-              {lane === "primary" ? "Primary" : "Override"}
+              {lane === "primary" ? t("issues.issueProperties.primary") : t("issues.issueProperties.override")}
             </button>
           ))}
         </div>
@@ -927,8 +927,8 @@ export function IssueProperties({
     <div className="w-full space-y-2 p-2">
       <p className="text-xs text-muted-foreground">
         {assignee
-          ? "This assignee's adapter does not expose editable task overrides."
-          : "Select a compatible assignee agent to edit these overrides."}
+          ? t("issues.issueProperties.thisAssigneesAdapterDoesNot")
+          : t("issues.issueProperties.selectACompatibleAssigneeAgent")}
       </p>
       <button
         type="button"
@@ -1059,13 +1059,13 @@ export function IssueProperties({
         className="inline-flex items-center rounded-full border border-border px-2 py-0.5 text-xs text-muted-foreground transition-colors hover:bg-accent/50 hover:text-foreground"
         onClick={() => onUpdate({ status: "in_review" })}
       >
-        {stageType === "review" ? "Run review now" : "Run approval now"}
+        {stageType === "review" ? t("issues.issueProperties.runReviewNow") : t("issues.issueProperties.runApprovalNow")}
       </button>
     </PropertyRow>
   );
   const currentExecutionLabel = (() => {
     if (!issue.executionState?.currentStageType) return null;
-    const stageLabel = issue.executionState.currentStageType === "review" ? "Review" : "Approval";
+    const stageLabel = issue.executionState.currentStageType === "review" ? t("issues.issueProperties.review") : t("issues.issueProperties.approval");
     const participant = issue.executionState.currentParticipant;
     const participantLabel = participant
       ? (participant.type === "agent"
@@ -1230,7 +1230,7 @@ export function IssueProperties({
         <div className="text-xs text-muted-foreground">
           {t("issues.issueProperties.watchdogTask")}{" "}
           <Link to={`/issues/${watchdogIssueRef.id}`} className="text-primary hover:underline">
-            {watchdogIssueRef.identifier ?? "View task"}
+            {watchdogIssueRef.identifier ?? t("issues.issueProperties.viewTask")}
           </Link>
         </div>
       ) : null}
@@ -1246,7 +1246,7 @@ export function IssueProperties({
           disabled={deleteWatchdog.isPending || (!issue.watchdog && !watchdogAgentInput)}
           onClick={removeWatchdog}
         >
-          {deleteWatchdog.isPending ? "Removing…" : "Remove"}
+          {deleteWatchdog.isPending ? t("issues.issueProperties.removing") : t("issues.issueProperties.remove")}
         </button>
         <Button
           type="button"
@@ -1255,7 +1255,7 @@ export function IssueProperties({
           disabled={!watchdogAgentInput || upsertWatchdog.isPending}
           onClick={saveWatchdog}
         >
-          {upsertWatchdog.isPending ? "Saving…" : issue.watchdog ? "Update" : "Set watchdog"}
+          {upsertWatchdog.isPending ? t("issues.issueProperties.saving") : issue.watchdog ? t("issues.issueProperties.update") : t("issues.issueProperties.setWatchdog")}
         </Button>
       </div>
     </div>
@@ -1377,13 +1377,13 @@ export function IssueProperties({
             </div>
             <div>
               <div className="text-xs text-muted-foreground">{t("issues.issueProperties.lastTriggered")}</div>
-              <div className="text-sm">{monitorLastTriggeredAt ? formatMonitorAbsoluteFull(monitorLastTriggeredAt) : "— not yet triggered"}</div>
+              <div className="text-sm">{monitorLastTriggeredAt ? formatMonitorAbsoluteFull(monitorLastTriggeredAt) : t("issues.issueProperties.notYetTriggered")}</div>
             </div>
           </div>
           <div className="flex gap-2 border-t border-border px-4 py-3">
             {onCheckMonitorNow ? (
               <Button type="button" size="sm" variant="outline" disabled={checkingMonitorNow} onClick={() => { setMonitorDetailsOpen(false); onCheckMonitorNow(); }}>
-                {checkingMonitorNow ? "Checking…" : "Check now"}
+                {checkingMonitorNow ? t("issues.issueProperties.checking") : t("issues.issueProperties.checkNow")}
               </Button>
             ) : null}
             <Button type="button" size="sm" variant="outline" onClick={() => { setMonitorDetailsOpen(false); setMonitorOpen(true); }}>{t("issues.issueProperties.edit")}</Button>
@@ -1450,7 +1450,7 @@ export function IssueProperties({
     <div className="flex w-full flex-col gap-2 p-2 text-xs">
       <div className="flex items-center justify-between">
         <span className="text-sm font-medium text-foreground">
-          {scheduledRetryIsContinuation ? "Scheduled continuation" : "Scheduled retry"}
+          {scheduledRetryIsContinuation ? t("issues.issueProperties.scheduledContinuation") : t("issues.issueProperties.scheduledRetry")}
         </span>
         {scheduledRetryAttempt !== null ? (
           <span className="text-xs text-muted-foreground">
@@ -1534,7 +1534,7 @@ export function IssueProperties({
           ) : scheduledRetryRetryNowSuccess ? (
             <span className="inline-flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" />
-              {retryNow.data?.outcome === "already_promoted" ? "Already promoted" : "Promoted"}
+              {retryNow.data?.outcome === "already_promoted" ? t("issues.issueProperties.alreadyPromoted") : t("issues.issueProperties.promoted")}
             </span>
           ) : (
             <span className="inline-flex items-center gap-1.5">
@@ -1545,16 +1545,16 @@ export function IssueProperties({
         </Button>
         <span className="text-right text-xs text-muted-foreground">
           {retryNow.isPending
-            ? "Promoting scheduled retry"
+            ? t("issues.issueProperties.promotingScheduledRetry")
             : scheduledRetryRetryNowSuccess
               ? retryNow.data?.outcome === "already_promoted"
-                ? "Already promoted — run starting"
-                : "Promoted — run starting"
+                ? t("issues.issueProperties.alreadyPromotedRunStarting")
+                : t("issues.issueProperties.promotedRunStarting")
               : retryNow.data?.outcome === "waiting" && retryNow.data.scheduledRetry?.runId === scheduledRetry.runId
                 ? retryNow.data.message
                 : scheduledRetryIsContinuation
-                  ? "Pulls continuation forward immediately"
-                  : "Pulls retry forward immediately"}
+                  ? t("issues.issueProperties.pullsContinuationForwardImmediately")
+                  : t("issues.issueProperties.pullsRetryForwardImmediately")}
         </span>
       </div>
     </div>
@@ -1702,7 +1702,7 @@ export function IssueProperties({
           }
         >
           <Plus className="h-3 w-3" />
-          {createLabel.isPending ? "Creating…" : "Create label"}
+          {createLabel.isPending ? t("issues.issueProperties.creating") : t("issues.issueProperties.createLabel")}
         </button>
       </div>
     </>
@@ -1911,7 +1911,7 @@ export function IssueProperties({
             onClick={() => toggleExecutionParticipant(stageType, `user:${issue.createdByUserId}`)}
           >
             <User className="h-3 w-3 shrink-0 text-muted-foreground" />
-            {creatorUserLabel ? creatorUserLabel : "Requester"}
+            {creatorUserLabel ? creatorUserLabel : t("issues.issueProperties.requester")}
           </button>
         )}
         {otherUserOptions
@@ -2779,7 +2779,7 @@ export function IssueProperties({
                     </button>
                   </div>
                   <div className="mt-1 border-t border-border px-2 py-1.5 text-xs text-muted-foreground">
-                    {issue.executionWorkspaceId ? "Current workspace stays active. Applies on the next run." : "Applies on the next run."}
+                    {issue.executionWorkspaceId ? t("issues.issueProperties.currentWorkspaceStaysActiveApplies") : t("issues.issueProperties.appliesOnTheNextRun")}
                   </div>
                 </>
               ) : (
@@ -2831,7 +2831,7 @@ export function IssueProperties({
                     ))}
                   </div>
                   <div className="border-t border-border px-2 py-1.5 text-xs text-muted-foreground">
-                    {issue.executionWorkspaceId ? "Current workspace stays active. Applies on the next run." : "Applies on the next run."}
+                    {issue.executionWorkspaceId ? t("issues.issueProperties.currentWorkspaceStaysActiveApplies") : t("issues.issueProperties.appliesOnTheNextRun")}
                   </div>
                 </>
               )}
@@ -2976,7 +2976,7 @@ export function IssueProperties({
                       disabled={unarchiveFromInbox.isPending}
                     >
                       <ArchiveRestore className="h-3 w-3" />
-                      {unarchiveFromInbox.isPending ? "Unarchiving…" : "Unarchive"}
+                      {unarchiveFromInbox.isPending ? t("issues.issueProperties.unarchiving") : t("issues.issueProperties.unarchive")}
                     </button>
                   </div>
                   {unarchiveErrorMessage ? (

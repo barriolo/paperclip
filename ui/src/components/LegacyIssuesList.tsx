@@ -325,7 +325,7 @@ export function issueAgeBucket(date: Date | string, now: number = Date.now()): 0
 }
 
 export function issueAgeSeparatorLabel(bucket: 1 | 2): string {
-  return bucket === 1 ? "Older than a day" : "Older than a week";
+  return bucket === 1 ? i18n.t("issues.legacyIssuesList.olderThanADay") : i18n.t("issues.legacyIssuesList.olderThanAWeek");
 }
 
 export function issueAgeBucketsCrossed(
@@ -656,7 +656,7 @@ function SubIssueProgressSummaryStrip({
           {target && targetIssue ? (
             <>
               <div className="text-xs font-medium text-muted-foreground">
-                {target.kind === "next" ? "Next up" : "Waiting on blockers"}
+                {target.kind === "next" ? t("issues.legacyIssuesList.nextUp") : "Waiting on blockers"}
               </div>
               <Link
                 to={createIssueDetailPath(targetPathId)}
@@ -1656,8 +1656,8 @@ export function IssuesList({
     viewState.groupBy,
   ]);
 
-  const createActionLabel = createIssueLabel ? `Create ${createIssueLabel}` : "Create Task";
-  const createButtonLabel = createIssueLabel ? `New ${createIssueLabel}` : "New Task";
+  const createActionLabel = createIssueLabel ? t("issues.legacyIssuesList.create", { createIssueLabel: createIssueLabel }) : t("issues.legacyIssuesList.createTask");
+  const createButtonLabel = createIssueLabel ? t("issues.legacyIssuesList.new", { createIssueLabel: createIssueLabel }) : t("issues.legacyIssuesList.newTask");
   const openCreateIssueDialog = useCallback((group?: { key: string; items: Issue[] }) => {
     openNewIssue(newIssueDefaults(group));
   }, [newIssueDefaults, openNewIssue]);
@@ -2087,7 +2087,7 @@ export function IssuesList({
                   const firstVisibleBlockerChip = visibleBlockerChips[0] ?? null;
                   const additionalVisibleBlockerCount = Math.max(visibleBlockerChips.length - 1, 0);
                   const additionalVisibleBlockerLabel = additionalVisibleBlockerCount > 0
-                    ? ` ... and ${additionalVisibleBlockerCount} more`
+                    ? t("issues.legacyIssuesList.andMore", { additionalVisibleBlockerCount: additionalVisibleBlockerCount })
                     : "";
                   const firstVisibleBlockerDisplayLabel = firstVisibleBlockerChip
                     ? `${firstVisibleBlockerChip.chipLabel}${additionalVisibleBlockerLabel}`
@@ -2402,10 +2402,10 @@ export function IssuesList({
             <div className="py-2" data-testid="issues-load-more-sentinel">
               <p className="text-xs text-muted-foreground">
                 {isLoadingMoreIssues || (hierarchyEnabled && hierarchy.isFetching)
-                  ? "Loading more tasks..."
+                  ? t("issues.legacyIssuesList.loadingMoreTasks")
                   : remainingIssueRowCount > 0
                     ? `Rendering ${Math.min(renderedIssueRowLimit, visibleListRowCount)} of ${visibleListRowCount} tasks`
-                    : "Scroll to load more tasks"}
+                    : t("issues.legacyIssuesList.scrollToLoadMoreTasks")}
               </p>
             </div>
           )}

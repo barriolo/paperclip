@@ -36,10 +36,10 @@ export function RemovableIssueReferencePill({
   const [isConfirmOpen, setIsConfirmOpen] = useState(false);
   const locked = isLockedIssueStub(issue);
   const issueLabel = locked
-    ? issue.identifier ?? "Private task"
+    ? issue.identifier ?? t("issues.relationControls.privateTask")
     : issue.identifier ?? issue.title;
   const confirmLabel = locked
-    ? issue.identifier ?? "this private task"
+    ? issue.identifier ?? t("issues.relationControls.thisPrivateTask")
     : issue.identifier
       ? `${issue.identifier}: ${issue.title}`
       : issue.title;
@@ -59,7 +59,7 @@ export function RemovableIssueReferencePill({
       <span className="truncate">{issueLabel}</span>
     </>
   );
-  const removeLabel = `Remove ${issueLabel} as blocker`;
+  const removeLabel = t("issues.relationControls.removeAsBlocker", { issueLabel: issueLabel });
   const openRemoveConfirmation = () => setIsConfirmOpen(true);
   const handleRemove = (event: MouseEvent<HTMLButtonElement>) => {
     event.preventDefault();
@@ -178,7 +178,7 @@ export function ExpandRelationListButton({
       onClick={onClick}
       aria-label={expanded ? t("issues.relationControls.showFewerItems") : t("issues.relationControls.showMoreItems", { hiddenCount: hiddenCount })}
     >
-      {expanded ? "Show less" : `Show ${hiddenCount} more`}
+      {expanded ? t("issues.relationControls.showLess") : t("issues.relationControls.showMore", { hiddenCount: hiddenCount })}
     </button>
   );
 }

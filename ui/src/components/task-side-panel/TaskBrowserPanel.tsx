@@ -161,20 +161,20 @@ export function TaskBrowserPanel({
     ? "You no longer have access to this browser."
     : (browser?.error ?? error);
   const heading = accessError
-    ? "Browser access unavailable"
+    ? t("issues.taskBrowserPanel.browserAccessUnavailable")
     : browser?.status === "starting"
-      ? "Starting browser…"
+      ? t("issues.taskBrowserPanel.startingBrowser")
       : browser?.status === "stopping"
-        ? "Closing browser…"
+        ? t("issues.taskBrowserPanel.closingBrowser")
         : browser?.status === "closed"
-          ? "Browser closed"
+          ? t("issues.taskBrowserPanel.browserClosed")
           : browser?.status === "failed"
-            ? "Browser could not start"
+            ? t("issues.taskBrowserPanel.browserCouldNotStart")
             : error
-              ? "Live view disconnected"
+              ? t("issues.taskBrowserPanel.liveViewDisconnected")
               : viewable
-                ? "Connecting to browser…"
-                : "No browser open";
+                ? t("issues.taskBrowserPanel.connectingToBrowser")
+                : t("issues.taskBrowserPanel.noBrowserOpen");
   const waiting =
     !message &&
     (browser?.status === "starting" ||
@@ -249,14 +249,14 @@ export function TaskBrowserPanel({
               {message ??
                 (browser?.status === "closed"
                   ? onOpenActiveBrowser
-                    ? "Another browser is still open on this task."
-                    : "Send a task message to ask the agent to open another browser."
+                    ? t("issues.taskBrowserPanel.anotherBrowserIsStillOpen")
+                    : t("issues.taskBrowserPanel.sendATaskMessageTo")
                   : browser?.status === "starting"
-                    ? "The live view will appear here when it is ready."
+                    ? t("issues.taskBrowserPanel.theLiveViewWillAppear")
                     : browser?.status === "stopping"
-                      ? "Waiting for Browser Use to confirm shutdown."
+                      ? t("issues.taskBrowserPanel.waitingForBrowserUseTo")
                       : !viewable
-                        ? "Ask the agent to browse a website in a task message."
+                        ? t("issues.taskBrowserPanel.askTheAgentToBrowse")
                         : null)}
             </p>
           </div>

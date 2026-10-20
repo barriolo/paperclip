@@ -382,47 +382,47 @@ function stopReasonLabel(run: RunForIssue) {
       : null;
 
   if (timeoutFired || stopReason === "timeout") {
-    return timeoutText ? `timeout (${timeoutText})` : "timeout";
+    return timeoutText ? i18n.t("issues.issueRunLedger.timeout", { timeoutText: timeoutText }) : "timeout";
   }
   if (
     stopReason === "max_turns_exhausted" ||
     stopReason === "turn_limit_exhausted"
   )
-    return "max turns exhausted";
-  if (stopReason === "budget_paused") return "budget paused";
+    return i18n.t("issues.issueRunLedger.maxTurnsExhausted");
+  if (stopReason === "budget_paused") return i18n.t("issues.issueRunLedger.budgetPaused");
   if (stopReason === "cancelled") return "cancelled";
-  if (stopReason === "paused") return "paused by board";
-  if (stopReason === "process_lost") return "process lost";
+  if (stopReason === "paused") return i18n.t("issues.issueRunLedger.pausedByBoard");
+  if (stopReason === "process_lost") return i18n.t("issues.issueRunLedger.processLost");
   if (stopReason === "unmanaged_background_task_stopped")
-    return "unmanaged background task stopped";
-  if (stopReason === "adapter_failed") return "adapter failed";
+    return i18n.t("issues.issueRunLedger.unmanagedBackgroundTaskStopped");
+  if (stopReason === "adapter_failed") return i18n.t("issues.issueRunLedger.adapterFailed");
   if (stopReason === "completed")
-    return timeoutText ? `completed (${timeoutText})` : "completed";
+    return timeoutText ? i18n.t("issues.issueRunLedger.completed2", { timeoutText: timeoutText }) : "completed";
   return timeoutText;
 }
 
 function stopStatusLabel(run: LedgerRun, stopReason: string | null) {
   if (stopReason) return stopReason;
-  if (run.status === "scheduled_retry") return "Retry pending";
-  if (run.status === "queued") return "Waiting to start";
-  if (run.status === "running") return "Still running";
-  if (!run.livenessState) return "Unavailable";
-  return "No stop reason";
+  if (run.status === "scheduled_retry") return i18n.t("issues.issueRunLedger.retryPending");
+  if (run.status === "queued") return i18n.t("issues.issueRunLedger.waitingToStart");
+  if (run.status === "running") return i18n.t("issues.issueRunLedger.stillRunning");
+  if (!run.livenessState) return i18n.t("issues.issueRunLedger.unavailable");
+  return i18n.t("issues.issueRunLedger.noStopReason");
 }
 
 function lastUsefulActionLabel(run: LedgerRun) {
-  if (run.status === "scheduled_retry") return "Waiting for next attempt";
+  if (run.status === "scheduled_retry") return i18n.t("issues.issueRunLedger.waitingForNextAttempt");
   if (run.lastUsefulActionAt) return relativeTime(run.lastUsefulActionAt);
-  if (isActiveRun(run)) return "No action recorded yet";
+  if (isActiveRun(run)) return i18n.t("issues.issueRunLedger.noActionRecordedYet");
   if (
     run.livenessState === "plan_only" ||
     run.livenessState === "needs_followup"
   ) {
-    return "No concrete action";
+    return i18n.t("issues.issueRunLedger.noConcreteAction");
   }
-  if (run.livenessState === "empty_response") return "No useful output";
-  if (!run.livenessState) return "Unavailable";
-  return "None recorded";
+  if (run.livenessState === "empty_response") return i18n.t("issues.issueRunLedger.noUsefulOutput");
+  if (!run.livenessState) return i18n.t("issues.issueRunLedger.unavailable");
+  return i18n.t("issues.issueRunLedger.noneRecorded");
 }
 
 function continuationLabel(run: LedgerRun) {
@@ -742,8 +742,8 @@ export function IssueRunLedgerContent({
             {latestRun
               ? runSummary(latestRun, agentMap)
               : issueStatus === "in_progress"
-                ? "Waiting for the first run record."
-                : "No runs linked yet."}
+                ? t("issues.issueRunLedger.waitingForTheFirstRun")
+                : t("issues.issueRunLedger.noRunsLinkedYet")}
           </p>
         </div>
         {latestRun ? (
@@ -804,8 +804,8 @@ export function IssueRunLedgerContent({
         >
           <p className="font-medium">
             {latestSilentRun.outputSilence.level === "critical"
-              ? "Critical output silence"
-              : "Output silence watchdog warning"}
+              ? t("issues.issueRunLedger.criticalOutputSilence")
+              : t("issues.issueRunLedger.outputSilenceWatchdogWarning")}
           </p>
           <p className="mt-1">
             {t("issues.issueRunLedger.latestActiveRunHasBeen", { silenceAge: formatSilenceAge(latestSilentRun.outputSilence.silenceAgeMs) ??
@@ -824,8 +824,8 @@ export function IssueRunLedgerContent({
           </p>
           <p className="mt-1">
             {latestSilentRun.outputSilence.evaluationIssueIdentifier
-              ? "This signal is informational. Paperclip did not create new delegated recovery work."
-              : "This signal is informational. Paperclip did not create or assign a recovery task."}
+              ? t("issues.issueRunLedger.thisSignalIsInformationalPaperclip")
+              : t("issues.issueRunLedger.thisSignalIsInformationalPaperclip2")}
           </p>
           {onWatchdogDecision && canRecordWatchdogDecisions ? (
             <div className="mt-2 flex flex-wrap gap-1.5">
@@ -892,8 +892,8 @@ export function IssueRunLedgerContent({
       {feedItems.length === 0 ? (
         <div className="rounded-md border border-dashed border-border px-3 py-3 text-sm text-muted-foreground">
           {renderActivityEvent
-            ? "Runs and activity will appear here once this task has history."
-            : "Historical runs without liveness metadata will appear here once linked to this task."}
+            ? t("issues.issueRunLedger.runsAndActivityWillAppear")
+            : t("issues.issueRunLedger.historicalRunsWithoutLivenessMetadata")}
         </div>
       ) : (
         <div className="space-y-1.5">

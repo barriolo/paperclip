@@ -399,7 +399,7 @@ export function IssueShareSheet({
                             className="text-muted-foreground hover:text-destructive"
                             onClick={() => setRevokeTarget(grant)}
                           >
-                            {implicitPrincipal ? "Remove saved grant" : "Revoke"}
+                            {implicitPrincipal ? t("issues.issueShareSheet.removeSavedGrant") : t("issues.issueShareSheet.revoke")}
                           </Button>
                         ) : grant.source === "project" ? (
                           <span className="text-(length:--text-nano) text-muted-foreground">
@@ -469,7 +469,7 @@ export function IssueShareSheet({
                 {t("issues.issueShareSheet.back")}
               </Button>
               <Button size="sm" onClick={submitAdd} disabled={!addSelection || addMutation.isPending}>
-                {addMutation.isPending ? "Adding…" : "Add"}
+                {addMutation.isPending ? t("issues.issueShareSheet.adding") : t("issues.issueShareSheet.add")}
               </Button>
             </div>
           </div>
@@ -501,7 +501,7 @@ export function IssueShareSheet({
               }}
               disabled={revokeMutation.isPending}
             >
-              {revokeMutation.isPending ? "Removing…" : "Remove grant"}
+              {revokeMutation.isPending ? t("issues.issueShareSheet.removing") : t("issues.issueShareSheet.removeGrant")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

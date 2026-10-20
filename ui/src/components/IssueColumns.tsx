@@ -152,7 +152,7 @@ export function IssueColumnPicker({
           title={t("issues.issueColumns.columns")}
         >
           <Columns3 className={iconOnly ? "h-3.5 w-3.5" : "mr-1 h-3.5 w-3.5"} />
-          {!iconOnly && "Columns"}
+          {!iconOnly && t("issues.issueColumns.columns")}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-(--sz-300px) rounded-xl border-border/70 p-1.5 shadow-xl shadow-black/10">
@@ -347,10 +347,10 @@ export function InboxIssueTrailingColumns({
 }) {
   const { t } = useTranslation();
   const activityText = issueActivityTimestamp(issue);
-  const userLabel = assigneeUserName ?? formatAssigneeUserLabel(issue.assigneeUserId, currentUserId) ?? "User";
+  const userLabel = assigneeUserName ?? formatAssigneeUserLabel(issue.assigneeUserId, currentUserId) ?? t("issues.issueColumns.user");
   const originatingActor = deriveOriginatingActor(issue);
   const originatingUserId = originatingActor?.kind === "user" ? originatingActor.id : null;
-  const creatorUserLabel = creatorUserName ?? formatAssigneeUserLabel(originatingUserId, currentUserId) ?? "User";
+  const creatorUserLabel = creatorUserName ?? formatAssigneeUserLabel(originatingUserId, currentUserId) ?? t("issues.issueColumns.user");
 
   return (
     <span
@@ -415,7 +415,7 @@ export function InboxIssueTrailingColumns({
           }
 
           if (originatingActor?.kind === "user") {
-            const tooltipText = viaAgentName ? `${creatorUserLabel} · via ${viaAgentName}` : creatorUserLabel;
+            const tooltipText = viaAgentName ? t("issues.issueColumns.via", { creatorUserLabel: creatorUserLabel, viaAgentName: viaAgentName }) : creatorUserLabel;
             return (
               <Tooltip key={column}>
                 <TooltipTrigger asChild>

@@ -428,7 +428,7 @@ function WorkspaceChangeCard({ item }: { item: TaskChatWorkspaceChangeItem }) {
                     : file.path}
                 </span>
                 <span className="text-xs capitalize text-muted-foreground">
-                  {file.binary ? "binary · " : ""}
+                  {file.binary ? t("issues.taskChatProtocolCard.binary") : ""}
                   {file.operation.replaceAll("_", " ")}
                 </span>
               </span>
@@ -445,7 +445,7 @@ function WorkspaceChangeCard({ item }: { item: TaskChatWorkspaceChangeItem }) {
               onClick={() => setExpanded((value) => !value)}
             >
               {expanded
-                ? "Show fewer files"
+                ? t("issues.taskChatProtocolCard.showFewerFiles")
                 : `Show ${item.files.length - 3} more files`}
             </Button>
           ) : null}
@@ -470,7 +470,7 @@ function WorkspaceChangeCard({ item }: { item: TaskChatWorkspaceChangeItem }) {
         <DialogContent className="w-full max-w-(--pct-90) overflow-hidden">
           <DialogHeader>
             <DialogTitle className="font-mono text-sm">
-              {selected?.path ?? "Workspace diff"}
+              {selected?.path ?? t("issues.taskChatProtocolCard.workspaceDiff")}
             </DialogTitle>
           </DialogHeader>
           {item.files.length > 1 ? (
@@ -517,7 +517,7 @@ function WorkspaceFileCard({ item }: { item: TaskChatWorkspaceFileItem }) {
     ? item.displayName.split(".").at(-1)?.toUpperCase()
     : "FILE";
   const label =
-    item.presentation === "generic" ? "File" : titleCaseKey(item.presentation);
+    item.presentation === "generic" ? t("issues.taskChatProtocolCard.file") : titleCaseKey(item.presentation);
   const workspaceFileRef = useMemo(
     () => ({
       path: item.path,
@@ -604,6 +604,7 @@ function RuntimeQuestionHistory({
 }: {
   item: TaskChatRuntimeRequestItem;
 }) {
+  const { t } = useTranslation();
   const questionSet = item.questionSet;
   if (!questionSet) return null;
   return (
@@ -630,8 +631,8 @@ function RuntimeQuestionHistory({
           ))}
           <p className="text-xs text-muted-foreground">
             {item.status === "resolved"
-              ? "Answer details were not recorded by this older runtime."
-              : `No answers were submitted; this request was ${item.status}.`}
+              ? t("issues.taskChatProtocolCard.answerDetailsWereNotRecorded")
+              : t("issues.taskChatProtocolCard.noAnswersWereSubmittedThis", { status: item.status })}
           </p>
         </div>
       )}
@@ -644,14 +645,15 @@ function RuntimeQuestionReceipt({
 }: {
   item: TaskChatRuntimeRequestItem;
 }) {
+  const { t } = useTranslation();
   const label =
     item.status === "resolved"
-      ? "Questions answered"
+      ? t("issues.taskChatProtocolCard.questionsAnswered")
       : item.status === "cancelled"
-        ? "Questions cancelled"
+        ? t("issues.taskChatProtocolCard.questionsCancelled")
         : item.status === "expired"
-          ? "Questions expired"
-          : "Questions resolved";
+          ? t("issues.taskChatProtocolCard.questionsExpired")
+          : t("issues.taskChatProtocolCard.questionsResolved");
   return (
     <details className="group" data-testid="task-chat-runtime-request">
       <summary className="flex min-h-8 cursor-pointer list-none items-center gap-2 rounded-sm px-1 py-1.5 text-sm leading-5 text-muted-foreground transition-colors hover:text-foreground focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring">
@@ -675,7 +677,7 @@ function RuntimeQuestionReceipt({
       <div className="pb-3 pl-7 pr-1">
         <div className="mb-3">
           <p className="text-sm font-medium text-foreground">
-            {item.questionSet?.title ?? "Runtime input"}
+            {item.questionSet?.title ?? t("issues.taskChatProtocolCard.runtimeInput")}
           </p>
           <p className="mt-1 text-sm text-muted-foreground">{item.prompt}</p>
         </div>
@@ -844,7 +846,7 @@ function RuntimeRequestCard({
               size="sm"
               disabled={!onDecision || submitting || !canSubmitInput}
             >
-              {submitting ? "Submitting…" : "Submit response"}
+              {submitting ? t("issues.taskChatProtocolCard.submitting") : t("issues.taskChatProtocolCard.submitResponse")}
             </Button>
             {item.choices.some((choice) => choice.key === "decline") ? (
               <Button
@@ -897,7 +899,7 @@ function RuntimeRequestCard({
                   }
                 }}
               >
-                {submitting ? "Submitting…" : choice.label}
+                {submitting ? t("issues.taskChatProtocolCard.submitting") : choice.label}
               </Button>
             ))}
         </div>
@@ -978,7 +980,7 @@ function ResultCard({
               {item.remainingWork.map((work, index) => (
                 <li key={`${work.description}:${index}`}>
                   {work.description}
-                  {work.blocksCompletion ? " · blocks completion" : ""}
+                  {work.blocksCompletion ? t("issues.taskChatProtocolCard.blocksCompletion") : ""}
                 </li>
               ))}
             </ul>

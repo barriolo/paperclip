@@ -13,6 +13,7 @@ import { resolveCommentAttribution } from "@/lib/comment-attribution";
 import { resolveIssueChatHumanAuthor } from "@/lib/issue-chat-human-author";
 import type { CompanyUserProfile } from "@/lib/company-members";
 import type { TaskChatAuthorKind, TaskChatItem, TaskChatMessageItem } from "./task-chat-model";
+import { i18n } from "@/i18n";
 
 export interface TaskChatAdapterContext {
   agentMap?: Map<string, Agent>;
@@ -73,8 +74,8 @@ export function commentsToTaskChatItems(
   for (const comment of comments) {
     if (comment.deletedAt) continue;
     if (comment.conversationSessionGeneration != null) {
-      items.push({ id: comment.id, kind: "marker", variant: "session_start", label: "New session",
-        detail: "Earlier messages and files are still available.", createdAtIso: new Date(comment.createdAt).toISOString() });
+      items.push({ id: comment.id, kind: "marker", variant: "session_start", label: i18n.t("issues.taskChatAdapter.newSession"),
+        detail: i18n.t("issues.taskChatAdapter.earlierMessagesAndFilesAre"), createdAtIso: new Date(comment.createdAt).toISOString() });
       continue;
     }
     const kind = authorKind(comment);

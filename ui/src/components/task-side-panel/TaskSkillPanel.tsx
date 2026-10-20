@@ -39,7 +39,7 @@ export function TaskSkillPanel({ companyId, skillId }: { companyId: string; skil
       <div className="space-y-3 py-8 text-sm text-muted-foreground" role="alert">
         <p>{t("issues.taskSkillPanel.theSkillCouldNotBe")}</p>
         <Button variant="outline" size="sm" onClick={() => void query.refetch()} disabled={query.isFetching}>
-          {query.isFetching ? "Retrying…" : "Retry"}
+          {query.isFetching ? t("issues.taskSkillPanel.retrying") : t("issues.taskSkillPanel.retry")}
         </Button>
       </div>
     );
@@ -67,7 +67,7 @@ export function TaskSkillPanel({ companyId, skillId }: { companyId: string; skil
           </Button>
         </div>
         <p className="text-xs text-muted-foreground">
-          {skill.slug} · {skill.currentVersion ? `Revision ${skill.currentVersion.revisionNumber}` : "Current version"}
+          {skill.slug} · {skill.currentVersion ? t("issues.taskSkillPanel.revision", { revisionNumber: skill.currentVersion.revisionNumber }) : t("issues.taskSkillPanel.currentVersion")}
         </p>
       </header>
       {skill.description ? <p className="text-sm text-muted-foreground">{skill.description}</p> : null}
@@ -76,7 +76,7 @@ export function TaskSkillPanel({ companyId, skillId }: { companyId: string; skil
           <FileText className="size-3.5" aria-hidden />
           {t("issues.taskSkillPanel.skillInstructions")}
         </h3>
-        <MarkdownBody>{previewMarkdown || "Skill instructions are empty."}</MarkdownBody>
+        <MarkdownBody>{previewMarkdown || t("issues.taskSkillPanel.skillInstructionsAreEmpty")}</MarkdownBody>
       </section>
     </article>
   );

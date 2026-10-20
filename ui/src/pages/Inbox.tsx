@@ -188,7 +188,7 @@ import {
   taskDateGroupSeparator,
   type TaskDateGroup,
 } from "../lib/task-date-groups";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 const INBOX_HEARTBEAT_RUN_LIMIT = 200;
 const INBOX_ISSUE_LIST_LIMIT = 500;
@@ -341,7 +341,7 @@ export function formatJoinRequestInboxLabel(
   if (requesterEmail) return requesterEmail;
   if (requesterName) return requesterName;
   if (requesterId) return requesterId;
-  return "Human join request";
+  return i18n.t("issues.inbox.humanJoinRequest");
 }
 
 
@@ -464,7 +464,7 @@ export function FailedRunInboxRow({
             disabled={isRetrying}
           >
             <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-            {isRetrying ? "Retrying…" : "Retry"}
+            {isRetrying ? t("issues.inbox.retrying") : t("issues.inbox.retry")}
           </Button>
           {!showUnreadSlot && (
             <button
@@ -488,7 +488,7 @@ export function FailedRunInboxRow({
           disabled={isRetrying}
         >
           <RotateCcw className="mr-1.5 h-3.5 w-3.5" />
-          {isRetrying ? "Retrying…" : "Retry"}
+          {isRetrying ? t("issues.inbox.retrying") : t("issues.inbox.retry")}
         </Button>
         {!showUnreadSlot && (
           <button
@@ -2679,7 +2679,7 @@ function StreamlinedInbox({
                     onClick={() => setShowMarkAllReadConfirm(true)}
                     disabled={markAllReadMutation.isPending}
                   >
-                    {markAllReadMutation.isPending ? "Marking…" : "Mark all as read"}
+                    {markAllReadMutation.isPending ? t("issues.inbox.marking") : t("issues.inbox.markAllAsRead2")}
                   </Button>
                   <Dialog open={showMarkAllReadConfirm} onOpenChange={setShowMarkAllReadConfirm}>
                     <DialogContent className="sm:max-w-md">
@@ -2978,7 +2978,7 @@ function StreamlinedInbox({
                       >
                         <div className="h-px flex-1 bg-border/80" />
                         <span className="shrink-0 text-(length:--text-micro) font-semibold uppercase tracking-wide text-muted-foreground">
-                          {group.searchSection === "archived" ? "Archived" : "Other results"}
+                          {group.searchSection === "archived" ? t("issues.inbox.archived") : t("issues.inbox.otherResults")}
                         </span>
                         <div className="h-px flex-1 bg-border/80" />
                       </div>,
@@ -3313,7 +3313,7 @@ function StreamlinedInbox({
                     <AlertTriangle className="h-4 w-4 shrink-0 text-red-600 dark:text-red-400" />
                     <span className="text-sm">
                       <span className="font-medium">{dashboard!.agents.error}</span>{" "}
-                      {dashboard!.agents.error === 1 ? "agent has" : "agents have"} errors
+                      {dashboard!.agents.error === 1 ? t("issues.inbox.agentHas") : t("issues.inbox.agentsHave")} errors
                     </span>
                   </Link>
                   <button

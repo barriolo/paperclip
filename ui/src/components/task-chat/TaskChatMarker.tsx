@@ -51,10 +51,10 @@ export function TaskChatMarker({
         <div className="flex min-w-0 flex-1 flex-col gap-2">
           <p className="font-semibold text-destructive">{t("issues.taskChatMarker.couldntStart", { agentName: agentName })}</p>
           <p className="break-words font-medium text-foreground">
-            {t("issues.taskChatMarker.isConfiguredToUse", { agentName: agentName })}{" "}{credentialName || "an AI credential"}{t("issues.taskChatMarker.but")}{" "}{deniedUser === "you" ? "you don’t" : `${deniedUser} doesn’t`}{" "}{t("issues.taskChatMarker.haveAccessToThatCredential")}
+            {t("issues.taskChatMarker.isConfiguredToUse", { agentName: agentName })}{" "}{credentialName || t("issues.taskChatMarker.anAiCredential")}{t("issues.taskChatMarker.but")}{" "}{deniedUser === "you" ? t("issues.taskChatMarker.youDont") : `${deniedUser} doesn’t`}{" "}{t("issues.taskChatMarker.haveAccessToThatCredential")}
           </p>
           <p className="text-muted-foreground">
-            {t("issues.taskChatMarker.chooseAnAiConnection")}{" "}{deniedUser === "you" ? "you can" : `${deniedUser} can`}{" "}{t("issues.taskChatMarker.useOrAskAnAdministrator", { agentName: agentName })}
+            {t("issues.taskChatMarker.chooseAnAiConnection")}{" "}{deniedUser === "you" ? t("issues.taskChatMarker.youCan") : `${deniedUser} can`}{" "}{t("issues.taskChatMarker.useOrAskAnAdministrator", { agentName: agentName })}
           </p>
           <div className="flex flex-wrap items-center gap-2 pt-1">
             <Button asChild variant="outline" size="sm"><Link to={settingsHref}>{t("issues.taskChatMarker.changeAiConnection")}</Link></Button>
@@ -107,7 +107,7 @@ export function TaskChatMarker({
               disabled={tryAgainPending}
               data-testid="task-chat-run-failed-try-again"
             >
-              {tryAgainPending ? "Trying again..." : "Try again"}
+              {tryAgainPending ? t("issues.taskChatMarker.tryingAgain") : t("issues.taskChatMarker.tryAgain")}
             </Button>
           ) : null}
         </div>
@@ -142,7 +142,7 @@ export function TaskChatMarker({
                     disabled={tryAgainPending}
                     data-testid="task-chat-run-failed-try-again"
                   >
-                    {tryAgainPending ? "Trying again..." : "Try again"}
+                    {tryAgainPending ? t("issues.taskChatMarker.tryingAgain") : t("issues.taskChatMarker.tryAgain")}
                   </Button>
                 ) : null}
               </div>
@@ -187,7 +187,7 @@ export function TaskChatMarker({
             disabled={tryAgainPending}
             data-testid="task-chat-run-failed-try-again"
           >
-            {tryAgainPending ? "Trying again..." : "Try again"}
+            {tryAgainPending ? t("issues.taskChatMarker.tryingAgain") : t("issues.taskChatMarker.tryAgain")}
           </Button>
         ) : null}
       </span>

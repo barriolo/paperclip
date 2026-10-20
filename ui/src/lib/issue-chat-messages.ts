@@ -23,6 +23,7 @@ import { findUIAdapter } from "../adapters/registry";
 import {
   summarizeNotice,
 } from "./transcriptPresentation";
+import { i18n } from "@/i18n";
 
 type JsonValue = null | string | number | boolean | JsonValue[] | { [key: string]: JsonValue };
 type JsonObject = { [key: string]: JsonValue };
@@ -810,24 +811,24 @@ function runDurationLabel(run: {
   const stopReason = typeof run.resultJson?.stopReason === "string" ? run.resultJson.stopReason : null;
   switch (run.status) {
     case "succeeded":
-      return durationText ? `Worked for ${durationText}` : "Finished work";
+      return durationText ? i18n.t("issues.issueChatMessages.workedFor", { durationText: durationText }) : i18n.t("issues.issueChatMessages.finishedWork");
     case "failed":
     case "error":
-      return durationText ? `Failed after ${durationText}` : "Run failed";
+      return durationText ? i18n.t("issues.issueChatMessages.failedAfter", { durationText: durationText }) : i18n.t("issues.issueChatMessages.runFailed");
     case "timed_out":
-      return durationText ? `Timed out after ${durationText}` : "Run timed out";
+      return durationText ? i18n.t("issues.issueChatMessages.timedOutAfter", { durationText: durationText }) : i18n.t("issues.issueChatMessages.runTimedOut");
     case "cancelled":
       if (isOperatorInterruptedRun(run.resultJson, run.errorCode)) {
-        return durationText ? `Interrupted by board after ${durationText}` : "Interrupted by board";
+        return durationText ? i18n.t("issues.issueChatMessages.interruptedByBoardAfter", { durationText: durationText }) : i18n.t("issues.issueChatMessages.interruptedByBoard");
       }
       if (stopReason === "paused") {
-        return durationText ? `Paused by board after ${durationText}` : "Paused by board";
+        return durationText ? i18n.t("issues.issueChatMessages.pausedByBoardAfter", { durationText: durationText }) : i18n.t("issues.issueChatMessages.pausedByBoard");
       }
-      return durationText ? `Cancelled after ${durationText}` : "Run cancelled";
+      return durationText ? i18n.t("issues.issueChatMessages.cancelledAfter", { durationText: durationText }) : i18n.t("issues.issueChatMessages.runCancelled");
     case "queued":
-      return "Queued";
+      return i18n.t("issues.issueChatMessages.queued");
     case "running":
-      return "Working...";
+      return i18n.t("issues.issueChatMessages.working");
     default:
       return formatStatusLabel(run.status);
   }
@@ -866,7 +867,7 @@ function createHistoricalTranscriptMessage(args: {
   const agentName = run.agentName ?? agentMap?.get(run.agentId)?.name ?? run.agentId.slice(0, 8);
   const compactedTranscript = compactIssueChatTranscript(transcript, issueChatTranscriptMaxVisibleEntries(run.adapterType));
   const { parts, notices, segments } = buildAssistantPartsFromTranscript(compactedTranscript);
-  const waitingText = hasOutput ? "" : "Run finished";
+  const waitingText = hasOutput ? "" : i18n.t("issues.issueChatMessages.runFinished");
   const content = parts.length > 0
     ? parts
     : waitingText
@@ -939,7 +940,7 @@ export function buildAssistantPartsFromTranscript(entries: readonly IssueChatTra
         family: entry.family ?? "provider_notice",
         eventType: entry.eventType ?? "provider.notice.recorded",
         status: entry.status ?? "informational",
-        title: entry.title ?? "Provider activity",
+        title: entry.title ?? i18n.t("issues.issueChatMessages.providerActivity"),
         summary: entry.summary ?? "",
         payload: entry.payload ?? {},
       });
@@ -1110,10 +1111,10 @@ function createLiveRunMessage(args: {
   const { parts, notices, segments } = buildAssistantPartsFromTranscript(compactedTranscript);
   const waitingText =
     run.status === "queued"
-      ? "Queued..."
+      ? i18n.t("issues.issueChatMessages.queued2")
       : parts.length > 0
         ? ""
-        : "Working...";
+        : i18n.t("issues.issueChatMessages.working");
 
   const content = parts;
 

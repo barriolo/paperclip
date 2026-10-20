@@ -22,7 +22,7 @@ export function IssueAssignedBacklogNotice({
   if (issueStatus !== "backlog") return null;
   if (!assigneeAgent && !assigneeUserId) return null;
 
-  const assigneeLabel = assigneeAgent?.name ?? "the assignee";
+  const assigneeLabel = assigneeAgent?.name ?? t("issues.issueAssignedBacklogNotice.theAssignee");
 
   return (
     <div
@@ -52,7 +52,7 @@ export function IssueAssignedBacklogNotice({
                 disabled={resuming}
                 data-testid="issue-assigned-backlog-resume"
               >
-                {resuming ? "Resuming…" : "Resume now"}
+                {resuming ? t("issues.issueAssignedBacklogNotice.resuming") : t("issues.issueAssignedBacklogNotice.resumeNow")}
               </Button>
             </div>
           ) : null}

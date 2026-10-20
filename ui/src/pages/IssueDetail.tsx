@@ -2476,8 +2476,8 @@ const IssueDetailChatTab = memo(function IssueDetailChatTab({
         onClick={onLoadOlderComments}
       >
         {commentsLoadingOlder
-          ? "Loading earlier comments..."
-          : "Load earlier comments"}
+          ? t("issues.issueDetail.loadingEarlierComments")
+          : t("issues.issueDetail.loadEarlierComments")}
       </Button>
     </div>
   ) : null;
@@ -2887,8 +2887,8 @@ function IssueDetailActivityTab({
                   <span>
                     {t("issues.issueDetail.tokens", { tokens: formatTokens(issueCostSummary.totalTokens) })}
                     {issueCostSummary.cached > 0
-                      ? ` (in ${formatTokens(issueCostSummary.input)}, out ${formatTokens(issueCostSummary.output)}, cached ${formatTokens(issueCostSummary.cached)})`
-                      : ` (in ${formatTokens(issueCostSummary.input)}, out ${formatTokens(issueCostSummary.output)})`}
+                      ? t("issues.issueDetail.inOutCached", { tokens: formatTokens(issueCostSummary.input), tokens2: formatTokens(issueCostSummary.output), tokens3: formatTokens(issueCostSummary.cached) })
+                      : t("issues.issueDetail.inOut", { tokens: formatTokens(issueCostSummary.input), tokens2: formatTokens(issueCostSummary.output) })}
                   </span>
                 ) : null}
                 {issueCostSummary.hasRuntime ? (
@@ -2920,8 +2920,8 @@ function IssueDetailActivityTab({
                   <span>
                     {t("issues.issueDetail.tokens", { tokens: formatTokens(issueTreeCostTokens) })}
                     {issueTreeCostSummary.cachedInputTokens > 0
-                      ? ` (in ${formatTokens(issueTreeCostSummary.inputTokens)}, out ${formatTokens(issueTreeCostSummary.outputTokens)}, cached ${formatTokens(issueTreeCostSummary.cachedInputTokens)})`
-                      : ` (in ${formatTokens(issueTreeCostSummary.inputTokens)}, out ${formatTokens(issueTreeCostSummary.outputTokens)})`}
+                      ? t("issues.issueDetail.inOutCached", { tokens: formatTokens(issueTreeCostSummary.inputTokens), tokens2: formatTokens(issueTreeCostSummary.outputTokens), tokens3: formatTokens(issueTreeCostSummary.cachedInputTokens) })
+                      : t("issues.issueDetail.inOut", { tokens: formatTokens(issueTreeCostSummary.inputTokens), tokens2: formatTokens(issueTreeCostSummary.outputTokens) })}
                   </span>
                   {issueTreeCostSummary.runCount > 0 ? (
                     <span>
@@ -6773,7 +6773,7 @@ export function TaskDetailSurface({ conversation, tasksTab }: { tasksTab?: TaskS
       request: import("../components/IssueRecoveryActionCard").RecoveryReissueRequest,
     ) => {
       if (!issue) throw new Error("Task is not loaded yet.");
-      const sourceLabel = issue.identifier ?? "the stalled task";
+      const sourceLabel = issue.identifier ?? t("issues.issueDetail.theStalledTask");
       const descriptionLines = [
         `Re-issued from ${sourceLabel} on an isolated git worktree after a workspace branch divergence.`,
         "",
@@ -7096,7 +7096,7 @@ export function TaskDetailSurface({ conversation, tasksTab }: { tasksTab?: TaskS
   const previewAffectedAgentCount =
     treeControlPreview?.totals.affectedAgents ?? 0;
   const reopenComposerHint = closedIsolatedWorkspaceReopenPending
-    ? "This issue's isolated workspace was archived. Your next comment or resume reopens it and rebuilds the worktree."
+    ? t("issues.issueDetail.thisIssuesIsolatedWorkspaceWas")
     : null;
   const composerHint = activePauseHold ? null : reopenComposerHint;
   const queuedCommentReason: "hold" | "active_run" | "other" = activePauseHold
@@ -7129,7 +7129,7 @@ export function TaskDetailSurface({ conversation, tasksTab }: { tasksTab?: TaskS
       >
         <Paperclip className="h-3.5 w-3.5 mr-1.5" />
         {uploadAttachment.isPending || importMarkdownDocument.isPending ? (
-          "Uploading..."
+          t("issues.issueDetail.uploading")
         ) : (
           <>
             <span className="hidden sm:inline">{t("issues.issueDetail.uploadAttachment")}</span>
@@ -8548,8 +8548,8 @@ export function TaskDetailSurface({ conversation, tasksTab }: { tasksTab?: TaskS
                   <SheetHeader>
                     <SheetTitle className="text-sm">
                       {documentDeepLink?.documentKey === "plan"
-                        ? "Plan"
-                        : "Properties"}
+                        ? t("issues.issueDetail.plan")
+                        : t("issues.issueDetail.properties")}
                     </SheetTitle>
                   </SheetHeader>
                   <ScrollArea className="flex-1 overflow-y-auto">

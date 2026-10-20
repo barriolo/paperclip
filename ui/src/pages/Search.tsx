@@ -828,7 +828,7 @@ function SearchTabContent({
         <AlertTriangle className="h-10 w-10 text-destructive" aria-hidden />
         <div className="text-base font-semibold">{t("issues.search.couldntRunThatSearch")}</div>
         <p className="text-sm text-muted-foreground">
-          {status ? `The server returned ${status}.` : "The request failed."}{" "}{t("issues.search.yourInputAndFiltersAre")}
+          {status ? t("issues.search.theServerReturned", { status: status }) : t("issues.search.theRequestFailed")}{" "}{t("issues.search.yourInputAndFiltersAre")}
         </p>
         <div className="flex flex-wrap items-center justify-center gap-2">
           <Button onClick={refetch} variant="default" size="sm">
@@ -911,11 +911,11 @@ function SearchTabContent({
           {allMatchTotal > totalResults
             ? `${totalResults} of ${allMatchTotal} results`
             : totalResults === 1
-              ? "1 result"
+              ? t("issues.search.n1Result")
               : `${totalResults} results`}
           {` · sorted by ${sortLabel}`}
           {activeFilterCount > 0
-            ? ` · ${activeFilterCount} ${activeFilterCount === 1 ? "filter" : "filters"} active`
+            ? t("issues.search.filtersActive", { count: activeFilterCount, activeFilterCount: activeFilterCount })
             : ""}
         </span>
         {isFetching ? <span aria-live="polite" className="normal-case tracking-normal">{t("issues.search.updating")}</span> : null}

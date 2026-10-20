@@ -22,7 +22,7 @@ import { Button } from "@/components/ui/button";
 import { Check, Copy, FileSearch, FolderOpen, FolderSearch, GitBranch, Pencil, X } from "lucide-react";
 import { ReusableExecutionWorkspaceSelect } from "./ReusableExecutionWorkspaceSelect";
 import { Badge } from "@/components/ui/badge";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 /* -------------------------------------------------------------------------- */
 /*  Utility helpers (mirrored from IssueProperties for self-containment)      */
@@ -85,11 +85,11 @@ function CopyableInline({ value, label, mono }: { value: string; label?: string;
 
 function workspaceModeLabel(mode: string | null | undefined) {
   switch (mode) {
-    case "isolated_workspace": return "Isolated workspace";
-    case "operator_branch": return "Operator branch";
-    case "cloud_sandbox": return "Cloud environment";
-    case "adapter_managed": return "Adapter managed";
-    default: return "Workspace";
+    case "isolated_workspace": return i18n.t("issues.issueWorkspaceCard.isolatedWorkspace");
+    case "operator_branch": return i18n.t("issues.issueWorkspaceCard.operatorBranch");
+    case "cloud_sandbox": return i18n.t("issues.issueWorkspaceCard.cloudEnvironment");
+    case "adapter_managed": return i18n.t("issues.issueWorkspaceCard.adapterManaged");
+    default: return i18n.t("issues.issueWorkspaceCard.workspace");
   }
 }
 
@@ -99,13 +99,13 @@ function configuredWorkspaceLabel(
 ) {
   switch (selection) {
     case "isolated_workspace":
-      return "New isolated workspace";
+      return i18n.t("issues.issueWorkspaceCard.newIsolatedWorkspace");
     case "reuse_existing":
       return reusableWorkspace?.mode === "isolated_workspace"
-        ? "Existing isolated workspace"
-        : "Reuse existing workspace";
+        ? i18n.t("issues.issueWorkspaceCard.existingIsolatedWorkspace")
+        : i18n.t("issues.issueWorkspaceCard.reuseExistingWorkspace");
     default:
-      return "Project default";
+      return i18n.t("issues.issueWorkspaceCard.projectDefault");
   }
 }
 
@@ -412,19 +412,19 @@ export function IssueWorkspaceCard({
             <div className="text-muted-foreground" style={{ overflowWrap: "anywhere" }}>
               {t("issues.issueWorkspaceCard.environment")}{" "}<span className="text-foreground">{currentEnvironment?.name ?? currentEnvironmentId}</span>
               {currentSelection === "reuse_existing" && currentReusableEnvironmentId === currentEnvironmentId
-                ? " · reused workspace"
+                ? t("issues.issueWorkspaceCard.reusedWorkspace")
                 : !issue.executionWorkspaceSettings?.environmentId && projectEnvironmentId === currentEnvironmentId
-                ? " · project default"
+                ? t("issues.issueWorkspaceCard.projectDefault2")
                 : null}
             </div>
           )}
           {!workspace && (
             <div className="text-muted-foreground">
               {currentSelection === "isolated_workspace"
-                ? "A fresh isolated workspace will be created when this task runs."
+                ? t("issues.issueWorkspaceCard.aFreshIsolatedWorkspaceWill")
                 : currentSelection === "reuse_existing"
-                  ? "This task will reuse an existing workspace when it runs."
-                  : "This task will use the project default workspace configuration when it runs."}
+                  ? t("issues.issueWorkspaceCard.thisTaskWillReuseAn")
+                  : t("issues.issueWorkspaceCard.thisTaskWillUseThe")}
             </div>
           )}
           {currentSelection === "reuse_existing" && selectedReusableExecutionWorkspace && (
@@ -474,7 +474,7 @@ export function IssueWorkspaceCard({
             {EXECUTION_WORKSPACE_OPTIONS.map((option) => (
               <option key={option.value} value={option.value}>
                 {option.value === "reuse_existing" && configuredReusableWorkspace?.mode === "isolated_workspace"
-                  ? "Existing isolated workspace"
+                  ? t("issues.issueWorkspaceCard.existingIsolatedWorkspace")
                   : option.label}
               </option>
             ))}

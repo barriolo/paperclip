@@ -16,6 +16,7 @@ import {
 } from "lucide-react";
 import type { LucideIcon } from "lucide-react";
 import type { IssueAttachment } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 export interface FileKind {
   icon: LucideIcon;
@@ -38,47 +39,109 @@ const IMAGE_EXTENSIONS = new Set([
 
 const KIND_BY_EXTENSION: Record<string, FileKind> = {
   pdf: { icon: FileText, label: "PDF" },
-  doc: { icon: FileText, label: "Doc" },
-  docx: { icon: FileText, label: "Doc" },
-  txt: { icon: FileText, label: "Text" },
-  md: { icon: FileText, label: "Markdown" },
-  rtf: { icon: FileText, label: "Text" },
+  doc: { icon: FileText, get label() {
+    return i18n.t("issues.taskChatAttachments.doc");
+  } },
+  docx: { icon: FileText, get label() {
+    return i18n.t("issues.taskChatAttachments.doc");
+  } },
+  txt: { icon: FileText, get label() {
+    return i18n.t("issues.taskChatAttachments.text");
+  } },
+  md: { icon: FileText, get label() {
+    return i18n.t("issues.taskChatAttachments.markdown");
+  } },
+  rtf: { icon: FileText, get label() {
+    return i18n.t("issues.taskChatAttachments.text");
+  } },
   csv: { icon: FileSpreadsheet, label: "CSV" },
   tsv: { icon: FileSpreadsheet, label: "TSV" },
-  xls: { icon: FileSpreadsheet, label: "Sheet" },
-  xlsx: { icon: FileSpreadsheet, label: "Sheet" },
+  xls: { icon: FileSpreadsheet, get label() {
+    return i18n.t("issues.taskChatAttachments.sheet");
+  } },
+  xlsx: { icon: FileSpreadsheet, get label() {
+    return i18n.t("issues.taskChatAttachments.sheet");
+  } },
   zip: { icon: FileArchive, label: "ZIP" },
-  gz: { icon: FileArchive, label: "Archive" },
-  tar: { icon: FileArchive, label: "Archive" },
-  tgz: { icon: FileArchive, label: "Archive" },
-  rar: { icon: FileArchive, label: "Archive" },
-  "7z": { icon: FileArchive, label: "Archive" },
-  mp3: { icon: FileAudio, label: "Audio" },
-  wav: { icon: FileAudio, label: "Audio" },
-  m4a: { icon: FileAudio, label: "Audio" },
-  ogg: { icon: FileAudio, label: "Audio" },
-  mp4: { icon: FileVideo, label: "Video" },
-  mov: { icon: FileVideo, label: "Video" },
-  webm: { icon: FileVideo, label: "Video" },
+  gz: { icon: FileArchive, get label() {
+    return i18n.t("issues.taskChatAttachments.archive");
+  } },
+  tar: { icon: FileArchive, get label() {
+    return i18n.t("issues.taskChatAttachments.archive");
+  } },
+  tgz: { icon: FileArchive, get label() {
+    return i18n.t("issues.taskChatAttachments.archive");
+  } },
+  rar: { icon: FileArchive, get label() {
+    return i18n.t("issues.taskChatAttachments.archive");
+  } },
+  "7z": { icon: FileArchive, get label() {
+    return i18n.t("issues.taskChatAttachments.archive");
+  } },
+  mp3: { icon: FileAudio, get label() {
+    return i18n.t("issues.taskChatAttachments.audio");
+  } },
+  wav: { icon: FileAudio, get label() {
+    return i18n.t("issues.taskChatAttachments.audio");
+  } },
+  m4a: { icon: FileAudio, get label() {
+    return i18n.t("issues.taskChatAttachments.audio");
+  } },
+  ogg: { icon: FileAudio, get label() {
+    return i18n.t("issues.taskChatAttachments.audio");
+  } },
+  mp4: { icon: FileVideo, get label() {
+    return i18n.t("issues.taskChatAttachments.video");
+  } },
+  mov: { icon: FileVideo, get label() {
+    return i18n.t("issues.taskChatAttachments.video");
+  } },
+  webm: { icon: FileVideo, get label() {
+    return i18n.t("issues.taskChatAttachments.video");
+  } },
   json: { icon: FileCode, label: "JSON" },
   yaml: { icon: FileCode, label: "YAML" },
   yml: { icon: FileCode, label: "YAML" },
   xml: { icon: FileCode, label: "XML" },
   html: { icon: FileCode, label: "HTML" },
   css: { icon: FileCode, label: "CSS" },
-  js: { icon: FileCode, label: "Code" },
-  jsx: { icon: FileCode, label: "Code" },
-  ts: { icon: FileCode, label: "Code" },
-  tsx: { icon: FileCode, label: "Code" },
-  py: { icon: FileCode, label: "Code" },
-  rb: { icon: FileCode, label: "Code" },
-  go: { icon: FileCode, label: "Code" },
-  rs: { icon: FileCode, label: "Code" },
-  sh: { icon: FileCode, label: "Code" },
+  js: { icon: FileCode, get label() {
+    return i18n.t("issues.taskChatAttachments.code");
+  } },
+  jsx: { icon: FileCode, get label() {
+    return i18n.t("issues.taskChatAttachments.code");
+  } },
+  ts: { icon: FileCode, get label() {
+    return i18n.t("issues.taskChatAttachments.code");
+  } },
+  tsx: { icon: FileCode, get label() {
+    return i18n.t("issues.taskChatAttachments.code");
+  } },
+  py: { icon: FileCode, get label() {
+    return i18n.t("issues.taskChatAttachments.code");
+  } },
+  rb: { icon: FileCode, get label() {
+    return i18n.t("issues.taskChatAttachments.code");
+  } },
+  go: { icon: FileCode, get label() {
+    return i18n.t("issues.taskChatAttachments.code");
+  } },
+  rs: { icon: FileCode, get label() {
+    return i18n.t("issues.taskChatAttachments.code");
+  } },
+  sh: { icon: FileCode, get label() {
+    return i18n.t("issues.taskChatAttachments.code");
+  } },
   sql: { icon: FileCode, label: "SQL" },
-  log: { icon: FileText, label: "Log" },
-  patch: { icon: FileCode, label: "Patch" },
-  diff: { icon: FileCode, label: "Patch" },
+  log: { icon: FileText, get label() {
+    return i18n.t("issues.taskChatAttachments.log");
+  } },
+  patch: { icon: FileCode, get label() {
+    return i18n.t("issues.taskChatAttachments.patch");
+  } },
+  diff: { icon: FileCode, get label() {
+    return i18n.t("issues.taskChatAttachments.patch");
+  } },
 };
 
 function extensionOf(name: string): string {
@@ -115,7 +178,7 @@ export function isImageAttachment(ref: AttachmentRef): boolean {
 
 /** Kind icon + short label for a filename; unknown extensions get File/"File". */
 export function fileKindForName(name: string): FileKind {
-  return KIND_BY_EXTENSION[extensionOf(name)] ?? { icon: FileIcon, label: "File" };
+  return KIND_BY_EXTENSION[extensionOf(name)] ?? { icon: FileIcon, label: i18n.t("issues.taskChatAttachments.file") };
 }
 
 export function fileKindForAttachment(ref: AttachmentRef): FileKind {
@@ -130,11 +193,11 @@ export function fileKindForAttachment(ref: AttachmentRef): FileKind {
   if (contentType === "text/csv" || contentType === "application/csv") {
     return { icon: FileSpreadsheet, label: "CSV" };
   }
-  if (contentType.startsWith("text/")) return { icon: FileText, label: "Text" };
-  if (contentType.startsWith("audio/")) return { icon: FileAudio, label: "Audio" };
-  if (contentType.startsWith("video/")) return { icon: FileVideo, label: "Video" };
+  if (contentType.startsWith("text/")) return { icon: FileText, label: i18n.t("issues.taskChatAttachments.text") };
+  if (contentType.startsWith("audio/")) return { icon: FileAudio, label: i18n.t("issues.taskChatAttachments.audio") };
+  if (contentType.startsWith("video/")) return { icon: FileVideo, label: i18n.t("issues.taskChatAttachments.video") };
   if (contentType.includes("zip") || contentType.includes("archive")) {
-    return { icon: FileArchive, label: "Archive" };
+    return { icon: FileArchive, label: i18n.t("issues.taskChatAttachments.archive") };
   }
   return byName;
 }

@@ -47,8 +47,9 @@ function SiblingLink({
   linkState?: unknown;
   className?: string;
 }) {
+  const { t } = useTranslation();
   const issuePathId = issue.identifier ?? issue.id;
-  const label = direction === "previous" ? "Previous" : "Next";
+  const label = direction === "previous" ? t("issues.issueSiblingNavigation.previous") : t("issues.issueSiblingNavigation.next");
   const ariaDirection = direction === "previous" ? "Previous sub-task" : "Next sub-task";
   const identifier = issue.identifier ?? issue.id.slice(0, 8);
   const Icon = direction === "previous" ? ChevronLeft : ChevronRight;

@@ -176,7 +176,7 @@ export function IssuePrivacyActions({
             <AlertDialogDescription>
               {t("issues.issuePrivacyActions.everyoneInTheCompanyWill")}{" "}
               {constraintsQuery.data?.leavesPersonalProject
-                ? "This task will also leave its personal project. " : null}
+                ? t("issues.issuePrivacyActions.thisTaskWillAlsoLeave") : null}
               <span className="font-semibold text-foreground">{t("issues.issuePrivacyActions.contentAlreadySeenByOthers")}</span>
             </AlertDialogDescription>
           </AlertDialogHeader>
@@ -190,7 +190,7 @@ export function IssuePrivacyActions({
               }}
               disabled={visibilityMutation.isPending || Boolean(publicBlockedReason)}
             >
-              {visibilityMutation.isPending ? "Making public…" : "Make public"}
+              {visibilityMutation.isPending ? t("issues.issuePrivacyActions.makingPublic") : t("issues.issuePrivacyActions.makePublic")}
             </AlertDialogAction>
           </AlertDialogFooter>
         </AlertDialogContent>

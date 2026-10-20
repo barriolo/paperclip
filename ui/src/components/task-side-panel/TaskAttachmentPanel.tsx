@@ -98,7 +98,7 @@ export function TaskAttachmentPanel({ issueId, attachmentId }: { issueId: string
   if (!eligible || content.isError) {
     return (
       <div className="space-y-3 p-4" role="alert">
-        <p className="text-sm">{content.isError ? "Could not preview this file. Retry or download it." : "This file is too large or is not supported for text preview. Download it instead."}</p>
+        <p className="text-sm">{content.isError ? t("issues.taskAttachmentPanel.couldNotPreviewThisFile") : t("issues.taskAttachmentPanel.thisFileIsTooLarge")}</p>
         {eligible ? <Button onClick={() => void content.refetch()}>{t("issues.taskAttachmentPanel.retry")}</Button> : null}
         <Button asChild variant="outline"><a href={downloadUrl} download>{t("issues.taskAttachmentPanel.downloadFile")}</a></Button>
       </div>

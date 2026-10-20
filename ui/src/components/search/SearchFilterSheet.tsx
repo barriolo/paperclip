@@ -133,8 +133,8 @@ export function SearchFilterSheet({
   const selectedAssignee = assigneeToken(draft, data.currentUserId);
   const applyLabel =
     previewTotal === null
-      ? "Show results"
-      : `Show ${previewTotal} ${previewTotal === 1 ? "result" : "results"}`;
+      ? t("issues.searchFilterSheet.showResults")
+      : t("issues.searchFilterSheet.showResults2", { count: previewTotal, previewTotal: previewTotal });
 
   return (
     <Sheet open={open} onOpenChange={onOpenChange}>

@@ -75,6 +75,7 @@ function RunnerTurnStatus({
   continuedAfterSteering?: boolean;
   waitingLabel?: string | null;
 }) {
+  const { t } = useTranslation();
   const terminal = isTerminalRunStatus(status);
   useSecondTick(!terminal && startedAtMs != null);
   const elapsedMs =
@@ -87,7 +88,7 @@ function RunnerTurnStatus({
   const elapsed = formatCompactDuration(elapsedMs);
 
   const failed = terminalStatusFailed(status);
-  const label = terminal ? (failed ? "Stopped" : "Worked") : waitingLabel ?? "Working";
+  const label = terminal ? (failed ? t("issues.taskChatRunnerTurn.stopped") : t("issues.taskChatRunnerTurn.worked")) : waitingLabel ?? t("issues.taskChatRunnerTurn.working");
   const semanticLabel = terminal
     ? elapsed
       ? `${label} ${failed ? "after" : "for"} ${elapsed}`
@@ -96,7 +97,7 @@ function RunnerTurnStatus({
       ? `${label}${elapsed ? ` · ${elapsed}` : ""}`
       : `${label} for ${elapsed ?? "0s"}`;
   const visibleLabel = continuedAfterSteering
-    ? `Continued after steering · ${semanticLabel}`
+    ? t("issues.taskChatRunnerTurn.continuedAfterSteering", { semanticLabel: semanticLabel })
     : semanticLabel;
 
   return (
@@ -113,9 +114,10 @@ function RunnerTurnStatus({
 }
 
 function RunnerCurrentActivityTail({ status, waitingLabel }: { status: string; waitingLabel?: string | null }) {
+  const { t } = useTranslation();
   if (isTerminalRunStatus(status)) return null;
   return <div className="mt-2 flex min-h-8 min-w-0 items-center gap-2 px-1 py-1 text-xs text-muted-foreground" data-testid="task-chat-current-activity" data-turn-position="tail">
-    <span className={waitingLabel ? undefined : "shimmer-text shimmer-text-muted"} aria-live="polite" data-testid="task-chat-current-activity-label">{waitingLabel ?? "Thinking"}</span>
+    <span className={waitingLabel ? undefined : "shimmer-text shimmer-text-muted"} aria-live="polite" data-testid="task-chat-current-activity-label">{waitingLabel ?? t("issues.taskChatRunnerTurn.thinking")}</span>
   </div>;
 }
 

@@ -131,7 +131,8 @@ function BlockerRow({
 }
 
 function LiveWorkGlyph({ status }: { status: WaitingBlockerStatus }) {
-  const label = status === "done" ? "Done" : status === "running" ? "Running" : "Waiting";
+  const { t } = useTranslation();
+  const label = status === "done" ? t("issues.taskChatBlockerLinks.done") : status === "running" ? t("issues.taskChatBlockerLinks.running") : t("issues.taskChatBlockerLinks.waiting");
   if (status === "done") {
     return (
       <CheckCircle2
@@ -193,8 +194,9 @@ export function TaskChatBlockerLinks({
   ultimateBlocker: IssueRelationIssueSummary | IssueBlockerAttentionIssueSummary | null;
   placement: "top" | "bottom";
 }) {
+  const { t } = useTranslation();
   const streamlined = useStreamlinedTaskChatPresentation();
-  const directLabel = streamlined && placement === "bottom" ? "Still blocked by" : "Blocked by";
+  const directLabel = streamlined && placement === "bottom" ? "Still blocked by" : t("issues.taskChatBlockerLinks.blockedBy");
   const rootLabel = streamlined
     ? placement === "bottom" ? "Root blocker remains" : "Root blocker"
     : "Ultimately blocked by";
@@ -222,7 +224,7 @@ export function TaskChatLiveWorkLinks({
 }) {
   const { t } = useTranslation();
   const streamlined = useStreamlinedTaskChatPresentation();
-  const heading = streamlined && placement === "bottom" ? "Still waiting on live work" : "Waiting on live work";
+  const heading = streamlined && placement === "bottom" ? t("issues.taskChatBlockerLinks.stillWaitingOnLiveWork") : t("issues.taskChatBlockerLinks.waitingOnLiveWork");
   return (
     <div
       aria-label={t("issues.taskChatBlockerLinks.tasksWaitingOnLiveWork")}

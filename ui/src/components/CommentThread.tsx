@@ -27,7 +27,7 @@ import { cn, formatDateTime } from "../lib/utils";
 import { restoreSubmittedCommentDraft } from "../lib/comment-submit-draft";
 import { copyTextToClipboard } from "../lib/clipboard";
 import { PluginSlotOutlet } from "@/plugins/slots";
-import { useTranslation } from "@/i18n";
+import { useTranslation, i18n } from "@/i18n";
 
 interface CommentWithRunMeta extends IssueComment {
   runId?: string | null;
@@ -187,7 +187,7 @@ function formatTimelineAssigneeLabel(
   if (assignee.userId) {
     return formatAssigneeUserLabel(assignee.userId, currentUserId) ?? "Board";
   }
-  return "Unassigned";
+  return i18n.t("issues.commentThread.unassigned");
 }
 
 function formatTimelineActorName(
@@ -216,7 +216,7 @@ function initialsForName(name: string) {
 function formatRunStatusLabel(status: string) {
   switch (status) {
     case "timed_out":
-      return "timed out";
+      return i18n.t("issues.commentThread.timedOut");
     default:
       return status.replace(/_/g, " ");
   }
@@ -258,7 +258,7 @@ function CopyMarkdownButton({ text }: { text: string }) {
     }
   }, []);
 
-  const label = status === "copied" ? "Copied" : status === "failed" ? "Copy failed" : "Copy";
+  const label = status === "copied" ? t("issues.commentThread.copied") : status === "failed" ? t("issues.commentThread.copyFailed") : t("issues.commentThread.copy");
 
   return (
     <button
@@ -384,7 +384,7 @@ function CommentCard({
             />
           ) : null}
           {isPending ? (
-            <span className="text-xs text-muted-foreground">{isQueued ? "Queueing..." : "Sending..."}</span>
+            <span className="text-xs text-muted-foreground">{isQueued ? t("issues.commentThread.queueing") : t("issues.commentThread.sending")}</span>
           ) : (
             <a
               href={`#comment-${comment.id}`}
@@ -479,7 +479,7 @@ function TimelineEventCard({
 }) {
   const { t } = useTranslation();
   const actorName = formatTimelineActorName(event.actorType, event.actorId, agentMap, currentUserId);
-  const actionLabel = event.followUpRequested ? "requested follow-up" : "updated this task";
+  const actionLabel = event.followUpRequested ? t("issues.commentThread.requestedFollowup") : t("issues.commentThread.updatedThisTask");
 
   return (
     <div id={`activity-${event.id}`} className="flex items-start gap-2.5 py-1.5">
@@ -1002,7 +1002,7 @@ export function CommentThread({
                 disabled={interruptingQueuedRunId === queuedComments[0].queueTargetRunId}
                 onClick={() => void onInterruptQueued(queuedComments[0]!.queueTargetRunId!)}
               >
-                {interruptingQueuedRunId === queuedComments[0].queueTargetRunId ? "Interrupting..." : "Interrupt"}
+                {interruptingQueuedRunId === queuedComments[0].queueTargetRunId ? t("issues.commentThread.interrupting") : t("issues.commentThread.interrupt")}
               </Button>
             ) : null}
           </div>
@@ -1099,7 +1099,7 @@ export function CommentThread({
               />
             )}
             <Button size="sm" disabled={!canSubmit} onClick={handleSubmit}>
-              {submitting ? "Posting..." : "Comment"}
+              {submitting ? t("issues.commentThread.posting") : t("issues.commentThread.comment")}
             </Button>
           </div>
         </div>

@@ -28,6 +28,7 @@ import {
   toolActivityPresentation,
   toolTaxonomy,
 } from "./tool-taxonomy";
+import { i18n } from "@/i18n";
 
 const TERMINAL_STATUSES = new Set([
   "failed",
@@ -196,7 +197,7 @@ export function summarizeToolInput(input: unknown): string | undefined {
  */
 export function toolDisplayName(name: string | undefined | null): string {
   const raw = (name ?? "").trim();
-  return isGenericToolName(raw) ? "Unnamed tool" : humanizeToolName(raw);
+  return isGenericToolName(raw) ? i18n.t("issues.transcriptAdapter.unnamedTool") : humanizeToolName(raw);
 }
 
 /** "Thought for Ns" once a coalesced thinking group spans ≥1s. */
@@ -409,7 +410,7 @@ function providerActivityItem(
                 : "pending";
             return {
               id: stringValue(step.stepId) ?? `${runId}:plan-step:${stepIndex}`,
-              label: stringValue(step.body) ?? "Plan step",
+              label: stringValue(step.body) ?? i18n.t("issues.transcriptAdapter.planStep"),
               status,
             };
           })
@@ -442,7 +443,7 @@ function providerActivityItem(
           .map((child, childIndex) => ({
             id:
               stringValue(child.childId) ?? `${runId}:delegation:${childIndex}`,
-            title: stringValue(child.role) ?? "Subagent",
+            title: stringValue(child.role) ?? i18n.t("issues.transcriptAdapter.subagent"),
             status: stringValue(child.status) ?? "unknown",
             metadata:
               [stringValue(child.model), stringValue(child.activitySummary)]
@@ -1037,10 +1038,10 @@ export function transcriptToTaskChatItems(
           kind: "usage",
           ...(entry.subtype === "paperclip_runner_session_usage"
             ? {
-                label: "Provider session total",
+                label: i18n.t("issues.transcriptAdapter.providerSessionTotal"),
                 detail:
                   entry.text ||
-                  "This cumulative usage can include earlier runs in the resumed provider session.",
+                  i18n.t("issues.transcriptAdapter.thisCumulativeUsageCanInclude"),
               }
             : {}),
           usage: {
@@ -2160,11 +2161,11 @@ export function deriveRunStatusLabel(entries: readonly TranscriptEntry[]): {
         }
       }
       const selfTalk = flattenSelfTalk(parts.join(""));
-      return { label: "Responding", selfTalk: selfTalk || undefined };
+      return { label: i18n.t("issues.transcriptAdapter.responding"), selfTalk: selfTalk || undefined };
     }
-    if (entry.kind === "thinking") return { label: "Thinking" };
+    if (entry.kind === "thinking") return { label: i18n.t("issues.transcriptAdapter.thinking") };
     if (entry.kind === "system" && entry.text === "Reasoning started")
-      return { label: "Thinking" };
+      return { label: i18n.t("issues.transcriptAdapter.thinking") };
   }
-  return { label: "Running" };
+  return { label: i18n.t("issues.transcriptAdapter.running") };
 }

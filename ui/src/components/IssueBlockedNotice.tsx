@@ -87,7 +87,7 @@ function SuccessfulRunRetryNowControl({
     : null;
   const relative = dueAtIso ? formatMonitorOffset(dueAtIso) : null;
   const scheduleLabel = relative === "now"
-    ? "due now"
+    ? t("issues.issueBlockedNotice.dueNow")
     : relative
       ? `scheduled ${relative}`
       : "scheduled";
@@ -119,7 +119,7 @@ function SuccessfulRunRetryNowControl({
           ) : success ? (
             <span className="inline-flex items-center gap-1.5">
               <CheckCircle2 className="h-3.5 w-3.5" aria-hidden="true" />
-              {retryNow.data?.outcome === "already_promoted" ? "Already promoted" : "Promoted"}
+              {retryNow.data?.outcome === "already_promoted" ? t("issues.issueBlockedNotice.alreadyPromoted") : t("issues.issueBlockedNotice.promoted")}
             </span>
           ) : (
             <span className="inline-flex items-center gap-1.5">
@@ -305,7 +305,7 @@ function WaitingOnLiveWorkNotice({
           <div className="space-y-1" data-testid="issue-blocked-notice-progress">
             <div className="text-xs font-medium text-blue-800 dark:text-blue-200">
               {t("issues.issueBlockedNotice.ofDone", { doneCount: doneCount, total: total })}
-              {runningCount > 0 ? ` · ${runningCount} running` : null}
+              {runningCount > 0 ? t("issues.issueBlockedNotice.running", { runningCount: runningCount }) : null}
             </div>
             <div
               role="progressbar"
@@ -467,7 +467,7 @@ export function IssueBlockedNotice({
       ? { issueId, scheduledRetry }
       : null;
 
-  const blockerLabel = blockers.length === 1 ? "the linked task" : "the linked tasks";
+  const blockerLabel = blockers.length === 1 ? t("issues.issueBlockedNotice.theLinkedTask") : t("issues.issueBlockedNotice.theLinkedTasks");
   const terminalBlockers = blockers
     .flatMap((blocker) => blocker.terminalBlockers ?? [])
     .filter((blocker, index, all) => all.findIndex((candidate) => candidate.id === blocker.id) === index);
@@ -677,8 +677,8 @@ export function IssueBlockedNotice({
                       ? <>{t("issues.issueBlockedNotice.workOnThisTaskIs", { blockerLabel: blockerLabel })}</>
                       : <>{t("issues.issueBlockedNotice.workOnThisTaskIs2", { blockerLabel: blockerLabel })}</>
                     : reopenSuppressed
-                      ? <>{t("issues.issueBlockedNotice.aMessageWontRestartThis", { blockerLabel: blockerLabel })}{" "}{blockers.length === 1 ? "it is" : "they are"}{" "}{t("issues.issueBlockedNotice.doneThenItReopensAutomatically", { responsibleName: responsibleName })}</>
-                      : <>{t("issues.issueBlockedNotice.workOnThisTaskIs3", { blockerLabel: blockerLabel })}{" "}{blockers.length === 1 ? "it is" : "they are"}{" "}{t("issues.issueBlockedNotice.completeCommentsStillNotifyThe")}</>
+                      ? <>{t("issues.issueBlockedNotice.aMessageWontRestartThis", { blockerLabel: blockerLabel })}{" "}{blockers.length === 1 ? t("issues.issueBlockedNotice.itIs") : t("issues.issueBlockedNotice.theyAre")}{" "}{t("issues.issueBlockedNotice.doneThenItReopensAutomatically", { responsibleName: responsibleName })}</>
+                      : <>{t("issues.issueBlockedNotice.workOnThisTaskIs3", { blockerLabel: blockerLabel })}{" "}{blockers.length === 1 ? t("issues.issueBlockedNotice.itIs") : t("issues.issueBlockedNotice.theyAre")}{" "}{t("issues.issueBlockedNotice.completeCommentsStillNotifyThe")}</>
                   : <>Work on this task is blocked until someone moves it back to To do. Comments still notify the assignee for questions or triage.</>}
               </p>
               {reopenSuppressed && reopenSuppressedLeafId ? (
@@ -690,9 +690,7 @@ export function IssueBlockedNotice({
                   <span className="font-mono">{reopenSuppressedLeafId}</span>
                   {reopenSuppressedLeafStatus ? <> ({reopenSuppressedLeafStatus})</> : null}
                   {reopenSuppressedOtherCount > 0
-                    ? ` and ${reopenSuppressedOtherCount} other ${
-                        reopenSuppressedOtherCount === 1 ? "task" : "tasks"
-                      }`
+                    ? t("issues.issueBlockedNotice.andOtherTasks", { count: reopenSuppressedOtherCount, reopenSuppressedOtherCount: reopenSuppressedOtherCount })
                     : null}
                   .
                 </p>

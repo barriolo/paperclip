@@ -66,7 +66,7 @@ export function IssueContinuationHandoff({
           </div>
           <div className="text-(length:--text-micro) text-muted-foreground">
             {t("issues.issueContinuationHandoff.updated", { relativeTime: relativeTime(document.updatedAt) })}
-            {document.latestRevisionNumber > 0 ? ` - revision ${document.latestRevisionNumber}` : ""}
+            {document.latestRevisionNumber > 0 ? t("issues.issueContinuationHandoff.revision", { latestRevisionNumber: document.latestRevisionNumber }) : ""}
           </div>
         </div>
         <AgentSetupPrompt

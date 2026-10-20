@@ -4,6 +4,7 @@ import { resolvePaperclipRunnerModel } from "@paperclipai/adapter-utils";
 import { DEFAULT_GROK_LOCAL_MODEL, grokLocalReasoningEffortsForModel } from "@paperclipai/adapter-grok-local";
 import { DEFAULT_KIMI_LOCAL_MODEL, modelSupportsEffort, KIMI_SUPPORTED_EFFORTS } from "@paperclipai/adapter-kimi-local";
 import { aiConnectionBindingSchema, aiRuntimeConnectionBindingSchema, agentHarnessType, type Agent, type IssueAssigneeAdapterOverrides } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 export interface ComposerRunSettings {
   model: string | null;
@@ -13,8 +14,24 @@ export interface ComposerRunSettings {
 
 export const DEFAULT_COMPOSER_RUN_SETTINGS: ComposerRunSettings = { model: null, effort: null, fast: false };
 export const EFFORT_LABELS: Record<string, string> = {
-  off: "Off", minimal: "Minimal", low: "Low", medium: "Medium", high: "High",
-  xhigh: "Extra High", max: "Max", ultra: "Ultra",
+  get off() {
+    return i18n.t("issues.composerRunSettings.off");
+  }, get minimal() {
+    return i18n.t("issues.composerRunSettings.minimal");
+  }, get low() {
+    return i18n.t("issues.composerRunSettings.low");
+  }, get medium() {
+    return i18n.t("issues.composerRunSettings.medium");
+  }, get high() {
+    return i18n.t("issues.composerRunSettings.high");
+  },
+  get xhigh() {
+    return i18n.t("issues.composerRunSettings.extraHigh");
+  }, get max() {
+    return i18n.t("issues.composerRunSettings.max");
+  }, get ultra() {
+    return i18n.t("issues.composerRunSettings.ultra");
+  },
 };
 
 const MODEL_ADAPTERS = new Set([

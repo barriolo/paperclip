@@ -183,8 +183,8 @@ function MarkdownWorkProductRow({
       <div className="flex flex-col items-start gap-1.5">
         <p className="text-sm text-muted-foreground">
           {unsupportedError
-            ? "This file can't be previewed as Markdown. Use Raw or Download instead."
-            : "Preview failed to load."}
+            ? t("issues.issuePropertiesArtifactsTab.thisFileCantBePreviewed")
+            : t("issues.issuePropertiesArtifactsTab.previewFailedToLoad")}
         </p>
         {!unsupportedError ? (
           <button
@@ -547,7 +547,7 @@ export function IssuePropertiesArtifactsTab({
             {group.runId !== "other" ? (
               <header className="flex items-baseline justify-between gap-2 px-1">
                 <h3 className="truncate text-xs font-medium text-foreground">
-                  {agent?.name ?? `Run ${group.runId.slice(0, 8)}`}
+                  {agent?.name ?? t("issues.issuePropertiesArtifactsTab.run", { slice: group.runId.slice(0, 8) })}
                 </h3>
                 <time
                   className="shrink-0 text-(length:--text-micro) text-muted-foreground"

@@ -420,7 +420,7 @@ function ReceiptDisclosure({
                 </p>
               ) : null}
               <p className="mt-1 text-sm font-medium text-foreground">
-                {t("issues.taskChatCompactInteractionCard.answer")}{" "}{values.length > 0 ? values.join(", ") : "No answer"}
+                {t("issues.taskChatCompactInteractionCard.answer")}{" "}{values.length > 0 ? values.join(", ") : t("issues.taskChatCompactInteractionCard.noAnswer")}
               </p>
             </div>
           );
@@ -440,7 +440,7 @@ function ReceiptDisclosure({
             {t("issues.taskChatCompactInteractionCard.answer")}{" "}
             {selectedLabels.length > 0
               ? selectedLabels.join(", ")
-              : "No options selected"}
+              : t("issues.taskChatCompactInteractionCard.noOptionsSelected")}
           </p>
         ) : null}
         {interaction.payload.detailsMarkdown ? (
@@ -869,7 +869,7 @@ function ConfirmationCard({
         <div className="space-y-2">
           <p className="whitespace-pre-line break-words text-sm leading-5 text-foreground">
             {isPlanConfirmation
-              ? "Do you accept this plan?"
+              ? t("issues.taskChatCompactInteractionCard.doYouAcceptThisPlan")
               : interaction.payload.prompt}
           </p>
           {!isPlanConfirmation ? (
@@ -953,7 +953,7 @@ function ConfirmationCard({
             id={`${interaction.id}-reject-reason-label`}
             className="text-xs font-medium leading-4 text-foreground"
           >
-            {interaction.payload.rejectReasonLabel ?? "What should change?"}
+            {interaction.payload.rejectReasonLabel ?? t("issues.taskChatCompactInteractionCard.whatShouldChange")}
             {interaction.payload.rejectRequiresReason ? "" : " (optional)"}
           </p>
           {isPlanConfirmation ? (
@@ -1023,7 +1023,7 @@ function ConfirmationCard({
               {working === "reject" ? (
                 <Loader2 aria-hidden className="h-4 w-4 animate-spin" />
               ) : null}
-              {interaction.payload.rejectLabel ?? "Reject"}
+              {interaction.payload.rejectLabel ?? t("issues.taskChatCompactInteractionCard.reject")}
             </Button>
           </>
         ) : (
@@ -1039,7 +1039,7 @@ function ConfirmationCard({
                   : void resolve("reject")
               }
             >
-              {interaction.payload.rejectLabel ?? "Reject"}
+              {interaction.payload.rejectLabel ?? t("issues.taskChatCompactInteractionCard.reject")}
             </Button>
             <Button
               type="button"
@@ -1050,7 +1050,7 @@ function ConfirmationCard({
               {working === "accept" ? (
                 <Loader2 aria-hidden className="h-4 w-4 animate-spin" />
               ) : null}
-              {interaction.payload.acceptLabel ?? "Approve"}
+              {interaction.payload.acceptLabel ?? t("issues.taskChatCompactInteractionCard.approve")}
             </Button>
           </>
         )}
@@ -1218,7 +1218,7 @@ function CheckboxConfirmationCard({
             htmlFor={`${interaction.id}-reject-reason`}
             className="text-xs font-medium text-foreground"
           >
-            {interaction.payload.rejectReasonLabel ?? "What should change?"}
+            {interaction.payload.rejectReasonLabel ?? t("issues.taskChatCompactInteractionCard.whatShouldChange")}
             {interaction.payload.rejectRequiresReason ? "" : " (optional)"}
           </label>
           <Textarea
@@ -1262,7 +1262,7 @@ function CheckboxConfirmationCard({
               {working === "reject" ? (
                 <Loader2 aria-hidden className="h-4 w-4 animate-spin" />
               ) : null}
-              {interaction.payload.rejectLabel ?? "Decline"}
+              {interaction.payload.rejectLabel ?? t("issues.taskChatCompactInteractionCard.decline")}
             </Button>
           </>
         ) : (
@@ -1278,7 +1278,7 @@ function CheckboxConfirmationCard({
                   : void resolve("reject")
               }
             >
-              {interaction.payload.rejectLabel ?? "Decline"}
+              {interaction.payload.rejectLabel ?? t("issues.taskChatCompactInteractionCard.decline")}
             </Button>
             <Button
               type="button"
@@ -1289,7 +1289,7 @@ function CheckboxConfirmationCard({
               {working === "accept" ? (
                 <Loader2 aria-hidden className="h-4 w-4 animate-spin" />
               ) : null}
-              {interaction.payload.acceptLabel ?? "Confirm selection"}
+              {interaction.payload.acceptLabel ?? t("issues.taskChatCompactInteractionCard.confirmSelection")}
             </Button>
           </>
         )}
@@ -1832,7 +1832,7 @@ function ItemVerdictsCard({
             htmlFor={`${interaction.id}-${item.id}-reason`}
             className="text-xs font-medium text-foreground"
           >
-            {interaction.payload.reasonLabel ?? "Reason"}
+            {interaction.payload.reasonLabel ?? t("issues.taskChatCompactInteractionCard.reason2")}
           </label>
           <Textarea
             id={`${interaction.id}-${item.id}-reason`}
@@ -1874,7 +1874,7 @@ function ItemVerdictsCard({
           {working ? (
             <Loader2 aria-hidden className="h-4 w-4 animate-spin" />
           ) : null}
-          {drafts.size > 0 ? `Apply ${drafts.size}` : "Apply decisions"}
+          {drafts.size > 0 ? t("issues.taskChatCompactInteractionCard.apply", { size: drafts.size }) : t("issues.taskChatCompactInteractionCard.applyDecisions")}
         </Button>
       </ActionRow>
     </div>
@@ -1899,18 +1899,19 @@ export function TaskChatCompactInteractionCard({
   draftKey,
   mentions,
 }: TaskChatCompactInteractionCardProps) {
+  const { t } = useTranslation();
   const creatorLabel = interaction.createdByAgentId
     ? agentMap?.get(interaction.createdByAgentId)?.name
     : interaction.createdByUserId
       ? interaction.createdByUserId === currentUserId
-        ? "You"
+        ? t("issues.taskChatCompactInteractionCard.you")
         : userLabelMap?.get(interaction.createdByUserId)
       : null;
   const addresseeLabel = interaction.addresseeAgentId
     ? agentMap?.get(interaction.addresseeAgentId)?.name
     : interaction.addresseeUserId
       ? interaction.addresseeUserId === currentUserId
-        ? "You"
+        ? t("issues.taskChatCompactInteractionCard.you")
         : (userLabelMap?.get(interaction.addresseeUserId) ??
           interaction.addresseeUserId)
       : null;

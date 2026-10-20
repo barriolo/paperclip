@@ -12,7 +12,9 @@
       "otherInboxTabsStillWork": "As outras abas da caixa de entrada continuam funcionando. {{message}}",
       "noWorkIsStopped": "Nenhum trabalho parado.",
       "tasksThatNeedADecision": "Tarefas que precisam de decisão, recuperação ou ação externa aparecerão aqui.",
-      "noStoppedItemsMatchYour": "Nenhum item parado corresponde à sua busca."
+      "noStoppedItemsMatchYour": "Nenhum item parado corresponde à sua busca.",
+      "trying": "Tentando…",
+      "tryAgain": "Tentar novamente"
     },
     "commandPalette": {
       "searchTasksAgentsProjects": "Buscar tarefas, agentes, projetos...",
@@ -35,7 +37,10 @@
       "goals": "Metas",
       "agents": "Agentes",
       "costs": "Custos",
-      "activity": "Atividade"
+      "activity": "Atividade",
+      "noResultsFound": "Nenhum resultado encontrado.",
+      "myWork": "Meu trabalho",
+      "inbox": "Caixa de entrada"
     },
     "commentThread": {
       "copyCommentAsMarkdown": "Copiar comentário como markdown",
@@ -57,7 +62,20 @@
       "attachImage": "Anexar imagem",
       "responsible": "Responsável",
       "searchResponsible": "Buscar responsável...",
-      "noResponsibleFound": "Nenhum responsável encontrado."
+      "noResponsibleFound": "Nenhum responsável encontrado.",
+      "unassigned": "Sem responsável",
+      "timedOut": "tempo esgotado",
+      "copied": "Copiado",
+      "copyFailed": "Falha ao copiar",
+      "copy": "Copiar",
+      "queueing": "Enfileirando...",
+      "sending": "Enviando...",
+      "requestedFollowup": "pediu acompanhamento",
+      "updatedThisTask": "atualizou esta tarefa",
+      "interrupting": "Interrompendo...",
+      "interrupt": "Interromper",
+      "posting": "Publicando...",
+      "comment": "Comentar"
     },
     "emailTaskActivity": {
       "emailSendIntent": "Intenção de envio de e-mail",
@@ -67,7 +85,8 @@
       "confirmTheOutcomeInAgentmail": "Confirme o resultado no AgentMail antes de resolver. Esta ação não reenvia.",
       "providerMessageId": "ID da mensagem no provedor",
       "confirmSent": "Confirmar envio",
-      "confirmNotSent": "Confirmar não envio"
+      "confirmNotSent": "Confirmar não envio",
+      "emailReply": "Resposta por e-mail"
     },
     "inboxAgentPolicyControl": {
       "anyOfMyAgents": "Qualquer um dos meus agentes",
@@ -82,12 +101,19 @@
       "inboxAgentArchivingPolicy": "Política de arquivamento por agentes na caixa de entrada",
       "agentsAllowedToTidyMy": "Agentes autorizados a organizar minha caixa de entrada",
       "youDontManageAnyAgents": "Você ainda não gerencia nenhum agente.",
-      "saved": "Salvo"
+      "saved": "Salvo",
+      "failedToLoadInboxAgent": "Falha ao carregar a política do agente da caixa de entrada.",
+      "failedToSaveInboxAgent": "Falha ao salvar a política do agente da caixa de entrada.",
+      "saving": "Salvando…",
+      "save": "Salvar"
     },
     "issueAssignedBacklogNotice": {
       "willNotBeAskedTo": "não será acionado para trabalhar nisto até o status mudar para A fazer ou Em andamento.",
       "parked": "Estacionada",
-      "commentsStillNotifyTheAssignee": "Comentários ainda notificam o responsável para dúvidas ou triagem. Deixe estacionada apenas se o trabalho estiver em espera de propósito."
+      "commentsStillNotifyTheAssignee": "Comentários ainda notificam o responsável para dúvidas ou triagem. Deixe estacionada apenas se o trabalho estiver em espera de propósito.",
+      "theAssignee": "o responsável",
+      "resuming": "Retomando…",
+      "resumeNow": "Retomar agora"
     },
     "issueAttachmentsSection": {
       "browseGallery": "Ver galeria",
@@ -105,7 +131,9 @@
       "yes": "Sim",
       "no": "Não",
       "deleteThisAttachmentThisCannot": "Excluir este anexo? Esta ação não pode ser desfeita.",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "deleting": "Excluindo...",
+      "delete2": "Excluir"
     },
     "issueBlockedNotice": {
       "openTheSourceTaskTo": "{{label}} — abra a tarefa de origem para agir.",
@@ -138,7 +166,17 @@
       "workOnThisTaskIs3": "O trabalho nesta tarefa está bloqueado por {{blockerLabel}} até",
       "completeCommentsStillNotifyThe": "concluída(s). Comentários ainda notificam o responsável para dúvidas ou triagem.",
       "stalledInReview": "Parada em revisão",
-      "ultimatelyWaitingOn": "Em última instância, aguardando"
+      "ultimatelyWaitingOn": "Em última instância, aguardando",
+      "dueNow": "vence agora",
+      "alreadyPromoted": "Já promovida",
+      "promoted": "Promovida",
+      "running": " · {{runningCount}} em execução",
+      "theLinkedTask": "a tarefa vinculada",
+      "theLinkedTasks": "as tarefas vinculadas",
+      "itIs": "ela está",
+      "theyAre": "elas estão",
+      "andOtherTasks_one": " e mais {{reopenSuppressedOtherCount}} tarefa",
+      "andOtherTasks_other": " e mais {{reopenSuppressedOtherCount}} tarefas"
     },
     "issueCasesPanel": {
       "cases": "Casos"
@@ -220,7 +258,29 @@
       "sendAnyway": "Enviar mesmo assim",
       "jumpToLatest": "Ir para a mais recente",
       "legacyRecoveryTask": "Tarefa de recuperação legada",
-      "legacyRecoveryTaskNewerRecovery": "Tarefa de recuperação legada. Ações de recuperação mais recentes ficam na tarefa de origem"
+      "legacyRecoveryTaskNewerRecovery": "Tarefa de recuperação legada. Ações de recuperação mais recentes ficam na tarefa de origem",
+      "noOutputForStillRunning": "sem saída há {{lastActivityElapsed}} - ainda em execução",
+      "resuming": "Retomando…",
+      "resumeAgent": "Retomar agente",
+      "agent": "Agente",
+      "you": "Você",
+      "system": "Sistema",
+      "deferredWake": "⏸ Acionamento adiado",
+      "queued": "Na fila",
+      "interrupting": "Interrompendo...",
+      "interrupt": "Interromper",
+      "saving": "Salvando...",
+      "saveNote": "Salvar nota",
+      "hideConfirmation": "Ocultar confirmação",
+      "expiredConfirmation": "Confirmação expirada",
+      "requestedFollowup": "pediu acompanhamento",
+      "browserStorageIsUnavailableCopy": " O armazenamento do navegador está indisponível; copie seu texto antes de sair.",
+      "itWillBeRestoredIf": " Ele será restaurado se você recarregar esta aba.",
+      "uploadingToTask": "Enviando para a tarefa",
+      "uploadFailed": "Falha no envio",
+      "attachedToTask": "Anexado à tarefa",
+      "posting": "Publicando...",
+      "send": "Enviar"
     },
     "issueColumns": {
       "status": "Status",
@@ -253,7 +313,9 @@
       "unknown": "Desconhecido",
       "noProject": "Sem projeto",
       "filterByWorkspace": "Filtrar por workspace",
-      "subtask": "Subtarefa"
+      "subtask": "Subtarefa",
+      "user": "Usuário",
+      "via": "{{creatorUserLabel}} · via {{viaAgentName}}"
     },
     "issueContinuationHandoff": {
       "collapseContinuationHandoff": "Recolher passagem de continuação",
@@ -261,7 +323,8 @@
       "updated": "Atualizado {{relativeTime}}",
       "continueWithAnAgent": "Continuar com um agente",
       "taskHandoff": "Passagem da tarefa",
-      "pasteThisIntoYourAgent": "Cole isto no seu agente para continuar a partir desta passagem."
+      "pasteThisIntoYourAgent": "Cole isto no seu agente para continuar a partir desta passagem.",
+      "revision": " - revisão {{latestRevisionNumber}}"
     },
     "issueDocumentAnnotations": {
       "openCommentsOn": "Abrir comentários em {{docKey}}",
@@ -296,7 +359,20 @@
       "reloadRemote": "Recarregar versão remota",
       "remoteRevision": "Revisão remota {{latestRevisionNumber}}",
       "updated": "atualizado {{relativeTime}}",
-      "deleteThisDocumentThisCannot": "Excluir este documento? Esta ação não pode ser desfeita."
+      "deleteThisDocumentThisCannot": "Excluir este documento? Esta ação não pode ser desfeita.",
+      "saving": "Salvando...",
+      "createDocument": "Criar documento",
+      "restoring": "Restaurando...",
+      "restoreThisRevision": "Restaurar esta revisão",
+      "hideRemote": "Ocultar remoto",
+      "reviewRemote": "Revisar remoto",
+      "overwriteRemote": "Sobrescrever remoto",
+      "viewingHistoricalRevision": "Visualizando revisão histórica",
+      "autosaving": "Salvando automaticamente...",
+      "saved": "Salvo",
+      "couldNotSave": "Não foi possível salvar",
+      "deleting": "Excluindo...",
+      "delete": "Excluir"
     },
     "issueFieldChangeReceipt": {
       "authorizedBy": "autorizado por"
@@ -335,7 +411,16 @@
       "cancelMonitor": "Cancelar monitor",
       "cancelMonitor2": "Cancelar monitor?",
       "thisRemovesTheScheduledMonitor": "Isso remove a verificação agendada do monitor. O agente não será mais retomado por este monitor. Envie uma mensagem para continuar a tarefa.",
-      "keepMonitor": "Manter monitor"
+      "keepMonitor": "Manter monitor",
+      "attempt": "Tentativa {{attemptCount}}",
+      "watching": "Observando: {{serviceName}}",
+      "checking": "Verificando…",
+      "checkStatus": "Verificar status",
+      "checkNow": "Verificar agora",
+      "cancelling": "Cancelando…",
+      "reviewOnGithubThenCheck": "Revise no GitHub e depois verifique o status para o agente conferir o resultado.",
+      "youCanKeepSendingInstructions": "É possível continuar enviando instruções enquanto o agente aguarda.",
+      "sendingAReplyWakesThe": "Enviar uma resposta aciona o agente agora — antes da verificação agendada."
     },
     "issuePlanDecompositionsSection": {
       "completed": "Concluída",
@@ -348,7 +433,9 @@
       "started": "Iniciado {{relativeTime}}",
       "completed2": "Concluído {{relativeTime}}",
       "updated": "Atualizado {{relativeTime}}",
-      "planDocument": "Documento do plano"
+      "planDocument": "Documento do plano",
+      "n1AcceptedPlanRevision": "1 revisão de plano aceita",
+      "acceptedPlanRevisions": "{{length}} revisões de plano aceitas"
     },
     "issuePrivacyActions": {
       "taskIsNowPrivate": "A tarefa agora é privada",
@@ -361,11 +448,14 @@
       "makeThisTaskPublic": "Tornar esta tarefa pública?",
       "everyoneInTheCompanyWill": "Todos na empresa poderão ler esta tarefa, seus comentários, documentos e histórico de execuções. Subtarefas privadas existentes continuam privadas.",
       "contentAlreadySeenByOthers": "Conteúdo já visto por outras pessoas não pode ser desfeito.",
-      "keepPrivate": "Manter privada"
+      "keepPrivate": "Manter privada",
+      "thisTaskWillAlsoLeave": "Esta tarefa também sairá do projeto pessoal. ",
+      "makingPublic": "Tornando pública…"
     },
     "issuePullRequestLinks": {
       "noPrLinkProvided": "{{label}} · Nenhum link de PR informado",
-      "reviewRequested": "Revisão solicitada"
+      "reviewRequested": "Revisão solicitada",
+      "saved": "Salvo: "
     },
     "issueRecoveryActionCard": {
       "missingDisposition": "Destino Ausente",
@@ -461,7 +551,22 @@
       "recorded": "Registrado",
       "ancestry": "Ancestralidade",
       "recoveryIsObservingWithoutInterrupting": "A recuperação está observando sem interromper a execução ao vivo.",
-      "theCardStaysOpenUntil": "O card fica aberto até que uma decisão explícita seja registrada."
+      "theCardStaysOpenUntil": "O card fica aberto até que uma decisão explícita seja registrada.",
+      "activeRun": "(execução ativa)",
+      "claimHeld": "(reivindicação mantida)",
+      "reconciling": "Reconciliando…",
+      "reconcileAnywayBreakglass": "Reconciliar mesmo assim (emergência)",
+      "uncommittedChanges": "Alterações sem commit",
+      "uncommittedChanges2_one": "{{dirtyCount}} alteração sem commit",
+      "uncommittedChanges2_other": "{{dirtyCount}} alterações sem commit",
+      "recordedBranch": "branch registrada",
+      "repairing": "Reparando…",
+      "quarantineChangesRestoreBranch": "Isolar alterações e restaurar branch",
+      "attemptsNotBounded": "Tentativas sem limite",
+      "retryMissed": "Nova tentativa perdida",
+      "nextTryNow": "Próxima tentativa agora",
+      "creating": "Criando…",
+      "createIsolatedReissue": "Criar reemissão isolada"
     },
     "issueReferenceActivitySummary": {
       "addedReferences": "Referências adicionadas",
@@ -549,7 +654,32 @@
       "stop": "Parar",
       "retryOf": "Nova tentativa de",
       "nextAction": "Próxima ação:",
-      "olderItemsNotShown": "itens mais antigos não exibidos"
+      "olderItemsNotShown": "itens mais antigos não exibidos",
+      "timeout": "tempo esgotado ({{timeoutText}})",
+      "maxTurnsExhausted": "máximo de turnos esgotado",
+      "budgetPaused": "pausada por orçamento",
+      "pausedByBoard": "pausada pelo conselho",
+      "processLost": "processo perdido",
+      "unmanagedBackgroundTaskStopped": "tarefa em segundo plano não gerenciada interrompida",
+      "adapterFailed": "falha no adaptador",
+      "completed2": "concluída ({{timeoutText}})",
+      "waitingToStart": "Aguardando início",
+      "stillRunning": "Ainda em execução",
+      "unavailable": "Indisponível",
+      "noStopReason": "Sem motivo de parada",
+      "waitingForNextAttempt": "Aguardando a próxima tentativa",
+      "noActionRecordedYet": "Nenhuma ação registrada ainda",
+      "noConcreteAction": "Nenhuma ação concreta",
+      "noUsefulOutput": "Nenhuma saída útil",
+      "noneRecorded": "Nada registrado",
+      "waitingForTheFirstRun": "Aguardando o registro da primeira execução.",
+      "noRunsLinkedYet": "Nenhuma execução vinculada ainda.",
+      "criticalOutputSilence": "Silêncio de saída crítico",
+      "outputSilenceWatchdogWarning": "Alerta do watchdog de silêncio de saída",
+      "thisSignalIsInformationalPaperclip": "Este sinal é informativo. O Paperclip não criou novo trabalho de recuperação delegado.",
+      "thisSignalIsInformationalPaperclip2": "Este sinal é informativo. O Paperclip não criou nem atribuiu uma tarefa de recuperação.",
+      "runsAndActivityWillAppear": "Execuções e atividade aparecerão aqui quando esta tarefa tiver histórico.",
+      "historicalRunsWithoutLivenessMetadata": "Execuções históricas sem metadados de sinal de vida aparecerão aqui quando vinculadas a esta tarefa."
     },
     "issueScheduledRetryCard": {
       "anotherTaskIsUsingThis": "Outra tarefa está usando este workspace. O trabalho começa automaticamente quando ele estiver disponível.",
@@ -561,7 +691,14 @@
       "retrying": "Tentando novamente…",
       "retryNow": "Tentar agora",
       "couldntRetryNow": "Não foi possível tentar agora",
-      "tryAgain": "Tentar novamente"
+      "tryAgain": "Tentar novamente",
+      "continuationScheduled": "Continuação agendada",
+      "retryScheduled": "Nova tentativa agendada",
+      "alreadyPromoted": "Já promovida",
+      "promoted": "Promovida",
+      "promotingScheduledRetry": "Promovendo nova tentativa agendada",
+      "alreadyPromotedRunStarting": "Já promovida — execução iniciando",
+      "promotedRunStarting": "Promovida — execução iniciando"
     },
     "issueShareSheet": {
       "taskOwner": "responsável pela tarefa",
@@ -592,10 +729,18 @@
       "removeSSavedGrant": "Remover a concessão salva de {{subjectDisplayName}}?",
       "thisRemovesThisGrantAnd": "Isto remove esta concessão e o acesso que ela dá aos descendentes desta tarefa. Propriedade, atribuição atual, participação no projeto, acesso herdado ou outra concessão ainda podem dar acesso. Revogar o acesso",
       "eraseContentAlreadySeenOr": "apaga conteúdo já visto ou retido na memória de um agente.",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "removeSavedGrant": "Remover concessão salva",
+      "revoke": "Revogar",
+      "adding": "Adicionando…",
+      "add": "Adicionar",
+      "removing": "Removendo…",
+      "removeGrant": "Remover concessão"
     },
     "issueSiblingNavigation": {
-      "subtaskNavigation": "Navegação entre subtarefas"
+      "subtaskNavigation": "Navegação entre subtarefas",
+      "previous": "Anterior",
+      "next": "Próxima"
     },
     "issueThreadInteractionCard": {
       "approvedAgentResumeFailed": "Aprovada — falha ao retomar o agente",
@@ -714,7 +859,79 @@
       "withdrawnBy": "Retirado por",
       "resolvedBy": "Resolvido por",
       "agent": "Agente",
-      "resolvedByAnAgentUnder": "Resolvido por um agente segundo a política de governança de interações da empresa — distinto, para auditoria, de uma resolução humana do conselho."
+      "resolvedByAnAgentUnder": "Resolvido por um agente segundo a política de governança de interações da empresa — distinto, para auditoria, de uma resolução humana do conselho.",
+      "unknown": "Desconhecido",
+      "pending": "Pendente",
+      "accepted": "Aceito",
+      "answered": "Respondido",
+      "suggestedTasks": "Tarefas sugeridas",
+      "confirmation": "Confirmação",
+      "checkboxConfirmation": "Confirmação por caixa de seleção",
+      "itemVerdicts": "Veredictos por item",
+      "connectionRequest": "Pedido de conexão",
+      "n1DraftIssue": "1 tarefa em rascunho",
+      "createdDraftIssuesAndSkipped_one": "{{createdCount}} tarefa em rascunho criada e {{skippedCount}} ignoradas na revisão.",
+      "createdDraftIssuesAndSkipped_other": "{{createdCount}} tarefas em rascunho criadas e {{skippedCount}} ignoradas na revisão.",
+      "createdAllDraftIssues_one": "{{createdCount}} tarefa em rascunho criada.",
+      "createdAllDraftIssues_other": "Todas as {{createdCount}} tarefas em rascunho foram criadas.",
+      "noReasonProvided": "Nenhum motivo informado.",
+      "acceptDrafts": "Aceitar rascunhos",
+      "acceptSelectedDrafts": "Aceitar rascunhos selecionados",
+      "saveRejection": "Salvar rejeição",
+      "n1Question": "1 pergunta",
+      "cancelQuestion": "Cancelar pergunta",
+      "submitAnswers": "Enviar respostas",
+      "questionWithdrawn": "Pergunta retirada",
+      "questionsWithdrawn": "Perguntas retiradas",
+      "questionCancelled": "Pergunta cancelada",
+      "questionExpiredWhenTheIssue": "Pergunta expirada quando a tarefa foi encerrada",
+      "questionsExpiredWhenTheIssue": "Perguntas expiradas quando a tarefa foi encerrada",
+      "questionExpiredByComment": "Pergunta expirada por comentário",
+      "questionsExpiredByComment": "Perguntas expiradas por comentário",
+      "thisQuestionRequestExpiredAutomatically": "Este pedido de pergunta expirou automaticamente quando a tarefa chegou a um estado final.",
+      "aLaterBoarduserCommentSuperseded": "Um comentário posterior do conselho/usuário substituiu este pedido de pergunta. Crie um novo pedido se as respostas ainda forem necessárias.",
+      "paperclipNeedsAttentionBeforeThe": "O Paperclip precisa de atenção antes que o agente possa retomar este trabalho aprovado.",
+      "expiredByComment": "Expirada por comentário",
+      "expiredByTargetChange": "Expirada por mudança de alvo",
+      "aBoardCommentSupersededThis": "Um comentário do conselho substituiu esta confirmação antes de ela ser resolvida.",
+      "thisConfirmationExpiredAutomaticallyWhen": "Esta confirmação expirou automaticamente quando a tarefa chegou a um estado final.",
+      "theRequestedTargetChangedBefore": "O alvo solicitado mudou antes de esta confirmação ser resolvida.",
+      "alwaysAllowed": " · Sempre permitido",
+      "declining": "Recusando…",
+      "decline": "Recusar",
+      "approveRun": "Aprovar e executar",
+      "sendRevision": "Enviar revisão",
+      "anAgent": "Um agente",
+      "notNow": "Agora não",
+      "optionalWhatWouldYouLike": "Opcional: o que deve ser revisado?",
+      "optionalTellTheAgentWhat": "Opcional: diga ao agente o que você mudaria.",
+      "confirmedWithNoOptionsSelected": "Confirmado sem nenhuma opção selecionada",
+      "showLess": "Mostrar menos",
+      "more": "+{{hiddenCount}} a mais",
+      "reason": "Motivo",
+      "apply0Decisions": "Aplicar 0 decisões",
+      "applyDecisions_one": "Aplicar {{draftCount}} decisão",
+      "applyDecisions_other": "Aplicar {{draftCount}} decisões",
+      "thisReviewExpiredAfterA": "Esta revisão expirou após um comentário posterior.",
+      "thisReviewExpiredAfterThe": "Esta revisão expirou após a mudança do alvo.",
+      "thisReviewExpired": "Esta revisão expirou.",
+      "n1ItemWas": "1 item foi",
+      "draftVerdictsReadyToApply_one": "{{draftCount}} veredicto em rascunho pronto para aplicar",
+      "draftVerdictsReadyToApply_other": "{{draftCount}} veredictos em rascunho prontos para aplicar",
+      "markVerdictsThenApplyThem": "Marque os veredictos e aplique todos de uma vez.",
+      "expiredIssueClosed": "Expirada · tarefa encerrada",
+      "plan": "Plano",
+      "suggestedTaskTree": "Árvore de tarefas sugerida",
+      "questionsForTheOperator": "Perguntas para o operador",
+      "questionsToAnswer": "Perguntas a responder",
+      "checkboxConfirmationRequested": "Confirmação por caixa de seleção solicitada",
+      "secretBindingRequested": "Vínculo de segredo solicitado",
+      "connectYourToContinue": "Conecte seu {{providerName}} para continuar",
+      "toolApprovalRequested": "Aprovação de ferramenta solicitada",
+      "reviewTheseItems": "Revise estes itens",
+      "planReview": "Revisão do plano",
+      "confirmationRequested": "Confirmação solicitada",
+      "anAgent2": "um agente"
     },
     "issueWorkspaceCard": {
       "copied": "Copiado!",
@@ -730,7 +947,21 @@
       "viewWorkspaceDetails": "Ver detalhes do workspace →",
       "current": "Atual:",
       "browseFiles": "Navegar pelos arquivos…",
-      "openFileByPath": "Abrir arquivo pelo caminho…"
+      "openFileByPath": "Abrir arquivo pelo caminho…",
+      "isolatedWorkspace": "Workspace isolado",
+      "operatorBranch": "Branch do operador",
+      "cloudEnvironment": "Ambiente na nuvem",
+      "adapterManaged": "Gerenciado pelo adaptador",
+      "workspace": "Workspace",
+      "newIsolatedWorkspace": "Novo workspace isolado",
+      "existingIsolatedWorkspace": "Workspace isolado existente",
+      "reuseExistingWorkspace": "Reutilizar workspace existente",
+      "projectDefault": "Padrão do projeto",
+      "reusedWorkspace": " · workspace reutilizado",
+      "projectDefault2": " · padrão do projeto",
+      "aFreshIsolatedWorkspaceWill": "Um novo workspace isolado será criado quando esta tarefa for executada.",
+      "thisTaskWillReuseAn": "Esta tarefa reutilizará um workspace existente quando for executada.",
+      "thisTaskWillUseThe": "Esta tarefa usará a configuração de workspace padrão do projeto quando for executada."
     },
     "issueWriteDenialNotice": {
       "whoCanAct": "Quem pode agir:",
@@ -790,7 +1021,17 @@
       "expandSubtasks": "Expandir subtarefas",
       "assignee": "Responsável",
       "searchResponsible": "Buscar responsável...",
-      "noResponsible": "Sem responsável"
+      "noResponsible": "Sem responsável",
+      "olderThanADay": "Mais de um dia",
+      "olderThanAWeek": "Mais de uma semana",
+      "nextUp": "A seguir",
+      "create": "Criar {{createIssueLabel}}",
+      "createTask": "Criar Tarefa",
+      "new": "Nova {{createIssueLabel}}",
+      "newTask": "Nova Tarefa",
+      "andMore": " ... e mais {{additionalVisibleBlockerCount}}",
+      "loadingMoreTasks": "Carregando mais tarefas...",
+      "scrollToLoadMoreTasks": "Role para carregar mais tarefas"
     },
     "legacyIssuesList": {
       "backlog": "Backlog",
@@ -843,7 +1084,17 @@
       "thisTaskNeedsANext": "Esta tarefa precisa de um próximo passo",
       "assignee": "Responsável",
       "searchResponsible": "Buscar responsável...",
-      "noResponsible": "Sem responsável"
+      "noResponsible": "Sem responsável",
+      "olderThanADay": "Mais de um dia",
+      "olderThanAWeek": "Mais de uma semana",
+      "nextUp": "A seguir",
+      "create": "Criar {{createIssueLabel}}",
+      "createTask": "Criar Tarefa",
+      "new": "Nova {{createIssueLabel}}",
+      "newTask": "Nova Tarefa",
+      "andMore": " ... e mais {{additionalVisibleBlockerCount}}",
+      "loadingMoreTasks": "Carregando mais tarefas...",
+      "scrollToLoadMoreTasks": "Role para carregar mais tarefas"
     },
     "newIssueDialog": {
       "stagedFilesCouldNotBe_one": "{{length}} arquivo preparado não pôde ser adicionado.",
@@ -868,7 +1119,14 @@
       "project": "Projeto",
       "searchProjects": "Buscar projetos...",
       "noProjectsFound": "Nenhum projeto encontrado.",
-      "privateProject": "Projeto privado"
+      "privateProject": "Projeto privado",
+      "newSubtask": "Nova subtarefa",
+      "newTask": "Nova tarefa",
+      "couldntCheckParentAccess": "Não foi possível verificar o acesso à tarefa-mãe.",
+      "checkingParentAccess": "Verificando acesso à tarefa-mãe…",
+      "couldntCheckTheSelectedWorktree": "Não foi possível verificar a worktree selecionada. Tente novamente em Worktrees ou escolha Nova worktree.",
+      "theSelectedWorktreeIsNo": "A worktree selecionada não está mais disponível. Escolha outra worktree ou comece uma nova.",
+      "itArrivedPausedFromAn": " — chegou pausada de uma importação de empresa"
     },
     "searchableSelect": {
       "closeSelector": "Fechar seletor"
@@ -890,7 +1148,9 @@
       "renameTask": "Renomear tarefa",
       "chooseAShortClearName": "Escolha um nome curto e claro para esta tarefa.",
       "taskName": "Nome da tarefa",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "saving": "Salvando...",
+      "save": "Salvar"
     },
     "taskChatThread": {
       "documentRev": "Documento · rev. {{latestRevisionNumber}}",
@@ -916,13 +1176,34 @@
       "thisRunStoppedBeforeA": "Esta execução parou antes de haver uma resposta. Revise a ação de conexão ou de recuperação da tarefa abaixo.",
       "waitingForTranscript": "Aguardando transcrição...",
       "pendingInputs_one": "{{length}} entrada pendente",
-      "pendingInputs_other": "{{length}} entradas pendentes"
+      "pendingInputs_other": "{{length}} entradas pendentes",
+      "runtimeMissing": "Runtime ausente",
+      "modelUnavailable": "Modelo indisponível",
+      "approvalRequired": "Aprovação necessária",
+      "usageLimitReached": "Limite de uso atingido",
+      "runCancelled": "Execução cancelada",
+      "runInterrupted": "Execução interrompida",
+      "runTimedOut": "Tempo da execução esgotado",
+      "interrupting": "Interrompendo…",
+      "interrupt": "Interromper",
+      "someTaskHistoryCouldNot": "Parte do histórico da tarefa não pôde ser carregada.",
+      "someTaskHistoryIsStill": "Parte do histórico da tarefa ainda está carregando."
     },
     "taskTreeControls": {
       "cancelSubtree": "Cancelar subárvore...",
       "restoreSubtree": "Restaurar subárvore...",
       "retryPreview": "Tentar a prévia novamente",
-      "wakeAffectedAgents": "Acordar agentes afetados ({{affectedAgentCount}})"
+      "wakeAffectedAgents": "Acordar agentes afetados ({{affectedAgentCount}})",
+      "pauseWork": "Pausar trabalho",
+      "pauseSubtree": "Pausar subárvore",
+      "resumeWork": "Retomar trabalho",
+      "resumeSubtree": "Retomar subárvore",
+      "loading": "Carregando…",
+      "keepTasks": "Manter tarefas",
+      "close": "Fechar",
+      "applying": "Aplicando…",
+      "subtreeIsPaused": "A subárvore está pausada.",
+      "taskIsPaused": "A tarefa está pausada."
     },
     "taskViewsMenu": {
       "changeViewCurrently": "Mudar visualização — atual: {{label}}"
@@ -932,7 +1213,11 @@
       "openInTab2": "Abrir em aba: {{title}}",
       "downloadFile": "Baixar arquivo",
       "retryPreview": "Tentar a prévia novamente",
-      "unhealthy": "Com problemas"
+      "unhealthy": "Com problemas",
+      "loadingPreview": "Carregando prévia…",
+      "previewData": "Prévia dos dados",
+      "cSVIsTooLargeTo": "O CSV é grande demais para pré-visualizar. Baixe o arquivo para vê-lo.",
+      "cSVPreviewIsUnavailableDownload": "A prévia do CSV está indisponível. Baixe o arquivo para vê-lo."
     },
     "externallyConnectedTaskBanner": {
       "waitingForFileConsent": "Aguardando consentimento do arquivo",
@@ -995,7 +1280,22 @@
       "fileDeliveryOutcomes": "Resultados da entrega de arquivos",
       "deliveryStatusCouldNotBe": "Não foi possível atualizar o status da entrega. O rascunho foi mantido; o Paperclip vai verificar de novo sem enviar outra atualização.",
       "providerDetail": "Detalhe do provedor:",
-      "dismissDeliveryReceipt": "Dispensar confirmação de entrega"
+      "dismissDeliveryReceipt": "Dispensar confirmação de entrega",
+      "messagesYouSendHereAnd": "As mensagens enviadas aqui e as respostas do agente também são publicadas no Slack.",
+      "agentAssignmentIsFixedFor": "A atribuição de agente é fixa nesta tarefa externa.",
+      "uploading": "Enviando…",
+      "attachFile": "Anexar arquivo",
+      "filesInThisSend": "Arquivos neste envio",
+      "includeTaskFiles": "Incluir arquivos da tarefa",
+      "gitHubAppsCannotUploadFile": "GitHub Apps não podem enviar bytes de arquivo em comentários. Os arquivos marcados ficam na tarefa do Paperclip; o GitHub recebe um link autenticado da tarefa quando este Conselho tem uma URL pública, ou um aviso de tarefa privada caso contrário.",
+      "inPersonalTeamsChatsRecipients": "Em chats pessoais do Teams, os destinatários aceitam cada arquivo antes do envio. Canais e chats em grupo recebem imagens compatíveis diretamente; outros arquivos ficam na tarefa, com um link da tarefa ou aviso de tarefa privada.",
+      "theseAreTheFilesSelected": "Estes são os arquivos selecionados para este envio. A seleção fica bloqueada até a entrega ser resolvida.",
+      "onlyCheckedFilesWillBe": "Somente os arquivos marcados serão publicados na conversa externa.",
+      "unnamedAttachment": "Anexo sem nome",
+      "yourMessageIsPostedTo": "Sua mensagem é publicada no Slack com seu nome e inicia o agente.",
+      "ordinaryBoardCommentsRemainPapercliponly": "Comentários comuns do conselho permanecem apenas no Paperclip.",
+      "sending": "Enviando…",
+      "retrySafely": "Tentar novamente com segurança"
     },
     "issueOutputSection": {
       "browseInGallery": "Ver {{filename}} na galeria",
@@ -1018,7 +1318,8 @@
       "openInNewTab": "Abrir em nova aba",
       "open": "Abrir {{filename}}",
       "download": "Baixar",
-      "download2": "Baixar {{filename}}"
+      "download2": "Baixar {{filename}}",
+      "fileDetailsUnavailable": "Detalhes do arquivo indisponíveis"
     },
     "outputVideoPlayer": {
       "videoOutput": "Saída em vídeo: {{title}}",
@@ -1147,7 +1448,40 @@
       "propertiesPanelSections": "Seções do painel de propriedades",
       "closeTab": "Fechar aba {{label}}",
       "openClosedSidebarTab": "Reabrir aba fechada da barra lateral",
-      "allSidebarTabsAreOpen": "Todas as abas da barra lateral estão abertas"
+      "allSidebarTabsAreOpen": "Todas as abas da barra lateral estão abertas",
+      "reuseExistingWorkspace2": "Reutilizar workspace existente",
+      "primary": "Principal",
+      "override": "Substituição",
+      "thisAssigneesAdapterDoesNot": "O adaptador deste responsável não expõe substituições de tarefa editáveis.",
+      "selectACompatibleAssigneeAgent": "Selecione um agente responsável compatível para editar estas substituições.",
+      "runReviewNow": "Executar revisão agora",
+      "runApprovalNow": "Executar aprovação agora",
+      "review": "Revisão",
+      "approval": "Aprovação",
+      "viewTask": "Ver tarefa",
+      "removing": "Removendo…",
+      "remove": "Remover",
+      "saving": "Salvando…",
+      "update": "Atualizar",
+      "setWatchdog": "Definir watchdog",
+      "notYetTriggered": "— ainda não acionado",
+      "checking": "Verificando…",
+      "checkNow": "Verificar agora",
+      "scheduledContinuation": "Continuação agendada",
+      "alreadyPromoted": "Já promovida",
+      "promoted": "Promovida",
+      "promotingScheduledRetry": "Promovendo nova tentativa agendada",
+      "alreadyPromotedRunStarting": "Já promovida — execução iniciando",
+      "promotedRunStarting": "Promovida — execução iniciando",
+      "pullsContinuationForwardImmediately": "Antecipa a continuação imediatamente",
+      "pullsRetryForwardImmediately": "Antecipa a nova tentativa imediatamente",
+      "creating": "Criando…",
+      "createLabel": "Criar etiqueta",
+      "requester": "Solicitante",
+      "currentWorkspaceStaysActiveApplies": "O workspace atual continua ativo. Vale a partir da próxima execução.",
+      "appliesOnTheNextRun": "Vale a partir da próxima execução.",
+      "unarchiving": "Desarquivando…",
+      "unarchive": "Desarquivar"
     },
     "issuePropertiesArtifactsTab": {
       "inProgress": "Em andamento",
@@ -1167,11 +1501,16 @@
       "download2": "Baixar",
       "someArtifactsCouldNotBe": "Não foi possível carregar alguns artefatos.",
       "loadingArtifacts": "Carregando artefatos…",
-      "noArtifactsYetWorkProducts": "Nenhum artefato ainda. Entregáveis, documentos e arquivos gerados pelos agentes aparecerão aqui."
+      "noArtifactsYetWorkProducts": "Nenhum artefato ainda. Entregáveis, documentos e arquivos gerados pelos agentes aparecerão aqui.",
+      "thisFileCantBePreviewed": "Este arquivo não pode ser pré-visualizado como Markdown. Use Raw ou Baixar.",
+      "previewFailedToLoad": "Falha ao carregar a prévia.",
+      "run": "Execução {{slice}}"
     },
     "issuePropertiesPlansTab": {
       "thisTaskIsInPlan": "Esta tarefa está em modo de planejamento, mas nenhum documento de plano foi escrito ainda.",
-      "aPlanConfirmationIsPending": "Há uma confirmação de plano pendente, mas o documento de plano que ela deveria confirmar não existe."
+      "aPlanConfirmationIsPending": "Há uma confirmação de plano pendente, mas o documento de plano que ela deveria confirmar não existe.",
+      "loadingPlan": "Carregando plano…",
+      "noPlanYetThePlan": "Ainda não há plano. O documento do plano, os planos aceitos e suas revisões aparecerão aqui."
     },
     "externalObjectRows": {
       "externalObjects": "Objetos externos",
@@ -1191,7 +1530,11 @@
       "removeAsABlockerFor": "Remover {{confirmLabel}} como bloqueio desta tarefa.",
       "cancel": "Cancelar",
       "showFewerItems": "Mostrar menos itens",
-      "showMoreItems": "Mostrar mais {{hiddenCount}} itens"
+      "showMoreItems": "Mostrar mais {{hiddenCount}} itens",
+      "thisPrivateTask": "esta tarefa privada",
+      "removeAsBlocker": "Remover {{issueLabel}} como bloqueio",
+      "showLess": "Mostrar menos",
+      "showMore": "Mostrar mais {{hiddenCount}}"
     },
     "searchFilterBar": {
       "me": "Eu",
@@ -1228,7 +1571,10 @@
       "label": "Etiqueta",
       "updated": "Atualizada",
       "sortBy": "Ordenar por",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "showResults": "Mostrar resultados",
+      "showResults2_one": "Mostrar {{previewTotal}} resultado",
+      "showResults2_other": "Mostrar {{previewTotal}} resultados"
     },
     "searchResultRow": {
       "comment": "Comentário",
@@ -1294,7 +1640,17 @@
       "useAgentDefault": "Usar padrão do agente",
       "loadingModels": "Carregando modelos…",
       "noCatalogMatch": "Nada encontrado no catálogo.",
-      "useExactId": "Usar ID exato"
+      "useExactId": "Usar ID exato",
+      "chooseAnAgent": "Escolha um agente",
+      "default": "Padrão",
+      "unassigned": "Sem responsável",
+      "selectModel": "Selecionar modelo",
+      "agentDefault": "Padrão do agente",
+      "useOpenrouterprovidermodelWithNoSpaces": "Use openrouter/provider/model sem espaços.",
+      "modelIdsCannotContainSpaces": "IDs de modelo não podem conter espaços.",
+      "customIdsOpenrouterprovidermodelProviderAccess": "IDs personalizados: openrouter/provider/model. O acesso ao provedor é verificado quando a execução começa.",
+      "customModelIdsCanBe": "IDs de modelo personalizados podem ser colados aqui. O acesso ao provedor é verificado quando a execução começa.",
+      "agentRunSettings": "Configurações de execução do agente"
     },
     "composerWorktreePicker": {
       "newWorktree": "Nova worktree",
@@ -1315,7 +1671,10 @@
       "noMatchingWorktrees": "Nenhuma worktree encontrada.",
       "worktrees2": "Worktrees ·",
       "couldntLoadWorktrees": "Não foi possível carregar as worktrees.",
-      "retry": "Tentar novamente"
+      "retry": "Tentar novamente",
+      "selectWorktree": "Selecionar worktree",
+      "loadingExistingWorktrees": "Carregando worktrees existentes…",
+      "noExistingWorktreesYetChoose": "Ainda não há worktrees. Escolha Nova worktree para começar uma."
     },
     "questionForm": {
       "recommended": "Recomendado",
@@ -1333,7 +1692,10 @@
       "other": "Outro",
       "typeYourAnswer": "Digite sua resposta",
       "cancel": "Cancelar",
-      "skip": "Pular"
+      "skip": "Pular",
+      "noAnswer": "Sem resposta",
+      "submitAnswers": "Enviar respostas",
+      "next": "Próxima"
     },
     "richWorkProductCard": {
       "changesRequested": "Alterações pedidas",
@@ -1353,7 +1715,9 @@
       "updated": "· Atualizado em {{dateTime}}",
       "savedDescription": "Descrição salva",
       "openInTab": "Abrir em aba: {{title}}",
-      "openInTab2": "Abrir em aba"
+      "openInTab2": "Abrir em aba",
+      "hideDetails": "Ocultar detalhes",
+      "showDetails": "Mostrar detalhes"
     },
     "runnerGoalWidget": {
       "starting": "Iniciando",
@@ -1372,21 +1736,40 @@
       "resumeGoal": "Retomar meta",
       "clearGoal": "Limpar meta",
       "goalObjective": "Objetivo da meta",
-      "cancel": "Cancelar"
+      "cancel": "Cancelar",
+      "typeGoalFollowedByAn": "Digite /goal seguido de um objetivo para levar o trabalho adiante ao longo dos turnos.",
+      "replaceSessionGoal": "Substituir a meta da sessão?",
+      "editSessionGoal": "Editar meta da sessão",
+      "thisClearsTheUnfinishedGoal": "Isto limpa a meta não concluída e inicia uma nova meta com o objetivo abaixo.",
+      "updateTheObjectiveWithoutClearing": "Atualize o objetivo sem limpar o progresso da meta.",
+      "saving2": "Salvando…",
+      "replaceGoal": "Substituir meta",
+      "saveGoal": "Salvar meta"
     },
     "taskChatBlockerLinks": {
       "tasksWaitingOnLiveWork": "Tarefas aguardando trabalho em andamento",
-      "nowRunning": "Em execução agora"
+      "nowRunning": "Em execução agora",
+      "done": "Concluída",
+      "running": "Em execução",
+      "waiting": "Aguardando",
+      "blockedBy": "Bloqueada por",
+      "stillWaitingOnLiveWork": "Ainda aguardando trabalho em andamento",
+      "waitingOnLiveWork": "Aguardando trabalho em andamento"
     },
     "taskChatBubble": {
       "images": "Imagens · {{length}}",
       "files": "Arquivos · {{length}}",
       "open": "Abrir {{name}}",
-      "verificationCaveat": "Ressalva da verificação"
+      "verificationCaveat": "Ressalva da verificação",
+      "queued": "Na fila",
+      "sending": "Enviando…",
+      "sentFromImessage": "Enviado pelo iMessage"
     },
     "taskChatBubbleActions": {
       "messageDetails": "Detalhes da mensagem",
-      "platformgeneratedAcknowledgementTheAgentsSubstan": "Confirmação gerada pela plataforma. A resposta de fato do agente vem em seguida, separadamente."
+      "platformgeneratedAcknowledgementTheAgentsSubstan": "Confirmação gerada pela plataforma. A resposta de fato do agente vem em seguida, separadamente.",
+      "couldntCopyMessage": "Não foi possível copiar a mensagem",
+      "copyMessage": "Copiar mensagem"
     },
     "taskChatCompactInteractionCard": {
       "details": "Detalhes",
@@ -1423,7 +1806,19 @@
       "open": "Abrir",
       "verdictFor": "Veredito para {{label}}",
       "addAShortReason": "Adicione um motivo curto",
-      "submitRejectionReason": "Enviar motivo da rejeição"
+      "submitRejectionReason": "Enviar motivo da rejeição",
+      "noAnswer": "Sem resposta",
+      "noOptionsSelected": "Nenhuma opção selecionada",
+      "doYouAcceptThisPlan": "Aceita este plano?",
+      "whatShouldChange": "O que deve mudar?",
+      "reject": "Rejeitar",
+      "approve": "Aprovar",
+      "decline": "Recusar",
+      "confirmSelection": "Confirmar seleção",
+      "reason2": "Motivo",
+      "apply": "Aplicar {{size}}",
+      "applyDecisions": "Aplicar decisões",
+      "you": "Você"
     },
     "taskChatComposer": {
       "supportWillBeVerifiedWhen": "O suporte será verificado quando a sessão começar.",
@@ -1454,7 +1849,20 @@
       "removeTheFailedAttachmentTo": "Remova o anexo com falha para enviar",
       "sendEnter": "Enviar (⌘+Enter)",
       "stop": "Parar",
-      "send": "Enviar"
+      "send": "Enviar",
+      "planWith": "Planejar com {{agentName}}…",
+      "ask": "Perguntar a {{agentName}}…",
+      "message": "Mensagem para {{agentName}}…",
+      "planWithShapesThePlan": "Planejar com {{agentName}} — molda o documento do plano, sem alterar código…",
+      "askAQuestionReadonlyNothing": "Fazer uma pergunta a {{agentName}} — somente leitura, nada é executado…",
+      "messageDescribeWhatYouWant": "Mensagem para {{agentName}} — descreva o que deve ser feito…",
+      "unassigned": "Sem responsável",
+      "editQueuedMessage": "Editar mensagem na fila…",
+      "pendingInput": "Entrada pendente",
+      "uploading": "Enviando…",
+      "uploadFailed": "Falha no envio",
+      "queuedMessageChanged": "Mensagem na fila alterada",
+      "editingQueuedMessage": "Editando mensagem na fila"
     },
     "taskChatDescriptionBubble": {
       "addADescription": "Adicionar uma descrição...",
@@ -1473,11 +1881,22 @@
       "useOrAskAnAdministrator": "possa usar, ou peça a um administrador para atualizar a conexão de {{agentName}}. Depois tente novamente.",
       "changeAiConnection": "Trocar conexão de IA",
       "viewRun": "Ver execução",
-      "viewSavedPlan": "Ver plano salvo"
+      "viewSavedPlan": "Ver plano salvo",
+      "anAiCredential": "uma credencial de IA",
+      "youDont": "você não",
+      "youCan": "você pode",
+      "tryingAgain": "Tentando novamente...",
+      "tryAgain": "Tentar novamente"
     },
     "taskChatPausedTakeover": {
       "yourDraftIsSaved": "Seu rascunho está salvo.",
-      "resumeSubtree": "Retomar subárvore"
+      "resumeSubtree": "Retomar subárvore",
+      "subtreeIsPaused": "A subárvore está pausada.",
+      "taskIsPaused": "A tarefa está pausada.",
+      "resumeThisSubtreeToSend": "Retome esta subárvore para enviar uma mensagem.",
+      "resumeThisTaskToSend": "Retome esta tarefa para enviar uma mensagem.",
+      "resuming": "Retomando…",
+      "resumeTask": "Retomar tarefa"
     },
     "taskChatPlanView": {
       "plan": "Plano",
@@ -1500,7 +1919,10 @@
       "more": "mais {{hiddenFileCount}}",
       "notShown": "não exibidos",
       "previewUnavailable": "Pré-visualização indisponível.",
-      "details": "Detalhes"
+      "details": "Detalhes",
+      "error": "Erro",
+      "providerUpdate": "Atualização do provedor",
+      "warning": "Aviso"
     },
     "taskChatProtocolCard": {
       "planSteps": "Etapas do plano",
@@ -1520,7 +1942,21 @@
       "runResult": "Resultado da execução",
       "blocked": "Bloqueada:",
       "verificationResults": "Resultados da verificação",
-      "runEnded": "Execução encerrada"
+      "runEnded": "Execução encerrada",
+      "binary": "binário · ",
+      "showFewerFiles": "Mostrar menos arquivos",
+      "workspaceDiff": "Diff do workspace",
+      "file": "Arquivo",
+      "answerDetailsWereNotRecorded": "Os detalhes da resposta não foram registrados por este runtime mais antigo.",
+      "noAnswersWereSubmittedThis": "Nenhuma resposta foi enviada; este pedido foi {{status}}.",
+      "questionsAnswered": "Perguntas respondidas",
+      "questionsCancelled": "Perguntas canceladas",
+      "questionsExpired": "Perguntas expiradas",
+      "questionsResolved": "Perguntas resolvidas",
+      "runtimeInput": "Entrada do runtime",
+      "submitting": "Enviando…",
+      "submitResponse": "Enviar resposta",
+      "blocksCompletion": " · bloqueia a conclusão"
     },
     "taskChatQueuedMessages": {
       "interrupt": "Interromper",
@@ -1544,7 +1980,12 @@
       "activityHistory": "Histórico de atividade"
     },
     "taskChatRunnerTurn": {
-      "liveRunnerActivityIsTemporarily": "A atividade do runner ao vivo está temporariamente indisponível. Tentando novamente…"
+      "liveRunnerActivityIsTemporarily": "A atividade do runner ao vivo está temporariamente indisponível. Tentando novamente…",
+      "stopped": "Interrompido",
+      "worked": "Trabalhou",
+      "working": "Trabalhando",
+      "continuedAfterSteering": "Continuou após redirecionamento · {{semanticLabel}}",
+      "thinking": "Pensando"
     },
     "taskChatSkillCreatedCard": {
       "skillCreated": "Skill criada: {{name}}",
@@ -1554,7 +1995,9 @@
       "ctx": "{{localeString}}/{{localeString2}} ctx"
     },
     "taskChatSystemNotice": {
-      "systemUpdate": "Atualização do sistema: {{title}}"
+      "systemUpdate": "Atualização do sistema: {{title}}",
+      "tryingAgain": "Tentando novamente...",
+      "tryAgain": "Tentar novamente"
     },
     "taskChatToolCard": {
       "interrupted": "Interrompido",
@@ -1576,7 +2019,10 @@
       "resetAll": "Redefinir tudo",
       "expand": "Expandir",
       "minimize": "Minimizar",
-      "copyAsTheme": "Copiar como @theme"
+      "copyAsTheme": "Copiar como @theme",
+      "copiedToClipboard": "Copiado para a área de transferência",
+      "copyFailedSelectTheText": "Falha ao copiar — selecione o texto e copie manualmente",
+      "clickTheBoxToCopy": "Clique na caixa para copiar"
     },
     "issueCreatedFromNote": {
       "createdFrom": "Criada a partir de",
@@ -1596,7 +2042,11 @@
       "referencedTasks": "Tarefas referenciadas",
       "mentionedIn": "Mencionada em",
       "noOtherTaskMentionsThis": "Nenhuma outra tarefa menciona esta.",
-      "tasksThatMentionThisTask": "Tarefas que mencionam esta tarefa"
+      "tasksThatMentionThisTask": "Tarefas que mencionam esta tarefa",
+      "blockedSubtask": "Subtarefa bloqueada",
+      "nextAction": "Próxima ação",
+      "allSubtasksAreComplete": "Todas as subtarefas estão concluídas.",
+      "noRemainingSubtaskActions": "Nenhuma ação de subtarefa pendente."
     },
     "taskDetailTasksPanel": {
       "goToProject": "Ir para o projeto {{name}}",
@@ -1618,7 +2068,9 @@
       "couldNotLoadAttachmentDetails": "Não foi possível carregar os detalhes do anexo.",
       "retry": "Tentar novamente",
       "fileNoLongerAvailableClose": "O arquivo não está mais disponível. Feche esta aba ou escolha outro arquivo.",
-      "downloadFile": "Baixar arquivo"
+      "downloadFile": "Baixar arquivo",
+      "couldNotPreviewThisFile": "Não foi possível pré-visualizar este arquivo. Tente novamente ou baixe-o.",
+      "thisFileIsTooLarge": "Este arquivo é grande demais ou não é compatível com a prévia de texto. Baixe-o."
     },
     "taskBrowserFooter": {
       "browserSession": "Sessão do navegador",
@@ -1641,7 +2093,9 @@
       "keepBrowserOpen": "Manter navegador aberto",
       "keepItOpenForUp": "Manter aberto por até mais 10 minutos.",
       "closeBrowser": "Fechar navegador",
-      "endThisBrowserAndStop": "Encerrar este navegador e parar qualquer navegação."
+      "endThisBrowserAndStop": "Encerrar este navegador e parar qualquer navegação.",
+      "default": "Padrão",
+      "closing": "Fechando…"
     },
     "taskBrowserPanel": {
       "liveBrowserUseBrowser": "Navegador do Browser Use ao vivo",
@@ -1650,7 +2104,19 @@
       "reconnectTheViewOrOpen": "Reconecte a visualização ou abra esta tarefa em outro navegador. O navegador remoto continua em execução.",
       "reconnectView": "Reconectar visualização",
       "openActiveBrowser": "Abrir navegador ativo",
-      "couldNotKeepThisBrowser": "Não foi possível manter este navegador aberto. Verifique sua conexão antes que o tempo acabe."
+      "couldNotKeepThisBrowser": "Não foi possível manter este navegador aberto. Verifique sua conexão antes que o tempo acabe.",
+      "browserAccessUnavailable": "Acesso ao navegador indisponível",
+      "startingBrowser": "Iniciando navegador…",
+      "closingBrowser": "Fechando navegador…",
+      "browserClosed": "Navegador fechado",
+      "browserCouldNotStart": "Não foi possível iniciar o navegador",
+      "liveViewDisconnected": "Visualização ao vivo desconectada",
+      "noBrowserOpen": "Nenhum navegador aberto",
+      "anotherBrowserIsStillOpen": "Outro navegador ainda está aberto nesta tarefa.",
+      "sendATaskMessageTo": "Envie uma mensagem na tarefa pedindo ao agente para abrir outro navegador.",
+      "theLiveViewWillAppear": "A visualização ao vivo aparecerá aqui quando estiver pronta.",
+      "waitingForBrowserUseTo": "Aguardando o Browser Use confirmar o encerramento.",
+      "askTheAgentToBrowse": "Peça ao agente, em uma mensagem na tarefa, para navegar em um site."
     },
     "taskDocumentPanel": {
       "loadingDocument": "Carregando documento…",
@@ -1673,7 +2139,9 @@
       "taskDocuments": "Documentos da tarefa",
       "recentWorkspaceFiles": "Arquivos recentes do workspace",
       "openANewTab": "Abrir uma nova aba",
-      "closeSidePanel": "Fechar painel lateral"
+      "closeSidePanel": "Fechar painel lateral",
+      "subtasks": "Subtarefas",
+      "plan": "Plano"
     },
     "taskSkillPanel": {
       "loadingSkill": "Carregando skill…",
@@ -1681,7 +2149,12 @@
       "youDoNotHaveAccess": "Sem acesso a esta skill.",
       "theSkillCouldNotBe": "Não foi possível carregar a skill.",
       "openInSkillStudio": "Abrir no Skill Studio",
-      "skillInstructions": "Instruções da skill"
+      "skillInstructions": "Instruções da skill",
+      "retrying": "Tentando novamente…",
+      "retry": "Tentar novamente",
+      "revision": "Revisão {{revisionNumber}}",
+      "currentVersion": "Versão atual",
+      "skillInstructionsAreEmpty": "As instruções da skill estão vazias."
     },
     "taskWorkspaceFilePanel": {
       "copyFileContents": "Copiar conteúdo do arquivo",
@@ -1694,7 +2167,9 @@
       "retryVoiceConnections": "Tentar carregar conexões de voz novamente",
       "taskVoiceConversation": "Conversa por voz da tarefa",
       "voicePersona": "Persona de voz",
-      "talkTo": "Falar com {{assignedAgentName}}"
+      "talkTo": "Falar com {{assignedAgentName}}",
+      "loadingVoiceConnection": "Carregando conexão de voz…",
+      "voiceIsUnavailableCheckThe": "Voz indisponível. Verifique a conexão do Speko em Apps."
     },
     "inbox": {
       "markAsRead": "Marcar como lida",
@@ -1738,7 +2213,24 @@
       "earlier": "Anteriores",
       "alerts": "Alertas",
       "budgetAt": "Orçamento em",
-      "utilizationThisMonth": "de uso neste mês"
+      "utilizationThisMonth": "de uso neste mês",
+      "defaultWorkspace": "Workspace padrão",
+      "noWorkspace": "Sem workspace",
+      "tasks": "Tarefas",
+      "approvals": "Aprovações",
+      "failedRuns": "Execuções com falha",
+      "joinRequests": "Pedidos de entrada",
+      "user": "Usuário",
+      "unassigned": "Sem responsável",
+      "noProject": "Sem projeto",
+      "humanJoinRequest": "Pedido de entrada humano",
+      "retrying": "Tentando novamente…",
+      "retry": "Tentar novamente",
+      "marking": "Marcando…",
+      "archived": "Arquivado",
+      "otherResults": "Outros resultados",
+      "agentHas": "agente tem",
+      "agentsHave": "agentes têm"
     },
     "issueChatLongThreadPerf": {
       "deterministicLocalFixtureForMeasuring": "Fixture local determinística para medir o caminho atual de renderização direta do chat da tarefa com centenas de linhas de conversa mescladas, respostas do assistente com muito markdown, execuções vinculadas, documentos, subtarefas e contexto da barra lateral.",
@@ -1890,7 +2382,15 @@
       "relatedWork": "Trabalho relacionado",
       "taskSidePanel": "Painel lateral da tarefa",
       "attribution": "{{label}}: {{name}}",
-      "attributionVia": "{{label}}: {{name}} · via {{via}}"
+      "attributionVia": "{{label}}: {{name}} · via {{via}}",
+      "loadingEarlierComments": "Carregando comentários anteriores...",
+      "loadEarlierComments": "Carregar comentários anteriores",
+      "inOutCached": " (entrada {{tokens}}, saída {{tokens2}}, cache {{tokens3}})",
+      "inOut": " (entrada {{tokens}}, saída {{tokens2}})",
+      "theStalledTask": "a tarefa travada",
+      "thisIssuesIsolatedWorkspaceWas": "O workspace isolado desta tarefa foi arquivado. O próximo comentário ou retomada o reabre e reconstrói a worktree.",
+      "uploading": "Enviando...",
+      "plan": "Plano"
     },
     "issues": {
       "newTask": "Nova tarefa",
@@ -1949,7 +2449,15 @@
       "newTaskIn": "Nova tarefa em {{label}}",
       "earlier": "Anteriores",
       "budgetAt": "Orçamento em",
-      "utilizationThisMonth": "de uso neste mês"
+      "utilizationThisMonth": "de uso neste mês",
+      "humanJoinRequest": "Pedido de entrada humano",
+      "retrying": "Tentando novamente…",
+      "retry": "Tentar novamente",
+      "marking": "Marcando…",
+      "archived": "Arquivado",
+      "otherResults": "Outros resultados",
+      "agentHas": "agente tem",
+      "agentsHave": "agentes têm"
     },
     "myIssues": {
       "myTasks": "Minhas tarefas",
@@ -1992,7 +2500,12 @@
       "tryFewerTokensOrA": "Tente menos termos ou um único termo distintivo.",
       "useAnIdentifierShortcutLike": "Use um atalho de identificador como",
       "wrapMultiwordPhrasesInQuotes": "Coloque frases com várias palavras entre aspas.",
-      "updating": "Atualizando…"
+      "updating": "Atualizando…",
+      "theServerReturned": "O servidor retornou {{status}}.",
+      "theRequestFailed": "A requisição falhou.",
+      "n1Result": "1 resultado",
+      "filtersActive_one": " · {{activeFilterCount}} filtro ativo",
+      "filtersActive_other": " · {{activeFilterCount}} filtros ativos"
     },
     "agentCommentary": {
       "loadingMessage": "Carregando mensagem…",
@@ -2027,7 +2540,252 @@
       "previous": "Anterior",
       "previousPage": "Página anterior",
       "next": "Próxima",
-      "nextPage": "Próxima página"
+      "nextPage": "Próxima página",
+      "suggestion": "Sugestão",
+      "complaint": "Reclamação",
+      "task": "Tarefa",
+      "submitted2": "Enviado em {{localeString}}",
+      "messageDetailsAndSourceContext": "Detalhes da mensagem e contexto de origem.",
+      "sourceTask": "Tarefa de origem"
+    },
+    "lockedIssueChip": {
+      "unavailable": "Indisponível",
+      "private": "Privada"
+    },
+    "taskChatThinking": {
+      "reasoningDetail": "Detalhe do raciocínio",
+      "reasoning": "Raciocínio",
+      "thinking": "Pensando…",
+      "thought": "Pensou"
+    },
+    "taskChatTurn": {
+      "stopped": "Interrompido",
+      "worked": "Trabalhou",
+      "continuedAfterSteering": "Continuou após redirecionamento · ",
+      "activity": "Atividade"
+    },
+    "completedActivitySummary": {
+      "ranCommands": "Executou comandos",
+      "searchedFiles": "Buscou arquivos",
+      "readFiles": "Leu arquivos",
+      "editedFiles": "Editou arquivos",
+      "searchedTheWeb": "Pesquisou na web",
+      "workedOnAPlan": "Trabalhou em um plano",
+      "requestedInput": "Pediu informações",
+      "workedWithAgents": "Trabalhou com agentes",
+      "reviewedSafety": "Revisou a segurança",
+      "workedWithImages": "Trabalhou com imagens",
+      "waited": "Aguardou",
+      "usedConnectedTools": "Usou ferramentas conectadas",
+      "usedTools": "Usou ferramentas",
+      "receivedAProviderUpdate": "Recebeu uma atualização do provedor",
+      "providerErrorReported": "Erro do provedor relatado",
+      "providerWarningReported": "Aviso do provedor relatado",
+      "receivedProviderUpdates": "Recebeu atualizações do provedor",
+      "checkedFiles": "Verificou arquivos",
+      "workedOnFiles": "Trabalhou em arquivos"
+    },
+    "composerRunSettings": {
+      "off": "Desligado",
+      "minimal": "Mínimo",
+      "low": "Baixo",
+      "medium": "Médio",
+      "high": "Alto",
+      "extraHigh": "Extra alto",
+      "max": "Máximo",
+      "ultra": "Ultra"
+    },
+    "motionTokens": {
+      "easeoutexpoHouse": "ease-out-expo (da casa)",
+      "standardHouse": "standard (da casa)"
+    },
+    "taskChatAdapter": {
+      "newSession": "Nova sessão",
+      "earlierMessagesAndFilesAre": "Mensagens e arquivos anteriores continuam disponíveis."
+    },
+    "taskChatAttachments": {
+      "doc": "Doc",
+      "text": "Texto",
+      "markdown": "Markdown",
+      "sheet": "Planilha",
+      "archive": "Compactado",
+      "audio": "Áudio",
+      "video": "Vídeo",
+      "code": "Código",
+      "log": "Log",
+      "patch": "Patch",
+      "file": "Arquivo"
+    },
+    "taskChatStates": {
+      "sessionStart": "Início da sessão",
+      "humanMessage": "Mensagem humana",
+      "finalResponse": "Resposta final",
+      "thinking": "Pensando",
+      "progressUpdateStreaming": "Atualização de progresso (streaming)",
+      "progressUpdateBurst": "Rajada de atualizações de progresso",
+      "toolCall": "Chamada de ferramenta",
+      "diff": "Diff",
+      "working": "Trabalhando",
+      "running": "Em execução",
+      "completedCollapsed": "Concluída (recolhida)",
+      "longrunActivityPhases": "Fases de atividade de longa duração",
+      "awaitingApproval": "Aguardando aprovação",
+      "planTodo": "Plano / a fazer",
+      "interrupted": "Interrompida",
+      "refused": "Recusada",
+      "truncated": "Truncada",
+      "liveTokenCost": "Token / custo ao vivo"
+    },
+    "transcriptAdapter": {
+      "unnamedTool": "Ferramenta sem nome",
+      "planStep": "Etapa do plano",
+      "subagent": "Subagente",
+      "providerSessionTotal": "Total da sessão do provedor",
+      "thisCumulativeUsageCanInclude": "Este uso acumulado pode incluir execuções anteriores na sessão retomada do provedor.",
+      "responding": "Respondendo",
+      "thinking": "Pensando",
+      "running": "Em execução"
+    },
+    "taskBrowserActivity": {
+      "viewSession": "Ver sessão",
+      "openBrowser": "Abrir navegador"
+    },
+    "useIssueExternalObjects": {
+      "title": "Título",
+      "description": "Descrição",
+      "comment": "Comentário",
+      "document": "Documento: {{documentKey}}",
+      "document2": "Documento",
+      "property": "Propriedade: {{propertyKey}}",
+      "property2": "Propriedade",
+      "plugin": "Plugin",
+      "source": "Origem"
+    },
+    "blockedInbox": {
+      "needsDecision": "Precisa de decisão",
+      "blockedChainStalled": "Cadeia bloqueada travada",
+      "needsAttention": "Precisa de atenção",
+      "recoveryRequired": "Recuperação necessária",
+      "externalWait": "Espera externa",
+      "ownerPaused": "Pausada pelo dono",
+      "pendingBoardDecision": "Decisão do conselho pendente",
+      "pendingUserDecision": "Decisão do usuário pendente",
+      "pickDisposition": "Escolher destino",
+      "reviewWithoutActionPath": "Revisão sem caminho de ação",
+      "invalidReviewParticipant": "Participante de revisão inválido",
+      "recoveryInProgress": "Recuperação em andamento",
+      "externalOwnerAction": "Ação de dono externo"
+    },
+    "issueChangeReceipt": {
+      "assignee": "Responsável",
+      "assigneeUser": "Responsável (usuário)",
+      "responsibleUser": "Usuário responsável",
+      "blockers": "Bloqueios",
+      "labels": "Etiquetas",
+      "parent": "Tarefa-mãe",
+      "project": "Projeto",
+      "goal": "Meta",
+      "workMode": "Modo de trabalho",
+      "whoCanApprove": "Quem pode aprovar",
+      "billingCode": "Código de cobrança",
+      "checkoutRun": "Execução de checkout",
+      "executionRun": "Execução",
+      "hidden": "Oculto",
+      "started": "Iniciada",
+      "completed": "Concluída",
+      "cancelled": "Cancelada",
+      "requestDepth": "Profundidade do pedido",
+      "sourceTrust": "Confiança da origem",
+      "executionPolicy": "Política de execução",
+      "executionWorkspace": "Workspace de execução",
+      "projectWorkspace": "Workspace do projeto",
+      "defaultopenWriteOnAVisible": "escrita aberta por padrão em tarefa visível",
+      "scopedAgentWrite": "escrita de agente com escopo",
+      "boardActor": "ator do conselho",
+      "ownTask": "tarefa própria",
+      "mentionGrant": "concessão por menção",
+      "directParentReport": "relato direto à tarefa-mãe",
+      "lowtrustBoundaryAllowance": "permissão de fronteira de baixa confiança",
+      "explicitPermissionGrant": "concessão de permissão explícita",
+      "instanceAdmin": "admin da instância",
+      "localBoard": "conselho local",
+      "internalAgentWrite": "escrita interna de agente"
+    },
+    "issueChatMessages": {
+      "workedFor": "Trabalhou por {{durationText}}",
+      "finishedWork": "Trabalho concluído",
+      "failedAfter": "Falhou após {{durationText}}",
+      "runFailed": "Execução falhou",
+      "timedOutAfter": "Tempo esgotado após {{durationText}}",
+      "runTimedOut": "Tempo da execução esgotado",
+      "interruptedByBoardAfter": "Interrompida pelo conselho após {{durationText}}",
+      "interruptedByBoard": "Interrompida pelo conselho",
+      "pausedByBoardAfter": "Pausada pelo conselho após {{durationText}}",
+      "pausedByBoard": "Pausada pelo conselho",
+      "cancelledAfter": "Cancelada após {{durationText}}",
+      "runCancelled": "Execução cancelada",
+      "queued": "Na fila",
+      "working": "Trabalhando...",
+      "runFinished": "Execução finalizada",
+      "providerActivity": "Atividade do provedor",
+      "queued2": "Na fila..."
+    },
+    "issueFilters": {
+      "anyFailed": "Alguma com falha",
+      "anyWaiting": "Alguma aguardando",
+      "anyRunning": "Alguma em execução",
+      "authRequired": "Autenticação necessária",
+      "unreachable": "Inacessível",
+      "stale": "Desatualizado",
+      "noExternalObjects": "Sem objetos externos",
+      "all": "Todas",
+      "active": "Ativas",
+      "backlog": "Backlog",
+      "done": "Concluídas"
+    },
+    "issueDetailBreadcrumb": {
+      "inbox": "Caixa de entrada",
+      "tasks": "Tarefas"
+    },
+    "systemNoticeComment": {
+      "systemNotice": "Aviso do sistema",
+      "systemWarning": "Alerta do sistema",
+      "systemAlert": "Alarme do sistema"
+    },
+    "taskDateGroups": {
+      "today": "Hoje",
+      "yesterday": "Ontem",
+      "earlier": "Anteriores"
+    },
+    "taskSidePanelState": {
+      "properties": "Propriedades",
+      "subtasks": "Subtarefas",
+      "tasks": "Tarefas",
+      "artifacts": "Artefatos",
+      "files": "Arquivos",
+      "browser": "Navegador"
+    },
+    "taskViews": {
+      "myWork": "Meu trabalho",
+      "mine": "Minhas",
+      "assignedToYouOrWaiting": "Atribuídas a você ou aguardando você",
+      "unread": "Não lidas",
+      "tasksYouTouchedWithNew": "Tarefas em que você mexeu com atividade nova",
+      "blocked": "Bloqueadas",
+      "blockedTasksGroupedByBlocker": "Tarefas bloqueadas, agrupadas por bloqueio",
+      "recent": "Recentes",
+      "everythingYouTouchedLately": "Tudo em que você mexeu recentemente",
+      "everything": "Tudo",
+      "tasksApprovalsFailedRunsAnd": "Tarefas, aprovações, execuções com falha e pedidos de entrada",
+      "organization": "Empresa",
+      "allTasks": "Todas as tarefas",
+      "everyTaskInTheOrganization": "Todas as tarefas da empresa",
+      "active": "Ativas",
+      "openTasksRunningOrNot": "Tarefas abertas, em execução ou não",
+      "backlog": "Backlog",
+      "notStartedYet": "Ainda não iniciadas",
+      "done": "Concluídas",
+      "completedAndCancelled": "Concluídas e canceladas"
     }
   }
 }
