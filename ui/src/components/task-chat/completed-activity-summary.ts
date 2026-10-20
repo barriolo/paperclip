@@ -6,23 +6,52 @@ import {
   type ToolIcon,
 } from "./tool-taxonomy";
 import { protocolActivityPresentation, providerNoticeSeverity } from "./task-chat-activity-presentation";
+import { i18n } from "@/i18n";
 
 type Activity = TaskChatActivityPhaseItem["items"][number];
 const labels: Record<ToolFamily, string> = {
-  terminal: "Ran commands",
-  grep: "Searched files",
-  search: "Searched files",
-  read: "Read files",
-  edit: "Edited files",
-  web: "Searched the web",
-  plan: "Worked on a plan",
-  question: "Requested input",
-  agent: "Worked with agents",
-  safety: "Reviewed safety",
-  image: "Worked with images",
-  wait: "Waited",
-  mcp: "Used connected tools",
-  other: "Used tools",
+  get terminal() {
+    return i18n.t("issues.completedActivitySummary.ranCommands");
+  },
+  get grep() {
+    return i18n.t("issues.completedActivitySummary.searchedFiles");
+  },
+  get search() {
+    return i18n.t("issues.completedActivitySummary.searchedFiles");
+  },
+  get read() {
+    return i18n.t("issues.completedActivitySummary.readFiles");
+  },
+  get edit() {
+    return i18n.t("issues.completedActivitySummary.editedFiles");
+  },
+  get web() {
+    return i18n.t("issues.completedActivitySummary.searchedTheWeb");
+  },
+  get plan() {
+    return i18n.t("issues.completedActivitySummary.workedOnAPlan");
+  },
+  get question() {
+    return i18n.t("issues.completedActivitySummary.requestedInput");
+  },
+  get agent() {
+    return i18n.t("issues.completedActivitySummary.workedWithAgents");
+  },
+  get safety() {
+    return i18n.t("issues.completedActivitySummary.reviewedSafety");
+  },
+  get image() {
+    return i18n.t("issues.completedActivitySummary.workedWithImages");
+  },
+  get wait() {
+    return i18n.t("issues.completedActivitySummary.waited");
+  },
+  get mcp() {
+    return i18n.t("issues.completedActivitySummary.usedConnectedTools");
+  },
+  get other() {
+    return i18n.t("issues.completedActivitySummary.usedTools");
+  },
 };
 
 /** Describe observed activities, never infer success from a finished group. */
@@ -101,7 +130,7 @@ export function completedActivitySummary(items: Activity[]) {
               workspace_file: "Referenced files",
               resource: "Added resources",
             } as Record<string, string>
-          )[family] ?? "Used tools";
+          )[family] ?? i18n.t("issues.completedActivitySummary.usedTools");
         add(label, p.icon, order);
       }
     }
@@ -111,12 +140,12 @@ export function completedActivitySummary(items: Activity[]) {
       ?? notices.find((notice) => notice.severity === "warning")
       ?? notices[0]!;
     const label = notices.length === 1
-      ? strongest.summary || "Received a provider update"
+      ? strongest.summary || i18n.t("issues.completedActivitySummary.receivedAProviderUpdate")
       : strongest.severity === "error"
-        ? "Provider error reported"
+        ? i18n.t("issues.completedActivitySummary.providerErrorReported")
         : strongest.severity === "warning"
-          ? "Provider warning reported"
-          : "Received provider updates";
+          ? i18n.t("issues.completedActivitySummary.providerWarningReported")
+          : i18n.t("issues.completedActivitySummary.receivedProviderUpdates");
     // One notice category leaves room for actual work. Keep warnings and errors
     // visible when the compact label truncates other activity categories.
     add(label, strongest.icon, strongest.severity === "info" ? notices[0]!.order : -1);
@@ -129,9 +158,9 @@ export function completedActivitySummary(items: Activity[]) {
     const succeeded = completedFamilies.has(tool.family);
     const label =
       tool.family === "read" && !succeeded
-        ? "Checked files"
+        ? i18n.t("issues.completedActivitySummary.checkedFiles")
         : tool.family === "edit" && !succeeded
-          ? "Worked on files"
+          ? i18n.t("issues.completedActivitySummary.workedOnFiles")
           : labels[tool.family];
     add(label, tool.icon, tool.order);
   }

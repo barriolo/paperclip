@@ -8,6 +8,7 @@ import { cn } from "@/lib/utils";
 import { StatusIcon } from "../StatusIcon";
 import { Identity } from "../Identity";
 import { HighlightedText, type HighlightedTextProps } from "./HighlightedText";
+import { i18n } from "@/i18n";
 
 type SnippetStyle = {
   Icon: ComponentType<SVGProps<SVGSVGElement>>;
@@ -15,10 +16,18 @@ type SnippetStyle = {
 };
 
 const SNIPPET_STYLES: Record<string, SnippetStyle> = {
-  comment: { Icon: MessageSquare, label: "Comment" },
-  document: { Icon: FileText, label: "Doc" },
-  artifact: { Icon: Paperclip, label: "Artifact" },
-  description: { Icon: Quote, label: "Description" },
+  comment: { Icon: MessageSquare, get label() {
+    return i18n.t("issues.searchResultRow.comment");
+  } },
+  document: { Icon: FileText, get label() {
+    return i18n.t("issues.searchResultRow.doc");
+  } },
+  artifact: { Icon: Paperclip, get label() {
+    return i18n.t("issues.searchResultRow.artifact");
+  } },
+  description: { Icon: Quote, get label() {
+    return i18n.t("issues.searchResultRow.description");
+  } },
 };
 
 function snippetStyle(field: string, fallbackLabel: string): SnippetStyle {

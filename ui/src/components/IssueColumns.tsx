@@ -22,31 +22,66 @@ import { timeAgo } from "../lib/timeAgo";
 import { Identity } from "./Identity";
 import { StatusIcon } from "./StatusIcon";
 import { Badge } from "@/components/ui/badge";
+import { i18n, useTranslation } from "@/i18n";
 
 export const issueTrailingColumns: InboxIssueColumn[] = ["assignee", "kickedOffBy", "project", "workspace", "parent", "labels", "updated"];
 
 const issueColumnLabels: Record<InboxIssueColumn, string> = {
-  status: "Status",
+  get status() {
+    return i18n.t("issues.issueColumns.status");
+  },
   id: "ID",
-  assignee: "Responsible",
-  kickedOffBy: "Kicked off by",
-  project: "Project",
-  workspace: "Workspace",
-  parent: "Parent task",
-  labels: "Tags",
-  updated: "Last updated",
+  get assignee() {
+    return i18n.t("issues.issueColumns.responsible");
+  },
+  get kickedOffBy() {
+    return i18n.t("issues.issueColumns.kickedOffBy");
+  },
+  get project() {
+    return i18n.t("issues.issueColumns.project");
+  },
+  get workspace() {
+    return i18n.t("issues.issueColumns.workspace");
+  },
+  get parent() {
+    return i18n.t("issues.issueColumns.parentTask");
+  },
+  get labels() {
+    return i18n.t("issues.issueColumns.tags");
+  },
+  get updated() {
+    return i18n.t("issues.issueColumns.lastUpdated");
+  },
 };
 
 const issueColumnDescriptions: Record<InboxIssueColumn, string> = {
-  status: "Task state chip on the left edge.",
-  id: "Ticket identifier like PAP-1009.",
-  assignee: "Responsible agent or board user.",
-  kickedOffBy: "Board user or agent who created the task.",
-  project: "Linked project pill with its color.",
-  workspace: "Execution or project workspace used for the task.",
-  parent: "Parent task identifier and title.",
-  labels: "Task labels and tags.",
-  updated: "Latest visible activity time.",
+  get status() {
+    return i18n.t("issues.issueColumns.taskStateChipOnThe");
+  },
+  get id() {
+    return i18n.t("issues.issueColumns.ticketIdentifierLikePap1009");
+  },
+  get assignee() {
+    return i18n.t("issues.issueColumns.responsibleAgentOrBoardUser");
+  },
+  get kickedOffBy() {
+    return i18n.t("issues.issueColumns.boardUserOrAgentWho");
+  },
+  get project() {
+    return i18n.t("issues.issueColumns.linkedProjectPillWithIts");
+  },
+  get workspace() {
+    return i18n.t("issues.issueColumns.executionOrProjectWorkspaceUsed");
+  },
+  get parent() {
+    return i18n.t("issues.issueColumns.parentTaskIdentifierAndTitle");
+  },
+  get labels() {
+    return i18n.t("issues.issueColumns.taskLabelsAndTags");
+  },
+  get updated() {
+    return i18n.t("issues.issueColumns.latestVisibleActivityTime");
+  },
 };
 
 export function issueColumnDescription(
@@ -105,6 +140,7 @@ export function IssueColumnPicker({
   iconOnly?: boolean;
   rowPresentation?: "legacy" | "task";
 }) {
+  const { t } = useTranslation();
   return (
     <DropdownMenu>
       <DropdownMenuTrigger asChild>
@@ -113,17 +149,17 @@ export function IssueColumnPicker({
           variant={iconOnly ? "outline" : "ghost"}
           size={iconOnly ? "icon" : "sm"}
           className={iconOnly ? "h-8 w-8 shrink-0" : "hidden h-8 shrink-0 px-2 text-xs sm:inline-flex"}
-          title="Columns"
+          title={t("issues.issueColumns.columns")}
         >
           <Columns3 className={iconOnly ? "h-3.5 w-3.5" : "mr-1 h-3.5 w-3.5"} />
-          {!iconOnly && "Columns"}
+          {!iconOnly && t("issues.issueColumns.columns")}
         </Button>
       </DropdownMenuTrigger>
       <DropdownMenuContent align="end" className="w-(--sz-300px) rounded-xl border-border/70 p-1.5 shadow-xl shadow-black/10">
         <DropdownMenuLabel className="px-2 pb-1 pt-1.5">
           <div className="space-y-1">
             <div className="text-(length:--text-nano) font-semibold uppercase tracking-(--tracking-caps) text-muted-foreground">
-              Desktop task rows
+              {t("issues.issueColumns.desktopTaskRows")}
             </div>
             <div className="text-sm font-medium text-foreground">
               {title}
@@ -161,7 +197,7 @@ export function IssueColumnPicker({
                 Date group separators
               </span>
               <span className="text-xs leading-relaxed text-muted-foreground">
-                Show Today, Yesterday, and Earlier rules on newest-first task lists.
+                {t("issues.issueColumns.showTodayYesterdayAndEarlier")}
               </span>
             </span>
           </DropdownMenuCheckboxItem>
@@ -171,8 +207,8 @@ export function IssueColumnPicker({
           onSelect={onResetColumns}
           className="rounded-lg px-3 py-2 text-sm"
         >
-          Reset defaults
-          <span className="ml-auto text-xs text-muted-foreground">status, id, updated</span>
+          {t("issues.issueColumns.resetDefaults")}
+          <span className="ml-auto text-xs text-muted-foreground">{t("issues.issueColumns.statusIdUpdated")}</span>
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -198,6 +234,7 @@ export function InboxIssueMetaLeading({
   statusSlot?: ReactNode;
   checklistStepNumber?: number | string | null;
 }) {
+  const { t } = useTranslation();
   return (
     <>
       {showStatus ? (
@@ -237,7 +274,7 @@ export function InboxIssueMetaLeading({
               "text-blue-600 dark:text-blue-400",
             )}
           >
-            Live
+            {t("issues.issueColumns.live")}
           </span>
         </Badge>
       )}
@@ -247,7 +284,7 @@ export function InboxIssueMetaLeading({
             "px-1.5 sm:gap-1.5 sm:px-2",
             "border-border bg-transparent",
           )}
-          title={`${subtreeLiveCount} sub-task${subtreeLiveCount === 1 ? "" : "s"} running below`}
+          title={t("issues.issueColumns.subtasksRunningBelow", { count: subtreeLiveCount, subtreeLiveCount: subtreeLiveCount })}
         >
           <span
             className={cn(
@@ -257,7 +294,7 @@ export function InboxIssueMetaLeading({
             aria-hidden="true"
           />
           <span className="hidden text-(length:--text-micro) font-medium text-muted-foreground sm:inline">
-            {subtreeLiveCount} live below
+            {t("issues.issueColumns.liveBelow", { subtreeLiveCount: subtreeLiveCount })}
           </span>
         </Badge>
       )}
@@ -308,11 +345,12 @@ export function InboxIssueTrailingColumns({
   assigneeContent?: ReactNode;
   onFilterWorkspace?: (workspaceId: string) => void;
 }) {
+  const { t } = useTranslation();
   const activityText = issueActivityTimestamp(issue);
-  const userLabel = assigneeUserName ?? formatAssigneeUserLabel(issue.assigneeUserId, currentUserId) ?? "User";
+  const userLabel = assigneeUserName ?? formatAssigneeUserLabel(issue.assigneeUserId, currentUserId) ?? t("issues.issueColumns.user");
   const originatingActor = deriveOriginatingActor(issue);
   const originatingUserId = originatingActor?.kind === "user" ? originatingActor.id : null;
-  const creatorUserLabel = creatorUserName ?? formatAssigneeUserLabel(originatingUserId, currentUserId) ?? "User";
+  const creatorUserLabel = creatorUserName ?? formatAssigneeUserLabel(originatingUserId, currentUserId) ?? t("issues.issueColumns.user");
 
   return (
     <span
@@ -352,7 +390,7 @@ export function InboxIssueTrailingColumns({
 
           return (
             <span key={column} className="min-w-0 truncate text-xs text-muted-foreground">
-              Unassigned
+              {t("issues.issueColumns.unassigned")}
             </span>
           );
         }
@@ -377,7 +415,7 @@ export function InboxIssueTrailingColumns({
           }
 
           if (originatingActor?.kind === "user") {
-            const tooltipText = viaAgentName ? `${creatorUserLabel} · via ${viaAgentName}` : creatorUserLabel;
+            const tooltipText = viaAgentName ? t("issues.issueColumns.via", { creatorUserLabel: creatorUserLabel, viaAgentName: viaAgentName }) : creatorUserLabel;
             return (
               <Tooltip key={column}>
                 <TooltipTrigger asChild>
@@ -397,7 +435,7 @@ export function InboxIssueTrailingColumns({
 
           return (
             <span key={column} className="min-w-0 truncate text-xs text-muted-foreground">
-              Unknown
+              {t("issues.issueColumns.unknown")}
             </span>
           );
         }
@@ -423,7 +461,7 @@ export function InboxIssueTrailingColumns({
 
           return (
             <span key={column} className="min-w-0 truncate text-xs text-muted-foreground">
-              No project
+              {t("issues.issueColumns.noProject")}
             </span>
           );
         }
@@ -480,7 +518,7 @@ export function InboxIssueTrailingColumns({
                     </button>
                   </TooltipTrigger>
                   <TooltipContent side="top" sideOffset={6}>
-                    Filter by workspace
+                    {t("issues.issueColumns.filterByWorkspace")}
                   </TooltipContent>
                 </Tooltip>
               ) : (
@@ -500,7 +538,7 @@ export function InboxIssueTrailingColumns({
               {parentIdentifier ? (
                 <span className="font-mono">{parentIdentifier}</span>
               ) : (
-                <span className="italic">Sub-task</span>
+                <span className="italic">{t("issues.issueColumns.subtask")}</span>
               )}
             </span>
           );

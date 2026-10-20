@@ -133,6 +133,7 @@ import { issuesApi } from "@/api/issues";
 import { queryKeys } from "@/lib/queryKeys";
 import { useQueryClient } from "@tanstack/react-query";
 import { TaskChatPresentationProvider } from "@/components/task-chat/presentation-mode";
+import { useTranslation } from "@/i18n";
 
 const EMPTY_BROWSERS: TaskBrowser[] = [];
 
@@ -488,6 +489,7 @@ function durableInputLabel(
  * folded row. flag-OFF remains byte-for-byte IssueChatThread.
  */
 export function TaskChatThread(props: TaskChatThreadProps) {
+  const { t } = useTranslation();
   const { enabled: streamlinedUiEnabled } = useStreamlinedUiEnabled();
   const {
     initialHistoryPending = false,
@@ -1294,7 +1296,7 @@ export function TaskChatThread(props: TaskChatThreadProps) {
           surface: "resource",
           resourceKind: "document",
           title: documentDisplayTitle(document),
-          subtitle: `Document · rev ${document.latestRevisionNumber}`,
+          subtitle: t("issues.taskChatThread.documentRev", { latestRevisionNumber: document.latestRevisionNumber }),
           href: buildDocumentAnnotationHash({
             documentKey: document.key,
             threadId: null,
@@ -1345,7 +1347,7 @@ export function TaskChatThread(props: TaskChatThreadProps) {
           kind: "protocol",
           surface: "resource",
           resourceKind: "attachment",
-          title: attachment.originalFilename ?? "Agent attachment",
+          title: attachment.originalFilename ?? t("issues.taskChatThread.agentAttachment"),
           subtitle: `${attachment.contentType} · ${formatResourceBytes(attachment.byteSize)}`,
           href: safeResourceHref(attachment.openPath ?? attachment.contentPath),
           timestamp: new Date(attachment.createdAt).toISOString(),
@@ -1388,7 +1390,7 @@ export function TaskChatThread(props: TaskChatThreadProps) {
           id,
           kind: "browser",
           browser,
-          label: browsers.length > 1 ? `Browser ${index + 1}` : "Browser",
+          label: browsers.length > 1 ? `Browser ${index + 1}` : t("issues.taskChatThread.browser"),
           timestamp: browser.createdAt,
         },
       });
@@ -1416,7 +1418,7 @@ export function TaskChatThread(props: TaskChatThreadProps) {
     heldPaperclipRunnerRunId,
     heldPaperclipRunnerStartedAtMs,
     heldPaperclipRunnerFinalText,
-    queuedCommentIds,
+    queuedCommentIds, t,
   ]);
 
   const legacyTimelineAnchorsByRun = useMemo(() => {
@@ -1567,8 +1569,8 @@ export function TaskChatThread(props: TaskChatThreadProps) {
             id,
             item: {
               id, kind: "marker", variant: "interrupted", tone: "neutral",
-              label: "Waiting to resume",
-              detail: "The previous execution needs to be checked before work can continue. See the task’s execution hold for the next action. Individual checks remain in the run history.",
+              label: t("issues.taskChatThread.waitingToResume"),
+              detail: t("issues.taskChatThread.thePreviousExecutionNeedsTo"),
             },
           });
         }
@@ -1653,20 +1655,20 @@ export function TaskChatThread(props: TaskChatThreadProps) {
             : "native_runner_process_exited");
         const label =
           code === "native_provider_runtime_missing" && source.status === "failed"
-            ? "Runtime missing"
+            ? t("issues.taskChatThread.runtimeMissing")
             : code === "native_provider_model_rejected" && source.status === "failed"
-            ? "Model unavailable"
+            ? t("issues.taskChatThread.modelUnavailable")
             : code === "native_provider_approval_required" && source.status === "failed"
-            ? "Approval required"
+            ? t("issues.taskChatThread.approvalRequired")
             : code === "native_provider_usage_limit" && source.status === "failed"
-            ? "Usage limit reached"
+            ? t("issues.taskChatThread.usageLimitReached")
             : source.status === "cancelled"
-              ? "Run cancelled"
+              ? t("issues.taskChatThread.runCancelled")
               : source.status === "interrupted"
-                ? "Run interrupted"
+                ? t("issues.taskChatThread.runInterrupted")
                 : source.status === "timed_out"
-                  ? "Run timed out"
-                  : "Run failed";
+                  ? t("issues.taskChatThread.runTimedOut")
+                  : t("issues.taskChatThread.runFailed");
         const responseBoundary = sourceHasNativeResponse
           ? " after returning a final response"
           : "";
@@ -1767,7 +1769,7 @@ export function TaskChatThread(props: TaskChatThreadProps) {
             id,
             kind: "marker",
             variant: "interrupted",
-            label: branchUnavailable ? "Starting branch unavailable" : restoreFailed ? "Workspace restore failed" : aiRequest?.status === "pending" ? "AI connection needed" : source.status === "cancelled" ? (meta?.startedAt ? "Stopped" : "Couldn't start") : "Run failed",
+            label: branchUnavailable ? t("issues.taskChatThread.startingBranchUnavailable") : restoreFailed ? t("issues.taskChatThread.workspaceRestoreFailed") : aiRequest?.status === "pending" ? t("issues.taskChatThread.aIConnectionNeeded") : source.status === "cancelled" ? (meta?.startedAt ? t("issues.taskChatThread.stopped") : t("issues.taskChatThread.couldntStart")) : t("issues.taskChatThread.runFailed"),
             runId: source.status === "cancelled" ? undefined : source.id,
             ...(branchUnavailable || aiRequest?.status === "pending" ? { retryable: false } : {}),
             ...(restoreFailed ? {
@@ -1848,8 +1850,8 @@ export function TaskChatThread(props: TaskChatThreadProps) {
               id,
               kind: "marker",
               variant: "turn_boundary",
-              label: source.status === "cancelled" ? "Stopped" : "Run completed",
-              detail: source.status === "cancelled" ? "This turn was cancelled before it returned a response." : "The runner returned no user-facing response.",
+              label: source.status === "cancelled" ? t("issues.taskChatThread.stopped") : t("issues.taskChatThread.runCompleted"),
+              detail: source.status === "cancelled" ? t("issues.taskChatThread.thisTurnWasCancelledBefore") : t("issues.taskChatThread.theRunnerReturnedNoUserfacing"),
             },
           });
         }
@@ -1880,8 +1882,8 @@ export function TaskChatThread(props: TaskChatThreadProps) {
             id,
             kind: "marker",
             variant: "turn_boundary",
-            label: "Run completed",
-            detail: "The runner returned no user-facing response.",
+            label: t("issues.taskChatThread.runCompleted"),
+            detail: t("issues.taskChatThread.theRunnerReturnedNoUserfacing"),
           },
         });
       }
@@ -2181,7 +2183,7 @@ export function TaskChatThread(props: TaskChatThreadProps) {
     planTurnItem,
     agentMap,
     currentUserId,
-    userLabelMap,
+    userLabelMap, t,
   ]);
 
   // Hand off once the settled turn or its reply comment is in the thread; a
@@ -2492,8 +2494,8 @@ export function TaskChatThread(props: TaskChatThreadProps) {
         label:
           pendingRuntimeRequest.questionSet?.title ??
           (pendingRuntimeRequest.requestType === "permission"
-            ? "Runtime permission"
-            : "Runtime input"),
+            ? t("issues.taskChatThread.runtimePermission")
+            : t("issues.taskChatThread.runtimeInput")),
       });
     }
     const durable = (interactions ?? [])
@@ -2521,7 +2523,7 @@ export function TaskChatThread(props: TaskChatThreadProps) {
       });
     }
     return result;
-  }, [interactions, pendingRuntimeRequest]);
+  }, [interactions, pendingRuntimeRequest, t]);
   // Questions already have an answerable history card, including
   // when the user dismisses a fresh form without sending another message.
   const pendingReminderInputs = useMemo(() => pendingComposerInputs.filter(input =>
@@ -2703,11 +2705,11 @@ export function TaskChatThread(props: TaskChatThreadProps) {
           disabled={isInterrupting}
           onClick={() => void onInterruptQueued(runId)}
         >
-          {isInterrupting ? "Interrupting…" : "Interrupt"}
+          {isInterrupting ? t("issues.taskChatThread.interrupting") : t("issues.taskChatThread.interrupt")}
         </Button>
       );
     },
-    [composerPause, interruptingQueuedRunId, onInterruptQueued],
+    [composerPause, interruptingQueuedRunId, onInterruptQueued, t],
   );
 
   const reopenToolReview = useCallback((interactionId: string) => {
@@ -2992,10 +2994,10 @@ export function TaskChatThread(props: TaskChatThreadProps) {
                   role="status"
                   className="absolute inset-x-0 top-0 z-20 mx-auto flex w-full max-w-(--tc-shell-max-w) items-center gap-2 border border-border bg-background px-4 py-2 text-sm text-muted-foreground"
                 >
-                  {historyError ? "Some task history could not be loaded." : "Some task history is still loading."}
+                  {historyError ? t("issues.taskChatThread.someTaskHistoryCouldNot") : t("issues.taskChatThread.someTaskHistoryIsStill")}
                   {historyError ? (
                     <Button variant="ghost" size="sm" onClick={retryHistory}>
-                      Retry
+                      {t("issues.taskChatThread.retry")}
                     </Button>
                   ) : null}
                 </div>
@@ -3005,7 +3007,7 @@ export function TaskChatThread(props: TaskChatThreadProps) {
                   className="absolute inset-0 z-10 overflow-hidden bg-background"
                   data-testid="task-chat-history-loading"
                   role="status"
-                  aria-label="Loading conversation"
+                  aria-label={t("issues.taskChatThread.loadingConversation")}
                 >
                   <div className="mx-auto flex w-full max-w-(--tc-shell-max-w) flex-col gap-4 px-4 py-3">
                     {threadHeader}
@@ -3141,15 +3143,15 @@ export function TaskChatThread(props: TaskChatThreadProps) {
                                         items={tailItems}
                                         emptyMessage={
                                           tailStatus === "queued"
-                                            ? "Waiting to start..."
+                                            ? t("issues.taskChatThread.waitingToStart")
                                             : (liveRun && liveRun.id === tailRunId
                                                 ? liveRun.currentStatusMessage
                                                 : null) ||
                                               (tailStatus === "failed"
                                                 ? linkedRunMetaById.get(tailRunId ?? "")?.errorCode?.startsWith("workspace_git_scan_")
-                                                  ? "Workspace setup failed before the agent started."
-                                                  : "This run stopped before a response was available. Review the task’s connection or recovery action below."
-                                                : "Waiting for transcript...")
+                                                  ? t("issues.taskChatThread.workspaceSetupFailedBeforeThe")
+                                                  : t("issues.taskChatThread.thisRunStoppedBeforeA")
+                                                : t("issues.taskChatThread.waitingForTranscript"))
                                         }
                                       />
                                     </>
@@ -3277,7 +3279,7 @@ export function TaskChatThread(props: TaskChatThreadProps) {
                             pendingReminderInputs.length > 0
                               ? {
                                   count: pendingReminderInputs.length,
-                                  label: `${pendingReminderInputs.length} pending input${pendingReminderInputs.length === 1 ? "" : "s"}`,
+                                  label: t("issues.taskChatThread.pendingInputs", { count: pendingReminderInputs.length, length: pendingReminderInputs.length }),
                                   onOpen: openPendingTakeover,
                                 }
                               : null

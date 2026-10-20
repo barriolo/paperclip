@@ -33,6 +33,7 @@ import {
   ProviderTraceStatusBadge,
   runRequestedProviderTrace,
 } from "./ProviderTraceStatusBadge";
+import { i18n, useTranslation } from "@/i18n";
 
 type IssueRunLedgerProps = {
   issueId: string;
@@ -92,59 +93,112 @@ type LivenessCopy = {
 
 const LIVENESS_COPY: Record<RunLivenessState, LivenessCopy> = {
   completed: {
-    label: "Completed",
-    tone: "border-emerald-500/30 bg-emerald-500/10 text-emerald-700 dark:text-emerald-300",
-    description: "Task reached a terminal state.",
+    get label() {
+    return i18n.t("issues.issueRunLedger.completed");
+  },
+    get tone() {
+    return i18n.t("issues.issueRunLedger.borderemerald50030Bgemerald50010Textemerald700Da");
+  },
+    get description() {
+    return i18n.t("issues.issueRunLedger.taskReachedATerminalState");
+  },
   },
   advanced: {
-    label: "Advanced",
-    tone: "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300",
-    description: "Run produced concrete evidence of progress.",
+    get label() {
+    return i18n.t("issues.issueRunLedger.advanced");
+  },
+    get tone() {
+    return i18n.t("issues.issueRunLedger.bordercyan50030Bgcyan50010Textcyan700Darktextcya");
+  },
+    get description() {
+    return i18n.t("issues.issueRunLedger.runProducedConcreteEvidenceOf");
+  },
   },
   plan_only: {
-    label: "Plan only",
-    tone: "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300",
-    description: "Run described future work without concrete action evidence.",
+    get label() {
+    return i18n.t("issues.issueRunLedger.planOnly");
+  },
+    get tone() {
+    return i18n.t("issues.issueRunLedger.borderamber50030Bgamber50010Textamber700Darktext");
+  },
+    get description() {
+    return i18n.t("issues.issueRunLedger.runDescribedFutureWorkWithout");
+  },
   },
   empty_response: {
-    label: "Empty response",
-    tone: "border-orange-500/30 bg-orange-500/10 text-orange-700 dark:text-orange-300",
-    description: "Run finished without useful output.",
+    get label() {
+    return i18n.t("issues.issueRunLedger.emptyResponse");
+  },
+    get tone() {
+    return i18n.t("issues.issueRunLedger.borderorange50030Bgorange50010Textorange700Darkt");
+  },
+    get description() {
+    return i18n.t("issues.issueRunLedger.runFinishedWithoutUsefulOutput");
+  },
   },
   blocked: {
-    label: "Blocked",
-    tone: "border-yellow-500/30 bg-yellow-500/10 text-yellow-700 dark:text-yellow-300",
+    get label() {
+    return i18n.t("issues.issueRunLedger.blocked");
+  },
+    get tone() {
+    return i18n.t("issues.issueRunLedger.borderyellow50030Bgyellow50010Textyellow700Darkt");
+  },
     description: "Run or task declared a blocker.",
   },
   failed: {
-    label: "Failed",
-    tone: "border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-300",
-    description: "Run ended unsuccessfully.",
+    get label() {
+    return i18n.t("issues.issueRunLedger.failed");
+  },
+    get tone() {
+    return i18n.t("issues.issueRunLedger.borderred50030Bgred50010Textred700Darktextred300");
+  },
+    get description() {
+    return i18n.t("issues.issueRunLedger.runEndedUnsuccessfully");
+  },
   },
   needs_followup: {
-    label: "Needs follow-up",
-    tone: "border-sky-500/30 bg-sky-500/10 text-sky-700 dark:text-sky-300",
-    description:
-      "Run produced useful output but did not prove concrete progress.",
+    get label() {
+    return i18n.t("issues.issueRunLedger.needsFollowup");
+  },
+    get tone() {
+    return i18n.t("issues.issueRunLedger.bordersky50030Bgsky50010Textsky700Darktextsky300");
+  },
+    get description() {
+    return i18n.t("issues.issueRunLedger.runProducedUsefulOutputBut");
+  },
   },
 };
 
 const PENDING_LIVENESS_COPY: LivenessCopy = {
-  label: "Checks after finish",
+  get label() {
+    return i18n.t("issues.issueRunLedger.checksAfterFinish");
+  },
   tone: "border-border bg-background text-muted-foreground",
-  description: "Liveness is evaluated after the run finishes.",
+  get description() {
+    return i18n.t("issues.issueRunLedger.livenessIsEvaluatedAfterThe");
+  },
 };
 
 const RETRY_PENDING_LIVENESS_COPY: LivenessCopy = {
-  label: "Retry pending",
-  tone: "border-blue-500/30 bg-blue-500/10 text-blue-700 dark:text-blue-300",
-  description: "Paperclip queued an automatic retry that has not started yet.",
+  get label() {
+    return i18n.t("issues.issueRunLedger.retryPending");
+  },
+  get tone() {
+    return i18n.t("issues.issueRunLedger.borderblue50030Bgblue50010Textblue700Darktextblu");
+  },
+  get description() {
+    return i18n.t("issues.issueRunLedger.paperclipQueuedAnAutomaticRetry");
+  },
 };
 
 const MISSING_LIVENESS_COPY: LivenessCopy = {
-  label: "No liveness data",
+  get label() {
+    return i18n.t("issues.issueRunLedger.noLivenessData");
+  },
   tone: "border-border bg-background text-muted-foreground",
-  description: "This run has no persisted liveness classification.",
+  get description() {
+    return i18n.t("issues.issueRunLedger.thisRunHasNoPersisted");
+  },
 };
 
 const TERMINAL_CHILD_STATUSES = new Set<Issue["status"]>(["done", "cancelled"]);
@@ -163,16 +217,28 @@ const RUN_OUTPUT_SILENCE_COPY: Partial<
   Record<RunOutputSilenceLevel, RunOutputSilenceCopy>
 > = {
   suspicious: {
-    label: "Output silence",
-    tone: "border-amber-500/30 bg-amber-500/10 text-amber-700 dark:text-amber-300",
+    get label() {
+    return i18n.t("issues.issueRunLedger.outputSilence");
+  },
+    get tone() {
+    return i18n.t("issues.issueRunLedger.borderamber50030Bgamber50010Textamber700Darktext");
+  },
   },
   critical: {
-    label: "Critical silence",
-    tone: "border-red-500/30 bg-red-500/10 text-red-700 dark:text-red-300",
+    get label() {
+    return i18n.t("issues.issueRunLedger.criticalSilence");
+  },
+    get tone() {
+    return i18n.t("issues.issueRunLedger.borderred50030Bgred50010Textred700Darktextred300");
+  },
   },
   snoozed: {
-    label: "Silence snoozed",
-    tone: "border-cyan-500/30 bg-cyan-500/10 text-cyan-700 dark:text-cyan-300",
+    get label() {
+    return i18n.t("issues.issueRunLedger.silenceSnoozed");
+  },
+    get tone() {
+    return i18n.t("issues.issueRunLedger.bordercyan50030Bgcyan50010Textcyan700Darktextcya");
+  },
   },
 };
 
@@ -316,47 +382,47 @@ function stopReasonLabel(run: RunForIssue) {
       : null;
 
   if (timeoutFired || stopReason === "timeout") {
-    return timeoutText ? `timeout (${timeoutText})` : "timeout";
+    return timeoutText ? i18n.t("issues.issueRunLedger.timeout", { timeoutText: timeoutText }) : "timeout";
   }
   if (
     stopReason === "max_turns_exhausted" ||
     stopReason === "turn_limit_exhausted"
   )
-    return "max turns exhausted";
-  if (stopReason === "budget_paused") return "budget paused";
+    return i18n.t("issues.issueRunLedger.maxTurnsExhausted");
+  if (stopReason === "budget_paused") return i18n.t("issues.issueRunLedger.budgetPaused");
   if (stopReason === "cancelled") return "cancelled";
-  if (stopReason === "paused") return "paused by board";
-  if (stopReason === "process_lost") return "process lost";
+  if (stopReason === "paused") return i18n.t("issues.issueRunLedger.pausedByBoard");
+  if (stopReason === "process_lost") return i18n.t("issues.issueRunLedger.processLost");
   if (stopReason === "unmanaged_background_task_stopped")
-    return "unmanaged background task stopped";
-  if (stopReason === "adapter_failed") return "adapter failed";
+    return i18n.t("issues.issueRunLedger.unmanagedBackgroundTaskStopped");
+  if (stopReason === "adapter_failed") return i18n.t("issues.issueRunLedger.adapterFailed");
   if (stopReason === "completed")
-    return timeoutText ? `completed (${timeoutText})` : "completed";
+    return timeoutText ? i18n.t("issues.issueRunLedger.completed2", { timeoutText: timeoutText }) : "completed";
   return timeoutText;
 }
 
 function stopStatusLabel(run: LedgerRun, stopReason: string | null) {
   if (stopReason) return stopReason;
-  if (run.status === "scheduled_retry") return "Retry pending";
-  if (run.status === "queued") return "Waiting to start";
-  if (run.status === "running") return "Still running";
-  if (!run.livenessState) return "Unavailable";
-  return "No stop reason";
+  if (run.status === "scheduled_retry") return i18n.t("issues.issueRunLedger.retryPending");
+  if (run.status === "queued") return i18n.t("issues.issueRunLedger.waitingToStart");
+  if (run.status === "running") return i18n.t("issues.issueRunLedger.stillRunning");
+  if (!run.livenessState) return i18n.t("issues.issueRunLedger.unavailable");
+  return i18n.t("issues.issueRunLedger.noStopReason");
 }
 
 function lastUsefulActionLabel(run: LedgerRun) {
-  if (run.status === "scheduled_retry") return "Waiting for next attempt";
+  if (run.status === "scheduled_retry") return i18n.t("issues.issueRunLedger.waitingForNextAttempt");
   if (run.lastUsefulActionAt) return relativeTime(run.lastUsefulActionAt);
-  if (isActiveRun(run)) return "No action recorded yet";
+  if (isActiveRun(run)) return i18n.t("issues.issueRunLedger.noActionRecordedYet");
   if (
     run.livenessState === "plan_only" ||
     run.livenessState === "needs_followup"
   ) {
-    return "No concrete action";
+    return i18n.t("issues.issueRunLedger.noConcreteAction");
   }
-  if (run.livenessState === "empty_response") return "No useful output";
-  if (!run.livenessState) return "Unavailable";
-  return "None recorded";
+  if (run.livenessState === "empty_response") return i18n.t("issues.issueRunLedger.noUsefulOutput");
+  if (!run.livenessState) return i18n.t("issues.issueRunLedger.unavailable");
+  return i18n.t("issues.issueRunLedger.noneRecorded");
 }
 
 function continuationLabel(run: LedgerRun) {
@@ -440,6 +506,7 @@ export function IssueRunLedger({
   renderActivityEvent,
   resolveUserLabel,
 }: IssueRunLedgerProps) {
+  const { t } = useTranslation();
   const queryClient = useQueryClient();
   const { pushToast } = useToastActions();
   const [watchdogDecisionError, setWatchdogDecisionError] = useState<
@@ -511,7 +578,7 @@ export function IssueRunLedger({
         error instanceof ApiError ? String(error.status) : "error";
       setWatchdogDecisionError(message);
       pushToast({
-        title: "Watchdog decision not recorded",
+        title: t("issues.issueRunLedger.watchdogDecisionNotRecorded"),
         body: message,
         tone: "error",
         dedupeKey: `watchdog-decision:${issueId}:${dedupeSuffix}`,
@@ -551,11 +618,11 @@ export function IssueRunLedger({
     },
     onError: (error) =>
       pushToast({
-        title: "Trace re-run not started",
+        title: t("issues.issueRunLedger.traceRerunNotStarted"),
         body:
           error instanceof Error
             ? error.message
-            : "Paperclip could not start the trace re-run.",
+            : t("issues.issueRunLedger.paperclipCouldNotStartThe"),
         tone: "error",
         dedupeKey: `provider-trace-rerun:${issueId}`,
       }),
@@ -606,6 +673,7 @@ export function IssueRunLedgerContent({
   onRerunWithTrace,
   providerTraceMetadata = new Map(),
 }: IssueRunLedgerContentProps) {
+  const { t } = useTranslation();
   const [inspectedRun, setInspectedRun] = useState<LedgerRun | null>(null);
   const ledgerRuns = useMemo(
     () => mergeRuns(runs, liveRuns, activeRun),
@@ -664,18 +732,18 @@ export function IssueRunLedgerContent({
   }, [activityEvents, canRenderActivityEvents, ledgerRuns]);
 
   return (
-    <section className="space-y-3" aria-label="Task run ledger">
+    <section className="space-y-3" aria-label={t("issues.issueRunLedger.taskRunLedger")}>
       <div className="flex items-center justify-between gap-2">
         <div className="min-w-0">
           <h3 className="text-sm font-medium text-muted-foreground">
-            Run ledger
+            {t("issues.issueRunLedger.runLedger")}
           </h3>
           <p className="text-xs text-muted-foreground">
             {latestRun
               ? runSummary(latestRun, agentMap)
               : issueStatus === "in_progress"
-                ? "Waiting for the first run record."
-                : "No runs linked yet."}
+                ? t("issues.issueRunLedger.waitingForTheFirstRun")
+                : t("issues.issueRunLedger.noRunsLinkedYet")}
           </p>
         </div>
         {latestRun ? (
@@ -683,7 +751,7 @@ export function IssueRunLedgerContent({
             to={`/agents/${latestRun.agentId}/runs/${latestRun.runId}`}
             className="shrink-0 rounded-md border border-border px-2 py-1 text-xs text-muted-foreground hover:text-foreground"
           >
-            Latest run
+            {t("issues.issueRunLedger.latestRun")}
           </Link>
         ) : null}
       </div>
@@ -691,7 +759,7 @@ export function IssueRunLedgerContent({
       {children.total > 0 ? (
         <div className="rounded-md border border-border/70 px-3 py-2">
           <div className="flex flex-wrap items-center gap-2 text-xs">
-            <span className="font-medium text-foreground">Child work</span>
+            <span className="font-medium text-foreground">{t("issues.issueRunLedger.childWork")}</span>
             <span className="text-muted-foreground">
               {children.active.length > 0
                 ? `${children.active.length} active, ${children.done} done, ${children.cancelled} cancelled`
@@ -736,32 +804,28 @@ export function IssueRunLedgerContent({
         >
           <p className="font-medium">
             {latestSilentRun.outputSilence.level === "critical"
-              ? "Critical output silence"
-              : "Output silence watchdog warning"}
+              ? t("issues.issueRunLedger.criticalOutputSilence")
+              : t("issues.issueRunLedger.outputSilenceWatchdogWarning")}
           </p>
           <p className="mt-1">
-            Latest active run has been silent for{" "}
-            {formatSilenceAge(latestSilentRun.outputSilence.silenceAgeMs) ??
-              "an extended period"}
-            .
+            {t("issues.issueRunLedger.latestActiveRunHasBeen", { silenceAge: formatSilenceAge(latestSilentRun.outputSilence.silenceAgeMs) ??
+              "an extended period" })}
             {latestSilentRun.outputSilence.evaluationIssueIdentifier ? (
               <>
-                {" "}
-                Review{" "}
+                {" "}{t("issues.issueRunLedger.review")}{" "}
                 <Link
                   to={`/issues/${latestSilentRun.outputSilence.evaluationIssueIdentifier}`}
                   className="font-medium underline underline-offset-2"
                 >
                   {latestSilentRun.outputSilence.evaluationIssueIdentifier}
-                </Link>{" "}
-                for recovery context.
+                </Link>{" "}{t("issues.issueRunLedger.forRecoveryContext")}
               </>
             ) : null}
           </p>
           <p className="mt-1">
             {latestSilentRun.outputSilence.evaluationIssueIdentifier
-              ? "This signal is informational. Paperclip did not create new delegated recovery work."
-              : "This signal is informational. Paperclip did not create or assign a recovery task."}
+              ? t("issues.issueRunLedger.thisSignalIsInformationalPaperclip")
+              : t("issues.issueRunLedger.thisSignalIsInformationalPaperclip2")}
           </p>
           {onWatchdogDecision && canRecordWatchdogDecisions ? (
             <div className="mt-2 flex flex-wrap gap-1.5">
@@ -778,7 +842,7 @@ export function IssueRunLedgerContent({
                 }
                 disabled={pendingWatchdogDecision != null}
               >
-                Continue monitoring
+                {t("issues.issueRunLedger.continueMonitoring")}
               </button>
               <button
                 type="button"
@@ -797,7 +861,7 @@ export function IssueRunLedgerContent({
                 }
                 disabled={pendingWatchdogDecision != null}
               >
-                Snooze 1h
+                {t("issues.issueRunLedger.snooze1h")}
               </button>
               <button
                 type="button"
@@ -813,7 +877,7 @@ export function IssueRunLedgerContent({
                 }
                 disabled={pendingWatchdogDecision != null}
               >
-                Mark false positive
+                {t("issues.issueRunLedger.markFalsePositive")}
               </button>
             </div>
           ) : null}
@@ -828,8 +892,8 @@ export function IssueRunLedgerContent({
       {feedItems.length === 0 ? (
         <div className="rounded-md border border-dashed border-border px-3 py-3 text-sm text-muted-foreground">
           {renderActivityEvent
-            ? "Runs and activity will appear here once this task has history."
-            : "Historical runs without liveness metadata will appear here once linked to this task."}
+            ? t("issues.issueRunLedger.runsAndActivityWillAppear")
+            : t("issues.issueRunLedger.historicalRunsWithoutLivenessMetadata")}
         </div>
       ) : (
         <div className="space-y-1.5">
@@ -864,21 +928,21 @@ export function IssueRunLedgerContent({
                 className="space-y-1.5 rounded-lg border border-border/60 px-3 py-2 text-xs text-muted-foreground"
               >
                 <div className="flex flex-wrap items-center gap-1.5">
-                  <span className="font-medium text-foreground">Run</span>
+                  <span className="font-medium text-foreground">{t("issues.issueRunLedger.run")}</span>
                   <Link
                     to={`/agents/${run.agentId}/runs/${run.runId}`}
                     className="min-w-0 max-w-full truncate font-mono text-foreground hover:underline"
                   >
                     {run.runId.slice(0, 8)}
                   </Link>
-                  <span>by {agentName}</span>
+                  <span>{t("issues.issueRunLedger.by", { agentName: agentName })}</span>
                   {onBehalfOfLabel ? (
                     <span
                       data-testid="run-on-behalf-of"
                       className="min-w-0 max-w-full truncate text-muted-foreground"
-                      title={`Acting on behalf of ${onBehalfOfLabel}`}
+                      title={t("issues.issueRunLedger.actingOnBehalfOf", { onBehalfOfLabel: onBehalfOfLabel })}
                     >
-                      on behalf of{" "}
+                      {t("issues.issueRunLedger.onBehalfOf")}{" "}
                       <span className="text-foreground">{onBehalfOfLabel}</span>
                     </span>
                   ) : null}
@@ -907,7 +971,7 @@ export function IssueRunLedgerContent({
                   </span>
                   {exhausted ? (
                     <span className="rounded-md border border-red-500/30 bg-red-500/10 px-1.5 py-0.5 text-(length:--text-micro) font-medium text-red-700 dark:text-red-300">
-                      Exhausted
+                      {t("issues.issueRunLedger.exhausted")}
                     </span>
                   ) : null}
                   {continuation ? (
@@ -945,21 +1009,21 @@ export function IssueRunLedgerContent({
                     className="rounded-md border border-border px-1.5 py-0.5 text-(length:--text-micro) text-foreground hover:bg-accent/40"
                     onClick={() => setInspectedRun(run)}
                   >
-                    Inspect run
+                    {t("issues.issueRunLedger.inspectRun")}
                   </button>
                 </div>
 
                 <div className="grid gap-2 text-xs text-muted-foreground sm:grid-cols-3">
                   <div className="min-w-0">
-                    <span className="text-foreground">Elapsed</span>{" "}
+                    <span className="text-foreground">{t("issues.issueRunLedger.elapsed")}</span>{" "}
                     {duration ?? "unknown"}
                   </div>
                   <div className="min-w-0">
-                    <span className="text-foreground">Last useful action</span>{" "}
+                    <span className="text-foreground">{t("issues.issueRunLedger.lastUsefulAction")}</span>{" "}
                     {lastUsefulActionLabel(run)}
                   </div>
                   <div className="min-w-0">
-                    <span className="text-foreground">Stop</span>{" "}
+                    <span className="text-foreground">{t("issues.issueRunLedger.stop")}</span>{" "}
                     {stopStatusLabel(run, stopReason)}
                   </div>
                 </div>
@@ -972,7 +1036,7 @@ export function IssueRunLedgerContent({
                     ) : null}
                     {retryState.retryOfRunId ? (
                       <p>
-                        Retry of{" "}
+                        {t("issues.issueRunLedger.retryOf")}{" "}
                         <Link
                           to={`/agents/${run.agentId}/runs/${retryState.retryOfRunId}`}
                           className="font-mono text-foreground hover:underline"
@@ -1004,7 +1068,7 @@ export function IssueRunLedgerContent({
                 {run.nextAction ? (
                   <div className="min-w-0 rounded-md bg-accent/40 px-2 py-1.5 text-xs leading-5">
                     <span className="font-medium text-foreground">
-                      Next action:{" "}
+                      {t("issues.issueRunLedger.nextAction")}{" "}
                     </span>
                     <span className="break-words text-muted-foreground">
                       {run.nextAction}
@@ -1016,7 +1080,7 @@ export function IssueRunLedgerContent({
           })}
           {feedItems.length > 20 ? (
             <div className="px-3 py-2 text-xs text-muted-foreground">
-              {feedItems.length - 20} older items not shown
+              {feedItems.length - 20}{" "}{t("issues.issueRunLedger.olderItemsNotShown")}
             </div>
           ) : null}
         </div>

@@ -1,5 +1,6 @@
 import { readFileSync } from "node:fs";
 import { describe, expect, it } from "vitest";
+import en from "@/i18n/locales/en.json";
 
 function source(relativePath: string) {
   return readFileSync(new URL(relativePath, import.meta.url), "utf8");
@@ -31,12 +32,16 @@ describe("chat connector UI contract", () => {
     expect(issue).toMatch(
       /agentsApi\.retryFailedRun\(\s*failedRun\.agentId,\s*failedRun\.runId,\s*companyId/,
     );
-    expect(issue).toContain("Retry queued");
-    for (const file of ["Inbox.tsx", "LegacyInbox.tsx"]) {
+    expect(issue).toContain('t("issues.issueDetail.retryQueued")');
+    expect(en.issues.issueDetail.retryQueued).toBe("Retry queued");
+    for (const [file, scope] of [["Inbox.tsx", "inbox"], ["LegacyInbox.tsx", "legacyInbox"]] as const) {
       const page = source(`../../${file}`);
       expect(page).toMatch(
-        /const retryRunMutation = useMutation\(\{[\s\S]*?onError: \(error\) => \{\s*pushToast\(\{\s*title: "Run retry failed"/,
+        new RegExp(
+          String.raw`const retryRunMutation = useMutation\(\{[\s\S]*?onError: \(error\) => \{\s*pushToast\(\{\s*title: t\("issues\.${scope}\.runRetryFailed"\)`,
+        ),
       );
+      expect(en.issues[scope].runRetryFailed).toBe("Run retry failed");
     }
   });
   it("keeps the exact dual-purpose choice and immutable searchable agent selection", () => {

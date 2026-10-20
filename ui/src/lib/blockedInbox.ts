@@ -4,6 +4,7 @@ import type {
   IssueBlockedInboxReason,
   IssueBlockedInboxSeverity,
 } from "@paperclipai/shared";
+import { i18n } from "@/i18n";
 
 export type BlockedReasonVariant =
   | "needs_decision"
@@ -38,27 +39,57 @@ export const BLOCKED_REASON_VARIANT_ORDER: BlockedReasonVariant[] = [
 ];
 
 export const BLOCKED_VARIANT_LABELS: Record<BlockedReasonVariant, string> = {
-  needs_decision: "Needs decision",
-  stalled: "Blocked chain stalled",
-  needs_attention: "Needs attention",
-  recovery_required: "Recovery required",
-  external_wait: "External wait",
-  owner_paused: "Owner paused",
+  get needs_decision() {
+    return i18n.t("issues.blockedInbox.needsDecision");
+  },
+  get stalled() {
+    return i18n.t("issues.blockedInbox.blockedChainStalled");
+  },
+  get needs_attention() {
+    return i18n.t("issues.blockedInbox.needsAttention");
+  },
+  get recovery_required() {
+    return i18n.t("issues.blockedInbox.recoveryRequired");
+  },
+  get external_wait() {
+    return i18n.t("issues.blockedInbox.externalWait");
+  },
+  get owner_paused() {
+    return i18n.t("issues.blockedInbox.ownerPaused");
+  },
 };
 
 const REASON_LABELS: Record<IssueBlockedInboxReason, string> = {
-  pending_board_decision: "Pending board decision",
-  pending_user_decision: "Pending user decision",
-  missing_successful_run_disposition: "Pick disposition",
-  blocked_chain_stalled: "Blocked chain stalled",
+  get pending_board_decision() {
+    return i18n.t("issues.blockedInbox.pendingBoardDecision");
+  },
+  get pending_user_decision() {
+    return i18n.t("issues.blockedInbox.pendingUserDecision");
+  },
+  get missing_successful_run_disposition() {
+    return i18n.t("issues.blockedInbox.pickDisposition");
+  },
+  get blocked_chain_stalled() {
+    return i18n.t("issues.blockedInbox.blockedChainStalled");
+  },
   blocked_by_unassigned_issue: "Unassigned blocker",
   blocked_by_assigned_backlog_issue: "Parked blocker",
   blocked_by_cancelled_issue: "Cancelled blocker",
-  in_review_without_action_path: "Review without action path",
-  invalid_review_participant: "Invalid review participant",
-  open_recovery_issue: "Recovery in progress",
-  external_owner_action: "External owner action",
-  blocked_by_uninvokable_assignee: "Owner paused",
+  get in_review_without_action_path() {
+    return i18n.t("issues.blockedInbox.reviewWithoutActionPath");
+  },
+  get invalid_review_participant() {
+    return i18n.t("issues.blockedInbox.invalidReviewParticipant");
+  },
+  get open_recovery_issue() {
+    return i18n.t("issues.blockedInbox.recoveryInProgress");
+  },
+  get external_owner_action() {
+    return i18n.t("issues.blockedInbox.externalOwnerAction");
+  },
+  get blocked_by_uninvokable_assignee() {
+    return i18n.t("issues.blockedInbox.ownerPaused");
+  },
 };
 
 const SEVERITY_RANK: Record<IssueBlockedInboxSeverity, number> = {

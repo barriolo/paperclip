@@ -9,13 +9,24 @@ import type {
   SystemNoticeProps,
   SystemNoticeTone,
 } from "../components/SystemNotice";
+import { i18n } from "@/i18n";
 
 const TONE_LABEL: Record<SystemNoticeTone, string> = {
-  neutral: "System notice",
-  info: "System notice",
-  success: "System notice",
-  warning: "System warning",
-  danger: "System alert",
+  get neutral() {
+    return i18n.t("issues.systemNoticeComment.systemNotice");
+  },
+  get info() {
+    return i18n.t("issues.systemNoticeComment.systemNotice");
+  },
+  get success() {
+    return i18n.t("issues.systemNoticeComment.systemNotice");
+  },
+  get warning() {
+    return i18n.t("issues.systemNoticeComment.systemWarning");
+  },
+  get danger() {
+    return i18n.t("issues.systemNoticeComment.systemAlert");
+  },
 };
 
 function metadataRowText(row: { label?: string | null }, fallback: string) {
