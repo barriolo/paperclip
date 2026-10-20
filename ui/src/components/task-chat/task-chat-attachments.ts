@@ -17,6 +17,7 @@ import {
 import type { LucideIcon } from "lucide-react";
 import type { IssueAttachment } from "@paperclipai/shared";
 import { i18n } from "@/i18n";
+import { isCopy } from "@/i18n/copy-match";
 
 export interface FileKind {
   icon: LucideIcon;
@@ -183,7 +184,7 @@ export function fileKindForName(name: string): FileKind {
 
 export function fileKindForAttachment(ref: AttachmentRef): FileKind {
   const byName = fileKindForName(ref.name);
-  if (byName.label !== "File") return byName;
+  if (!isCopy(byName.label, "File")) return byName;
 
   const contentType = normalizedContentType(ref.contentType);
   if (contentType === "application/pdf") return { icon: FileText, label: "PDF" };

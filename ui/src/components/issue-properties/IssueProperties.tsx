@@ -131,6 +131,7 @@ import {
   type TaskDetailRelationItem,
 } from "../task-detail/TaskDetailRelationsPanel";
 import { useTranslation } from "@/i18n";
+import { isCopy } from "@/i18n/copy-match";
 
 function splitMiddleTruncation(value: string): { prefix: string; suffix: string } | null {
   const splitAt = Math.max(value.lastIndexOf("/"), value.lastIndexOf("\\"));
@@ -1314,7 +1315,7 @@ export function IssueProperties({
   const monitorNotes = executionPolicy?.monitor?.notes ?? monitorState?.notes ?? null;
   const monitorNow = useMonitorCountdown(monitorNextCheckAt);
   const monitorRelative = monitorNextCheckAt ? formatMonitorEta(monitorNextCheckAt, monitorNow) : null;
-  const monitorIsDueNow = monitorRelative === "due now";
+  const monitorIsDueNow = isCopy(monitorRelative, "due now");
   const monitorIsOverdue = Boolean(monitorRelative?.startsWith("overdue by "));
   const monitorPrimary = monitorNextCheckAt
     ? formatMonitorEtaLabel(monitorNextCheckAt, monitorNow)

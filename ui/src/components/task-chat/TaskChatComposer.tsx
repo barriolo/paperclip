@@ -68,6 +68,7 @@ import { ComposerAddMenu, ComposerModeChip, ComposerPrivacyChip } from "./Compos
 import type { ComposerRunSettings } from "./composer-run-settings";
 import type { Agent, IssueAssigneeAdapterOverrides } from "@paperclipai/shared";
 import { useTranslation, i18n } from "@/i18n";
+import { isCopy } from "@/i18n/copy-match";
 
 /** Structurally identical to IssueChatThread's module-private CommentReassignment. */
 export interface CommentReassignment {
@@ -646,7 +647,7 @@ export function TaskChatComposer({
   const assigneeLabel =
     reassignOptions?.find((o) => o.id === assigneeValue)?.label ?? t("issues.taskChatComposer.unassigned");
   const assigneeName =
-    assigneeLabel === "Unassigned" ? "the agent" : assigneeLabel;
+    isCopy(assigneeLabel, "Unassigned") ? "the agent" : assigneeLabel;
   const effectivePlaceholder = queuedEdit
     ? t("issues.taskChatComposer.editQueuedMessage")
     : (placeholder ?? modePlaceholder(pendingMode, assigneeName, mobile));

@@ -1,6 +1,7 @@
 /** Redacted presentation contracts shared with the production API. */
 import type { AiProvider, AiAuthMethod, AiManagedConnectionSummary, AiConnectionBinding } from "@paperclipai/shared";
 import { i18n } from "@/i18n";
+import { isCopy } from "@/i18n/copy-match";
 export type { AiProvider, AiAuthMethod, AiConnectionBinding } from "@paperclipai/shared";
 export type AiConnectionStatus = AiManagedConnectionSummary["status"];
 
@@ -44,7 +45,7 @@ export const AI_CONNECTION_STATUS: Record<AiConnectionStatus, string> = {
 
 export function defaultAiConnectionName(ownerName: string | undefined, provider: AiProvider, method: AiAuthMethod) {
   const owner = ownerName?.trim();
-  const prefix = owner && owner !== "You" ? `${owner}'s` : "My";
+  const prefix = owner && !isCopy(owner, "You") ? `${owner}'s` : "My";
   const providerName = method === "subscription"
     ? AI_PROVIDERS[provider].subscriptionName ?? AI_PROVIDERS[provider].name
     : `${AI_PROVIDERS[provider].name} API`;

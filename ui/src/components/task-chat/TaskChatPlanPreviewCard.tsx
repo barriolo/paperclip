@@ -2,6 +2,7 @@ import type { IssueDocument } from "@paperclipai/shared";
 import { Lightbulb, Maximize2 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import type { TaskChatProviderActivityItem } from "./task-chat-model";
+import { isCopy } from "@/i18n/copy-match";
 
 const PLAN_PREVIEW_LINE_COUNT = 3;
 
@@ -68,7 +69,7 @@ function planRevision(source: TaskChatPlanPreviewSource): number | null {
     return source.revision ?? source.document?.latestRevisionNumber ?? null;
   }
   const detail = source.activity.details.find(({ label }) =>
-    label === "Revision" || label === "Document Revision",
+    isCopy(label, "Revision") || isCopy(label, "Document Revision"),
   );
   if (!detail) return null;
   const revision = Number.parseInt(detail.value, 10);

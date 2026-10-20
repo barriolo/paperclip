@@ -31,6 +31,7 @@ import {
   toolActivityPresentation,
   type ToolIcon,
 } from "./tool-taxonomy";
+import { isCopy } from "@/i18n/copy-match";
 
 export interface TaskChatActivityPresentation {
   icon: ToolIcon;
@@ -42,7 +43,7 @@ export interface TaskChatActivityPresentation {
 }
 
 export function providerNoticeSeverity(item: TaskChatProviderActivityItem): "info" | "warning" | "error" {
-  const severity = item.details.find((entry) => entry.label === "Severity")?.value;
+  const severity = item.details.find((entry) => isCopy(entry.label, "Severity"))?.value;
   if (item.status === "failed" || severity === "error") return "error";
   return severity === "info" ? "info" : "warning";
 }

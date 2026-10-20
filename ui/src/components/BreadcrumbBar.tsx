@@ -18,6 +18,7 @@ import { PluginSlotOutlet, usePluginSlots } from "@/plugins/slots";
 import { PluginLauncherOutlet, usePluginLaunchers } from "@/plugins/launchers";
 import { cn } from "../lib/utils";
 import { useTranslation } from "@/i18n";
+import { isCopy } from "@/i18n/copy-match";
 
 type GlobalToolbarContext = { companyId: string | null; companyPrefix: string | null };
 
@@ -111,7 +112,7 @@ export function BreadcrumbBar({ taskDetailLayout = false }: { taskDetailLayout?:
   );
 
   const currentCrumb = breadcrumbs[breadcrumbs.length - 1];
-  if (isMobile && breadcrumbs[0]?.label === "Tasks" && currentCrumb.identifier) {
+  if (isMobile && isCopy(breadcrumbs[0]?.label, "Tasks") && currentCrumb.identifier) {
     return (
       <div className="h-(--sz-60px) shrink-0 flex items-center border-b border-border px-4">
         {menuButton}

@@ -48,6 +48,7 @@ import { AppLogo } from "@/pages/apps/AppLogo";
 import { ConnectionIntentInteractionBody } from "@/features/connections/ConnectionIntentInteractionBody";
 import { QuestionForm } from "./task-chat/QuestionForm";
 import { i18n, useTranslation } from "@/i18n";
+import { isCopy } from "@/i18n/copy-match";
 
 const OTHER_ANSWER_ID = "__paperclip_other__";
 
@@ -2524,7 +2525,7 @@ function RequestConnectionAuthorizationCard({
               {t("issues.issueThreadInteractionCard.connectedBy")}{" "}
               <span className="font-medium text-foreground">
                 {/* "You" is display-cased for a badge; this is mid-sentence. */}
-                {(resolvedByLabel ?? addresseeLabel) === "You" ? "you" : resolvedByLabel ?? addresseeLabel}
+                {isCopy(resolvedByLabel ?? addresseeLabel, "You") ? (resolvedByLabel ?? addresseeLabel).toLocaleLowerCase() : resolvedByLabel ?? addresseeLabel}
               </span>
               {resolvedByAgent ? <ResolvedByAgentChip /> : null}
               {interaction.resolvedAt ? ` on ${formatDateTime(interaction.resolvedAt)}` : ""}

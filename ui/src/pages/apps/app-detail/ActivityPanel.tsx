@@ -12,6 +12,7 @@ import { timeAgo } from "@/lib/timeAgo";
 import { appTabHref } from "../app-tabs";
 import type { ActivityPanelProps } from "./types";
 import { i18n, useTranslation } from "@/i18n";
+import { isCopy } from "@/i18n/copy-match";
 
 export function ActivityPanel(props: ActivityPanelProps) {
   return <RecentActivity {...props} />;
@@ -261,7 +262,7 @@ function numberFrom(value: unknown): number {
 }
 
 function lower(who: string): string {
-  return who === "An agent" ? "an agent" : who;
+  return isCopy(who, "An agent") ? who.charAt(0).toLocaleLowerCase() + who.slice(1) : who;
 }
 
 function dotColor(event: ToolCallEvent): string {

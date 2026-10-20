@@ -7,6 +7,7 @@ import {
 } from "./tool-taxonomy";
 import { protocolActivityPresentation, providerNoticeSeverity } from "./task-chat-activity-presentation";
 import { i18n } from "@/i18n";
+import { isCopy } from "@/i18n/copy-match";
 
 type Activity = TaskChatActivityPhaseItem["items"][number];
 const labels: Record<ToolFamily, string> = {
@@ -105,7 +106,7 @@ export function completedActivitySummary(items: Activity[]) {
         if (item.surface === "provider_activity" && item.family === "provider_notice") {
           // Reuse only the normalized notice text already available in the row.
           const summary = item.summary?.trim()
-            || item.details.find((entry) => entry.label === "Summary")?.value.trim();
+            || item.details.find((entry) => isCopy(entry.label, "Summary"))?.value.trim();
           notices.push({ summary, severity: providerNoticeSeverity(item), icon: p.icon, order });
           continue;
         }

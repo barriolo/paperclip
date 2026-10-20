@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { isCopy } from "@/i18n/copy-match";
 
 const SECOND_MS = 1_000;
 const MINUTE_MS = 60 * SECOND_MS;
@@ -264,7 +265,7 @@ export function formatMonitorOffset(nextCheckAt: MonitorDate): string {
   const deltaMs = toTimestamp(nextCheckAt) - now.getTime();
   if (Math.round(Math.abs(deltaMs) / MINUTE_MS) === 0) return "now";
   const eta = formatMonitorEta(nextCheckAt, now);
-  if (eta === "due now") return "now";
+  if (isCopy(eta, "due now")) return "now";
   if (eta.startsWith("overdue by ")) return `${eta.slice("overdue by ".length)} ago`;
   return eta;
 }

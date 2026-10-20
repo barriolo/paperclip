@@ -29,6 +29,7 @@ import {
 } from "@paperclipai/shared";
 import type { IssueThreadInteraction } from "./issue-thread-interactions";
 import { i18n } from "@/i18n";
+import { isCopy } from "@/i18n/copy-match";
 
 /**
  * The open default. Creation surfaces present this first and requesters omit
@@ -189,7 +190,7 @@ export function describeResolverAudience({
   // `formatAssigneeUserLabel` returns the display-cased "You" for the signed-in
   // reader, which is right for a badge and wrong mid-sentence ("Only You can
   // respond."). Every use below is inside a sentence.
-  const midSentence = (label: string) => (label === "You" ? "you" : label);
+  const midSentence = (label: string) => (isCopy(label, "You") ? label.toLocaleLowerCase() : label);
   const addressee = midSentence(
     addresseeLabel?.trim() || (isUserAddressee ? "the addressed user" : "the addressed agent"),
   );

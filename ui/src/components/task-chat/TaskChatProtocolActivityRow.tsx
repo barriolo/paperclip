@@ -25,6 +25,7 @@ import {
   providerNoticeSeverity,
 } from "./task-chat-activity-presentation";
 import { useTranslation } from "@/i18n";
+import { isCopy } from "@/i18n/copy-match";
 
 const COMPACT_RESEARCH_RESULT_LIMIT = 5;
 const COMPACT_WORKSPACE_FILE_LIMIT = 8;
@@ -290,7 +291,7 @@ export function TaskChatProtocolActivityRow({ item }: { item: TaskChatProtocolIt
     const NoticeIcon = presentation.icon;
     const severity = providerNoticeSeverity(item);
     const summary = item.summary
-      ?? item.details.find((entry) => entry.label === "Summary")?.value
+      ?? item.details.find((entry) => isCopy(entry.label, "Summary"))?.value
       ?? "The provider reported a notice without a message.";
     return (
       <div className="flex min-w-0 flex-col gap-1.5 py-1 text-xs" data-testid="task-chat-protocol-activity-row" data-activity-family="provider_notice">
@@ -299,10 +300,10 @@ export function TaskChatProtocolActivityRow({ item }: { item: TaskChatProtocolIt
           <span className="font-medium">{severity === "error" ? t("issues.taskChatProtocolActivityRow.error") : severity === "info" ? t("issues.taskChatProtocolActivityRow.providerUpdate") : t("issues.taskChatProtocolActivityRow.warning")}</span>
         </div>
         <p className="min-w-0 whitespace-pre-wrap break-words text-foreground">{summary}</p>
-        {item.details.some(detail => detail.label !== "Summary") ? (
+        {item.details.some(detail => !isCopy(detail.label, "Summary")) ? (
           <details className="text-muted-foreground">
             <summary className="cursor-pointer">{t("issues.taskChatProtocolActivityRow.details")}</summary>
-            <DetailList details={item.details.filter(detail => detail.label !== "Summary")} />
+            <DetailList details={item.details.filter(detail => !isCopy(detail.label, "Summary"))} />
           </details>
         ) : null}
       </div>

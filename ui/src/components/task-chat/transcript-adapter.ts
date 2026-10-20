@@ -29,6 +29,7 @@ import {
   toolTaxonomy,
 } from "./tool-taxonomy";
 import { i18n } from "@/i18n";
+import { isCopy } from "@/i18n/copy-match";
 
 const TERMINAL_STATUSES = new Set([
   "failed",
@@ -536,7 +537,7 @@ function mergeProviderActivityItem(
       continue;
     }
     if (
-      detail.label === "Progress" &&
+      isCopy(detail.label, "Progress") &&
       !meaningfulProviderToolSummary(detail.value) &&
       details.has("Progress")
     ) {

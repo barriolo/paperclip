@@ -1,6 +1,7 @@
 import type { Issue } from "@paperclipai/shared";
 import { TASK_VIEW_PARAM, normalizeTaskViewKey, taskView } from "./task-views";
 import { i18n } from "@/i18n";
+import { isCopy } from "@/i18n/copy-match";
 
 type IssueDetailSource = "issues" | "inbox";
 
@@ -149,8 +150,8 @@ function inferIssueDetailSource(
   // Since PAP-670 the inbox is a set of views on /issues, so the href alone no
   // longer separates the two sources — the view key does.
   if (isInboxBackedTaskViewHref(breadcrumb.href)) return "inbox";
-  if (breadcrumb.label === "Inbox") return "inbox";
-  if (breadcrumb.label === "Tasks" || breadcrumb.href.includes("/issues")) return "issues";
+  if (isCopy(breadcrumb.label, "Inbox")) return "inbox";
+  if (isCopy(breadcrumb.label, "Tasks") || breadcrumb.href.includes("/issues")) return "issues";
   return null;
 }
 
