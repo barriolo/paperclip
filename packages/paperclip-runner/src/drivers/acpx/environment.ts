@@ -102,7 +102,9 @@ export function createSanitizedAcpxSpawnInput(
   environment: NodeJS.ProcessEnv | undefined,
   agent: QualifiedAcpxAgent,
 ): SanitizedAcpxSpawnInput {
-  const source = environment ?? process.env;
+  const source = agent === "claude" && environment?.PAPERCLIP_RUNNER_PREPARED_HARNESS_HOME !== undefined
+    ? { ...environment, CLAUDE_CONFIG_DIR: environment.PAPERCLIP_RUNNER_PREPARED_HARNESS_HOME }
+    : environment ?? process.env;
   const candidate = isCandidate(agent);
   const result: NodeJS.ProcessEnv = { ...configuredEnvironment(environment), ...providerObservabilityEnvironment(environment, agent) };
   const credentialNames = agent === "pi" ? piCredentialNames(environment) : ACPX_CREDENTIAL_NAMES[agent];
@@ -131,7 +133,10 @@ export function createSanitizedAcpxSpawnInput(
     ...(environment === undefined ? [] : ["PAPERCLIP_AGENT_KEY_ID", "PAPERCLIP_AGENT_PUBLIC_KEY", "PAPERCLIP_AGENT_PRIVATE_KEY"]),
     ...credentialNames,
     ...(agent === "claude" ? CLAUDE_ROUTING_ENV_KEYS : []),
+    ...(agent === "claude" && environment !== undefined ? ["MCP_TOOL_TIMEOUT"] : []),
     ...(usesPreconfiguredHome(source) ? [...PRECONFIGURED_HOME_KEYS, "PAPERCLIP_RUNNER_HOME_MODE", "ACPX_CLAUDE_INCLUDE_USER_SETTINGS"] : []),
+    ...(agent === "claude" && environment?.PAPERCLIP_RUNNER_PREPARED_HARNESS_HOME
+      ? [...PRECONFIGURED_HOME_KEYS, "PAPERCLIP_RUNNER_PREPARED_HARNESS_HOME"] : []),
   ]);
   let retainedBytes = 0;
   for (const [key, value] of Object.entries(source)) {

@@ -1,3 +1,5 @@
+import { CoordinatorSidebar } from "./CoordinatorSidebar";
+import { useCoordinatorWorkspaceEnabled } from "@/hooks/useCoordinatorWorkspaceEnabled";
 import {
   Inbox,
   ListChecks,
@@ -52,6 +54,11 @@ import { primarySidebarStyles } from "./primary-sidebar-styles";
 import { useTranslation } from "@/i18n";
 
 export function Sidebar({ children }: { children?: ReactNode }) {
+  const { enabled } = useCoordinatorWorkspaceEnabled();
+  return enabled ? <CoordinatorSidebar>{children}</CoordinatorSidebar> : <ClassicSidebar>{children}</ClassicSidebar>;
+}
+
+function ClassicSidebar({ children }: { children?: ReactNode }) {
   const { t } = useTranslation();
   const { openNewIssue } = useDialogActions();
   const { enabled: agentChatEnabled } = useAgentChatEnabled();
@@ -251,7 +258,6 @@ export function Sidebar({ children }: { children?: ReactNode }) {
             <SidebarNavItem to="/workspaces" label={t("nav.workspaces")} icon={GitBranch} />
           ) : null}
           <PluginSlotOutlet
-            errorBehavior="hidden"
             slotTypes={["sidebar"]}
             context={pluginContext}
             className="flex flex-col gap-0.5"
@@ -259,7 +265,6 @@ export function Sidebar({ children }: { children?: ReactNode }) {
             missingBehavior="placeholder"
           />
           <PluginLauncherOutlet
-            errorBehavior="hidden"
             placementZones={["sidebar"]}
             context={pluginContext}
             className="flex flex-col gap-0.5"
@@ -303,7 +308,6 @@ export function Sidebar({ children }: { children?: ReactNode }) {
         )}
 
         <PluginSlotOutlet
-          errorBehavior="hidden"
           slotTypes={["sidebarPanel"]}
           context={pluginContext}
           className="flex flex-col gap-3"

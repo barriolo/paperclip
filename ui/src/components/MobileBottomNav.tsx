@@ -1,4 +1,8 @@
+import { useCoordinatorWorkspaceEnabled } from "@/hooks/useCoordinatorWorkspaceEnabled";
 import { useMemo } from "react";
+import { useQuery } from "@tanstack/react-query";
+import { attentionApi } from "@/api/attention";
+import { coordinatorAttentionQueryKey } from "@/lib/coordinator-attention";
 import { NavLink, useLocation } from "@/lib/router";
 import {
   House,
@@ -7,6 +11,7 @@ import {
   Users,
   MessageCircle,
   Inbox,
+  Bell,
 } from "lucide-react";
 import { useCompany } from "../context/CompanyContext";
 import { useDialogActions } from "../context/DialogContext";
@@ -46,7 +51,13 @@ export function MobileBottomNav({ visible }: MobileBottomNavProps) {
   const { openNewIssue } = useDialogActions();
   const inboxBadge = useInboxBadge(selectedCompanyId);
   const { enabled: agentChatEnabled } = useAgentChatEnabled();
+  const { enabled: coordinatorWorkspaceEnabled } = useCoordinatorWorkspaceEnabled();
   const { enabled: combinedInboxTasksEnabled } = useCombinedInboxTasksEnabled();
+  const { data: attention } = useQuery({
+    queryKey: coordinatorAttentionQueryKey(selectedCompanyId!),
+    queryFn: () => attentionApi.list(selectedCompanyId!, { all: true }),
+    enabled: coordinatorWorkspaceEnabled && !!selectedCompanyId,
+  });
 
   // PAP-670: with both flags off the bar is the original Home · Tasks · + ·
   // Agents · Inbox. Agent Chat adds Chat in the second slot (Home · Chat · + ·
@@ -54,7 +65,12 @@ export function MobileBottomNav({ visible }: MobileBottomNavProps) {
   // it is a view inside Tasks, so its unread badge rides on Tasks. The grid
   // tracks the live count, so the bar stays evenly divided in every mix.
   const items = useMemo<MobileNavItem[]>(
-    () => !agentChatEnabled && !combinedInboxTasksEnabled ? [
+    () => coordinatorWorkspaceEnabled ? [
+      { type: "link", to: "/chats", label: t("nav.chat"), icon: MessageCircle },
+      { type: "link", to: "/issues", label: t("nav.tasks"), icon: CircleCheck },
+      { type: "link", to: "/decisions", label: t("nav.needsYou"), icon: Bell, badge: attention?.totalCount ?? 0 },
+      { type: "action", label: t("nav.newTaskSentence"), icon: SquarePen, onClick: () => openNewIssue() },
+    ] : !agentChatEnabled && !combinedInboxTasksEnabled ? [
       { type: "link", to: "/dashboard", label: t("nav.home"), icon: House },
       { type: "link", to: "/issues", label: t("nav.tasks"), icon: CircleCheck },
       { type: "action", label: t("nav.newTask"), icon: SquarePen, onClick: () => openNewIssue() },
@@ -84,7 +100,7 @@ export function MobileBottomNav({ visible }: MobileBottomNavProps) {
         ? [{ type: "link", to: "/inbox", label: t("nav.inbox"), icon: Inbox, badge: inboxBadge.inbox } as MobileNavItem]
         : []),
     ],
-    [openNewIssue, inboxBadge.inbox, agentChatEnabled, combinedInboxTasksEnabled, t],
+    [openNewIssue, inboxBadge.inbox, agentChatEnabled, combinedInboxTasksEnabled, coordinatorWorkspaceEnabled, attention?.totalCount, t],
   );
 
   return (

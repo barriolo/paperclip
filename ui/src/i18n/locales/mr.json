@@ -151,7 +151,9 @@
       "untracked": "{{count}} untracked",
       "healthUnavailable": "Health unavailable",
       "loading": "Loading..."
-    }
+    },
+    "needsYou": "Needs You",
+    "newTaskSentence": "New task"
   },
   "dashboard": {
     "empty": {

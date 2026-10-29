@@ -1,7 +1,10 @@
+import { readRequiredQualityReview } from "../required-quality-review.js";
+import type { WorkspaceWorkers } from "../plugin-workspaces.js";
 import { recoverLegacyUnsafeWorkspaceExports } from "./native-workspace-export-recovery.js";
 import { hasPendingNativeChildCompletion } from "./native-child-completion-delivery.js";
 import { dismissAutomaticCompletionReviews, decisionHasRetiredAutomaticReview } from "./automatic-completion-reviews.js";
 import { logger } from "../../middleware/logger.js";
+import { DELIVERY_QUEUES, notifyDeliveryWork } from "../delivery-work-notifications.js";
 import { createHash, randomUUID } from "node:crypto";
 import { and, asc, desc, eq, gt, inArray, isNotNull, isNull, lt, lte, ne, not, notInArray, or, sql, type SQL } from "drizzle-orm";
 import type { Db } from "@paperclipai/db";
@@ -61,6 +64,7 @@ import { evaluateAgentInvokabilityFromDb } from "../agent-invokability.js";
 import { isAutomaticRecoverySuppressedByPauseHold } from "../recovery/pause-hold-guard.js";
 import { readRunCancellation } from "../run-cancellation.js";
 import { appendHeartbeatRunEvent } from "../heartbeat-run-events.js";
+import { retireSupersededNativeRetry } from "./native-superseded-retry.js";
 
 export type NativeReconciliationFacts = {
   equivalentAttentionFamily?: boolean;
@@ -390,7 +394,7 @@ export async function claimNativeSessionResumptions(input: {
       const [issue] = await tx.select().from(issues).where(and(
         eq(issues.companyId, candidate.companyId), eq(issues.id, candidate.issueId),
       )).for("update").limit(1);
-      if (!issue || !["todo", "in_progress", "in_review"].includes(issue.status)) return false;
+      if (!issue) return false;
       const [coordinator] = await tx.select().from(nativeRunFinalizations).where(and(
         eq(nativeRunFinalizations.companyId, candidate.companyId), eq(nativeRunFinalizations.runId, candidate.runId),
         eq(nativeRunFinalizations.issueId, issue.id),
@@ -400,6 +404,10 @@ export async function claimNativeSessionResumptions(input: {
         eq(heartbeatRuns.nativeIssueId, issue.id),
       )).for("update").limit(1);
       if (!run || !coordinator) return false;
+      if (await retireSupersededNativeRetry(tx as unknown as Db, {
+        run, coordinator, issueExecutionRunId: issue.executionRunId, now,
+      })) return false;
+      if (!["todo", "in_progress", "in_review"].includes(issue.status)) return false;
       const row = { run, coordinator };
       if (
         row.run.runtimeMode !== "native" ||
@@ -489,6 +497,7 @@ export async function claimNativeSessionResumptions(input: {
         || (!!checkpoint && !checkpointHasProviderIdentity)
       ) {
         const failureCode = originalFailureCode;
+        await notifyDeliveryWork(tx, DELIVERY_QUEUES.accounting, row.run.companyId);
         await tx.update(nativeRunFinalizations).set({
           phase: "terminal_failure",
           leaseOwner: null,
@@ -624,6 +633,7 @@ export async function claimNativeSessionResumptions(input: {
 }
 
 type NativeReconciliationOptions = {
+  pluginWorkerManager?: WorkspaceWorkers;
   environmentRuntime?: EnvironmentRuntimeService;
   onWorkspaceSettled?: (input: {
     runId: string;
@@ -738,8 +748,8 @@ async function reconcileNativeFinalizationsPass(
       resultId: nativeRunFinalizations.resultId,
       assessmentId: nativeRunFinalizations.assessmentId,
       decisionId: nativeRunFinalizations.decisionId,
-      runnerProfileJson: heartbeatRuns.runnerProfileJson,
-      contextSnapshot: heartbeatRuns.contextSnapshot,
+      nativeWorkspaceSync: sql<unknown>`${heartbeatRuns.runnerProfileJson}->'nativeWorkspaceSync'`,
+      nativeStatusWakeIntentId: sql<unknown>`${heartbeatRuns.contextSnapshot}->'nativeStatusWakeIntentId'`,
     })
     .from(heartbeatRuns)
     .innerJoin(nativeRunFinalizations, eq(nativeRunFinalizations.runId, heartbeatRuns.id))
@@ -951,8 +961,7 @@ async function reconcileNativeFinalizationsPass(
         if (reviewBarrier && reviewBarrier.status !== "succeeded") continue;
         const childCompletionRecipient = {
           companyId: row.companyId, issueId: row.issueId, agentId: row.agentId, runId: row.runId,
-          sourceIntentId: typeof record(row.contextSnapshot).nativeStatusWakeIntentId === "string"
-            ? record(row.contextSnapshot).nativeStatusWakeIntentId as string : null,
+          sourceIntentId: typeof row.nativeStatusWakeIntentId === "string" ? row.nativeStatusWakeIntentId : null,
         };
         const hasPendingChildCompletion = await hasPendingNativeChildCompletion(db, childCompletionRecipient);
         const reassessmentRow = await recordNativeWorkAssessment({
@@ -972,9 +981,11 @@ async function reconcileNativeFinalizationsPass(
           assessment: reassessment,
           supersedesAssessmentId: assessment.id,
         });
-        const decision = retiredAutomaticReview && currentIssue
+        const qualityReview = currentIssue ? await readRequiredQualityReview(db, currentIssue) : null;
+        let decision = retiredAutomaticReview && currentIssue
           ? resolveNativeFinalizerStatus({
               hasPendingChildCompletion,
+              requiredQualityReviewSatisfied: qualityReview?.satisfied,
               assessment: reassessment, terminalState: "succeeded", workspaceFinalizeStatus: "succeeded",
               governanceGate: await pendingNativeGovernance({ db, companyId: row.companyId, issueId: row.issueId,
                 runId: row.runId, executionState: record(currentIssue.executionState) }),
@@ -987,6 +998,10 @@ async function reconcileNativeFinalizationsPass(
               facts: { ...facts, hasPendingChildCompletion },
               priorIssueStatus: row.issueStatus as NativeAuthoritativeIssueStatus, agentId: row.agentId,
             });
+        if (decision.statusAction === "done" && qualityReview?.satisfied === false) {
+          decision = resolveNativeFinalizerStatus({ assessment: reassessment, terminalState: "succeeded", workspaceFinalizeStatus: "succeeded",
+            requiredQualityReviewSatisfied: false, priorIssueStatus: row.issueStatus as NativeAuthoritativeIssueStatus, agentId: row.agentId });
+        }
         let committed: Awaited<ReturnType<typeof commitNativeStatusDecision>>;
         try {
           committed = await commitNativeStatusDecision({
@@ -1040,6 +1055,7 @@ async function reconcileNativeFinalizationsPass(
         db,
         runId: row.runId,
         environmentRuntime: options.environmentRuntime,
+        pluginWorkerManager: options.pluginWorkerManager,
       });
       // Busy is ownership, not another failed export or retry-budget debit.
       if (!operation) continue;
@@ -1049,11 +1065,13 @@ async function reconcileNativeFinalizationsPass(
         const unrecoverable = operation.stderrExcerpt?.includes(
           "workspace_sync_out_unrecoverable",
         );
+        const pluginFailure = operation.stderrExcerpt?.trim();
+        const pluginRepair = pluginFailure === "plugin_workspace_branch_mismatch" || pluginFailure === "plugin_workspace_owner_mismatch";
         const failure = await recordNativeFinalizationFailure({
           db,
           runId: row.runId,
           error: new Error(
-            unrecoverable
+            pluginRepair ? `native_${pluginFailure}` : unrecoverable
               ? "native_workspace_sync_out_unrecoverable"
               : "native_workspace_sync_out_failed",
           ),
@@ -1088,7 +1106,7 @@ async function reconcileNativeFinalizationsPass(
           projectRunStatus: true,
           preserveProviderAttempt: Boolean(
             readNativeWorkspaceSyncReference(
-              record(row.runnerProfileJson).nativeWorkspaceSync,
+              row.nativeWorkspaceSync,
             ),
           ),
         });
@@ -1146,7 +1164,7 @@ async function reconcileNativeFinalizationsPass(
         projectRunStatus: true,
         preserveProviderAttempt: Boolean(
           readNativeWorkspaceSyncReference(
-            record(row.runnerProfileJson).nativeWorkspaceSync,
+            row.nativeWorkspaceSync,
           ),
         ),
       });
