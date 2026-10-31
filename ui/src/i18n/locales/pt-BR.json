@@ -39,7 +39,8 @@
     "beta": "beta",
     "badge": {
       "unread": "não lidas",
-      "decisions": "decisões"
+      "decisions": "decisões",
+      "unreadChats": "chats não lidos"
     },
     "mobileNavigation": "Navegação móvel",
     "openSidebar": "Abrir barra lateral",
